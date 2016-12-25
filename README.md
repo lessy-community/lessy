@@ -9,3 +9,11 @@ it. Then, create the user `postgres` and database:
 $ createuser --createdb -P postgres
 $ rails db:setup
 ```
+
+## Running tests
+
+Tests are using [RSpec](http://rspec.info/). To run tests:
+
+```bash
+$ bundle exec rspec
+```
