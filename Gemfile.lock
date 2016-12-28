@@ -61,6 +61,10 @@ GEM
       addressable (~> 2.3.8)
     json_matchers (0.6.3)
       json-schema (~> 2.6.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -156,6 +160,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5)
   jbuilder (~> 2.5)
   json_matchers
+  letter_opener (~> 1.4)
   listen (~> 3.0.5)
   pg
   puma (~> 3.0)
