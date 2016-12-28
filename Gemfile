@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails', '~> 4.5'
   gem 'timecop', '~> 0.8'
+  gem 'json_matchers'
 end
 
 group :development do
