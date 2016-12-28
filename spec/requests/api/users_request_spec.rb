@@ -73,4 +73,127 @@ RSpec.describe Api::UsersController, type: :request do
 
   end
 
+  describe 'PATCH #activate' do
+    let(:user) { create :user, email: 'john@doe.com' }
+
+    context 'with valid attributes' do
+      before do
+        payload = {
+          username: 'john',
+          password: 'secret',
+        }
+        post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the user schema' do
+        expect(response).to match_response_schema('user')
+      end
+
+      it 'activates the user' do
+        expect(user.reload.activation_state).to eq('active')
+      end
+
+      it 'returns the new user' do
+        contact = JSON.parse(response.body)
+        expect(contact['id']).not_to be_nil
+        expect(contact['username']).to eq('john')
+        expect(contact['email']).to eq('john@doe.com')
+      end
+    end
+
+    context 'with missing attributes' do
+      before do
+        payload = {
+          password: 'secret',
+        }
+        post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/param is missing or the value is empty/)
+      end
+    end
+
+    context 'with invalid username' do
+      before do
+        payload = {
+          username: 'John Doe',
+          password: 'secret',
+        }
+        post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Username only allows/)
+      end
+    end
+
+    context 'with existing username' do
+      before do
+        create :user, username: 'john'
+        payload = {
+          username: 'john',
+          password: 'secret',
+        }
+        post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/username is already taken/)
+      end
+    end
+
+    context 'with invalid token' do
+      before do
+        payload = { password: 'secret' }
+        post "/api/users/not_the_token/activate", params: { user: payload }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/token matches no user/)
+      end
+    end
+
+  end
+
 end

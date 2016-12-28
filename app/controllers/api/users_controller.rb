@@ -7,8 +7,21 @@ class Api::UsersController < ApplicationController
   rescue ActiveRecord::RecordNotUnique
     render_error 'This email is already taken'
   rescue ActionController::ParameterMissing => error
-    @message = error.message
-    render 'api/errors/parameter_missing', status: :bad_request
+    render_error error.message
+  end
+
+  def activate
+    @user = User.load_from_activation_token(params[:token])
+    if @user
+      @user.update! activate_user_params
+      @user.activate!
+    else
+      render_error 'The token matches no user'
+    end
+  rescue ActiveRecord::RecordNotUnique
+    render_error 'This username is already taken'
+  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+    render_error error.message
   end
 
 private
@@ -16,6 +29,12 @@ private
   def create_user_params
     params.require(:user).permit(:email).tap do |user_params|
       user_params.require(:email)
+    end
+  end
+
+  def activate_user_params
+    params.require(:user).permit(:username, :password).tap do |user_params|
+      user_params.require([:username, :password])
     end
   end
 
