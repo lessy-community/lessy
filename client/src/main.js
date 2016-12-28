@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import ActivateUserPage from './pages/ActivateUser'
 import HomePage from './pages/Home'
 
 import App from './App'
@@ -11,6 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: HomePage },
+  { path: '/users/:token/activate', component: ActivateUserPage },
 ]
 
 const router = new VueRouter({
