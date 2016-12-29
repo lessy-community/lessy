@@ -12,24 +12,18 @@
 <script>
 export default {
   name: 'register-form',
+  props: {
+    'onSuccess': { type: Function, required: true },
+  },
   data () {
     return {
       email: '',
     }
   },
   methods: {
-    register: function (event) {
-      window.fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: {
-            email: this.email,
-          },
-        }),
-      })
+    register () {
+      this.$store.dispatch('users/register', this.email)
+                 .then(this.onSuccess)
     },
   },
 }

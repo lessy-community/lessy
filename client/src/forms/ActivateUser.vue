@@ -19,6 +19,7 @@ export default {
   name: 'activate-user-form',
   props: {
     'token': { type: String, required: true },
+    'onSuccess': { type: Function, required: true },
   },
   data () {
     return {
@@ -27,20 +28,13 @@ export default {
     }
   },
   methods: {
-    activate: function (event) {
-      window.fetch(`/api/users/${this.token}/activate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: {
-            username: this.username,
-            password: this.password,
-          },
-        }),
-      })
-    }
-  }
+    activate () {
+      this.$store.dispatch('users/activate', {
+        token: this.token,
+        username: this.username,
+        password: this.password,
+      }).then(this.onSuccess)
+    },
+  },
 }
 </script>

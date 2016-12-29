@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <h1>Project Zero</h1>
-    <register-form></register-form>
+    <register-form :on-success="onRegistrationSuccess" />
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   name: 'home-page',
   components: {
     RegisterForm,
+  },
+  methods: {
+    onRegistrationSuccess () {
+      this.$router.push('/dashboard')
+    },
   },
 }
 </script>

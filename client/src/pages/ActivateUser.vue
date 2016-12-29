@@ -1,6 +1,9 @@
 <template>
   <div class="activate-user-page">
-    <activate-user-form :token="token"></activate-user-form>
+    <activate-user-form
+      :token="token"
+      :on-success="onActivationSuccess"
+    />
   </div>
 </template>
 
@@ -16,6 +19,11 @@ export default {
     return {
       token: this.$route.params.token,
     }
+  },
+  methods: {
+    onActivationSuccess () {
+      this.$router.push('/dashboard')
+    },
   },
 }
 </script>
