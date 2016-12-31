@@ -5,6 +5,7 @@ import ActivateUserPage from './pages/ActivateUser'
 import DashboardPage from './pages/Dashboard'
 import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
+import NotFoundPage from './pages/NotFound'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,7 @@ const routes = [
   { path: '/login', component: LoginPage, meta: { forbidForAuth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } },
+  { path: '*', component: NotFoundPage },
 ]
 
 let router = new VueRouter({
