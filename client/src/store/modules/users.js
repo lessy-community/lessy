@@ -14,6 +14,11 @@ const actions = {
     return usersApi.activate(token, username, password)
                    .then((user) => commit('setCurrentUser', user))
   },
+
+  getCurrent ({ commit }) {
+    return usersApi.getCurrent()
+                   .then((user) => commit('setCurrentUser', user))
+  },
 }
 
 const mutations = {

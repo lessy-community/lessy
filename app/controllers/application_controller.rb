@@ -5,8 +5,8 @@ class ApplicationController < ActionController::API
 
 protected
 
-  def render_error(message)
+  def render_error(message, status = :bad_request)
     @message = message
-    render 'api/errors/error', status: :bad_request
+    render 'api/errors/error', status: status
   end
 end

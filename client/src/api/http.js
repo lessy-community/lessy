@@ -17,7 +17,22 @@ function handleErrors ({data, status}) {
   }
 }
 
-function post (url, payload) {
+function get (url, needAuthorization = true) {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  if (needAuthorization) {
+    options['headers']['Authorization'] = window.localStorage.getItem('authentication_token')
+  }
+  return window.fetch(url, options)
+               .then(parseJson)
+               .then(handleErrors)
+}
+
+function post (url, payload, needAuthorization = true) {
   const options = {
     method: 'POST',
     headers: {
@@ -25,11 +40,15 @@ function post (url, payload) {
     },
     body: JSON.stringify(payload),
   }
+  if (needAuthorization) {
+    options['headers']['Authorization'] = window.localStorage.getItem('authentication_token')
+  }
   return window.fetch(url, options)
                .then(parseJson)
                .then(handleErrors)
 }
 
 export {
-  post
+  get,
+  post,
 }
