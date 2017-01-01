@@ -7,7 +7,7 @@
 
     <div>
       <label for="password">Password *</label>
-      <input v-model="password" type="password" id="password" required />
+      <password-field v-model="password" id="password" required />
     </div>
 
     <input type="submit" value="Activate my account" />
@@ -15,8 +15,13 @@
 </template>
 
 <script>
+import PasswordField from '../components/PasswordField'
+
 export default {
   name: 'activate-user-form',
+  components: {
+    PasswordField,
+  },
   props: {
     'token': { type: String, required: true },
     'onSuccess': { type: Function, required: true },
