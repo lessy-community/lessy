@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "required": ["id", "email"],
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string" },
+    "username": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
