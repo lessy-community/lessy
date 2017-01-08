@@ -11,6 +11,7 @@
       We sent you an email at {{ user.email }}.<br />
       Follow its instructions to be able to access your projects later.
     </p>
+    <button @click.prevent="logout">Log out</button>
   </div>
 </template>
 
@@ -28,6 +29,12 @@ export default {
     ...mapState({
       user: (state) => state.users.current,
     }),
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('users/logout')
+      this.$router.push('/')
+    }
   },
   mounted () {
     this.$store

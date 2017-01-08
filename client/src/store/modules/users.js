@@ -19,6 +19,11 @@ const actions = {
     return usersApi.getCurrent()
                    .then((user) => commit('setCurrentUser', user))
   },
+
+  logout ({ commit }) {
+    window.localStorage.removeItem('authentication_token')
+    commit('setCurrentUser', null)
+  },
 }
 
 const mutations = {
