@@ -26,6 +26,15 @@ class Api::UsersController < ApplicationController
     render_error error.message
   end
 
+  def authorize
+    user = User.authenticate(params[:username], params[:password])
+    if user
+      @token = token(user, 1.month.from_now)
+    else
+      render_error 'Bad credentials', :unauthorized
+    end
+  end
+
   def me
     if decoded_token
       @user = User.find(decoded_token[:user_id])

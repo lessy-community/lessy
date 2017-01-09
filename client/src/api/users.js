@@ -26,6 +26,14 @@ export default {
     return post(url, payload, false).then(storeAuthenticationToken)
   },
 
+  login: (username, password) => {
+    const payload = {
+      username,
+      password,
+    }
+    return post('/api/users/authorize', payload, false).then(storeAuthenticationToken)
+  },
+
   getCurrent: () => {
     return get('/api/users/me')
   },

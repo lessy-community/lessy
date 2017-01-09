@@ -220,6 +220,80 @@ RSpec.describe Api::UsersController, type: :request do
 
   end
 
+  describe 'POST #authorize' do
+    context 'with valid username and password' do
+      let(:payload) { { username: 'john', password: 'secret' } }
+
+      before do
+        Timecop.freeze Date.new(2017)
+        create :user, :activated, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the authorize format' do
+        expect(response).to match_response_schema('authorize')
+      end
+
+      it 'returns a token valid for 1 month' do
+        token = JSON.parse(response.body)['token']
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:exp]).to eq(1.month.from_now.to_i)
+      end
+    end
+
+    context 'with inactive user' do
+      let(:payload) { { username: 'john', password: 'secret' } }
+
+      before do
+        create :user, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Bad credentials/)
+      end
+    end
+
+    context 'with invalid password' do
+      let(:payload) { { username: 'john', password: 'wrong secret' } }
+
+      before do
+        create :user, :activated, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Bad credentials/)
+      end
+    end
+  end
+
   describe 'GET #me' do
     let(:user) { create :user }
 

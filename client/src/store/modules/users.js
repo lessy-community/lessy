@@ -15,6 +15,10 @@ const actions = {
                    .then((user) => commit('setCurrentUser', user))
   },
 
+  login ({ commit }, { username, password }) {
+    return usersApi.login(username, password)
+  },
+
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
                    .then((user) => commit('setCurrentUser', user))

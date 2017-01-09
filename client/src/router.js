@@ -4,11 +4,13 @@ import VueRouter from 'vue-router'
 import ActivateUserPage from './pages/ActivateUser'
 import DashboardPage from './pages/Dashboard'
 import HomePage from './pages/Home'
+import LoginPage from './pages/Login'
 
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: HomePage, meta: { forbidForAuth: true } },
+  { path: '/login', component: LoginPage, meta: { forbidForAuth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } },
 ]
