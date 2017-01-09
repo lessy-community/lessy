@@ -1,8 +1,8 @@
 import { get, post } from './http'
 
-function storeAuthenticationToken (user) {
-  window.localStorage.setItem('authentication_token', user.token)
-  return user
+function storeAuthenticationToken (data) {
+  window.localStorage.setItem('authentication_token', data.token)
+  return data
 }
 
 export default {

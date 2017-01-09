@@ -19,8 +19,8 @@ RSpec.describe Api::UsersController, type: :request do
         expect(response).to have_http_status(:created)
       end
 
-      it 'matches the user schema' do
-        expect(response).to match_response_schema('user')
+      it 'matches the users/create schema' do
+        expect(response).to match_response_schema('users/create')
       end
 
       it 'saves the new user' do
@@ -28,10 +28,9 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)
+        contact = JSON.parse(response.body)['user']
         expect(contact['id']).not_to be_nil
         expect(contact['email']).to eq('john@doe.com')
-        expect(contact['token'].length).to be > 0
       end
 
       it 'returns a token valid for 1 day' do
@@ -106,8 +105,8 @@ RSpec.describe Api::UsersController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the user schema' do
-        expect(response).to match_response_schema('user')
+      it 'matches the users/activate schema' do
+        expect(response).to match_response_schema('users/activate')
       end
 
       it 'activates the user' do
@@ -115,11 +114,10 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)
+        contact = JSON.parse(response.body)['user']
         expect(contact['id']).not_to be_nil
         expect(contact['username']).to eq('john')
         expect(contact['email']).to eq('john@doe.com')
-        expect(contact['token'].length).to be > 0
       end
 
       it 'returns a token valid for 1 month' do
@@ -238,8 +236,8 @@ RSpec.describe Api::UsersController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the authorize format' do
-        expect(response).to match_response_schema('authorize')
+      it 'matches the users/authorize format' do
+        expect(response).to match_response_schema('users/authorize')
       end
 
       it 'returns a token valid for 1 month' do
@@ -308,8 +306,8 @@ RSpec.describe Api::UsersController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the user schema' do
-        expect(response).to match_response_schema('user')
+      it 'matches the users/user schema' do
+        expect(response).to match_response_schema('users/user')
       end
 
       it 'returns the corresponding user' do

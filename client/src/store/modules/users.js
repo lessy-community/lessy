@@ -7,12 +7,12 @@ const state = {
 const actions = {
   register ({ commit }, email) {
     return usersApi.register(email)
-                   .then((user) => commit('setCurrentUser', user))
+                   .then((data) => commit('setCurrentUser', data.user))
   },
 
   activate ({ commit }, { token, username, password }) {
     return usersApi.activate(token, username, password)
-                   .then((user) => commit('setCurrentUser', user))
+                   .then((data) => commit('setCurrentUser', data.user))
   },
 
   login ({ commit }, { username, password }) {
