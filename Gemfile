@@ -26,6 +26,8 @@ gem 'sorcery'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Call 'ap' anywhere in the code to pretty print your Ruby objects with style
+  gem 'awesome_print', require: 'ap'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails', '~> 4.5'
   gem 'timecop', '~> 0.8'
