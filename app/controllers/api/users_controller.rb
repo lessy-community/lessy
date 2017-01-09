@@ -3,6 +3,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(create_user_params)
     @user.save
+    @token = token(@user, 1.day.from_now)
     render status: :created
   rescue ActiveRecord::RecordNotUnique
     render_error 'This email is already taken'
@@ -15,6 +16,7 @@ class Api::UsersController < ApplicationController
     if @user
       @user.update! activate_user_params
       @user.activate!
+      @token = token(@user, 1.month.from_now)
     else
       render_error 'The token matches no user'
     end
@@ -22,6 +24,23 @@ class Api::UsersController < ApplicationController
     render_error 'This username is already taken'
   rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
     render_error error.message
+  end
+
+  def authorize
+    user = User.authenticate(params[:username], params[:password])
+    if user
+      @token = token(user, 1.month.from_now)
+    else
+      render_error 'Bad credentials', :unauthorized
+    end
+  end
+
+  def me
+    if decoded_token
+      @user = User.find(decoded_token[:user_id])
+    else
+      render_error 'Authentication is required', :unauthorized
+    end
   end
 
 private
@@ -36,6 +55,14 @@ private
     params.require(:user).permit(:username, :password).tap do |user_params|
       user_params.require([:username, :password])
     end
+  end
+
+  def token(user, expiration)
+    JsonWebToken.encode({ user_id: user.id }, expiration)
+  end
+
+  def decoded_token
+    JsonWebToken.decode(request.headers['Authorization'])
   end
 
 end

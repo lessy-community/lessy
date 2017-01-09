@@ -9,7 +9,8 @@
         { "type": "string" },
         { "type": "null" }
       ]
-    }
+    },
+    "token": { "type": "string" }
   },
   "additionalProperties": false
 }

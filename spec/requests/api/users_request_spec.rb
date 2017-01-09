@@ -6,16 +6,21 @@ RSpec.describe Api::UsersController, type: :request do
 
     context 'with valid attributes' do
       before do
+        Timecop.freeze Date.new(2017)
         payload = { email: 'john@doe.com' }
         post '/api/users', params: { user: payload }
+      end
+
+      after do
+        Timecop.return
       end
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
       end
 
-      it 'matches the user schema' do
-        expect(response).to match_response_schema('user')
+      it 'matches the users/create schema' do
+        expect(response).to match_response_schema('users/create')
       end
 
       it 'saves the new user' do
@@ -23,9 +28,15 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)
+        contact = JSON.parse(response.body)['user']
         expect(contact['id']).not_to be_nil
         expect(contact['email']).to eq('john@doe.com')
+      end
+
+      it 'returns a token valid for 1 day' do
+        token = JSON.parse(response.body)['token']
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:exp]).to eq(1.day.from_now.to_i)
       end
     end
 
@@ -78,6 +89,7 @@ RSpec.describe Api::UsersController, type: :request do
 
     context 'with valid attributes' do
       before do
+        Timecop.freeze Date.new(2017)
         payload = {
           username: 'john',
           password: 'secret',
@@ -85,12 +97,16 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
+      after do
+        Timecop.return
+      end
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the user schema' do
-        expect(response).to match_response_schema('user')
+      it 'matches the users/activate schema' do
+        expect(response).to match_response_schema('users/activate')
       end
 
       it 'activates the user' do
@@ -98,10 +114,16 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)
+        contact = JSON.parse(response.body)['user']
         expect(contact['id']).not_to be_nil
         expect(contact['username']).to eq('john')
         expect(contact['email']).to eq('john@doe.com')
+      end
+
+      it 'returns a token valid for 1 month' do
+        token = JSON.parse(response.body)['token']
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:exp]).to eq(1.month.from_now.to_i)
       end
     end
 
@@ -194,6 +216,145 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
+  end
+
+  describe 'POST #authorize' do
+    context 'with valid username and password' do
+      let(:payload) { { username: 'john', password: 'secret' } }
+
+      before do
+        Timecop.freeze Date.new(2017)
+        create :user, :activated, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the users/authorize format' do
+        expect(response).to match_response_schema('users/authorize')
+      end
+
+      it 'returns a token valid for 1 month' do
+        token = JSON.parse(response.body)['token']
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:exp]).to eq(1.month.from_now.to_i)
+      end
+    end
+
+    context 'with inactive user' do
+      let(:payload) { { username: 'john', password: 'secret' } }
+
+      before do
+        create :user, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Bad credentials/)
+      end
+    end
+
+    context 'with invalid password' do
+      let(:payload) { { username: 'john', password: 'wrong secret' } }
+
+      before do
+        create :user, :activated, username: 'john', password: 'secret'
+        post '/api/users/authorize', params: payload
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Bad credentials/)
+      end
+    end
+  end
+
+  describe 'GET #me' do
+    let(:user) { create :user }
+
+    context 'with valid token' do
+      let(:token) { JsonWebToken.encode({ user_id: user.id }, 1.day.from_now) }
+
+      before do
+        get '/api/users/me', headers: { 'Authorization': token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the users/user schema' do
+        expect(response).to match_response_schema('users/user')
+      end
+
+      it 'returns the corresponding user' do
+        contact = JSON.parse(response.body)
+        expect(contact['id']).to eq(user.id)
+      end
+    end
+
+    context 'with expired token' do
+      let(:token) { JsonWebToken.encode({ user_id: user.id }, 1.day.ago) }
+
+      before do
+        get '/api/users/me', headers: { 'Authorization': token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Authentication is required/)
+      end
+    end
+
+    context 'with no Authorization header' do
+      before do
+        get '/api/users/me'
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Authentication is required/)
+      end
+    end
   end
 
 end

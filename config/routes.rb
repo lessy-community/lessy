@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:create] do
       collection do
+        get '/me', action: 'me', as: 'me'
+        post '/authorize', action: 'authorize', as: 'authorize'
         post '/:token/activate', action: 'activate', as: 'activate'
       end
     end

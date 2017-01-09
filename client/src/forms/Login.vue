@@ -1,0 +1,54 @@
+<template>
+  <form @submit.prevent="login">
+    <div v-if="error">
+      {{ error }}
+    </div>
+
+    <div>
+      <label for="username">Username *</label>
+      <input v-model="username" type="text" id="username" pattern="[a-z_\-]{1,}" required />
+    </div>
+
+    <div>
+      <label for="password">Password *</label>
+      <password-field v-model="password" id="password" required />
+    </div>
+
+    <input type="submit" value="Login" />
+    <router-link to="/">Home page</router-link>
+  </form>
+</template>
+
+<script>
+import PasswordField from '../components/PasswordField'
+
+export default {
+  name: 'login-form',
+  components: {
+    PasswordField,
+  },
+  props: {
+    'onSuccess': { type: Function, required: true },
+  },
+  data () {
+    return {
+      username: '',
+      password: '',
+      error: '',
+    }
+  },
+  methods: {
+    login () {
+      this.$store
+        .dispatch('users/login', {
+          username: this.username,
+          password: this.password,
+        })
+        .then(this.onSuccess)
+        .catch((error) => {
+          this.error = error.data.message
+        })
+    },
+  },
+}
+</script>
