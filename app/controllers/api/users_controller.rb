@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  skip_before_action :require_login, except: [:me]
+
   def create
     @user = User.new(create_user_params)
     @user.save
@@ -36,11 +38,7 @@ class Api::UsersController < ApplicationController
   end
 
   def me
-    if decoded_token
-      @user = User.find(decoded_token[:user_id])
-    else
-      render_error 'Authentication is required', :unauthorized
-    end
+    @user = current_user
   end
 
 private
@@ -55,10 +53,6 @@ private
     params.require(:user).permit(:username, :password).tap do |user_params|
       user_params.require([:username, :password])
     end
-  end
-
-  def decoded_token
-    JsonWebToken.decode(request.headers['Authorization'])
   end
 
 end
