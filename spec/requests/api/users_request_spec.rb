@@ -297,6 +297,7 @@ RSpec.describe Api::UsersController, type: :request do
 
     context 'with valid token' do
       before do
+        create :project, user: user, name: 'my-project'
         get '/api/users/me', headers: { 'Authorization': user.token }
       end
 
@@ -311,6 +312,12 @@ RSpec.describe Api::UsersController, type: :request do
       it 'returns the corresponding user' do
         json_user = JSON.parse(response.body)['user']
         expect(json_user['id']).to eq(user.id)
+      end
+
+      it 'includes project' do
+        projects = JSON.parse(response.body)['projects']
+        expect(projects.length).to eq(1)
+        expect(projects[0]['name']).to eq('my-project')
       end
     end
 

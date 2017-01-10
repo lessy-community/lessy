@@ -1,1 +1,1 @@
-json.extract! @project, :id, :name
+json.partial! 'api/projects/project', project: @project
