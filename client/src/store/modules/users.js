@@ -21,7 +21,7 @@ const actions = {
 
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
-                   .then((user) => commit('setCurrentUser', user))
+                   .then((data) => commit('setCurrentUser', data.user))
   },
 
   logout ({ commit }) {

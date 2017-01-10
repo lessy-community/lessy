@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "required": ["user"],
+  "properties": {
+    "user": { "ref": "user.json" }
+  },
+  "additionalProperties": false
+}
