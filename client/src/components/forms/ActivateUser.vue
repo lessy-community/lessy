@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import PasswordField from '../components/PasswordField'
+import PasswordField from '../PasswordField'
 
 export default {
   name: 'activate-user-form',

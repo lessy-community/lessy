@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import ActivateUserPage from './pages/ActivateUser'
-import DashboardPage from './pages/Dashboard'
-import HomePage from './pages/Home'
-import LoginPage from './pages/Login'
-import NotFoundPage from './pages/NotFound'
+import ActivateUserPage from './components/pages/ActivateUser'
+import DashboardPage from './components/pages/Dashboard'
+import HomePage from './components/pages/Home'
+import LoginPage from './components/pages/Login'
+import NotFoundPage from './components/pages/NotFound'
 
 Vue.use(VueRouter)
 
