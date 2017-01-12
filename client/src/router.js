@@ -7,6 +7,8 @@ import HomePage from './components/pages/Home'
 import LoginPage from './components/pages/Login'
 import NotFoundPage from './components/pages/NotFound'
 
+import auth from './auth'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,15 +25,13 @@ let router = new VueRouter({
 })
 
 function haveAuthAccess (to) {
-  const token = window.localStorage.getItem('authentication_token')
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  return !requiresAuth || token != null
+  return !requiresAuth || auth.isLoggedIn()
 }
 
 function authHaveAccess (to) {
-  const token = window.localStorage.getItem('authentication_token')
   const forbidForAuth = to.matched.some(record => record.meta.forbidForAuth)
-  return token == null || !forbidForAuth
+  return !auth.isLoggedIn() || !forbidForAuth
 }
 
 router.beforeEach((to, from, next) => {
