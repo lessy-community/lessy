@@ -12,14 +12,20 @@
       Follow its instructions to be able to access your projects later.
     </p>
     <button @click.prevent="logout">Log out</button>
+
+    <create-project-form />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import CreateProjectForm from '../forms/CreateProject'
 
 export default {
   name: 'dashboard-page',
+  components: {
+    CreateProjectForm,
+  },
   data () {
     return {
       error: null,
