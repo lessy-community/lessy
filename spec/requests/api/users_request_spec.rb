@@ -296,10 +296,9 @@ RSpec.describe Api::UsersController, type: :request do
     let(:user) { create :user }
 
     context 'with valid token' do
-      let(:token) { JsonWebToken.encode({ user_id: user.id }, 1.day.from_now) }
-
       before do
-        get '/api/users/me', headers: { 'Authorization': token }
+        create :project, user: user, name: 'my-project'
+        get '/api/users/me', headers: { 'Authorization': user.token }
       end
 
       it 'succeeds' do
@@ -307,20 +306,24 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the users/user schema' do
-        expect(response).to match_response_schema('users/user')
+        expect(response).to match_response_schema('users/me')
       end
 
       it 'returns the corresponding user' do
-        contact = JSON.parse(response.body)
-        expect(contact['id']).to eq(user.id)
+        json_user = JSON.parse(response.body)['user']
+        expect(json_user['id']).to eq(user.id)
+      end
+
+      it 'includes project' do
+        projects = JSON.parse(response.body)['projects']
+        expect(projects.length).to eq(1)
+        expect(projects[0]['name']).to eq('my-project')
       end
     end
 
     context 'with expired token' do
-      let(:token) { JsonWebToken.encode({ user_id: user.id }, 1.day.ago) }
-
       before do
-        get '/api/users/me', headers: { 'Authorization': token }
+        get '/api/users/me', headers: { 'Authorization': user.token(1.day.ago) }
       end
 
       it 'fails' do

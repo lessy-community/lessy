@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["user", "projects"],
+  "properties": {
+    "user": { "ref": "user.json" },
+    "projects": {
+      "type": "array",
+      "items": { "ref": "../projects/project.json" }
+    }
+  },
+  "additionalProperties": false
+}
