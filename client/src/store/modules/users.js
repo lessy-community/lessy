@@ -21,7 +21,10 @@ const actions = {
 
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
-                   .then((data) => commit('setCurrentUser', data.user))
+      .then((data) => {
+        commit('setCurrentUser', data.user)
+        commit('projects/setup', data.projects, { root: true })
+      })
   },
 
   logout ({ commit }) {

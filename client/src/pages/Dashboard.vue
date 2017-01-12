@@ -14,11 +14,15 @@
     <button @click.prevent="logout">Log out</button>
 
     <create-project-form />
+
+    <div v-for="project in projects">
+      {{ project.name }}
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import CreateProjectForm from '../forms/CreateProject'
 
 export default {
@@ -34,6 +38,9 @@ export default {
   computed: {
     ...mapState({
       user: (state) => state.users.current,
+    }),
+    ...mapGetters({
+      projects: 'projects/list',
     }),
   },
   methods: {
