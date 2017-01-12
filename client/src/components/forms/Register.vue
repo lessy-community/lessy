@@ -6,7 +6,6 @@
     </div>
 
     <input type="submit" value="Let me in" />
-    <router-link to="/login">Log in</router-link>
   </form>
 </template>
 
