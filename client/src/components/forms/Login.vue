@@ -20,13 +20,8 @@
 </template>
 
 <script>
-import PasswordField from '../PasswordField'
-
 export default {
   name: 'login-form',
-  components: {
-    PasswordField,
-  },
   props: {
     'onSuccess': { type: Function, required: true },
   },

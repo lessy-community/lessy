@@ -15,13 +15,8 @@
 </template>
 
 <script>
-import PasswordField from '../PasswordField'
-
 export default {
   name: 'activate-user-form',
-  components: {
-    PasswordField,
-  },
   props: {
     'token': { type: String, required: true },
     'onSuccess': { type: Function, required: true },
