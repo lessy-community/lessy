@@ -1,6 +1,7 @@
 <template>
   <div class="home-page">
-    <h1>Project Zero</h1>
+    <h1>Welcome on Project Zero!</h1>
+    <p>A new era begins for the projects and todos managers</p>
     <register-form :on-success="onRegistrationSuccess" />
   </div>
 </template>
@@ -20,3 +21,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.home-page {
+  text-align: center;
+}
+</style>
