@@ -1,5 +1,6 @@
 <template>
   <div class="login-page">
+    <h1>Login</h1>
     <login-form :on-success="onLoginSuccess" />
   </div>
 </template>

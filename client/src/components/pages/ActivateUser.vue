@@ -1,5 +1,7 @@
 <template>
   <div class="activate-user-page">
+    <h1>Activate your account</h1>
+    <p>To continue, you have to pick a unique username and a password so you can login to your account later.</p>
     <activate-user-form
       :token="token"
       :on-success="onActivationSuccess"

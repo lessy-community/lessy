@@ -15,7 +15,6 @@
     </div>
 
     <input type="submit" value="Login" />
-    <router-link to="/">Home page</router-link>
   </form>
 </template>
 
