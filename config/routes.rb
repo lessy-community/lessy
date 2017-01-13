@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         post '/:token/activate', action: 'activate', as: 'activate'
       end
     end
-    resources :projects, only: [:create]
+    resources :projects, only: [:create, :update]
   end
 
   root 'application#client'

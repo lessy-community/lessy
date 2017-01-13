@@ -4,7 +4,8 @@
   "properties": {
     "id": { "type": "integer" },
     "name": { "type": "string" },
-    "userId": { "type": "integer" }
+    "userId": { "type": "integer" },
+    "description": { "type": "string" }
   },
   "additionalProperties": false
 }
