@@ -318,6 +318,7 @@ RSpec.describe Api::UsersController, type: :request do
         projects = JSON.parse(response.body)['projects']
         expect(projects.length).to eq(1)
         expect(projects[0]['name']).to eq('my-project')
+        expect(projects[0]['userId']).to eq(user.id)
       end
     end
 
