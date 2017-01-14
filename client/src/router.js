@@ -12,10 +12,10 @@ import auth from './auth'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: HomePage, meta: { forbidForAuth: true } },
-  { path: '/login', component: LoginPage, meta: { forbidForAuth: true } },
+  { path: '/', component: HomePage, meta: { restrictForUnauth: true } },
+  { path: '/login', component: LoginPage, meta: { restrictForUnauth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
-  { path: '/dashboard', component: DashboardPage, meta: { requiresAuth: true } },
+  { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true } },
   { path: '*', component: NotFoundPage },
 ]
 
@@ -24,20 +24,18 @@ let router = new VueRouter({
   routes,
 })
 
-function haveAuthAccess (to) {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  return !requiresAuth || auth.isLoggedIn()
+function isRestrictedForAuth (route) {
+  return route.matched.some(record => record.meta.restrictForAuth)
 }
 
-function authHaveAccess (to) {
-  const forbidForAuth = to.matched.some(record => record.meta.forbidForAuth)
-  return !auth.isLoggedIn() || !forbidForAuth
+function isRestrictedForUnauth (route) {
+  return route.matched.some(record => record.meta.restrictForUnauth)
 }
 
 router.beforeEach((to, from, next) => {
-  if (!haveAuthAccess(to)) {
+  if (isRestrictedForAuth(to) && !auth.isLoggedIn()) {
     next({ path: '/' })
-  } else if (!authHaveAccess(to)) {
+  } else if (isRestrictedForUnauth(to) && auth.isLoggedIn()) {
     next({ path: '/dashboard' })
   } else {
     next()
@@ -45,3 +43,7 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+export {
+  isRestrictedForAuth,
+  isRestrictedForUnauth,
+}
