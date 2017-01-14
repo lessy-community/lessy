@@ -3,10 +3,10 @@
     <container row>
       <router-link to="/" class="header-title">Project Zero</router-link>
       <div class="separator"></div>
-      <template v-if="user && user.isLoggedIn">
+      <div v-if="user && user.isLoggedIn">
         {{ user.displayedName }}
         (<a href="#" @click.prevent="logout">Logout</a>)
-      </template>
+      </div>
       <router-link to="/login" v-else>Log in</router-link>
     </container>
   </header>
