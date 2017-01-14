@@ -1,5 +1,11 @@
 <template>
-  <router-view v-if="project" :project="project"></router-view>
+  <div v-if="project" class="project-layout">
+    <h1>
+      <router-link :to="project.user.urlShow">{{ project.user.displayedName }}</router-link>
+      / {{ project.name }}
+    </h1>
+    <router-view v-if="project" :project="project"></router-view>
+  </div>
   <loading-page v-else></loading-page>
 </template>
 

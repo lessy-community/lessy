@@ -18,6 +18,7 @@ const getters = {
       }
       return {
         ...project,
+        user,
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
       }

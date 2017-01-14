@@ -1,9 +1,6 @@
 <template>
   <div class="project-show-page">
-    <container row align="center">
-      <h1>{{ project.name }}</h1>
-      <router-link :to="project.urlEdit">Edit</router-link>
-    </container>
+    <router-link :to="project.urlEdit">Edit</router-link>
     <p v-if="project.description">
       {{ project.description }}
     </p>
