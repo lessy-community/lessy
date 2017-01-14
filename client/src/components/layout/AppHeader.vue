@@ -5,7 +5,7 @@
       <div class="separator"></div>
       <div v-if="user && user.isLoggedIn">
         {{ user.displayedName }}
-        (<a href="#" @click.prevent="logout">Logout</a>)
+        (<a href="/logout" @click.prevent="logout">Logout</a>)
       </div>
       <router-link to="/login" v-else>Log in</router-link>
     </container>

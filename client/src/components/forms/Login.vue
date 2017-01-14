@@ -14,7 +14,7 @@
       <password-field v-model="password" id="password" required />
     </div>
 
-    <input type="submit" value="Login" />
+    <btn submit>Login</btn>
   </form>
 </template>
 

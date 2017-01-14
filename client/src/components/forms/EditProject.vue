@@ -14,8 +14,8 @@
       <textarea v-model="description" id="description"></textarea>
     </div>
 
-    <input type="submit" value="Validate" />
-    <a href="#" @click.prevent="onCancel">Cancel</a>
+    <btn submit>Validate</btn>
+    <btn type="cancel" @click="onCancel">Cancel</btn>
   </form>
 </template>
 

@@ -5,7 +5,7 @@
       <input v-model="email" type="email" id="email" required />
     </div>
 
-    <input type="submit" value="Let me in" />
+    <btn submit>Let me in</btn>
   </form>
 </template>
 

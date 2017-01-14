@@ -9,7 +9,13 @@
       <router-link :to="project.urlShow">{{ project.name }}</router-link>
     </div>
 
-    <button v-if="!createFormEnabled" @click="createFormEnabled = true">+ create a project</button>
+    <btn
+      v-if="!createFormEnabled"
+      type="secondary"
+      @click="createFormEnabled = true"
+    >
+      + create a project
+    </btn>
     <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
   </div>
 </template>

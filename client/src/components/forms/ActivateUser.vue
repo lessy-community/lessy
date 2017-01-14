@@ -10,7 +10,7 @@
       <password-field v-model="password" id="password" required />
     </div>
 
-    <input type="submit" value="Activate my account" />
+    <btn submit>Activate my account</btn>
   </form>
 </template>
 

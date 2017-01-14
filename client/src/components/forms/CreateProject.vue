@@ -11,8 +11,8 @@
       />
     </div>
 
-    <input type="submit" value="Create" />
-    <a href="#" @click.prevent="onCancel">Cancel</a>
+    <btn submit>Create</btn>
+    <btn type="cancel" @click="onCancel">Cancel</btn>
   </form>
 </template>
 
