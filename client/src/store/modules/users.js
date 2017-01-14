@@ -32,12 +32,12 @@ const getters = {
 const actions = {
   register ({ commit }, email) {
     return usersApi.register(email)
-                   .then((data) => commit('setCurrentUser', data.user))
+                   .then((data) => commit('setCurrent', data.user))
   },
 
   activate ({ commit }, { token, username, password }) {
     return usersApi.activate(token, username, password)
-                   .then((data) => commit('setCurrentUser', data.user))
+                   .then((data) => commit('setCurrent', data.user))
   },
 
   login ({ commit }, { username, password }) {
@@ -47,7 +47,7 @@ const actions = {
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
       .then((data) => {
-        commit('setCurrentUser', data.user)
+        commit('setCurrent', data.user)
         commit('projects/setup', data.projects, { root: true })
       })
   },
@@ -59,7 +59,7 @@ const actions = {
 }
 
 const mutations = {
-  setCurrentUser (state, user) {
+  setCurrent (state, user) {
     state.byIds = {
       ...state.byIds,
       [user.id]: user,
