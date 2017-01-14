@@ -6,7 +6,7 @@
     Chargement en cours…
   </div>
   <div v-else class="dashboard-page">
-    <p v-if="!user.username">
+    <p v-if="!user.activated">
       We sent you an email at {{ user.email }}.<br />
       Follow its instructions to be able to access your projects later.
     </p>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import CreateProjectForm from '../forms/CreateProject'
 
 export default {
@@ -34,10 +34,8 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      user: (state) => state.users.current,
-    }),
     ...mapGetters({
+      user: 'users/current',
       projects: 'projects/list',
     }),
   },

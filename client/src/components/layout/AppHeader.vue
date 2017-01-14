@@ -3,9 +3,9 @@
     <container row>
       <router-link to="/" class="header-title">Project Zero</router-link>
       <div class="separator"></div>
-      <template v-if="user && isLoggedIn">
-        {{ user.username || user.email }}
-        (<a href="#" @click.prevent="logout" v-if="isLoggedIn">Logout</a>)
+      <template v-if="user && user.isLoggedIn">
+        {{ user.displayedName }}
+        (<a href="#" @click.prevent="logout">Logout</a>)
       </template>
       <router-link to="/login" v-else>Log in</router-link>
     </container>
@@ -13,16 +13,14 @@
 </template>
 
 <script>
-import auth from '../../auth'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'app-header',
   computed: {
-    ...mapState({
-      user: (state) => state.users.current,
+    ...mapGetters({
+      user: 'users/current',
     }),
-    isLoggedIn: auth.isLoggedIn,
   },
   methods: {
     logout () {

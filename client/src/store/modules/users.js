@@ -1,7 +1,24 @@
 import usersApi from '../../api/users'
+import auth from '../../auth'
 
 const state = {
   current: null,
+}
+
+const getters = {
+  current (state) {
+    const user = state.current
+    if (user == null) {
+      return null
+    }
+    return {
+      ...user,
+      activated: !!user.username,
+      displayedName: user.username || user.email,
+      identifier: user.username || user.id,
+      isLoggedIn: auth.isLoggedIn(),
+    }
+  },
 }
 
 const actions = {
@@ -42,6 +59,7 @@ const mutations = {
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations,
 }
