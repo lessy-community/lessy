@@ -7,7 +7,7 @@
         {{ user.displayedName }}
         (<a href="/logout" @click.prevent="logout">Logout</a>)
       </div>
-      <router-link to="/login" v-else>Log in</router-link>
+      <router-link v-else to="/login">Log in</router-link>
     </container>
   </header>
 </template>
@@ -32,7 +32,25 @@ export default {
 </script>
 
 <style>
-.app-header {
-  padding: 1rem 1rem;
-}
+
+  .app-header {
+    padding: 1rem 1rem;
+
+    background-color: #0080b0;
+    color: #fff;
+
+    box-shadow: 0 1px 2px #aaa;
+  }
+  .app-header a {
+    color: #fff;
+  }
+  .app-header .header-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .app-header .header-title:hover {
+    color: #ddd;
+    text-decoration: none;
+  }
+
 </style>
