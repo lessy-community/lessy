@@ -8,7 +8,7 @@
     <create-project-form />
 
     <div v-for="project in projects">
-      {{ project.name }}
+      <router-link :to="project.url">{{ project.name }}</router-link>
     </div>
   </div>
 </template>

@@ -6,6 +6,7 @@ import DashboardPage from './components/pages/Dashboard'
 import HomePage from './components/pages/Home'
 import LoginPage from './components/pages/Login'
 import NotFoundPage from './components/pages/NotFound'
+import ProjectShowPage from './components/pages/projects/Show'
 
 import auth from './auth'
 
@@ -16,6 +17,7 @@ const routes = [
   { path: '/login', component: LoginPage, meta: { restrictForUnauth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true } },
+  { path: '/:userIdentifier/:projectName', component: ProjectShowPage, meta: { restrictForAuth: true }, name: 'project' },
   { path: '*', component: NotFoundPage },
 ]
 

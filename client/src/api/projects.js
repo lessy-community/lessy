@@ -1,4 +1,4 @@
-import { post } from './http'
+import { get, post } from './http'
 
 export default {
   create (name) {
@@ -8,5 +8,9 @@ export default {
       },
     }
     return post('/api/projects', payload)
+  },
+
+  find (userIdentifier, projectName) {
+    return get(`/api/projects/${userIdentifier}/${projectName}`)
   },
 }
