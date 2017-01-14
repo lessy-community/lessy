@@ -33,16 +33,25 @@ const getters = {
 const actions = {
   register ({ commit }, email) {
     return usersApi.register(email)
-                   .then((data) => commit('setCurrent', data.user))
+      .then((data) => {
+        auth.login(data.token)
+        commit('setCurrent', data.user)
+      })
   },
 
   activate ({ commit }, { token, username, password }) {
     return usersApi.activate(token, username, password)
-                   .then((data) => commit('setCurrent', data.user))
+      .then((data) => {
+        auth.login(data.token)
+        commit('setCurrent', data.user)
+      })
   },
 
   login ({ commit }, { username, password }) {
     return usersApi.login(username, password)
+      .then((data) => {
+        auth.login(data.token)
+      })
   },
 
   getCurrent ({ commit }) {
@@ -54,7 +63,7 @@ const actions = {
   },
 
   logout ({ commit }) {
-    window.localStorage.removeItem('authentication_token')
+    auth.logout()
     commit('resetCurrent', true)
   },
 }

@@ -1,3 +1,5 @@
+import auth from '../auth'
+
 function parseJson (response) {
   return response.json().then((json) => {
     return {
@@ -25,7 +27,7 @@ function get (url, needAuthorization = true) {
     },
   }
   if (needAuthorization) {
-    options['headers']['Authorization'] = window.localStorage.getItem('authentication_token')
+    options['headers']['Authorization'] = auth.getToken()
   }
   return window.fetch(url, options)
                .then(parseJson)
@@ -41,7 +43,7 @@ function post (url, payload, needAuthorization = true) {
     body: JSON.stringify(payload),
   }
   if (needAuthorization) {
-    options['headers']['Authorization'] = window.localStorage.getItem('authentication_token')
+    options['headers']['Authorization'] = auth.getToken()
   }
   return window.fetch(url, options)
                .then(parseJson)
@@ -53,7 +55,7 @@ function patch (url, payload) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': window.localStorage.getItem('authentication_token'),
+      'Authorization': auth.getToken(),
     },
     body: JSON.stringify(payload),
   }

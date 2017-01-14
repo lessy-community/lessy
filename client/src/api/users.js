@@ -1,10 +1,5 @@
 import { get, post } from './http'
 
-function storeAuthenticationToken (data) {
-  window.localStorage.setItem('authentication_token', data.token)
-  return data
-}
-
 export default {
   register: (email) => {
     const payload = {
@@ -12,7 +7,7 @@ export default {
         email,
       },
     }
-    return post('/api/users', payload, false).then(storeAuthenticationToken)
+    return post('/api/users', payload, false)
   },
 
   activate: (token, username, password) => {
@@ -23,7 +18,7 @@ export default {
         password,
       },
     }
-    return post(url, payload, false).then(storeAuthenticationToken)
+    return post(url, payload, false)
   },
 
   login: (username, password) => {
@@ -31,7 +26,7 @@ export default {
       username,
       password,
     }
-    return post('/api/users/authorize', payload, false).then(storeAuthenticationToken)
+    return post('/api/users/authorize', payload, false)
   },
 
   getCurrent: () => {
