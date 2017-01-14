@@ -5,9 +5,9 @@
       Follow its instructions to be able to access your projects later.
     </p>
 
-    <div v-for="project in projects">
+    <list-item v-for="project in projects">
       <router-link :to="project.urlShow">{{ project.name }}</router-link>
-    </div>
+    </list-item>
 
     <btn
       v-if="!createFormEnabled"
