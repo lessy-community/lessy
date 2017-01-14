@@ -16,6 +16,7 @@ const getters = {
         displayedName: user.username || user.email,
         identifier: user.username || user.id,
         isLoggedIn: auth.isLoggedIn(),
+        urlShow: '/dashboard',  // there is no user's profile page yet
       }
     }
   },

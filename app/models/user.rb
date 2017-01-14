@@ -15,6 +15,11 @@ class User < ApplicationRecord
     User.find decoded_token[:user_id]
   end
 
+  def self.find_by_identifier!(identifier)
+    # identifier is either id or username
+    User.where(username: identifier).or(User.where(id: identifier)).take!
+  end
+
   def token(expiration = 1.day.from_now)
    JsonWebToken.encode({ user_id: self.id }, expiration)
   end
