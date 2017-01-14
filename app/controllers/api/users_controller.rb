@@ -29,9 +29,9 @@ class Api::UsersController < ApplicationController
   end
 
   def authorize
-    user = User.authenticate(params[:username], params[:password])
-    if user
-      @token = user.token(1.month.from_now)
+    @user = User.authenticate(params[:username], params[:password])
+    if @user
+      @token = @user.token(1.month.from_now)
     else
       render_error 'Bad credentials', :unauthorized
     end

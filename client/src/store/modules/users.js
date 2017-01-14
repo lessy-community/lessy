@@ -51,6 +51,7 @@ const actions = {
     return usersApi.login(username, password)
       .then((data) => {
         auth.login(data.token)
+        commit('setCurrent', data.user)
       })
   },
 
