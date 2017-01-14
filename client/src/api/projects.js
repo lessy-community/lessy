@@ -1,4 +1,4 @@
-import { get, post } from './http'
+import { get, post, patch } from './http'
 
 export default {
   create (name) {
@@ -12,5 +12,9 @@ export default {
 
   find (userIdentifier, projectName) {
     return get(`/api/projects/${userIdentifier}/${projectName}`)
+  },
+
+  update (project, payload) {
+    return patch(`/api/projects/${project.id}`, payload)
   },
 }

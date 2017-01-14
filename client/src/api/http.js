@@ -48,7 +48,22 @@ function post (url, payload, needAuthorization = true) {
                .then(handleErrors)
 }
 
+function patch (url, payload) {
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': window.localStorage.getItem('authentication_token'),
+    },
+    body: JSON.stringify(payload),
+  }
+  return window.fetch(url, options)
+               .then(parseJson)
+               .then(handleErrors)
+}
+
 export {
   get,
   post,
+  patch,
 }

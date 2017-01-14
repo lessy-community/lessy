@@ -12,15 +12,14 @@ const getters = {
     return id => {
       const project = state.byIds[id]
       const user = rootGetters['users/findById'](project.userId)
+      const params = {
+        userIdentifier: user.identifier,
+        projectName: project.name,
+      }
       return {
         ...project,
-        url: {
-          name: 'project',
-          params: {
-            userIdentifier: user.identifier,
-            projectName: project.name,
-          },
-        },
+        urlShow: { name: 'project/show', params },
+        urlEdit: { name: 'project/edit', params },
       }
     }
   },
@@ -50,6 +49,11 @@ const actions = {
     return projectsApi.find(userIdentifier, projectName)
                       .then((data) => commit('setCurrent', data))
   },
+
+  update ({ commit }, { project, ...payload }) {
+    return projectsApi.update(project, payload)
+                      .then((data) => commit('set', data))
+  },
 }
 
 const mutations = {
@@ -58,6 +62,13 @@ const mutations = {
   },
 
   add (state, project) {
+    state.byIds = {
+      ...state.byIds,
+      [project.id]: project,
+    }
+  },
+
+  set (state, project) {
     state.byIds = {
       ...state.byIds,
       [project.id]: project,
