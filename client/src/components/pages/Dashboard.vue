@@ -5,11 +5,12 @@
       Follow its instructions to be able to access your projects later.
     </p>
 
-    <create-project-form />
-
     <div v-for="project in projects">
       <router-link :to="project.urlShow">{{ project.name }}</router-link>
     </div>
+
+    <button v-if="!createFormEnabled" @click="createFormEnabled = true">+ create a project</button>
+    <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
   </div>
 </template>
 
@@ -25,11 +26,23 @@
       CreateProjectForm,
     },
 
+    data () {
+      return {
+        createFormEnabled: false,
+      }
+    },
+
     computed: {
       ...mapGetters({
         user: 'users/current',
         projects: 'projects/list',
       }),
+    },
+
+    methods: {
+      disableCreateForm () {
+        this.createFormEnabled = false
+      }
     },
 
   }
