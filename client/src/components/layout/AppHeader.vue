@@ -35,7 +35,4 @@ export default {
 .app-header {
   padding: 1rem 1rem;
 }
-.app-header a {
-  text-decoration: none;
-}
 </style>

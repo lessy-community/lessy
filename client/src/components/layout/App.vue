@@ -70,4 +70,12 @@
     padding: 0;
   }
 
+  a {
+    color: #0080b0;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
 </style>
