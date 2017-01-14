@@ -3,21 +3,29 @@ import auth from '../../auth'
 
 const state = {
   current: null,
+  byIds: {},
 }
 
 const getters = {
-  current (state) {
-    const user = state.current
-    if (user == null) {
+  findById (state) {
+    return id => {
+      const user = state.byIds[id]
+      return {
+        ...user,
+        activated: !!user.username,
+        displayedName: user.username || user.email,
+        identifier: user.username || user.id,
+        isLoggedIn: auth.isLoggedIn(),
+      }
+    }
+  },
+
+  current (state, getters) {
+    const currentId = state.current
+    if (currentId == null) {
       return null
     }
-    return {
-      ...user,
-      activated: !!user.username,
-      displayedName: user.username || user.email,
-      identifier: user.username || user.id,
-      isLoggedIn: auth.isLoggedIn(),
-    }
+    return getters.findById(state.current)
   },
 }
 
@@ -46,14 +54,25 @@ const actions = {
 
   logout ({ commit }) {
     window.localStorage.removeItem('authentication_token')
-    commit('setCurrentUser', null)
+    commit('resetCurrent', true)
   },
 }
 
 const mutations = {
   setCurrentUser (state, user) {
-    state.current = user
+    state.byIds = {
+      ...state.byIds,
+      [user.id]: user,
+    }
+    state.current = user.id
   },
+
+  resetCurrent (state, hard = false) {
+    if (hard) {
+      delete state.byIds[state.current]
+    }
+    state.current = null
+  }
 }
 
 export default {
