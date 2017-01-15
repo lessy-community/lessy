@@ -1,6 +1,6 @@
 <template>
   <div :class="['form-group', { 'form-group-actions': actions }]">
-    <label v-if="target" :for="target">{{ getLabel }}</label>
+    <label v-if="label" :for="target">{{ getLabel }}</label>
     <div class="form-group-control">
       <slot></slot>
       <div v-if="tip" class="form-group-tip">{{ tip }}</div>
@@ -69,7 +69,8 @@
   .form-group-control input[type="text"],
   .form-group-control input[type="email"],
   .form-group-control input[type="password"],
-  .form-group-control textarea {
+  .form-group-control textarea,
+  .form-group-control .static-field {
     width: 100%;
     padding: 10px 8px;
     margin-right: 5px;
@@ -88,6 +89,10 @@
   }
   .form-group-control textarea {
     min-height: 150px;
+  }
+  .form-group-control .static-field {
+    border-color: transparent;
+    box-shadow: none;
   }
   .form-group-control input[type="text"]:focus,
   .form-group-control input[type="email"]:focus,

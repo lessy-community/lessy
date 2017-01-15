@@ -10,6 +10,7 @@ import DateField from './components/fields/DateField'
 import EmailField from './components/fields/EmailField'
 import FormGroup from './components/fields/FormGroup'
 import PasswordField from './components/fields/PasswordField'
+import StaticField from './components/fields/StaticField'
 import TextField from './components/fields/TextField'
 
 import router from './router'
@@ -24,6 +25,7 @@ Vue.component('date-field', DateField)
 Vue.component('email-field', EmailField)
 Vue.component('form-group', FormGroup)
 Vue.component('password-field', PasswordField)
+Vue.component('static-field', StaticField)
 Vue.component('text-field', TextField)
 
 /* eslint-disable no-new */
