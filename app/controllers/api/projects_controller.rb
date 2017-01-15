@@ -8,7 +8,7 @@ class Api::ProjectsController < ApplicationController
   end
 
   def update
-    @project = current_user.projects.find(params[:id])
+    @project = current_project
     @project.update! update_project_params
   rescue ActiveRecord::RecordNotFound
     render_error 'Project cannot be found', :not_found
@@ -31,7 +31,24 @@ class Api::ProjectsController < ApplicationController
     render_error 'Project cannot be found', :not_found
   end
 
+  def start
+    @project = current_project
+    unless @project.started?
+      @project.start_now! due_at_param
+    else
+      render_error 'Project has already been started'
+    end
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Project cannot be found', :not_found
+  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+    render_error error.message
+  end
+
 private
+
+  def current_project
+    @current_project ||= current_user.projects.find(params[:id])
+  end
 
   def create_project_params
     params.require(:project).permit(:name).tap do |project_params|
@@ -40,7 +57,16 @@ private
   end
 
   def update_project_params
-    params.require(:project).permit(:name, :description)
+    update_params = params.require(:project).permit(:name, :description)
+    update_params[:due_at] = Time.at(params[:project][:due_at].to_i).utc.to_datetime if current_project.started?
+    update_params
+  end
+
+  def due_at_param
+    due_at_timestamp = params.require(:project).permit(:due_at).tap do |project_params|
+      project_params.require(:due_at)
+    end[:due_at].to_i
+    Time.at(due_at_timestamp).utc.to_datetime
   end
 
 end

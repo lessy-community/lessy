@@ -10,6 +10,7 @@ import NotFoundPage from './components/pages/NotFound'
 import ProjectLayout from './components/layout/Project'
 import ProjectShowPage from './components/pages/projects/Show'
 import ProjectEditPage from './components/pages/projects/Edit'
+import ProjectStartPage from './components/pages/projects/Start'
 
 import auth from './auth'
 
@@ -25,6 +26,7 @@ const routes = [
     children: [
       { path: '', component: ProjectShowPage, name: 'project/show' },
       { path: 'edit', component: ProjectEditPage, name: 'project/edit' },
+      { path: 'start', component: ProjectStartPage, name: 'project/start' },
     ]
   },
   { path: '*', component: NotFoundPage },

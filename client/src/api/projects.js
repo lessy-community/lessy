@@ -17,4 +17,13 @@ export default {
   update (project, payload) {
     return patch(`/api/projects/${project.id}`, payload)
   },
+
+  start (project, dueAt) {
+    const payload = {
+      project: {
+        dueAt,
+      },
+    }
+    return post(`/api/projects/${project.id}/start`, payload)
+  },
 }

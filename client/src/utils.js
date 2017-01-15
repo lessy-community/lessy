@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 function mapElementsById (elements, fk = 'id') {
   let byIds = {}
   elements.forEach((element) => {
@@ -7,6 +9,11 @@ function mapElementsById (elements, fk = 'id') {
   return byIds
 }
 
+function formatDate (timestamp) {
+  return moment.unix(timestamp).format('DD MMMM YYYY')
+}
+
 export {
   mapElementsById,
+  formatDate,
 }
