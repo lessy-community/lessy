@@ -10,11 +10,14 @@
     </container>
     <router-view v-if="project" :project="project"></router-view>
   </div>
+  <error-page v-else-if="error" :message="error"></error-page>
   <loading-page v-else></loading-page>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+
+  import ErrorPage from '../pages/Error'
   import LoadingPage from '../pages/Loading'
 
   export default {
@@ -22,7 +25,14 @@
     name: 'project-layout',
 
     components: {
+      ErrorPage,
       LoadingPage,
+    },
+
+    data () {
+      return {
+        error: null,
+      }
     },
 
     computed: {
@@ -33,7 +43,11 @@
 
     mounted () {
       const { userIdentifier, projectName } = this.$route.params
-      this.$store.dispatch('projects/find', { userIdentifier, projectName })
+      this.$store
+        .dispatch('projects/find', { userIdentifier, projectName })
+        .catch((error) => {
+          this.error = error.data.message
+        })
     },
 
     destroyed () {
