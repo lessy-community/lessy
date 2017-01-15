@@ -26,7 +26,10 @@
 
     <p v-if="project.description" class="project-description">{{ project.description }}</p>
     <p v-else>
-      <em>Aucune description</em>
+      <em>
+        There is no description for this project yet.
+        <router-link :to="project.urlEdit">Edit?</router-link>
+      </em>
     </p>
   </div>
 </template>
