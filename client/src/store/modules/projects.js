@@ -1,4 +1,4 @@
-import { mapElementsById } from '../../utils'
+import { mapElementsById, formatDate } from '../../utils'
 
 import projectsApi from '../../api/projects'
 
@@ -16,11 +16,16 @@ const getters = {
         userIdentifier: user.identifier,
         projectName: project.name,
       }
+      const isStarted = !!project.startedAt
       return {
         ...project,
         user,
+        isStarted,
+        startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
+        dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
+        urlStart: { name: 'project/start', params },
       }
     }
   },
@@ -38,6 +43,13 @@ const getters = {
     }
     return getters.findById(projectId)
   },
+
+  canStartProject (state, getters) {
+    const nbStartedProjects = Object.values(state.byIds).reduce((nb, project) => {
+      return project.isInProgress ? nb + 1 : nb
+    }, 0)
+    return nbStartedProjects < 3
+  },
 }
 
 const actions = {
@@ -53,6 +65,11 @@ const actions = {
 
   update ({ commit }, { project, ...payload }) {
     return projectsApi.update(project, payload)
+                      .then((data) => commit('set', data))
+  },
+
+  start ({ commit }, { project, dueAt }) {
+    return projectsApi.start(project, dueAt)
                       .then((data) => commit('set', data))
   },
 }
