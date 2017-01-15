@@ -41,7 +41,7 @@
     display: inline-block;
     max-width: 100%;
     margin-right: 4px;
-    padding: 5px 10px;
+    padding: 8px 10px;
     vertical-align: middle;
 
     white-space: nowrap;

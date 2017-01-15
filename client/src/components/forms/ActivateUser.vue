@@ -1,16 +1,16 @@
 <template>
   <form @submit.prevent="activate">
-    <div>
-      <label for="username">Username (only lowercase letters, underscore and dash) *</label>
-      <input v-model="username" type="text" id="username" pattern="[a-z_\-]{1,}" required />
-    </div>
+    <form-group label="Username" tip="Only lowercase letters, underscore and dash" target="username" required>
+      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
+    </form-group>
 
-    <div>
-      <label for="password">Password *</label>
-      <password-field v-model="password" id="password" required />
-    </div>
+    <form-group label="Password" target="password" required>
+      <password-field id="password" v-model="password" required />
+    </form-group>
 
-    <btn submit>Activate my account</btn>
+    <form-group actions>
+      <btn submit>Activate my account</btn>
+    </form-group>
   </form>
 </template>
 

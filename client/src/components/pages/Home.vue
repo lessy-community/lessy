@@ -23,7 +23,15 @@ export default {
 </script>
 
 <style>
-.home-page {
-  text-align: center;
-}
+
+  .home-page {
+    text-align: center;
+  }
+
+  .home-page .form-group {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 </style>

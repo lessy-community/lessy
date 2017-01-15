@@ -4,17 +4,16 @@
       {{ error }}
     </div>
 
-    <div>
-      <label for="username">Username *</label>
-      <input v-model="username" type="text" id="username" pattern="[a-z_\-]{1,}" required />
-    </div>
+    <form-group label="Username" target="username" required>
+      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
+    </form-group>
+    <form-group label="Password" target="password" required>
+      <password-field id="password" v-model="password" required />
+    </form-group>
 
-    <div>
-      <label for="password">Password *</label>
-      <password-field v-model="password" id="password" required />
-    </div>
-
-    <btn submit>Login</btn>
+    <form-group actions>
+      <btn submit>Login</btn>
+    </form-group>
   </form>
 </template>
 

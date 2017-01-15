@@ -68,6 +68,16 @@
   body {
     margin: 0;
     padding: 0;
+
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  a {
+    color: #0080b0;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
   }
 
 </style>
