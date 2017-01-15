@@ -14,7 +14,7 @@
 
 <style>
 
-  .loading-page {
+  .container > .loading-page {
     padding-top: 42px;
     font-size: 2rem;
     text-align: center;
