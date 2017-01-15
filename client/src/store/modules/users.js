@@ -44,6 +44,7 @@ const actions = {
       .then((data) => {
         auth.login(data.token)
         commit('setCurrent', data.user)
+        commit('projects/setup', data.projects, { root: true })
       })
   },
 
@@ -52,6 +53,7 @@ const actions = {
       .then((data) => {
         auth.login(data.token)
         commit('setCurrent', data.user)
+        commit('projects/setup', data.projects, { root: true })
       })
   },
 

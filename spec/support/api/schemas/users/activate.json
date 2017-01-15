@@ -1,8 +1,12 @@
 {
   "type": "object",
-  "required": ["user", "token"],
+  "required": ["user", "projects", "token"],
   "properties": {
     "user": { "ref": "user.json" },
+    "projects": {
+      "type": "array",
+      "items": { "ref": "../projects/project.json" }
+    },
     "token": { "type": "string" }
   },
   "additionalProperties": false
