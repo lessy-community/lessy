@@ -297,8 +297,16 @@ RSpec.describe Api::UsersController, type: :request do
 
     context 'with valid token' do
       before do
-        create :project, user: user, name: 'my-project'
+        Timecop.freeze DateTime.new(2017)
+        create :project, :in_progress, user: user,
+                                       name: 'my-project',
+                                       started_at: 15.days.ago,
+                                       due_at: 15.days.from_now
         get '/api/users/me', headers: { 'Authorization': user.token }
+      end
+
+      after do
+        Timecop.return
       end
 
       it 'succeeds' do
@@ -319,6 +327,8 @@ RSpec.describe Api::UsersController, type: :request do
         expect(projects.length).to eq(1)
         expect(projects[0]['name']).to eq('my-project')
         expect(projects[0]['userId']).to eq(user.id)
+        expect(projects[0]['startedAt']).to eq(15.days.ago.to_i)
+        expect(projects[0]['dueAt']).to eq(15.days.from_now.to_i)
       end
     end
 

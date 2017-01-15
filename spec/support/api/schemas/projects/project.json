@@ -5,7 +5,9 @@
     "id": { "type": "integer" },
     "name": { "type": "string" },
     "userId": { "type": "integer" },
-    "description": { "type": "string" }
+    "description": { "type": "string" },
+    "startedAt": { "type": "integer" },
+    "dueAt": { "type": "integer" }
   },
   "additionalProperties": false
 }
