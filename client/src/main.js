@@ -4,11 +4,12 @@ import App from './components/layout/App'
 
 import Btn from './components/Btn'
 import Container from './components/Container'
-import EmailField from './components/EmailField'
-import FormGroup from './components/FormGroup'
 import ListItem from './components/ListItem'
-import PasswordField from './components/PasswordField'
-import TextField from './components/TextField'
+
+import EmailField from './components/fields/EmailField'
+import FormGroup from './components/fields/FormGroup'
+import PasswordField from './components/fields/PasswordField'
+import TextField from './components/fields/TextField'
 
 import router from './router'
 import store from './store'
