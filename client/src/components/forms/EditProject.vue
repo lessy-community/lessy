@@ -4,18 +4,18 @@
       {{ error }}
     </div>
 
-    <div>
-      <label for="name">Name *</label>
-      <input v-model="name" type="text" id="name" required />
-    </div>
+    <form-group label="Name" tip="Only lowercase letters, underscore and dash" target="name" required>
+      <text-field id="name" v-model="name" pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}" required />
+    </form-group>
 
-    <div>
-      <label for="description">Description</label>
-      <textarea v-model="description" id="description"></textarea>
-    </div>
+    <form-group label="Description" target="description">
+      <text-field id="description" v-model="description" multiplelines />
+    </form-group>
 
-    <btn submit>Validate</btn>
-    <btn type="cancel" @click="onCancel">Cancel</btn>
+    <form-group actions>
+      <btn submit>Validate</btn>
+      <btn type="cancel" @click="onCancel">Cancel</btn>
+    </form-group>
   </form>
 </template>
 

@@ -1,14 +1,7 @@
 <template>
   <form @submit.prevent="create">
-    <div>
-      <input
-        v-model="name"
-        type="text"
-        id="name"
-        pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}"
-        required
-        ref="nameInput"
-      />
+    <div class="form-group-control">
+      <text-field id="name" v-model="name" pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}" required ref="nameInput" />
     </div>
 
     <btn submit>Create</btn>
@@ -37,13 +30,13 @@
           name: this.name,
         }).then(() => {
           this.name = ''
-          this.$refs.nameInput.focus()
+          this.$refs.nameInput.$el.focus()
         })
       },
     },
 
     mounted () {
-      this.$refs.nameInput.focus()
+      this.$refs.nameInput.$el.focus()
     },
 
   }

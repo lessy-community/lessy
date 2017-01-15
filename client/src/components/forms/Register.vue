@@ -1,11 +1,12 @@
 <template>
   <form @submit.prevent="register">
-    <div>
-      <label for="email">Email *</label>
-      <input v-model="email" type="email" id="email" required />
-    </div>
+    <form-group label="Email" target="email" required>
+      <email-field id="email" v-model="email" required />
+    </form-group>
 
-    <btn submit>Let me in</btn>
+    <form-group actions>
+      <btn submit>Let me in</btn>
+    </form-group>
   </form>
 </template>
 

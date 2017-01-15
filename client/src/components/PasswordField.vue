@@ -45,7 +45,7 @@
 <style scoped>
 
   .password-field {
-    display: inline;
+    display: flex;
   }
 
 </style>
