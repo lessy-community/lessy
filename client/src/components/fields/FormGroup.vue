@@ -55,11 +55,14 @@
     flex-shrink: 0;
   }
 
-  .form-group .form-group-tip {
+  .form-group-control .form-group-tip {
     padding: 2px 5px;
 
     color: #555;
     font-size: .9rem;
+  }
+  .form-group-control .form-group-tip.error {
+    color: #ff2c00;
   }
 
   .form-group-control {
