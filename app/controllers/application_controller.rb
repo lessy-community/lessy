@@ -14,6 +14,8 @@ protected
 
   def current_user
     @current_user ||= User.find_by_authorization_token(request.headers['Authorization'])
+  rescue ActiveRecord::RecordNotFound
+    render_error 'User cannot be found', :not_found
   end
 
   def render_error(message, status = :bad_request)

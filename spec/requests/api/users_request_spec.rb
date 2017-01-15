@@ -332,6 +332,26 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
+    context 'with token of a deleted user' do
+      before do
+        user.destroy
+        get '/api/users/me', headers: { 'Authorization': user.token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/User cannot be found/)
+      end
+    end
+
     context 'with expired token' do
       before do
         get '/api/users/me', headers: { 'Authorization': user.token(1.day.ago) }

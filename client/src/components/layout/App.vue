@@ -3,7 +3,6 @@
     <app-header></app-header>
     <container>
       <router-view v-if="ready"></router-view>
-      <error-page v-else-if="error" :message="error"></error-page>
       <loading-page v-else></loading-page>
     </container>
   </div>
@@ -12,7 +11,6 @@
 <script>
   import AppHeader from './AppHeader'
 
-  import ErrorPage from '../pages/Error'
   import LoadingPage from '../pages/Loading'
 
   import auth from '../../auth'
@@ -24,14 +22,12 @@
 
     components: {
       AppHeader,
-      ErrorPage,
       LoadingPage,
     },
 
     data () {
       return {
         ready: false,
-        error: null,
       }
     },
 
@@ -45,8 +41,12 @@
             .then((user) => {
               this.ready = true
             })
-            .catch((error) => {
-              this.error = error.data.message
+            .catch(() => {
+              // having troubles to fetch current user? It probably means token
+              // expired or user does not exist. Logout and return to home page.
+              auth.logout()
+              this.$router.push('/')
+              this.ready = true
             })
       }
     },
