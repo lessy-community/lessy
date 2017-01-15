@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       collection do
         get '/:user_identifier/:project_name', action: 'find', as: 'find'
       end
+
+      member do
+        post 'start'
+      end
     end
 
     get '*path', to: 'welcome#not_found'
