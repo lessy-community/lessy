@@ -79,4 +79,8 @@
     width: 30%;
   }
 
+  .dashboard-page > .container {
+    justify-content: space-between;
+  }
+
 </style>
