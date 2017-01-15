@@ -1,11 +1,13 @@
 <template>
   <div v-if="project" class="project-layout">
-    <h1>
-      <container>
+    <container row align="center">
+      <h1 class="adapt">
         <router-link :to="project.user.urlShow">{{ project.user.displayedName }}</router-link>
-        / {{ project.name }}
-      </container>
-    </h1>
+        /
+        <router-link :to="project.urlShow">{{ project.name }}</router-link>
+      </h1>
+      <router-link :to="project.urlEdit" class="btn btn-settings">Settings</router-link>
+    </container>
     <router-view v-if="project" :project="project"></router-view>
   </div>
   <loading-page v-else></loading-page>
@@ -40,3 +42,18 @@
 
   }
 </script>
+
+<style scoped>
+
+  .project-layout .container > h1 {
+    margin-left: -5px;
+  }
+
+  .btn-settings.router-link-active {
+    color: #666;
+  }
+  .btn-settings.router-link-active:hover {
+    text-decoration: none;
+  }
+
+</style>

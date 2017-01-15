@@ -1,6 +1,5 @@
 <template>
   <div class="project-show-page">
-    <router-link :to="project.urlEdit">Edit</router-link>
     <template v-if="!project.isStarted">
       <router-link
         v-if="canStartProject"

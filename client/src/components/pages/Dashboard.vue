@@ -66,6 +66,11 @@
 
 <style>
 
+  .container > .dashboard-page {
+    padding-top: 30px;
+    padding-bottom: 60px;
+  }
+
   .dashboard-page .list-item:last-of-type {
     margin-bottom: 10px;
   }

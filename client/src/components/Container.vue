@@ -37,7 +37,13 @@ export default {
 .container.row > * {
   flex-shrink: 0;
 }
-.container.row .separator {
+.container.row > .adapt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.container.row > .adapt,
+.container.row > .separator {
   flex-grow: 1;
   flex-shrink: 1;
 }
