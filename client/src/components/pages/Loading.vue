@@ -11,3 +11,13 @@
 
   }
 </script>
+
+<style>
+
+  .loading-page {
+    padding-top: 42px;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+</style>
