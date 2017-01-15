@@ -5,8 +5,17 @@
       Follow its instructions to be able to access your projects later.
     </p>
 
-    <list-item v-for="project in projects">
-      <router-link :to="project.urlShow">{{ project.name }}</router-link>
+    <container row>
+      <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
+        Due on <b>{{ project.dueAtLabel }}</b>
+      </card>
+    </container>
+
+    <list-item v-for="project in notInProgressProjects">
+      <router-link :to="project.urlShow">
+        {{ project.name }}
+        <span v-if="project.isFinished">(finished)</span>
+      </router-link>
     </list-item>
 
     <btn
@@ -41,7 +50,8 @@
     computed: {
       ...mapGetters({
         user: 'users/current',
-        projects: 'projects/list',
+        inProgressProjects: 'projects/listInProgress',
+        notInProgressProjects: 'projects/listNotInProgress',
       }),
     },
 
@@ -58,6 +68,10 @@
 
   .dashboard-page .list-item:last-of-type {
     margin-bottom: 10px;
+  }
+
+  .dashboard-page .card {
+    width: 30%;
   }
 
 </style>

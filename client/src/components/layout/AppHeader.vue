@@ -34,6 +34,7 @@ export default {
 <style>
 
   .app-header {
+    margin-bottom: 10px;
     padding: 1rem 1rem;
 
     background-color: #0080b0;

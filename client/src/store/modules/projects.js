@@ -21,6 +21,7 @@ const getters = {
         ...project,
         user,
         isStarted,
+        isFinished: isStarted && !project.isInProgress,
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         urlShow: { name: 'project/show', params },
@@ -33,7 +34,18 @@ const getters = {
   list (state, getters) {
     return Object.keys(state.byIds)
                  .map(getters.findById)
-                 .sort((p1, p2) => p1.name.localeCompare(p2.name))
+  },
+
+  listNotInProgress (state, getters) {
+    return getters.list
+                  .filter((project) => !project.isInProgress)
+                  .sort((p1, p2) => p1.name.localeCompare(p2.name))
+  },
+
+  listInProgress (state, getters) {
+    return getters.list
+                  .filter((project) => project.isInProgress)
+                  .sort((p1, p2) => p1.dueAt > p2.dueAt)
   },
 
   current (state, getters) {
