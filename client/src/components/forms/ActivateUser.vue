@@ -10,6 +10,10 @@
 
     <form-group actions>
       <btn submit>Activate my account</btn>
+
+      <div v-if="error">
+        {{ error }}
+      </div>
     </form-group>
   </form>
 </template>
@@ -25,15 +29,21 @@ export default {
     return {
       username: '',
       password: '',
+      error: '',
     }
   },
   methods: {
     activate () {
-      this.$store.dispatch('users/activate', {
-        token: this.token,
-        username: this.username,
-        password: this.password,
-      }).then(this.onSuccess)
+      this.$store
+        .dispatch('users/activate', {
+          token: this.token,
+          username: this.username,
+          password: this.password,
+        })
+        .then(this.onSuccess)
+        .catch((error) => {
+          this.error = error.data.message
+        })
     },
   },
 }
