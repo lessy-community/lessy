@@ -8,6 +8,10 @@
       <text-field id="name" v-model="name" pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}" required />
     </form-group>
 
+    <form-group v-if="project.isStarted" label="Due on" target="due-at" required>
+      <date-field id="due-at" v-model="dueAt" required />
+    </form-group>
+
     <form-group label="Description" target="description">
       <text-field id="description" v-model="description" multiplelines />
     </form-group>
@@ -34,6 +38,7 @@
       return {
         name: this.project.name,
         description: this.project.description,
+        dueAt: this.project.dueAt,
         error: '',
       }
     },
@@ -45,6 +50,7 @@
             project: this.project,
             name: this.name,
             description: this.description,
+            dueAt: this.dueAt,
           })
           .then(this.onSuccess)
           .catch((error) => {

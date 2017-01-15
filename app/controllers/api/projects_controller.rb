@@ -47,7 +47,7 @@ class Api::ProjectsController < ApplicationController
 private
 
   def current_project
-    current_user.projects.find(params[:id])
+    @current_project ||= current_user.projects.find(params[:id])
   end
 
   def create_project_params
@@ -57,7 +57,9 @@ private
   end
 
   def update_project_params
-    params.require(:project).permit(:name, :description)
+    update_params = params.require(:project).permit(:name, :description)
+    update_params[:due_at] = Time.at(params[:project][:due_at].to_i).utc.to_datetime if current_project.started?
+    update_params
   end
 
   def due_at_param

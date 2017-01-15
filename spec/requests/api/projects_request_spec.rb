@@ -116,8 +116,14 @@ RSpec.describe Api::ProjectsController, type: :request do
 
   describe 'PATCH #update' do
 
-    let(:project) { create :project, user: user, name: 'my-project', description: 'Old description' }
-    let(:payload) { { name: 'new-name-for-a-project', description: 'New description' } }
+    let(:project) { create :project, :in_progress, user: user,
+                                                   name: 'my-project',
+                                                   description: 'Old description' }
+    let(:payload) { {
+      name: 'new-name-for-a-project',
+      description: 'New description',
+      due_at: DateTime.new(2018, 1, 20).to_i,
+    } }
 
     context 'with valid attributes' do
 
@@ -134,7 +140,10 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'saves the new project' do
-        expect(project.reload.description).to eq('New description')
+        project.reload
+        expect(project.name).to eq('new-name-for-a-project')
+        expect(project.description).to eq('New description')
+        expect(project.due_at).to eq(DateTime.new(2018, 1, 20))
       end
 
       it 'returns the new project' do
@@ -142,6 +151,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(api_project['id']).to eq(project.id)
         expect(api_project['name']).to eq('new-name-for-a-project')
         expect(api_project['description']).to eq('New description')
+        expect(api_project['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
       end
 
     end
@@ -164,6 +174,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       it 'returns an error message' do
         error = JSON.parse(response.body)
         expect(error['message']).to match(/Name must/)
+      end
+    end
+
+    context 'with not started project' do
+      let(:not_started_project) { create :project, :not_started, user: user }
+
+      before do
+        patch "/api/projects/#{not_started_project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'does not change due_at' do
+        expect(not_started_project.reload.due_at).to be_nil
       end
     end
 
