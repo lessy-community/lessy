@@ -1,13 +1,14 @@
 {
   "type": "object",
-  "required": ["id", "name", "userId"],
+  "required": ["id", "name", "userId", "isInProgress"],
   "properties": {
     "id": { "type": "integer" },
     "name": { "type": "string" },
     "userId": { "type": "integer" },
     "description": { "type": "string" },
     "startedAt": { "type": "integer" },
-    "dueAt": { "type": "integer" }
+    "dueAt": { "type": "integer" },
+    "isInProgress": { "type": "boolean" }
   },
   "additionalProperties": false
 }

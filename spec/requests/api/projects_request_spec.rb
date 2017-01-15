@@ -29,6 +29,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         project = JSON.parse(response.body)
         expect(project['id']).not_to be_nil
         expect(project['name']).to eq('my-project')
+        expect(project['isInProgress']).to be false
       end
 
     end
@@ -400,6 +401,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         project = JSON.parse(response.body)
         expect(project['dueAt']).to eq(1484920800)
         expect(project['startedAt']).to eq(1483228800)
+        expect(project['isInProgress']).to be true
       end
 
     end

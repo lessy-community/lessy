@@ -16,6 +16,12 @@ class Project < ApplicationRecord
     started_at.present?
   end
 
+  def in_progress?
+    return false unless started?
+    now = DateTime.now
+    started_at <= now && now <= due_at
+  end
+
   def start_now!(due_at)
     if user.projects.in_progress.count >= 3
       errors.add :base, 'User cannot have more than 3 started projects'
