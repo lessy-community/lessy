@@ -1,6 +1,10 @@
 <template>
   <div class="error-page">
-    {{ message }}
+    <h1>Oops…</h1>
+    <p>{{ message }}</p>
+    <div>
+      <router-link to="/">Go home</router-link>
+    </div>
   </div>
 </template>
 
@@ -15,3 +19,13 @@
 
   }
 </script>
+
+<style>
+
+  .container > .error-page {
+    padding-top: 42px;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+</style>
