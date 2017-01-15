@@ -19,6 +19,10 @@ export default {
   max-width: 950px;
   margin-left: auto;
   margin-right: auto;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .container > * {
   padding: 5px;

@@ -53,3 +53,11 @@
 
   }
 </script>
+
+<style>
+
+  .dashboard-page .list-item:last-of-type {
+    margin-bottom: 10px;
+  }
+
+</style>

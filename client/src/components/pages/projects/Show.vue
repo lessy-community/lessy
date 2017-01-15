@@ -1,9 +1,7 @@
 <template>
   <div class="project-show-page">
     <router-link :to="project.urlEdit">Edit</router-link>
-    <p v-if="project.description">
-      {{ project.description }}
-    </p>
+    <p v-if="project.description" class="project-description">{{ project.description }}</p>
     <p v-else>
       <em>Aucune description</em>
     </p>
@@ -21,3 +19,12 @@
 
   }
 </script>
+
+<style scoped>
+
+  .project-description {
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+  }
+
+</style>
