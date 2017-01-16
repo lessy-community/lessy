@@ -1,12 +1,13 @@
 {
   "type": "object",
-  "required": ["user", "projects"],
+  "required": ["user", "projects", "numberFinishedProjects"],
   "properties": {
     "user": { "ref": "user.json" },
     "projects": {
       "type": "array",
       "items": { "ref": "../projects/project.json" }
-    }
+    },
+    "numberFinishedProjects": { "type": "integer" }
   },
   "additionalProperties": false
 }

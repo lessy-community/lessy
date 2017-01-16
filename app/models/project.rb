@@ -12,6 +12,9 @@ class Project < ApplicationRecord
   scope :in_progress, -> {
     where('started_at <= ?', DateTime.now).where(finished_at: nil)
   }
+  scope :not_finished, -> {
+    where(finished_at: nil)
+  }
   scope :finished, -> {
     where.not(finished_at: nil)
   }
