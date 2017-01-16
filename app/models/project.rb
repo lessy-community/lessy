@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   validates :name, uniqueness: { scope: :user, message: 'should be unique per user' }
   validates :name, format: { with: /\A[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}\z/, message: 'must begin and end by lowercase letters, contain only lowercase letters, numbers, underscore and hiphen, contain at least two characters' }
   validate :due_at_not_before_started_at
+  validates :started_at, presence: true, if: :due_at?
 
   scope :in_progress, -> {
     today = DateTime.now
