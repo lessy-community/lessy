@@ -36,6 +36,10 @@ export default {
     return post(`/api/projects/${project.id}/finish`, payload)
   },
 
+  stop (project) {
+    return post(`/api/projects/${project.id}/stop`)
+  },
+
   getFinished (userIdentifier) {
     return get(`/api/users/${userIdentifier}/finished`)
   },

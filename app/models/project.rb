@@ -4,6 +4,7 @@ class Project < ApplicationRecord
 
   validates :user, :name, presence: true
   validates :started_at, presence: true, if: :finished?
+  validates :stopped_at, absence: true, if: :started?
   validates :name, uniqueness: { scope: :user, message: 'should be unique per user' }
   validates :name, format: { with: /\A[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}\z/, message: 'must begin and end by lowercase letters, contain only lowercase letters, numbers, underscore and hiphen, contain at least two characters' }
   validate :due_at_not_before_started_at, if: :due_at?
@@ -20,6 +21,7 @@ class Project < ApplicationRecord
   }
 
   alias_attribute :started?, :started_at?
+  alias_attribute :stopped?, :stopped_at?
   alias_attribute :finished?, :finished_at?
 
   def in_progress?
@@ -32,7 +34,11 @@ class Project < ApplicationRecord
       errors.add :base, 'User cannot have more than 3 started projects'
       raise ActiveRecord::RecordInvalid.new(self)
     end
-    update! started_at: DateTime.now, due_at: due_at
+    update! started_at: DateTime.now, due_at: due_at, stopped_at: nil
+  end
+
+  def stop_now!
+    update! started_at: nil, stopped_at: DateTime.now
   end
 
   def finish_at!(date)

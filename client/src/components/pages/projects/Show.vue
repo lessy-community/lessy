@@ -1,22 +1,7 @@
 <template>
   <div class="project-show-page">
-    <template v-if="!project.isStarted">
-      <router-link
-        v-if="canStartProject"
-        :to="project.urlStart"
-      >
-        Start this project
-      </router-link>
-      <span
-        v-else
-        class="disabled"
-        title="You already reached the maximum of started projects"
-      >
-        Start this project
-      </span>
-    </template>
-    <container v-else row align="center">
-      <div>
+    <container row align="center">
+      <div v-if="project.isStarted">
         <form-group label="Started on">
           <static-field :value="project.startedAtLabel" />
         </form-group>
@@ -27,8 +12,32 @@
           <static-field :value="project.dueAtLabel" />
         </form-group>
       </div>
-      <div v-if="!project.isFinished" class="project-finish-btn adapt">
-        <router-link :to="project.urlFinish" class="btn primary">Finish it, now!</router-link>
+      <div v-else-if="project.isStopped">
+        <form-group label="Stopped on">
+          <static-field :value="project.stoppedAtLabel" />
+        </form-group>
+      </div>
+
+      <div v-if="!project.isStarted" class="project-actions adapt">
+        <router-link
+          v-if="canStartProject"
+          :to="project.urlStart"
+          class="btn primary"
+        >
+          Start this project
+        </router-link>
+        <btn
+          v-else
+          type="link"
+          title="You already reached the maximum of started projects"
+          disabled
+        >
+          Start this project
+        </span>
+      </div>
+      <div v-else-if="!project.isFinished" class="project-actions adapt">
+        <router-link :to="project.urlFinish" class="btn primary">Finish it</router-link>
+        <btn type="danger" @click="confirmStop">Stop it, now</btn>
       </div>
     </container>
 
@@ -59,12 +68,20 @@
       }),
     },
 
+    methods: {
+      confirmStop () {
+        if (window.confirm('Oh? The project will be marked as stopped. Can you confirm?')) {
+          this.$store.dispatch('projects/stop', { project: this.project })
+        }
+      },
+    },
+
   }
 </script>
 
 <style scoped>
 
-  .project-finish-btn {
+  .project-actions {
     text-align: center;
   }
 

@@ -86,6 +86,17 @@
     box-shadow: 0 0 0 2px #09b8fb;
   }
 
+  .btn.danger {
+    color: #fff;
+    background-color: #ff2c00;
+  }
+  .btn.danger:hover {
+    background-color: #C62200;
+  }
+  .btn.danger:focus {
+    box-shadow: 0 0 0 2px #ff7f64;
+  }
+
   .btn.cancel {
     color: #ff2c00;
   }
