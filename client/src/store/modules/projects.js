@@ -17,16 +17,19 @@ const getters = {
         projectName: project.name,
       }
       const isStarted = !!project.startedAt
+      const isFinished = !!project.finishedAt
       return {
         ...project,
         user,
         isStarted,
-        isFinished: isStarted && !project.isInProgress,
+        isFinished,
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
+        finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
         urlStart: { name: 'project/start', params },
+        urlFinish: { name: 'project/finish', params },
       }
     }
   },
@@ -82,6 +85,11 @@ const actions = {
 
   start ({ commit }, { project, dueAt }) {
     return projectsApi.start(project, dueAt)
+                      .then((data) => commit('set', data))
+  },
+
+  finish ({ commit }, { project, finishedAt }) {
+    return projectsApi.finish(project, finishedAt)
                       .then((data) => commit('set', data))
   },
 }

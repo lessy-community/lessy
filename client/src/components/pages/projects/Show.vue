@@ -15,14 +15,22 @@
         Start this project
       </span>
     </template>
-    <div v-else>
-      <form-group label="Started on">
-        <static-field :value="project.startedAtLabel" />
-      </form-group>
-      <form-group label="Due on">
-        <static-field :value="project.dueAtLabel" />
-      </form-group>
-    </div>
+    <container v-else row align="center">
+      <div>
+        <form-group label="Started on">
+          <static-field :value="project.startedAtLabel" />
+        </form-group>
+        <form-group v-if="project.isFinished" label="Finished on">
+          <static-field :value="project.finishedAtLabel" />
+        </form-group>
+        <form-group v-else label="Due on">
+          <static-field :value="project.dueAtLabel" />
+        </form-group>
+      </div>
+      <div v-if="!project.isFinished" class="project-finish-btn adapt">
+        <router-link :to="project.urlFinish" class="btn primary">Finish it, now!</router-link>
+      </div>
+    </container>
 
     <p v-if="project.description" class="project-description">{{ project.description }}</p>
     <p v-else>
@@ -55,6 +63,10 @@
 </script>
 
 <style scoped>
+
+  .project-finish-btn {
+    text-align: center;
+  }
 
   .project-description {
     font-size: 1.1rem;
