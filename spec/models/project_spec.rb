@@ -35,6 +35,11 @@ RSpec.describe Project, type: :model do
                                 started_at: DateTime.new(2017)
       expect(project).to be_invalid
     end
+
+    it 'does not accept stopped_at with started_at' do
+      project = build :project, :in_progress, :stopped
+      expect(project).to be_invalid
+    end
   end
 
   describe '#start_now!' do
@@ -44,6 +49,13 @@ RSpec.describe Project, type: :model do
     context 'with less than 3 started projects' do
       it 'succeeds' do
         create_list :project, 2, :in_progress, user: user
+        expect { project.start_now! due_at }.not_to raise_error
+      end
+    end
+
+    context 'with stopped projects' do
+      it 'succeeds' do
+        project.stop_now!
         expect { project.start_now! due_at }.not_to raise_error
       end
     end
@@ -60,6 +72,23 @@ RSpec.describe Project, type: :model do
         create_list :project, 3, :in_progress, user: user
         expect { project.start_now! due_at }.to raise_error(ActiveRecord::RecordInvalid, /User cannot have more than 3 started projects/)
       end
+    end
+  end
+
+  describe '#stop_now!' do
+    let(:project) { create :project, :in_progress }
+
+    before do
+      Timecop.freeze DateTime.new(2017)
+      project.stop_now!
+    end
+
+    it 'sets started_at to nil' do
+      expect(project.started_at).to be_nil
+    end
+
+    it 'sets stopped_at to now' do
+      expect(project.stopped_at).to eq(DateTime.now)
     end
   end
 

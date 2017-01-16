@@ -20,5 +20,9 @@ FactoryGirl.define do
       due_at nil
       finished_at nil
     end
+
+    trait :stopped do
+      stopped_at { 15.days.ago }
+    end
   end
 end

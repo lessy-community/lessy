@@ -406,6 +406,23 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     end
 
+    context 'with a stopped project' do
+
+      before do
+        project.stop_now!
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'sets stopped_at to nil' do
+        expect(project.reload.stopped_at).to be_nil
+      end
+
+    end
+
     context 'with missing attribute' do
       before do
         post "/api/projects/#{ project.id }/start", params: { project: {} }, headers: { 'Authorization': user.token }
@@ -692,6 +709,103 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
     end
 
+  end
+
+  describe 'POST #stop' do
+
+    let(:project) { create :project, :in_progress, user: user, started_at: DateTime.new(2017) }
+
+    before do
+      Timecop.freeze DateTime.new(2017, 1, 30)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid project' do
+      before do
+        post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the projects/project schema' do
+        expect(response).to match_response_schema('projects/project')
+      end
+
+      it 'saves stopped_at' do
+        expect(project.reload.stopped_at).to eq(DateTime.new(2017, 1, 30))
+      end
+
+      it 'returns the updated project' do
+        project = JSON.parse(response.body)
+        expect(project['stoppedAt']).to eq(DateTime.new(2017, 01, 30).to_i)
+      end
+    end
+
+    context 'with already stopped project' do
+      before do
+        project.stop_now!
+        post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': user.token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Project has already been stopped/)
+      end
+    end
+
+    context 'with already finished project' do
+      before do
+        project.finish_at! DateTime.new(2017, 01, 15)
+        post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': user.token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Project has already been finished/)
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': other_user.token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Project cannot be found/)
+      end
+    end
   end
 
 end

@@ -59,6 +59,19 @@ class Api::ProjectsController < ApplicationController
     render_error error.message
   end
 
+  def stop
+    @project = current_project
+    if @project.stopped?
+      render_error 'Project has already been stopped'
+    elsif @project.finished?
+      render_error 'Project has already been finished'
+    else
+      @project.stop_now!
+    end
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Project cannot be found', :not_found
+  end
+
   def finish
     @project = current_project
     unless @project.finished?
