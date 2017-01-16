@@ -1,7 +1,7 @@
 <template>
   <div :class="['form-group', { 'form-group-actions': actions }]">
     <label v-if="label" :for="target">{{ getLabel }}</label>
-    <div class="form-group-control">
+    <div :class="['form-group-control', { invalid }]">
       <slot></slot>
       <div v-if="tip" class="form-group-tip">{{ tip }}</div>
     </div>
@@ -18,6 +18,7 @@
       'target': { type: String },
       'tip': { type: String },
       'required': { type: Boolean },
+      'invalid': { type: Boolean },
       'actions': { type: Boolean },
     },
 
@@ -61,7 +62,7 @@
     color: #555;
     font-size: .9rem;
   }
-  .form-group-control .form-group-tip.error {
+  .form-group-control.invalid .form-group-tip {
     color: #ff2c00;
   }
 
@@ -104,6 +105,10 @@
     border-color: #0080b0;
     background-color: #e2f4fb;
   }
+  .form-group-control.invalid input[type="text"],
+  .form-group-control.invalid input[type="email"],
+  .form-group-control.invalid input[type="password"],
+  .form-group-control.invalid textarea,
   .form-group-control input[type="text"]:invalid,
   .form-group-control input[type="email"]:invalid,
   .form-group-control input[type="password"]:invalid,
