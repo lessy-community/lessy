@@ -31,6 +31,21 @@ class Api::ProjectsController < ApplicationController
     render_error 'Project cannot be found', :not_found
   end
 
+  def get_finished
+    user = User.find_by_identifier!(params[:id])
+
+    # Note: for the moment, projects are all private so we forbid accessing
+    # projects not owned by current_user. We raise a RecordNotFound to avoid
+    # possible leakages.
+    if user != current_user
+      raise ActiveRecord::RecordNotFound
+    end
+
+    @projects = user.projects.finished
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Projects cannot be found', :not_found
+  end
+
   def start
     @project = current_project
     unless @project.started?

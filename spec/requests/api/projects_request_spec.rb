@@ -644,4 +644,54 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
   end
 
+  describe 'GET #get_finished' do
+    let(:user) { create :user, :activated, username: 'john' }
+
+    before do
+      @project = create(:project, :finished, user: user, name: 'my-project')
+    end
+
+    context 'when looking for own existing project' do
+      before do
+        get '/api/users/john/finished', headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the projects/project schema' do
+        expect(response).to match_response_schema('projects/get_finished')
+      end
+
+      it 'returns the corresponding project' do
+        projects = JSON.parse(response.body)
+        expect(projects.length).to eq(1)
+        expect(projects[0]['id']).to eq(@project.id)
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        get '/api/users/john/finished', headers: { 'Authorization': other_user.token }
+      end
+
+      it 'fails' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'matches the error schema' do
+        expect(response).to match_response_schema('error')
+      end
+
+      it 'returns an error message' do
+        error = JSON.parse(response.body)
+        expect(error['message']).to match(/Projects cannot be found/)
+      end
+    end
+
+  end
+
 end
