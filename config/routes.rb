@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:create, :update] do
       member do
         post 'start'
+        post 'finish'
       end
     end
 

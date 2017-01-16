@@ -44,6 +44,19 @@ class Api::ProjectsController < ApplicationController
     render_error error.message
   end
 
+  def finish
+    @project = current_project
+    unless @project.finished?
+      @project.finish_at! finished_at_param
+    else
+      render_error 'Project has already been finished'
+    end
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Project cannot be found', :not_found
+  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+    render_error error.message
+  end
+
 private
 
   def current_project
@@ -67,6 +80,13 @@ private
       project_params.require(:due_at)
     end[:due_at].to_i
     Time.at(due_at_timestamp).utc.to_datetime
+  end
+
+  def finished_at_param
+    timestamp = params.require(:project).permit(:finished_at).tap do |project_params|
+      project_params.require(:finished_at)
+    end[:finished_at].to_i
+    Time.at(timestamp).utc.to_datetime
   end
 
 end
