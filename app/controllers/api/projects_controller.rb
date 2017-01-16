@@ -17,7 +17,7 @@ class Api::ProjectsController < ApplicationController
   end
 
   def find
-    user = User.find_by_identifier!(params[:user_identifier])
+    user = User.find_by_identifier!(params[:id])
 
     # Note: for the moment, projects are all private so we forbid accessing
     # projects not owned by current_user. We raise a RecordNotFound to avoid

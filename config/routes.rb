@@ -7,12 +7,12 @@ Rails.application.routes.draw do
         post 'authorize'
         post '/:token/activate', action: 'activate', as: 'activate'
       end
+
+      member do
+        get '/projects/:project_name', to: 'projects#find', as: 'find_project'
+      end
     end
     resources :projects, only: [:create, :update] do
-      collection do
-        get '/:user_identifier/:project_name', action: 'find', as: 'find'
-      end
-
       member do
         post 'start'
       end

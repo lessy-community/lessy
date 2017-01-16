@@ -283,7 +283,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'when looking for own existing project' do
       before do
-        get '/api/projects/john/my-project', headers: { 'Authorization': user.token }
+        get '/api/users/john/projects/my-project', headers: { 'Authorization': user.token }
       end
 
       it 'succeeds' do
@@ -302,7 +302,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'when looking for own existing project by user id' do
       before do
-        get "/api/projects/#{ user.id }/my-project", headers: { 'Authorization': user.token }
+        get "/api/users/#{ user.id }/projects/my-project", headers: { 'Authorization': user.token }
       end
 
       it 'succeeds' do
@@ -323,7 +323,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:other_user) { create :user }
 
       before do
-        get '/api/projects/john/my-project', headers: { 'Authorization': other_user.token }
+        get '/api/users/john/projects/my-project', headers: { 'Authorization': other_user.token }
       end
 
       it 'fails' do
@@ -343,7 +343,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'when looking for a missing project' do
       before do
         @project.destroy
-        get '/api/projects/john/my-project', headers: { 'Authorization': user.token }
+        get '/api/users/john/projects/my-project', headers: { 'Authorization': user.token }
       end
 
       it 'fails' do

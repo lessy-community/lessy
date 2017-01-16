@@ -11,7 +11,7 @@ export default {
   },
 
   find (userIdentifier, projectName) {
-    return get(`/api/projects/${userIdentifier}/${projectName}`)
+    return get(`/api/users/${userIdentifier}/projects/${projectName}`)
   },
 
   update (project, payload) {
