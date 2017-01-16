@@ -298,6 +298,7 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with valid token' do
       before do
         Timecop.freeze DateTime.new(2017)
+        create :project, :finished, user: user, name: 'my-finished-project'
         create :project, :in_progress, user: user,
                                        name: 'my-project',
                                        started_at: 15.days.ago,
@@ -322,7 +323,17 @@ RSpec.describe Api::UsersController, type: :request do
         expect(json_user['id']).to eq(user.id)
       end
 
-      it 'includes project' do
+      it 'does not include finished project' do
+        projects = JSON.parse(response.body)['projects']
+        expect(projects.length).to eq(1)
+        expect(projects[0]['name']).not_to eq('my-finished-project')
+      end
+
+      it 'returns number of finished projects' do
+        expect(JSON.parse(response.body)['numberFinishedProjects']).to eq(1)
+      end
+
+      it 'includes in progress project' do
         projects = JSON.parse(response.body)['projects']
         expect(projects.length).to eq(1)
         expect(projects[0]['name']).to eq('my-project')

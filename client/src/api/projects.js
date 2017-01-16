@@ -26,4 +26,17 @@ export default {
     }
     return post(`/api/projects/${project.id}/start`, payload)
   },
+
+  finish (project, finishedAt) {
+    const payload = {
+      project: {
+        finishedAt,
+      },
+    }
+    return post(`/api/projects/${project.id}/finish`, payload)
+  },
+
+  getFinished (userIdentifier) {
+    return get(`/api/users/${userIdentifier}/finished`)
+  },
 }

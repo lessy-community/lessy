@@ -31,12 +31,40 @@ class Api::ProjectsController < ApplicationController
     render_error 'Project cannot be found', :not_found
   end
 
+  def get_finished
+    user = User.find_by_identifier!(params[:id])
+
+    # Note: for the moment, projects are all private so we forbid accessing
+    # projects not owned by current_user. We raise a RecordNotFound to avoid
+    # possible leakages.
+    if user != current_user
+      raise ActiveRecord::RecordNotFound
+    end
+
+    @projects = user.projects.finished
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Projects cannot be found', :not_found
+  end
+
   def start
     @project = current_project
     unless @project.started?
       @project.start_now! due_at_param
     else
       render_error 'Project has already been started'
+    end
+  rescue ActiveRecord::RecordNotFound
+    render_error 'Project cannot be found', :not_found
+  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+    render_error error.message
+  end
+
+  def finish
+    @project = current_project
+    unless @project.finished?
+      @project.finish_at! finished_at_param
+    else
+      render_error 'Project has already been finished'
     end
   rescue ActiveRecord::RecordNotFound
     render_error 'Project cannot be found', :not_found
@@ -67,6 +95,13 @@ private
       project_params.require(:due_at)
     end[:due_at].to_i
     Time.at(due_at_timestamp).utc.to_datetime
+  end
+
+  def finished_at_param
+    timestamp = params.require(:project).permit(:finished_at).tap do |project_params|
+      project_params.require(:finished_at)
+    end[:finished_at].to_i
+    Time.at(timestamp).utc.to_datetime
   end
 
 end

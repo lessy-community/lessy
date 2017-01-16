@@ -4,6 +4,7 @@ import projectsApi from '../../api/projects'
 
 const state = {
   current: null,
+  numberFinished: 0,
   byIds: {},
 }
 
@@ -17,16 +18,19 @@ const getters = {
         projectName: project.name,
       }
       const isStarted = !!project.startedAt
+      const isFinished = !!project.finishedAt
       return {
         ...project,
         user,
         isStarted,
-        isFinished: isStarted && !project.isInProgress,
+        isFinished,
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
+        finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
         urlStart: { name: 'project/start', params },
+        urlFinish: { name: 'project/finish', params },
       }
     }
   },
@@ -36,9 +40,9 @@ const getters = {
                  .map(getters.findById)
   },
 
-  listNotInProgress (state, getters) {
+  listNotStarted (state, getters) {
     return getters.list
-                  .filter((project) => !project.isInProgress)
+                  .filter((project) => !project.isStarted)
                   .sort((p1, p2) => p1.name.localeCompare(p2.name))
   },
 
@@ -46,6 +50,12 @@ const getters = {
     return getters.list
                   .filter((project) => project.isInProgress)
                   .sort((p1, p2) => p1.dueAt > p2.dueAt)
+  },
+
+  listFinished (state, getters) {
+    return getters.list
+                  .filter((project) => project.isFinished)
+                  .sort((p1, p2) => p1.finishedAt > p2.finishedAt)
   },
 
   current (state, getters) {
@@ -84,6 +94,23 @@ const actions = {
     return projectsApi.start(project, dueAt)
                       .then((data) => commit('set', data))
   },
+
+  finish ({ commit, state }, { project, finishedAt }) {
+    return projectsApi
+      .finish(project, finishedAt)
+      .then((data) => {
+        commit('set', data)
+        commit('setNumberFinished', state.numberFinished + 1)
+      })
+  },
+
+  getFinished ({ commit }, { userIdentifier }) {
+    return projectsApi
+      .getFinished(userIdentifier)
+      .then((data) => {
+        commit('addList', data)
+      })
+  },
 }
 
 const mutations = {
@@ -95,6 +122,13 @@ const mutations = {
     state.byIds = {
       ...state.byIds,
       [project.id]: project,
+    }
+  },
+
+  addList (state, projects) {
+    state.byIds = {
+      ...state.byIds,
+      ...mapElementsById(projects),
     }
   },
 
@@ -118,6 +152,10 @@ const mutations = {
       delete state.byIds[state.current]
     }
     state.current = null
+  },
+
+  setNumberFinished (state, numberFinished) {
+    state.numberFinished = numberFinished
   },
 }
 

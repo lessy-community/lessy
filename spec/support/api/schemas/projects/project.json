@@ -8,6 +8,7 @@
     "description": { "type": "string" },
     "startedAt": { "type": "integer" },
     "dueAt": { "type": "integer" },
+    "finishedAt": { "type": "integer" },
     "isInProgress": { "type": "boolean" }
   },
   "additionalProperties": false

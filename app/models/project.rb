@@ -3,24 +3,28 @@ class Project < ApplicationRecord
   belongs_to :user
 
   validates :user, :name, presence: true
+  validates :started_at, presence: true, if: ->(project) { project.due_at? || project.finished_at? }
   validates :name, uniqueness: { scope: :user, message: 'should be unique per user' }
   validates :name, format: { with: /\A[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}\z/, message: 'must begin and end by lowercase letters, contain only lowercase letters, numbers, underscore and hiphen, contain at least two characters' }
-  validate :due_at_not_before_started_at
-  validates :started_at, presence: true, if: :due_at?
+  validate :due_at_not_before_started_at, if: :due_at?
+  validate :finished_at_between_started_at_and_today, if: :finished?
 
   scope :in_progress, -> {
-    today = DateTime.now
-    where('started_at <= ? and ? <= due_at', today, today)
+    where('started_at <= ?', DateTime.now).where(finished_at: nil)
+  }
+  scope :not_finished, -> {
+    where(finished_at: nil)
+  }
+  scope :finished, -> {
+    where.not(finished_at: nil)
   }
 
-  def started?
-    started_at.present?
-  end
+  alias_attribute :started?, :started_at?
+  alias_attribute :finished?, :finished_at?
 
   def in_progress?
     return false unless started?
-    now = DateTime.now
-    started_at <= now && now <= due_at
+    started_at <= DateTime.now && !finished?
   end
 
   def start_now!(due_at)
@@ -31,12 +35,24 @@ class Project < ApplicationRecord
     update! started_at: DateTime.now, due_at: due_at
   end
 
+  def finish_at!(date)
+    update! finished_at: date
+  end
+
 private
 
   def due_at_not_before_started_at
-    return if due_at.nil? || started_at.nil?
+    return false unless started?
     if due_at < started_at
       errors.add :due_at, 'cannot be set before started_at'
+    end
+  end
+
+  def finished_at_between_started_at_and_today
+    return false unless started?
+    now = DateTime.now
+    if started_at >= finished_at || finished_at > now
+      errors.add :finished_at, 'must be between started_at and today'
     end
   end
 

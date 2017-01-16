@@ -11,6 +11,7 @@ import ProjectLayout from './components/layout/Project'
 import ProjectShowPage from './components/pages/projects/Show'
 import ProjectEditPage from './components/pages/projects/Edit'
 import ProjectStartPage from './components/pages/projects/Start'
+import ProjectFinishPage from './components/pages/projects/Finish'
 
 import auth from './auth'
 
@@ -27,6 +28,7 @@ const routes = [
       { path: '', component: ProjectShowPage, name: 'project/show' },
       { path: 'edit', component: ProjectEditPage, name: 'project/edit' },
       { path: 'start', component: ProjectStartPage, name: 'project/start' },
+      { path: 'finish', component: ProjectFinishPage, name: 'project/finish' },
     ]
   },
   { path: '*', component: NotFoundPage },

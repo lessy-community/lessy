@@ -10,11 +10,13 @@ Rails.application.routes.draw do
 
       member do
         get '/projects/:project_name', to: 'projects#find', as: 'find_project'
+        get '/finished', to: 'projects#get_finished', as: 'get_finished'
       end
     end
     resources :projects, only: [:create, :update] do
       member do
         post 'start'
+        post 'finish'
       end
     end
 
