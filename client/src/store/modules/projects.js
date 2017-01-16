@@ -18,14 +18,17 @@ const getters = {
         projectName: project.name,
       }
       const isStarted = !!project.startedAt
+      const isStopped = !!project.stoppedAt
       const isFinished = !!project.finishedAt
       return {
         ...project,
         user,
         isStarted,
+        isStopped,
         isFinished,
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
+        stoppedAtLabel: isStopped ? formatDate(project.stoppedAt) : '',
         finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
@@ -41,9 +44,15 @@ const getters = {
   },
 
   listNotStarted (state, getters) {
-    return getters.list
-                  .filter((project) => !project.isStarted)
-                  .sort((p1, p2) => p1.name.localeCompare(p2.name))
+    return getters
+      .list
+      .filter((project) => !project.isStarted)
+      .sort((p1, p2) => {
+        if (p1.isStopped === p2.isStopped) {
+          return p1.name.localeCompare(p2.name)
+        }
+        return p1.isStopped < p2.isStopped
+      })
   },
 
   listInProgress (state, getters) {
@@ -92,6 +101,11 @@ const actions = {
 
   start ({ commit }, { project, dueAt }) {
     return projectsApi.start(project, dueAt)
+                      .then((data) => commit('set', data))
+  },
+
+  stop ({ commit }, { project }) {
+    return projectsApi.stop(project)
                       .then((data) => commit('set', data))
   },
 

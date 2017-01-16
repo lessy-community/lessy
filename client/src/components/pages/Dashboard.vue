@@ -12,7 +12,12 @@
     </container>
 
     <list-item v-for="project in notStartedProjects">
-      <router-link :to="project.urlShow">{{ project.name }}</router-link>
+      <router-link :to="project.urlShow">
+        {{ project.name }}
+        <template v-if="project.isStopped">
+          (stopped on {{ project.stoppedAtLabel }})
+        </template>
+      </router-link>
     </list-item>
 
     <btn
