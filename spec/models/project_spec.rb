@@ -23,6 +23,23 @@ RSpec.describe Project, type: :model do
       project = build :project, due_at: DateTime.new(2016)
       expect(project).to be_invalid
     end
+
+    it 'does not accept finished_at without started_at' do
+      project = build :project, finished_at: DateTime.new(2016)
+      expect(project).to be_invalid
+    end
+
+    it 'does not accept finished_at before started_at' do
+      project = build :project, finished_at: DateTime.new(2016),
+                                started_at: DateTime.new(2017)
+      expect(project).to be_invalid
+    end
+
+    it 'does not accept finished_at after today' do
+      project = build :project, finished_at: DateTime.new(2018),
+                                started_at: DateTime.new(2017)
+      expect(project).to be_invalid
+    end
   end
 
   describe '#start_now!' do
