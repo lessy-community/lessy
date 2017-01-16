@@ -19,11 +19,6 @@ RSpec.describe Project, type: :model do
       expect(project).to be_invalid
     end
 
-    it 'does not accept due_at without started_at' do
-      project = build :project, due_at: DateTime.new(2016)
-      expect(project).to be_invalid
-    end
-
     it 'does not accept finished_at without started_at' do
       project = build :project, finished_at: DateTime.new(2016)
       expect(project).to be_invalid
