@@ -62,6 +62,7 @@ const actions = {
       .then((data) => {
         commit('setCurrent', data.user)
         commit('projects/setup', data.projects, { root: true })
+        commit('projects/setNumberFinished', data.numberFinishedProjects, { root: true })
       })
   },
 
