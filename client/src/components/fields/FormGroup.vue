@@ -89,7 +89,7 @@
     border-radius: 4px;
     box-shadow: 0 1px 1px #eee inset;
 
-    transition: all .2s ease-in-out;
+    transition: border-color .2s ease-in-out;
   }
   .form-group-control textarea {
     min-height: 150px;
