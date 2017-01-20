@@ -179,6 +179,12 @@ const mutations = {
     state.current = null
   },
 
+  reset (state) {
+    state.current = null
+    state.byIds = {}
+    state.numberFinished = 0
+  },
+
   setNumberFinished (state, numberFinished) {
     state.numberFinished = numberFinished
   },

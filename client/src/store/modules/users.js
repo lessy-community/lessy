@@ -69,6 +69,7 @@ const actions = {
   logout ({ commit }) {
     auth.logout()
     commit('resetCurrent', true)
+    commit('projects/reset', null, { root: true })
   },
 }
 
