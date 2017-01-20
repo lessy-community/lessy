@@ -6,7 +6,7 @@
     </div>
 
     <btn submit>Create</btn>
-    <btn type="cancel" @click="onCancel">Cancel</btn>
+    <btn v-if="onCancel" type="cancel" @click="onCancel">Cancel</btn>
   </form>
 </template>
 
@@ -16,7 +16,8 @@
     name: 'create-project-form',
 
     props: {
-      'onCancel': { type: Function, required: true },
+      'onSuccess': { type: Function },
+      'onCancel': { type: Function },
     },
 
     data () {
@@ -32,10 +33,14 @@
           .dispatch('projects/create', {
             name: this.name,
           })
-          .then(() => {
+          .then((projectId) => {
+            const { nameInput } = this.$refs
             this.name = ''
             this.error = ''
-            this.$refs.nameInput.$el.focus()
+            nameInput && nameInput.$el.focus()
+            if (typeof this.onSuccess === 'function') {
+              this.onSuccess(projectId)
+            }
           })
           .catch((error) => {
             this.error = error.data.message

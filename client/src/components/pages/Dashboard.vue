@@ -5,29 +5,35 @@
       Follow its instructions to be able to access your projects later.
     </p>
 
-    <container row>
-      <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
-        Due on <b>{{ project.dueAtLabel }}</b>
-      </card>
-    </container>
+    <div v-if="numberCurrentProjects > 0">
+      <container row>
+        <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
+          Due on <b>{{ project.dueAtLabel }}</b>
+        </card>
+      </container>
 
-    <list-item v-for="project in notStartedProjects">
-      <router-link :to="project.urlShow">
-        {{ project.name }}
-        <template v-if="project.isStopped">
-          (stopped on {{ project.stoppedAtLabel }})
-        </template>
-      </router-link>
-    </list-item>
+      <list-item v-for="project in notStartedProjects">
+        <router-link :to="project.urlShow">
+          {{ project.name }}
+          <template v-if="project.isStopped">
+            (stopped on {{ project.stoppedAtLabel }})
+          </template>
+        </router-link>
+      </list-item>
 
-    <btn
-      v-if="!createFormEnabled"
-      type="primary"
-      @click="createFormEnabled = true"
-    >
-      + create a project
-    </btn>
-    <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
+      <btn
+        v-if="!createFormEnabled"
+        type="primary"
+        @click="createFormEnabled = true"
+      >
+        + create a project
+      </btn>
+      <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
+    </div>
+    <div v-else class="new-project-placeholder">
+      <p>You don't have any project yet, what are you working on?</p>
+      <create-project-form :onSuccess="redirectToStartProject"></create-project-form>
+    </div>
 
     <div v-if="numberFinishedProjects > 0" class="projects-finished">
       <btn v-if="!showFinishedProjects" type="secondary" @click="loadFinishedProjects">
@@ -82,6 +88,7 @@
         inProgressProjects: 'projects/listInProgress',
         notStartedProjects: 'projects/listNotStarted',
         finishedProjects: 'projects/listFinished',
+        numberCurrentProjects: 'projects/numberCurrent',
       }),
       ...mapState({
         numberFinishedProjects: state => state.projects.numberFinished,
@@ -98,6 +105,11 @@
         dispatch('projects/getFinished', {
           userIdentifier: getters['users/current'].identifier,
         }).then(() => { this.showFinishedProjects = true })
+      },
+
+      redirectToStartProject (projectId) {
+        const project = this.$store.getters['projects/findById'](projectId)
+        this.$router.push(project.urlStart)
       },
     },
 
@@ -125,6 +137,23 @@
 
   .dashboard-page .projects-finished {
     margin-top: 30px;
+  }
+
+  .dashboard-page .new-project-placeholder {
+    text-align: center;
+  }
+  .dashboard-page .new-project-placeholder p {
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+  }
+
+  .dashboard-page .new-project-placeholder form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .dashboard-page .new-project-placeholder .form-group-tip {
+    text-align: left;
   }
 
 </style>

@@ -81,12 +81,23 @@ const getters = {
     }, 0)
     return nbStartedProjects < 3
   },
+
+  numberCurrent (state, getters) {
+    return Object.keys(state.byIds)
+      .map(getters.findById)
+      .filter((project) => !project.isFinished)
+      .length
+  },
 }
 
 const actions = {
   create ({ commit }, { name }) {
-    return projectsApi.create(name)
-                      .then((data) => commit('add', data))
+    return projectsApi
+      .create(name)
+      .then((data) => {
+        commit('add', data)
+        return data.id
+      })
   },
 
   find ({ commit }, { userIdentifier, projectName }) {
