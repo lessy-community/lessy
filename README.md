@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/marienfressinaud/project-zero.svg?branch=master)](https://travis-ci.org/marienfressinaud/project-zero)
 
+Project Zero is distributed under [MIT license](https://opensource.org/licenses/MIT).
+
 ## Database configuration
 
 Project Zero uses PostgreSQL as default database so make sure you've installed
