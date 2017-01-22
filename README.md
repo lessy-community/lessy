@@ -9,5 +9,4 @@ It is still under heavy development and there is only few features developed
 today.
 
 - it is distributed under [MIT license](https://opensource.org/licenses/MIT)
-- [installation requirements](docs/installation.md)
-- [running tests](docs/tests.md)
+- [documentation](docs/index.md)
