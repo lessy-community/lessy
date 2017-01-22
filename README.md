@@ -10,3 +10,4 @@ today.
 
 - it is distributed under [MIT license](https://opensource.org/licenses/MIT)
 - [documentation](docs/index.md)
+- [contributing](CONTRIBUTING.md)
