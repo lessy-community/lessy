@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   validates :started_at, presence: true, if: :finished?
   validates :stopped_at, absence: true, if: :started?
   validates :name, uniqueness: { scope: :user, message: 'should be unique per user' }
-  validates :name, format: { with: /\A[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}\z/, message: 'must begin and end by lowercase letters, contain only lowercase letters, numbers, underscore and hiphen, contain at least two characters' }
+  validates :name, format: { with: /\A[\w\-]{1,}\z/, message: 'must contain letters, numbers, underscores (_) and hiphens (-) only' }
   validate :due_at_not_before_started_at, if: :due_at?
   validate :finished_at_between_started_at_and_today, if: :finished?
 

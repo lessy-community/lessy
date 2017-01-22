@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="create">
     <div :class="['form-group-control', { invalid: !!error }]">
-      <text-field id="name" v-model="name" pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}" required ref="nameInput" />
+      <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required ref="nameInput" />
       <div v-if="error" class="form-group-tip">{{ error }}</div>
     </div>
 

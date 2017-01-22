@@ -5,7 +5,7 @@
     </div>
 
     <form-group label="Name" tip="Only lowercase letters, underscore and dash" target="name" required>
-      <text-field id="name" v-model="name" pattern="[a-z]{1}([a-z0-9_\-]{1,})*[a-z]{1}" required />
+      <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required />
     </form-group>
 
     <form-group v-if="project.isStarted" label="Due on" target="due-at" required>
