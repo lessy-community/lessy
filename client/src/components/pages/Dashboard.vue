@@ -131,10 +131,6 @@
     width: 30%;
   }
 
-  .dashboard-page > .container {
-    justify-content: space-between;
-  }
-
   .dashboard-page .projects-finished {
     margin-top: 30px;
   }
