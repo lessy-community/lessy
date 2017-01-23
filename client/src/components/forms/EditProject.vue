@@ -12,7 +12,7 @@
       <date-field id="due-at" v-model="dueAt" required />
     </form-group>
 
-    <form-group label="Description" target="description">
+    <form-group label="Description" target="description" tip="Description supports Markdown">
       <text-field id="description" v-model="description" multiplelines />
     </form-group>
 

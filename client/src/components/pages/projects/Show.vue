@@ -41,7 +41,7 @@
       </div>
     </container>
 
-    <p v-if="project.description" class="project-description">{{ project.description }}</p>
+    <p v-if="project.description" class="project-description" v-html="project.mdDescription"></p>
     <p v-else>
       <em>
         There is no description for this project yet.

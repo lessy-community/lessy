@@ -1,3 +1,5 @@
+import marked from 'marked'
+
 import { mapElementsById, formatDate } from '../../utils'
 
 import projectsApi from '../../api/projects'
@@ -26,6 +28,7 @@ const getters = {
         isStarted,
         isStopped,
         isFinished,
+        mdDescription: marked(project.description, { sanitize: true }),
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         stoppedAtLabel: isStopped ? formatDate(project.stoppedAt) : '',
