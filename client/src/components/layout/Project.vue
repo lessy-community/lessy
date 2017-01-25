@@ -6,7 +6,7 @@
         /
         <router-link :to="project.urlShow">{{ project.name }}</router-link>
       </h1>
-      <router-link :to="project.urlEdit" class="btn btn-settings">Settings</router-link>
+      <router-link :to="project.urlEdit" class="btn btn-settings">{{ $t('layout.project.settings') }}</router-link>
     </container>
     <router-view v-if="project" :project="project"></router-view>
   </div>

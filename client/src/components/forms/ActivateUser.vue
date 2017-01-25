@@ -1,15 +1,15 @@
 <template>
   <form @submit.prevent="activate">
-    <form-group label="Username" tip="Only lowercase letters, underscore and dash" target="username" required>
+    <form-group :label="$t('forms.activateUser.usernameLabel')" :tip="$t('forms.activateUser.usernameTip')" target="username" required>
       <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
     </form-group>
 
-    <form-group label="Password" target="password" required>
+    <form-group :label="$t('forms.activateUser.passwordLabel')" target="password" required>
       <password-field id="password" v-model="password" required />
     </form-group>
 
     <form-group actions>
-      <btn submit>Activate my account</btn>
+      <btn submit>{{ $t('forms.activateUser.submit') }}</btn>
 
       <div v-if="error">
         {{ error }}

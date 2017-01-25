@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
-    <h1>Welcome on Project Zero!</h1>
-    <p>A new era begins for the projects and todos managers</p>
+    <h1>{{ $t('pages.home.title') }}</h1>
+    <p>{{ $t('pages.home.intro') }}</p>
     <register-form :on-success="onRegistrationSuccess" />
   </div>
 </template>

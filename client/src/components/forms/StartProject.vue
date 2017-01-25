@@ -4,17 +4,17 @@
       {{ error }}
     </div>
 
-    <form-group label="Name">
+    <form-group :label="$t('forms.startProject.nameLabel')">
       <static-field :value="project.name" />
     </form-group>
 
-    <form-group label="Due on" target="due-at">
+    <form-group :label="$t('forms.startProject.dueLabel')" target="due-at">
       <date-field id="due-at" v-model="dueAt" />
     </form-group>
 
     <form-group actions>
-      <btn submit>Start it now</btn>
-      <btn type="cancel" @click="onCancel">Cancel</btn>
+      <btn submit>{{ $t('forms.startProject.submit') }}</btn>
+      <btn type="cancel" @click="onCancel">{{ $t('forms.startProject.cancel') }}</btn>
     </form-group>
   </form>
 </template>

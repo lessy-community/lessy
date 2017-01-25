@@ -1,13 +1,13 @@
 <template>
   <header class="app-header">
     <container row>
-      <router-link to="/" class="header-title">Project Zero</router-link>
+    <router-link to="/" class="header-title">{{ $t('layout.projectZero') }}</router-link>
       <div class="separator"></div>
       <div v-if="user && user.isLoggedIn">
         {{ user.displayedName }}
-        (<a href="/logout" @click.prevent="logout">Logout</a>)
+        (<a href="/logout" @click.prevent="logout">{{ $t('layout.logout') }}</a>)
       </div>
-      <router-link v-else to="/login">Log in</router-link>
+      <router-link v-else to="/login">{{ $t('layout.login') }}</router-link>
     </container>
   </header>
 </template>

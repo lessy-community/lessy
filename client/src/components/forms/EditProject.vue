@@ -4,21 +4,21 @@
       {{ error }}
     </div>
 
-    <form-group label="Name" tip="Only lowercase letters, underscore and dash" target="name" required>
+    <form-group :label="$t('forms.editProject.nameLabel')" :tip="$t('forms.editProject.nameTip')" target="name" required>
       <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required />
     </form-group>
 
-    <form-group v-if="project.isStarted" label="Due on" target="due-at" required>
+    <form-group v-if="project.isStarted" :label="$t('forms.editProject.dueLabel')" target="due-at" required>
       <date-field id="due-at" v-model="dueAt" required />
     </form-group>
 
-    <form-group label="Description" target="description" tip="Description supports Markdown">
+    <form-group :label="$t('forms.editProject.descriptionLabel')" target="description" :tip="$t('forms.editProject.descriptionTip')">
       <text-field id="description" v-model="description" multiplelines />
     </form-group>
 
     <form-group actions>
-      <btn submit>Validate</btn>
-      <btn type="cancel" @click="onCancel">Cancel</btn>
+      <btn submit>{{ $t('forms.editProject.submit') }}</btn>
+      <btn type="cancel" @click="onCancel">{{ $t('forms.editProject.cancel') }}</btn>
     </form-group>
   </form>
 </template>
