@@ -31,7 +31,7 @@ class Project < ApplicationRecord
 
   def start_now!(due_at)
     if user.projects.in_progress.count >= 3
-      errors.add :base, 'User cannot have more than 3 started projects'
+      errors.add :base, :reached_max_started, message: 'User cannot have more than 3 started projects'
       raise ActiveRecord::RecordInvalid.new(self)
     end
     update! started_at: DateTime.now, due_at: due_at, stopped_at: nil
@@ -50,7 +50,7 @@ private
   def due_at_not_before_started_at
     return false unless started?
     if due_at < started_at
-      errors.add :due_at, 'cannot be set before started_at'
+      errors.add :due_at, :before_started_at, message: 'cannot be set before started_at'
     end
   end
 
@@ -58,7 +58,7 @@ private
     return false unless started?
     now = DateTime.now
     if started_at >= finished_at || finished_at > now
-      errors.add :finished_at, 'must be between started_at and today'
+      errors.add :finished_at, :outside_started_at_and_today, message: 'must be between started_at and today'
     end
   end
 

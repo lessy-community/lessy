@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": ["message", "code", "resource", "errors"],
+  "properties": {
+    "message": { "type": "string" },
+    "code": { "type": "string" },
+    "resource": { "type": "string" },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "code"],
+        "properties": {
+          "field": { "type": "string" },
+          "code": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

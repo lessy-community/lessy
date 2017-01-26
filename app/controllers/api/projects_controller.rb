@@ -3,7 +3,7 @@ class Api::ProjectsController < ApplicationController
   def create
     @project = Project.create!(create_project_params)
     render status: :created
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+  rescue ActionController::ParameterMissing => error
     render_error error.message
   end
 
@@ -12,7 +12,7 @@ class Api::ProjectsController < ApplicationController
     @project.update! update_project_params
   rescue ActiveRecord::RecordNotFound
     render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+  rescue ActionController::ParameterMissing => error
     render_error error.message
   end
 
@@ -55,7 +55,7 @@ class Api::ProjectsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+  rescue ActionController::ParameterMissing => error
     render_error error.message
   end
 
@@ -81,7 +81,7 @@ class Api::ProjectsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+  rescue ActionController::ParameterMissing => error
     render_error error.message
   end
 

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Api::UsersController, type: :request do
 
   describe 'POST #create' do
-
     context 'with valid attributes' do
       before do
         Timecop.freeze Date.new(2017)
@@ -69,19 +68,24 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/email is already taken/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('User')
+        expect(body['errors']).to match_array([{
+          'field' => 'email',
+          'code' => 'taken',
+        }])
       end
     end
-
   end
 
   describe 'PATCH #activate' do
@@ -159,16 +163,22 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Username only allows/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('User')
+        expect(body['errors']).to match_array([{
+          'field' => 'username',
+          'code' => 'invalid',
+        }])
       end
     end
 
@@ -183,16 +193,22 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/username is already taken/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('User')
+        expect(body['errors']).to match_array([{
+          'field' => 'username',
+          'code' => 'taken',
+        }])
       end
     end
 
@@ -215,7 +231,6 @@ RSpec.describe Api::UsersController, type: :request do
         expect(error['message']).to match(/token matches no user/)
       end
     end
-
   end
 
   describe 'POST #authorize' do

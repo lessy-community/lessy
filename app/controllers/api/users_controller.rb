@@ -3,12 +3,9 @@ class Api::UsersController < ApplicationController
   skip_before_action :require_login, except: [:me]
 
   def create
-    @user = User.new(create_user_params)
-    @user.save
+    @user = User.create!(create_user_params)
     @token = @user.token(1.day.from_now)
     render status: :created
-  rescue ActiveRecord::RecordNotUnique
-    render_error 'This email is already taken'
   rescue ActionController::ParameterMissing => error
     render_error error.message
   end
@@ -22,9 +19,7 @@ class Api::UsersController < ApplicationController
     else
       render_error 'The token matches no user'
     end
-  rescue ActiveRecord::RecordNotUnique
-    render_error 'This username is already taken'
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+  rescue ActionController::ParameterMissing => error
     render_error error.message
   end
 
