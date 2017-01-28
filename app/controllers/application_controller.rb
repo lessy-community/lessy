@@ -29,8 +29,11 @@ protected
   def render_record_invalid(exception)
     @resource = exception.record.model_name.name
     @errors = exception.record.errors.details.map do |field, errors|
-      errors.map { |error| { field: field, code: error[:error] } }
-    end.flatten
+      [
+        field.to_s.camelize(:lower),
+        errors.map { |error| error[:error] }
+      ]
+    end.to_h
     render 'api/errors/record_invalid', status: :unprocessable_entity
   end
 

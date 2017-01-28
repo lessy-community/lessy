@@ -71,10 +71,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'name',
-          'code' => 'invalid',
-        }])
+        expect(body['errors']).to eq({ 'name' => ['invalid'] })
       end
     end
 
@@ -98,10 +95,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'name',
-          'code' => 'taken',
-        }])
+        expect(body['errors']).to eq({ 'name' => ['taken'] })
       end
     end
 
@@ -185,10 +179,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'name',
-          'code' => 'invalid',
-        }])
+        expect(body['errors']).to eq({ 'name' => ['invalid'] })
       end
     end
 
@@ -482,10 +473,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'base',
-          'code' => 'already_started',
-        }])
+        expect(body['errors']).to eq({ 'base' => ['already_started'] })
       end
     end
 
@@ -508,10 +496,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'base',
-          'code' => 'reached_max_started',
-        }])
+        expect(body['errors']).to eq({ 'base' => ['reached_max_started'] })
       end
     end
 
@@ -534,10 +519,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'due_at',
-          'code' => 'before_started_at',
-        }])
+        expect(body['errors']).to eq({ 'dueAt' => ['before_started_at'] })
       end
     end
 
@@ -640,10 +622,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'base',
-          'code' => 'already_finished',
-        }])
+        expect(body['errors']).to eq({ 'base' => ['already_finished'] })
       end
     end
 
@@ -666,10 +645,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'finished_at',
-          'code' => 'outside_started_at_and_today',
-        }])
+        expect(body['errors']).to eq({ 'finishedAt' => ['outside_started_at_and_today'] })
       end
     end
 
@@ -692,10 +668,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'finished_at',
-          'code' => 'outside_started_at_and_today',
-        }])
+        expect(body['errors']).to eq({ 'finishedAt' => ['outside_started_at_and_today'] })
       end
     end
 
@@ -827,10 +800,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'base',
-          'code' => 'already_stopped',
-        }])
+        expect(body['errors']).to eq({ 'base' => ['already_stopped'] })
       end
     end
 
@@ -853,10 +823,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(body['message']).to eq('Project validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('Project')
-        expect(body['errors']).to match_array([{
-          'field' => 'base',
-          'code' => 'already_finished',
-        }])
+        expect(body['errors']).to eq({ 'base' => ['already_finished'] })
       end
     end
 

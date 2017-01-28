@@ -6,15 +6,15 @@
     "code": { "type": "string" },
     "resource": { "type": "string" },
     "errors": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["field", "code"],
-        "properties": {
-          "field": { "type": "string" },
-          "code": { "type": "string" }
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-zA-Z]+$": {
+          "type": "array",
+          "items": { "type": "string" }
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

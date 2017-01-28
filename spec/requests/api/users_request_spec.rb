@@ -82,10 +82,7 @@ RSpec.describe Api::UsersController, type: :request do
         expect(body['message']).to eq('User validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('User')
-        expect(body['errors']).to match_array([{
-          'field' => 'email',
-          'code' => 'taken',
-        }])
+        expect(body['errors']).to eq({ 'email' => ['taken'] })
       end
     end
   end
@@ -179,10 +176,7 @@ RSpec.describe Api::UsersController, type: :request do
         expect(body['message']).to eq('User validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('User')
-        expect(body['errors']).to match_array([{
-          'field' => 'username',
-          'code' => 'invalid',
-        }])
+        expect(body['errors']).to eq({ 'username' => ['invalid'] })
       end
     end
 
@@ -209,10 +203,7 @@ RSpec.describe Api::UsersController, type: :request do
         expect(body['message']).to eq('User validation failed')
         expect(body['code']).to eq('validation_failed')
         expect(body['resource']).to eq('User')
-        expect(body['errors']).to match_array([{
-          'field' => 'username',
-          'code' => 'taken',
-        }])
+        expect(body['errors']).to eq({ 'username' => ['taken'] })
       end
     end
 
