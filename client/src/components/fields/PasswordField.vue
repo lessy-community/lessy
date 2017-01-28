@@ -9,7 +9,7 @@
     />
     <btn
       type="secondary"
-      tip="Show password in plain text"
+      :tip="$t('fields.password.tip')"
       @on="showPassword = true"
       @off="showPassword = false"
     >&#128065;</btn>

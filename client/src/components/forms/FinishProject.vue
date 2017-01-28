@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="stop">
-    <form-group label="Finished on" target="finished-at" :tip="tip" :invalid="!!error" required>
+    <form-group :label="$t('forms.finishProject.finishedLabel')" target="finished-at" :tip="tip" :invalid="!!error" required>
       <date-field id="finished-at" v-model="finishedAt" />
     </form-group>
 
     <form-group actions vertical>
-      <btn submit>I did it!</btn>
-      <btn type="cancel" @click="onCancel">No, I lied :(</btn>
+      <btn submit>{{ $t('forms.finishProject.submit') }}</btn>
+      <btn type="cancel" @click="onCancel">{{ $t('forms.finishProject.cancel') }}</btn>
     </form-group>
   </form>
 </template>
@@ -33,7 +33,7 @@
 
     computed: {
       tip () {
-        return this.error || 'It cannot be after today'
+        return this.error || this.$t('forms.finishProject.finishedTip')
       },
     },
 

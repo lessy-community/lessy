@@ -1,6 +1,6 @@
 <template>
   <div class="loading-page">
-    Chargement en cours…
+    {{ $t('pages.loading.inProgress') }}
   </div>
 </template>
 

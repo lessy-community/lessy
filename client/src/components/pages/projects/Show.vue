@@ -2,18 +2,18 @@
   <div class="project-show-page">
     <container row align="center">
       <div v-if="project.isStarted">
-        <form-group label="Started on">
+        <form-group :label="$t('pages.projects.show.startedLabel')">
           <static-field :value="project.startedAtLabel" />
         </form-group>
-        <form-group v-if="project.isFinished" label="Finished on">
+        <form-group v-if="project.isFinished" :label="$t('pages.projects.show.finishedLabel')">
           <static-field :value="project.finishedAtLabel" />
         </form-group>
-        <form-group v-else label="Due on">
+        <form-group v-else :label="$t('pages.projects.show.dueLabel')">
           <static-field :value="project.dueAtLabel" />
         </form-group>
       </div>
       <div v-else-if="project.isStopped">
-        <form-group label="Stopped on">
+        <form-group :label="$t('pages.projects.show.stoppedLabel')">
           <static-field :value="project.stoppedAtLabel" />
         </form-group>
       </div>
@@ -24,28 +24,34 @@
           :to="project.urlStart"
           class="btn primary"
         >
-          Start this project
+          {{ $t('pages.projects.show.startProject') }}
         </router-link>
         <btn
           v-else
           type="link"
-          title="You already reached the maximum of started projects"
+          :title="$t('pages.projects.show.reachedMaxInProgress')"
           disabled
         >
-          Start this project
+          {{ $t('pages.projects.show.startProject') }}
         </span>
       </div>
       <div v-else-if="!project.isFinished" class="project-actions adapt">
-        <router-link :to="project.urlFinish" class="btn primary">Finish it</router-link>
-        <btn type="danger" @click="confirmStop">Stop it, now</btn>
+        <router-link :to="project.urlFinish" class="btn primary">
+          {{ $t('pages.projects.show.finishProject') }}
+        </router-link>
+        <btn type="danger" @click="confirmStop">
+          {{ $t('pages.projects.show.stopProject') }}
+        </btn>
       </div>
     </container>
 
     <p v-if="project.description" class="project-description" v-html="project.mdDescription"></p>
     <p v-else>
       <em>
-        There is no description for this project yet.
-        <router-link :to="project.urlEdit">Edit?</router-link>
+        {{ $t('pages.projects.show.noDescription') }}
+        <router-link :to="project.urlEdit">
+          {{ $t('pages.projects.show.askEdit') }}
+        </router-link>
       </em>
     </p>
   </div>
@@ -70,7 +76,7 @@
 
     methods: {
       confirmStop () {
-        if (window.confirm('Oh? The project will be marked as stopped. Can you confirm?')) {
+        if (window.confirm(this.$t('pages.projects.show.confirmStop'))) {
           this.$store.dispatch('projects/stop', { project: this.project })
         }
       },

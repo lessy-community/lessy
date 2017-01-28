@@ -14,8 +14,11 @@ import PasswordField from './components/fields/PasswordField'
 import StaticField from './components/fields/StaticField'
 import TextField from './components/fields/TextField'
 
+import locales from './locales'
 import router from './router'
 import store from './store'
+
+locales.init()
 
 // register global components
 Vue.component('btn', Btn)

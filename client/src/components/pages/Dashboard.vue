@@ -1,14 +1,11 @@
 <template>
   <div class="dashboard-page">
-    <p v-if="!user.activated">
-      We sent you an email at {{ user.email }}.<br />
-      Follow its instructions to be able to access your projects later.
-    </p>
+    <p v-if="!user.activated" v-html="$t('pages.dashboard.activationInstructions', { email: user.email })"></p>
 
     <div v-if="numberCurrentProjects > 0">
       <container row>
         <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
-          Due on <b>{{ project.dueAtLabel }}</b>
+          <span v-html="$t('pages.dashboard.dueOn', { date: project.dueAtLabel })" ></span>
         </card>
       </container>
 
@@ -16,7 +13,7 @@
         <router-link :to="project.urlShow">
           {{ project.name }}
           <template v-if="project.isStopped">
-            (stopped on {{ project.stoppedAtLabel }})
+            {{ $t('pages.dashboard.stoppedOn', { date: project.stoppedAtLabel }) }}
           </template>
         </router-link>
       </list-item>
@@ -26,37 +23,27 @@
         type="primary"
         @click="createFormEnabled = true"
       >
-        + create a project
+        {{ $t('pages.dashboard.createProject') }}
       </btn>
       <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
     </div>
     <div v-else class="new-project-placeholder">
-      <p>You don't have any project yet, what are you working on?</p>
+      <p>{{ $t('pages.dashboard.projectsPlaceholder') }}</p>
       <create-project-form :onSuccess="redirectToStartProject"></create-project-form>
     </div>
 
     <div v-if="numberFinishedProjects > 0" class="projects-finished">
       <btn v-if="!showFinishedProjects" type="secondary" @click="loadFinishedProjects">
-        <template v-if="numberFinishedProjects === 1">
-          See your finished project
-        </template>
-        <template v-else>
-          See your {{ numberFinishedProjects }} finished projects
-        </template>
+      {{ $tc('pages.dashboard.seeFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
       </btn>
       <btn v-else type="secondary" @click="showFinishedProjects = false">
-        <template v-if="numberFinishedProjects === 1">
-          Hide project
-        </template>
-        <template v-else>
-          Hide finished projects
-        </template>
+        {{ $tc('pages.dashboard.hideFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
       </btn>
 
       <list-item v-if="showFinishedProjects" v-for="project in finishedProjects">
         <router-link :to="project.urlShow">
           {{ project.name }}
-          (finished on {{ project.finishedAtLabel }})
+          {{ $t('pages.dashboard.finishedLabel', { date: project.finishedAtLabel }) }}
         </router-link>
       </list-item>
     </div>

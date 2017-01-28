@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="register">
-    <form-group label="Email" target="email" required>
+    <form-group :label="$t('forms.register.emailLabel')" target="email" required>
       <email-field id="email" v-model="email" required />
     </form-group>
 
     <form-group actions>
-      <btn submit>Let me in</btn>
+      <btn submit>{{ $t('forms.register.submit') }}</btn>
     </form-group>
   </form>
 </template>

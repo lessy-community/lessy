@@ -4,15 +4,15 @@
       {{ error }}
     </div>
 
-    <form-group label="Username" target="username" required>
+    <form-group :label="$t('forms.login.usernameLabel')" target="username" required>
       <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
     </form-group>
-    <form-group label="Password" target="password" required>
+    <form-group :label="$t('forms.login.passwordLabel')" target="password" required>
       <password-field id="password" v-model="password" required />
     </form-group>
 
     <form-group actions>
-      <btn submit>Login</btn>
+      <btn submit>{{ $t('forms.login.submit') }}</btn>
     </form-group>
   </form>
 </template>

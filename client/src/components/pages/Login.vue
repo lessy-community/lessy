@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <h1>Login</h1>
+    <h1>{{ $t('pages.login.title') }}</h1>
     <login-form :on-success="onLoginSuccess" />
   </div>
 </template>

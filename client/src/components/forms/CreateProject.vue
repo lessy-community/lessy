@@ -5,8 +5,8 @@
       <div v-if="error" class="form-group-tip">{{ error }}</div>
     </div>
 
-    <btn submit>Create</btn>
-    <btn v-if="onCancel" type="cancel" @click="onCancel">Cancel</btn>
+    <btn submit>{{ $t('forms.createProject.submit') }}</btn>
+    <btn v-if="onCancel" type="cancel" @click="onCancel">{{ $t('forms.createProject.cancel') }}</btn>
   </form>
 </template>
 

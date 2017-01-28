@@ -1,9 +1,6 @@
 <template>
   <div class="project-finish-page">
-    <p>
-      Really? You've finished <b>{{ project.name }}</b>? That's great!<br />
-      Let us know when you finished it:
-    </p>
+    <p v-html="$t('pages.projects.finish.intro', { projectName: project.name })"></p>
 
     <finish-project-form
       :project="project"

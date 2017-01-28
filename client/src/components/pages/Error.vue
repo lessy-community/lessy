@@ -1,6 +1,6 @@
 <template>
   <div class="error-page">
-    <h1>Oops…</h1>
+    <h1>{{ $t('pages.error.title') }}</h1>
     <p>{{ message }}</p>
     <div>
       <router-link to="/">Go home</router-link>
