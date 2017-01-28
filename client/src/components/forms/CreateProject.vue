@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="create">
-    <div :class="['form-group-control', { invalid: !!error }]">
+    <div :class="['form-group-control', { invalid: isInError('Project', 'name') }]">
       <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required ref="nameInput" />
-      <div v-if="error" class="form-group-tip">{{ error }}</div>
+      <div v-if="isInError('Project', 'name')" class="form-group-tip">{{ getErrors('Project', 'name') }}</div>
     </div>
 
     <btn submit>{{ $t('forms.createProject.submit') }}</btn>
@@ -11,9 +11,13 @@
 </template>
 
 <script>
+  import ErrorsHandler from '../mixins/ErrorsHandler'
+
   export default {
 
     name: 'create-project-form',
+
+    mixins: [ErrorsHandler],
 
     props: {
       'onSuccess': { type: Function },
@@ -23,7 +27,6 @@
     data () {
       return {
         name: '',
-        error: '',
       }
     },
 
@@ -36,14 +39,14 @@
           .then((projectId) => {
             const { nameInput } = this.$refs
             this.name = ''
-            this.error = ''
+            this.cleanErrors()
             nameInput && nameInput.$el.focus()
             if (typeof this.onSuccess === 'function') {
               this.onSuccess(projectId)
             }
           })
-          .catch((error) => {
-            this.error = error.data.message
+          .catch((failure) => {
+            this.setFailureErrors(failure)
             this.$refs.nameInput.$el.focus()
           })
       },

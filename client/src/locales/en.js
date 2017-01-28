@@ -1,4 +1,51 @@
 export default {
+  errors: {
+    Project: {
+      base: {
+        already_finished: 'This project has already been finished',
+        already_started: 'This project has already been started',
+        already_stopped: 'This project has already been stopped',
+        missing: 'Project is required. It may be an application’s problem, please contact developers.',
+        not_found: 'Project does not exist',
+        reached_max_started: 'You cannot start more than 3 projects',
+      },
+      dueAt: {
+        before_started_at: 'The due date cannot be set before the started date',
+        missing: 'Due date is required',
+      },
+      finishedAt: {
+        missing: 'Finished date is required',
+        outside_started_at_and_today: 'Finished date must be between started date and today',
+      },
+      name: {
+        blank: 'Name is required',
+        invalid: 'Name does not match required pattern (only letters, numbers, underscores and hiphens are accepted)',
+        missing: 'Name is required',
+        taken: 'This name is not available',
+      },
+    },
+
+    User: {
+      base: {
+        login_failed: 'Oops we failed to log you, it seems your credentials were wrong…',
+        missing: 'User is required. It may be an application’s problem, please contact developers.',
+        not_found: 'User does not exist',
+      },
+      email: {
+        missing: 'Email is required',
+        taken: 'This email address is not available',
+      },
+      password: {
+        missing: 'Password is required',
+      },
+      username: {
+        invalid: 'Username does not match required pattern (only lowercase letters, underscore and hiphen are accepted)',
+        missing: 'Username is required',
+        taken: 'This username is not available',
+      },
+    },
+  },
+
   fields: {
     password: {
       tip: 'Show password in plain text',
@@ -49,6 +96,7 @@ export default {
     startProject: {
       cancel: 'Cancel',
       dueLabel: 'Due on',
+      dueTip: 'The due date have to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
     },

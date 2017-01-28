@@ -5,12 +5,24 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
+  rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
 
   def client
     render file: 'public/index.html'
   end
 
 protected
+
+  def require_resource_params(resource, params_to_require)
+    resource_params = params.require(resource)
+    begin
+      resource_params.permit(*params_to_require).tap do |resource_params|
+        resource_params.require(params_to_require)
+      end
+    rescue ActionController::ParameterMissing => exception
+      raise ActionController::ResourceParameterMissing.new resource, exception.param
+    end
+  end
 
   def require_login
     render_custom_error 'Authentication is required', :authentication_required, User, :unauthorized unless current_user
@@ -44,7 +56,13 @@ protected
   end
 
   def render_parameter_missing(exception)
-    @resource = exception.param
+    if exception.is_a? ActionController::ResourceParameterMissing
+      @resource = exception.resource.to_s.camelize
+      @field = exception.param
+    else
+      @resource = exception.param.to_s.camelize
+      @field = 'base'
+    end
     render 'api/errors/parameter_missing', status: :unprocessable_entity
   end
 
