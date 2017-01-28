@@ -1,15 +1,23 @@
 <template>
   <form @submit.prevent="start">
-    <div v-if="error">
-      {{ error }}
+    <div v-if="isInError('Project')" class="form-errors">
+      {{ getErrors('Project') }}
     </div>
 
-    <form-group :label="$t('forms.startProject.nameLabel')">
+    <form-group
+      :label="$t('forms.startProject.nameLabel')"
+    >
       <static-field :value="project.name" />
     </form-group>
 
-    <form-group :label="$t('forms.startProject.dueLabel')" target="due-at">
-      <date-field id="due-at" v-model="dueAt" />
+    <form-group
+      :label="$t('forms.startProject.dueLabel')"
+      target="due-at"
+      required
+      :tip="getErrors('Project', 'dueAt') || $t('forms.startProject.dueTip')"
+      :invalid="isInError('Project', 'dueAt')"
+    >
+      <date-field id="due-at" v-model="dueAt" required />
     </form-group>
 
     <form-group actions>
@@ -21,10 +29,13 @@
 
 <script>
   import moment from 'moment'
+  import ErrorsHandler from '../mixins/ErrorsHandler'
 
   export default {
 
     name: 'start-project-form',
+
+    mixins: [ErrorsHandler],
 
     props: {
       'project': { type: Object, required: true },
@@ -35,7 +46,6 @@
     data () {
       return {
         dueAt: moment().add(1, 'month').unix(),
-        error: '',
       }
     },
 
@@ -47,11 +57,21 @@
             dueAt: this.dueAt,
           })
           .then(this.onSuccess)
-          .catch((error) => {
-            this.error = error.data.message
-          })
+          .catch(this.setFailureErrors)
       },
     },
 
   }
 </script>
+
+<style scoped>
+
+  .form-errors {
+    margin-bottom: 20px;
+
+    text-align: center;
+
+    color: #ff2c00;
+  }
+
+</style>

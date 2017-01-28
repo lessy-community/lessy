@@ -33,5 +33,8 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
+  .home-page .form-group-tip {
+    text-align: left;
+  }
 
 </style>

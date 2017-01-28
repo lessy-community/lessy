@@ -1,7 +1,17 @@
 <template>
   <form @submit.prevent="stop">
-    <form-group :label="$t('forms.finishProject.finishedLabel')" target="finished-at" :tip="tip" :invalid="!!error" required>
-      <date-field id="finished-at" v-model="finishedAt" />
+    <div v-if="isInError('Project')" class="form-errors">
+      {{ getErrors('Project') }}
+    </div>
+
+    <form-group
+      :label="$t('forms.finishProject.finishedLabel')"
+      target="finished-at"
+      required
+      :tip="getErrors('Project', 'finishedAt') || $t('forms.finishProject.finishedTip')"
+      :invalid="isInError('Project', 'finishedAt')"
+    >
+      <date-field id="finished-at" v-model="finishedAt" required />
     </form-group>
 
     <form-group actions vertical>
@@ -13,10 +23,13 @@
 
 <script>
   import moment from 'moment'
+  import ErrorsHandler from '../mixins/ErrorsHandler'
 
   export default {
 
     name: 'finish-project-form',
+
+    mixins: [ErrorsHandler],
 
     props: {
       'project': { type: Object, required: true },
@@ -27,14 +40,7 @@
     data () {
       return {
         finishedAt: moment().unix(),
-        error: '',
       }
-    },
-
-    computed: {
-      tip () {
-        return this.error || this.$t('forms.finishProject.finishedTip')
-      },
     },
 
     methods: {
@@ -45,11 +51,21 @@
             finishedAt: this.finishedAt,
           })
           .then(this.onSuccess)
-          .catch((error) => {
-            this.error = error.data.message
-          })
+          .catch(this.setFailureErrors)
       },
     },
 
   }
 </script>
+
+<style scoped>
+
+  .form-errors {
+    margin-bottom: 20px;
+
+    text-align: center;
+
+    color: #ff2c00;
+  }
+
+</style>
