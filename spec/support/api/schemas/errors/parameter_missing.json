@@ -1,10 +1,11 @@
 {
   "type": "object",
-  "required": ["message", "code", "resource"],
+  "required": ["message", "code", "resource", "field"],
   "properties": {
     "message": { "type": "string" },
     "code": { "type": "string" },
-    "resource": { "type": "string" }
+    "resource": { "type": "string" },
+    "field": { "type": "string" }
   },
   "additionalProperties": false
 }

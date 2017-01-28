@@ -46,9 +46,10 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('project param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('project')
+        expect(body['resource']).to eq('Project')
+        expect(body['field']).to eq('base')
       end
     end
 
@@ -214,9 +215,10 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('project param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('project')
+        expect(body['resource']).to eq('Project')
+        expect(body['field']).to eq('base')
       end
     end
 
@@ -448,9 +450,10 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('due_at param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('due_at')
+        expect(body['resource']).to eq('Project')
+        expect(body['field']).to eq('due_at')
       end
     end
 
@@ -597,9 +600,10 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('finished_at param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('finished_at')
+        expect(body['resource']).to eq('Project')
+        expect(body['field']).to eq('finished_at')
       end
     end
 

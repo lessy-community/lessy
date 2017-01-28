@@ -54,9 +54,10 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('user param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('user')
+        expect(body['resource']).to eq('User')
+        expect(body['field']).to eq('base')
       end
     end
 
@@ -148,9 +149,10 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to eq('username param is missing or empty')
+        expect(body['message']).to eq('Param is missing or empty')
         expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('username')
+        expect(body['resource']).to eq('User')
+        expect(body['field']).to eq('username')
       end
     end
 
