@@ -20,7 +20,6 @@ export default {
   margin-left: auto;
   margin-right: auto;
 
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }

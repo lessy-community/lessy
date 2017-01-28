@@ -53,7 +53,7 @@
 
   .form-group > .form-group-control {
     flex-grow: 1;
-    flex-shrink: 0;
+    flex-shrink: 1;
   }
 
   .form-group-control .form-group-tip {
