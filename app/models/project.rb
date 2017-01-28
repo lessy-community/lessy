@@ -30,18 +30,19 @@ class Project < ApplicationRecord
   end
 
   def start_now!(due_at)
-    if user.projects.in_progress.count >= 3
-      errors.add :base, 'User cannot have more than 3 started projects'
-      raise ActiveRecord::RecordInvalid.new(self)
-    end
+    validates_not_started
+    validates_not_reached_max_started
     update! started_at: DateTime.now, due_at: due_at, stopped_at: nil
   end
 
   def stop_now!
+    validates_not_stopped
+    validates_not_finished
     update! started_at: nil, stopped_at: DateTime.now
   end
 
   def finish_at!(date)
+    validates_not_finished
     update! finished_at: date
   end
 
@@ -50,7 +51,7 @@ private
   def due_at_not_before_started_at
     return false unless started?
     if due_at < started_at
-      errors.add :due_at, 'cannot be set before started_at'
+      errors.add :due_at, :before_started_at, message: 'cannot be set before started_at'
     end
   end
 
@@ -58,7 +59,35 @@ private
     return false unless started?
     now = DateTime.now
     if started_at >= finished_at || finished_at > now
-      errors.add :finished_at, 'must be between started_at and today'
+      errors.add :finished_at, :outside_started_at_and_today, message: 'must be between started_at and today'
+    end
+  end
+
+  def validates_not_started
+    if started?
+      errors.add :base, :already_started, message: 'Project is already started'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+  end
+
+  def validates_not_stopped
+    if stopped?
+      errors.add :base, :already_stopped, message: 'Project is already stopped'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+  end
+
+  def validates_not_finished
+    if finished?
+      errors.add :base, :already_finished, message: 'Project is already finished'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+  end
+
+  def validates_not_reached_max_started
+    if user.projects.in_progress.count >= 3
+      errors.add :base, :reached_max_started, message: 'User cannot have more than 3 started projects'
+      raise ActiveRecord::RecordInvalid.new(self)
     end
   end
 

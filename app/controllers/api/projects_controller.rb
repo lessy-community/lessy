@@ -3,17 +3,11 @@ class Api::ProjectsController < ApplicationController
   def create
     @project = Project.create!(create_project_params)
     render status: :created
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
-    render_error error.message
   end
 
   def update
     @project = current_project
     @project.update! update_project_params
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
-    render_error error.message
   end
 
   def find
@@ -23,12 +17,10 @@ class Api::ProjectsController < ApplicationController
     # projects not owned by current_user. We raise a RecordNotFound to avoid
     # possible leakages.
     if user != current_user
-      raise ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
     end
 
-    @project = user.projects.find_by!(name: params[:project_name])
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
+    @project = user.projects.find_by_name!(params[:project_name])
   end
 
   def get_finished
@@ -38,51 +30,25 @@ class Api::ProjectsController < ApplicationController
     # projects not owned by current_user. We raise a RecordNotFound to avoid
     # possible leakages.
     if user != current_user
-      raise ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
     end
 
     @projects = user.projects.finished
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Projects cannot be found', :not_found
   end
 
   def start
     @project = current_project
-    unless @project.started?
-      @project.start_now! due_at_param
-    else
-      render_error 'Project has already been started'
-    end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
-    render_error error.message
+    @project.start_now! due_at_param
   end
 
   def stop
     @project = current_project
-    if @project.stopped?
-      render_error 'Project has already been stopped'
-    elsif @project.finished?
-      render_error 'Project has already been finished'
-    else
-      @project.stop_now!
-    end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
+    @project.stop_now!
   end
 
   def finish
     @project = current_project
-    unless @project.finished?
-      @project.finish_at! finished_at_param
-    else
-      render_error 'Project has already been finished'
-    end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
-    render_error error.message
+    @project.finish_at! finished_at_param
   end
 
 private

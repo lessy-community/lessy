@@ -3,29 +3,19 @@ class Api::UsersController < ApplicationController
   skip_before_action :require_login, except: [:me]
 
   def create
-    @user = User.new(create_user_params)
-    @user.save
+    @user = User.create!(create_user_params)
     @token = @user.token(1.day.from_now)
     render status: :created
-  rescue ActiveRecord::RecordNotUnique
-    render_error 'This email is already taken'
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def activate
     @user = User.load_from_activation_token(params[:token])
-    if @user
-      @user.update! activate_user_params
-      @user.activate!
-      @token = @user.token(1.month.from_now)
-    else
-      render_error 'The token matches no user'
+    unless @user
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with token=#{ params[:token] }", User.name
     end
-  rescue ActiveRecord::RecordNotUnique
-    render_error 'This username is already taken'
-  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
-    render_error error.message
+    @user.update! activate_user_params
+    @user.activate!
+    @token = @user.token(1.month.from_now)
   end
 
   def authorize
@@ -33,7 +23,7 @@ class Api::UsersController < ApplicationController
     if @user
       @token = @user.token(1.month.from_now)
     else
-      render_error 'Bad credentials', :unauthorized
+      render_custom_error 'Bad credentials', :login_failed, :unauthorized
     end
   end
 

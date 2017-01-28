@@ -5,9 +5,7 @@ RSpec.describe Api::ProjectsController, type: :request do
   let(:user) { create :user, :activated }
 
   describe 'POST #create' do
-
     context 'with valid attributes' do
-
       before do
         payload = { name: 'my-project' }
         post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }
@@ -31,7 +29,6 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(project['name']).to eq('my-project')
         expect(project['isInProgress']).to be false
       end
-
     end
 
     context 'with missing attribute' do
@@ -40,16 +37,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('project param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('project')
       end
     end
 
@@ -60,16 +59,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Name must/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'name',
+          'code' => 'invalid',
+        }])
       end
     end
 
@@ -81,16 +86,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Name should be unique per user/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'name',
+          'code' => 'taken',
+        }])
       end
     end
 
@@ -105,18 +116,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
   end
 
   describe 'PATCH #update' do
-
     let(:project) { create :project, :in_progress, user: user,
                                                    name: 'my-project',
                                                    description: 'Old description' }
@@ -127,7 +138,6 @@ RSpec.describe Api::ProjectsController, type: :request do
     } }
 
     context 'with valid attributes' do
-
       before do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
       end
@@ -154,27 +164,31 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(api_project['description']).to eq('New description')
         expect(api_project['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
       end
-
     end
 
     context 'with invalid name' do
-
       before do
-        payload[:name] = ''
+        payload[:name] = 'an invalid name'
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Name must/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'name',
+          'code' => 'invalid',
+        }])
       end
     end
 
@@ -200,16 +214,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('project param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('project')
       end
     end
 
@@ -224,12 +240,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
 
@@ -245,12 +263,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
 
@@ -264,12 +284,13 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
   end
@@ -331,12 +352,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
 
@@ -351,19 +374,19 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
-
   end
 
   describe 'POST #start' do
-
     let(:project) { create :project, :not_started, user: user }
     let(:payload) { { project: { due_at: DateTime.new(2017, 01, 20, 14).to_i } } }
 
@@ -376,7 +399,6 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'with valid attributes' do
-
       before do
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
       end
@@ -403,11 +425,9 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(project['startedAt']).to eq(1483228800)
         expect(project['isInProgress']).to be true
       end
-
     end
 
     context 'with a stopped project' do
-
       before do
         project.stop_now!
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
@@ -420,25 +440,26 @@ RSpec.describe Api::ProjectsController, type: :request do
       it 'sets stopped_at to nil' do
         expect(project.reload.stopped_at).to be_nil
       end
-
     end
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/start", params: { project: {} }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: { project: { due_at: nil } }, headers: { 'Authorization': user.token }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('due_at param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('due_at')
       end
     end
 
@@ -449,16 +470,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been started/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_started',
+        }])
       end
     end
 
@@ -469,16 +496,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/User cannot have more than/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'reached_max_started',
+        }])
       end
     end
 
@@ -489,16 +522,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Due at cannot be set/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'due_at',
+          'code' => 'before_started_at',
+        }])
       end
     end
 
@@ -514,18 +553,19 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
 
   describe 'POST #finish' do
-
     let(:project) { create :project, :in_progress, user: user, started_at: DateTime.new(2017) }
     let(:payload) { { project: { finished_at: DateTime.new(2017, 01, 20).to_i } } }
 
@@ -562,20 +602,22 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/finish", params: { project: {} }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: { project: { finished_at: nil } }, headers: { 'Authorization': user.token }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to eq('finished_at param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('finished_at')
       end
     end
 
@@ -586,16 +628,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been finished/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_finished',
+        }])
       end
     end
 
@@ -606,16 +654,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/must be between started_at and today/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'finished_at',
+          'code' => 'outside_started_at_and_today',
+        }])
       end
     end
 
@@ -626,16 +680,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/must be between started_at and today/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'finished_at',
+          'code' => 'outside_started_at_and_today',
+        }])
       end
     end
 
@@ -651,12 +711,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
@@ -700,19 +762,19 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Projects cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
-
   end
 
   describe 'POST #stop' do
-
     let(:project) { create :project, :in_progress, user: user, started_at: DateTime.new(2017) }
 
     before do
@@ -753,16 +815,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been stopped/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_stopped',
+        }])
       end
     end
 
@@ -773,16 +841,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been finished/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_finished',
+        }])
       end
     end
 
@@ -798,12 +872,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
