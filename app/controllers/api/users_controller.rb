@@ -37,15 +37,11 @@ class Api::UsersController < ApplicationController
 private
 
   def create_user_params
-    params.require(:user).permit(:email).tap do |user_params|
-      user_params.require(:email)
-    end
+    require_resource_params(:user, [:email])
   end
 
   def activate_user_params
-    params.require(:user).permit(:username, :password).tap do |user_params|
-      user_params.require([:username, :password])
-    end
+    require_resource_params(:user, [:username, :password])
   end
 
 end

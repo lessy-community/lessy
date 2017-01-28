@@ -12,6 +12,12 @@ class ApplicationController < ActionController::API
 
 protected
 
+  def require_resource_params(resource, params_to_require)
+    resource_params = params.require(resource).permit(*params_to_require).tap do |resource_params|
+      resource_params.require(params_to_require)
+    end
+  end
+
   def require_login
     render_custom_error 'Authentication is required', :authentication_required, User, :unauthorized unless current_user
   end

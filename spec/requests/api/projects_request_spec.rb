@@ -8,7 +8,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with valid attributes' do
       before do
         payload = { name: 'my-project' }
-        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }
+        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -33,7 +33,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post '/api/projects', params: { project: {} }, headers: { 'Authorization': user.token }
+        post '/api/projects', params: { project: {} }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -55,7 +55,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with invalid name' do
       before do
         payload = { name: 'An invalid name' }
-        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }
+        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -79,7 +79,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       before do
         create :project, user: user, name: 'my-project'
         payload = { name: 'my-project' }
-        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }
+        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -102,7 +102,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with invalid authentication' do
       before do
         payload = { name: 'my-project' }
-        post '/api/projects', params: { project: payload }, headers: { 'Authorization': 'not a token' }
+        post '/api/projects', params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
       it 'fails' do
@@ -133,7 +133,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with valid attributes' do
       before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
+        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -163,7 +163,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with invalid name' do
       before do
         payload[:name] = 'an invalid name'
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
+        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -187,7 +187,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:not_started_project) { create :project, :not_started, user: user }
 
       before do
-        patch "/api/projects/#{not_started_project.id}", params: { project: payload }, headers: { 'Authorization': user.token }
+        patch "/api/projects/#{not_started_project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -201,7 +201,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        patch "/api/projects/#{project.id}", params: { }, headers: { 'Authorization': user.token }
+        patch "/api/projects/#{project.id}", params: { }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -223,7 +223,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with unknown project' do
       before do
         Project.destroy_all
-        patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }
+        patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -246,7 +246,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:other_user) { create :user }
 
       before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }
+        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }, as: :json
       end
 
       it 'fails' do
@@ -267,7 +267,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with invalid authentication' do
       before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': 'not a token' }
+        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
       it 'fails' do
@@ -391,7 +391,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with valid attributes' do
       before do
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -421,7 +421,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with a stopped project' do
       before do
         project.stop_now!
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -435,7 +435,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/start", params: { project: { due_at: nil } }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: { project: { due_at: nil } }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -457,7 +457,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with already started project' do
       before do
         project.start_now! 15.days.from_now
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -480,7 +480,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with already 3 in_progress projects' do
       before do
         create_list :project, 3, :in_progress, user: user
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -503,7 +503,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with invalid due_at' do
       before do
         payload[:project][:due_at] = DateTime.new(2016, 12, 31).to_i
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -527,7 +527,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:other_user) { create :user }
 
       before do
-        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': other_user.token }
+        post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
       it 'fails' do
@@ -561,7 +561,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with valid attributes' do
       before do
-        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -584,7 +584,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/finish", params: { project: { finished_at: nil } }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: { project: { finished_at: nil } }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -606,7 +606,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with already finished project' do
       before do
         project.finish_at! DateTime.new(2017, 01, 15)
-        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -629,7 +629,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with a finish date in the future' do
       before do
         payload[:project][:finished_at] = 15.days.from_now.to_i
-        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -651,8 +651,8 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with a finish date before started_at' do
       before do
-        payload[:project][:finished_at] = DateTime.new(2016)
-        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }
+        payload[:project][:finished_at] = DateTime.new(2016).to_i
+        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'fails' do
@@ -676,7 +676,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:other_user) { create :user }
 
       before do
-        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': other_user.token }
+        post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
       it 'fails' do

@@ -58,29 +58,25 @@ private
   end
 
   def create_project_params
-    params.require(:project).permit(:name).tap do |project_params|
-      project_params.require(:name)
-    end.merge(user: current_user)
+    require_resource_params(:project, [:name]).merge(user: current_user)
   end
 
   def update_project_params
-    update_params = params.require(:project).permit(:name, :description)
-    update_params[:due_at] = Time.at(params[:project][:due_at].to_i).utc.to_datetime if current_project.started?
+    permitted_params = [:name, :description]
+    permitted_params << :due_at if current_project.started?
+    update_params = params.require(:project).permit(*permitted_params)
+    update_params[:due_at] = update_params[:due_at].to_datetime if update_params.has_key? :due_at
     update_params
   end
 
   def due_at_param
-    due_at_timestamp = params.require(:project).permit(:due_at).tap do |project_params|
-      project_params.require(:due_at)
-    end[:due_at].to_i
-    Time.at(due_at_timestamp).utc.to_datetime
+    parameters = require_resource_params(:project, [:due_at])
+    parameters[:due_at].to_datetime
   end
 
   def finished_at_param
-    timestamp = params.require(:project).permit(:finished_at).tap do |project_params|
-      project_params.require(:finished_at)
-    end[:finished_at].to_i
-    Time.at(timestamp).utc.to_datetime
+    parameters = require_resource_params(:project, [:finished_at])
+    parameters[:finished_at].to_datetime
   end
 
 end
