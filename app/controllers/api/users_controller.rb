@@ -6,8 +6,6 @@ class Api::UsersController < ApplicationController
     @user = User.create!(create_user_params)
     @token = @user.token(1.day.from_now)
     render status: :created
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def activate
@@ -19,8 +17,6 @@ class Api::UsersController < ApplicationController
     else
       render_error 'The token matches no user'
     end
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def authorize

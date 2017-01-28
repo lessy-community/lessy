@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
+  rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
 
   def client
     render file: 'public/index.html'
@@ -35,6 +36,11 @@ protected
   def render_record_not_found(exception)
     @resource = exception.model
     render 'api/errors/record_not_found', status: :not_found
+  end
+
+  def render_parameter_missing(exception)
+    @resource = exception.param
+    render 'api/errors/parameter_missing', status: :unprocessable_entity
   end
 
 end

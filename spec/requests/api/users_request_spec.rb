@@ -39,22 +39,24 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
-    context 'with invalid attributes' do
+    context 'with missing paramenters' do
       before do
         post '/api/users', params: { }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('user param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('user')
       end
     end
 
@@ -140,16 +142,18 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('username param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('username')
       end
     end
 

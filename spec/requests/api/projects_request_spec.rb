@@ -37,16 +37,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('project param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('project')
       end
     end
 
@@ -211,16 +213,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('project param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('project')
       end
     end
 
@@ -438,20 +442,22 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/start", params: { project: {} }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/start", params: { project: { due_at: nil } }, headers: { 'Authorization': user.token }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('due_at param is missing or empty')
+        expect(body['code']).to match('missing_param')
+        expect(body['resource']).to match('due_at')
       end
     end
 
@@ -588,20 +594,22 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with missing attribute' do
       before do
-        post "/api/projects/#{ project.id }/finish", params: { project: {} }, headers: { 'Authorization': user.token }
+        post "/api/projects/#{ project.id }/finish", params: { project: { finished_at: nil } }, headers: { 'Authorization': user.token }
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/parameter_missing')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/param is missing or the value is empty/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to eq('finished_at param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('finished_at')
       end
     end
 

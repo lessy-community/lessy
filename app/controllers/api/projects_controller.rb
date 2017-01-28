@@ -3,15 +3,11 @@ class Api::ProjectsController < ApplicationController
   def create
     @project = Project.create!(create_project_params)
     render status: :created
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def update
     @project = current_project
     @project.update! update_project_params
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def find
@@ -47,8 +43,6 @@ class Api::ProjectsController < ApplicationController
     else
       render_error 'Project has already been started'
     end
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
   def stop
@@ -69,8 +63,6 @@ class Api::ProjectsController < ApplicationController
     else
       render_error 'Project has already been finished'
     end
-  rescue ActionController::ParameterMissing => error
-    render_error error.message
   end
 
 private
