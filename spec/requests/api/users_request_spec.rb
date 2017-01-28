@@ -369,12 +369,14 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/User cannot be found/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
 

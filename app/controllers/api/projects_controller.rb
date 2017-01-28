@@ -10,8 +10,6 @@ class Api::ProjectsController < ApplicationController
   def update
     @project = current_project
     @project.update! update_project_params
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
   rescue ActionController::ParameterMissing => error
     render_error error.message
   end
@@ -23,12 +21,10 @@ class Api::ProjectsController < ApplicationController
     # projects not owned by current_user. We raise a RecordNotFound to avoid
     # possible leakages.
     if user != current_user
-      raise ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
     end
 
-    @project = user.projects.find_by!(name: params[:project_name])
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
+    @project = user.projects.find_by_name!(params[:project_name])
   end
 
   def get_finished
@@ -38,12 +34,10 @@ class Api::ProjectsController < ApplicationController
     # projects not owned by current_user. We raise a RecordNotFound to avoid
     # possible leakages.
     if user != current_user
-      raise ActiveRecord::RecordNotFound
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
     end
 
     @projects = user.projects.finished
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Projects cannot be found', :not_found
   end
 
   def start
@@ -53,8 +47,6 @@ class Api::ProjectsController < ApplicationController
     else
       render_error 'Project has already been started'
     end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
   rescue ActionController::ParameterMissing => error
     render_error error.message
   end
@@ -68,8 +60,6 @@ class Api::ProjectsController < ApplicationController
     else
       @project.stop_now!
     end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
   end
 
   def finish
@@ -79,8 +69,6 @@ class Api::ProjectsController < ApplicationController
     else
       render_error 'Project has already been finished'
     end
-  rescue ActiveRecord::RecordNotFound
-    render_error 'Project cannot be found', :not_found
   rescue ActionController::ParameterMissing => error
     render_error error.message
   end

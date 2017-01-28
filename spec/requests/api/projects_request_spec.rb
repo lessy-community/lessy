@@ -235,12 +235,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
 
@@ -256,12 +258,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
 
@@ -342,12 +346,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
 
@@ -362,12 +368,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
@@ -531,12 +539,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
@@ -679,12 +689,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
@@ -728,12 +740,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Projects cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
   end
@@ -824,12 +838,14 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project cannot be found/)
+      it 'returns errors' do
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('Project')
       end
     end
   end
