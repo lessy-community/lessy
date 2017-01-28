@@ -54,9 +54,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('user param is missing or empty')
-        expect(body['code']).to match('missing_param')
-        expect(body['resource']).to match('user')
+        expect(body['message']).to eq('user param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('user')
       end
     end
 
@@ -79,9 +79,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('User')
         expect(body['errors']).to match_array([{
           'field' => 'email',
           'code' => 'taken',
@@ -151,9 +151,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('username param is missing or empty')
-        expect(body['code']).to match('missing_param')
-        expect(body['resource']).to match('username')
+        expect(body['message']).to eq('username param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('username')
       end
     end
 
@@ -176,9 +176,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('User')
         expect(body['errors']).to match_array([{
           'field' => 'username',
           'code' => 'invalid',
@@ -206,9 +206,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('User')
         expect(body['errors']).to match_array([{
           'field' => 'username',
           'code' => 'taken',
@@ -232,9 +232,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('User')
       end
     end
   end
@@ -382,9 +382,9 @@ RSpec.describe Api::UsersController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('User')
       end
     end
 

@@ -46,9 +46,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('project param is missing or empty')
-        expect(body['code']).to match('missing_param')
-        expect(body['resource']).to match('project')
+        expect(body['message']).to eq('project param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('project')
       end
     end
 
@@ -68,9 +68,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'name',
           'code' => 'invalid',
@@ -95,9 +95,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'name',
           'code' => 'taken',
@@ -182,9 +182,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'name',
           'code' => 'invalid',
@@ -223,9 +223,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('project param is missing or empty')
-        expect(body['code']).to match('missing_param')
-        expect(body['resource']).to match('project')
+        expect(body['message']).to eq('project param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('project')
       end
     end
 
@@ -245,9 +245,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
 
@@ -268,9 +268,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
 
@@ -357,9 +357,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('User')
       end
     end
 
@@ -379,9 +379,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
   end
@@ -457,9 +457,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('due_at param is missing or empty')
-        expect(body['code']).to match('missing_param')
-        expect(body['resource']).to match('due_at')
+        expect(body['message']).to eq('due_at param is missing or empty')
+        expect(body['code']).to eq('missing_param')
+        expect(body['resource']).to eq('due_at')
       end
     end
 
@@ -479,9 +479,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'base',
           'code' => 'already_started',
@@ -505,9 +505,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'base',
           'code' => 'reached_max_started',
@@ -531,9 +531,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'due_at',
           'code' => 'before_started_at',
@@ -558,9 +558,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
   end
@@ -637,9 +637,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'base',
           'code' => 'already_finished',
@@ -663,9 +663,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'finished_at',
           'code' => 'outside_started_at_and_today',
@@ -689,9 +689,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'finished_at',
           'code' => 'outside_started_at_and_today',
@@ -716,9 +716,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
   end
@@ -767,9 +767,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('User not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('User')
+        expect(body['message']).to eq('User not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('User')
       end
     end
   end
@@ -824,9 +824,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'base',
           'code' => 'already_stopped',
@@ -850,9 +850,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns an error message' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project validation failed')
-        expect(body['code']).to match('validation_failed')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project validation failed')
+        expect(body['code']).to eq('validation_failed')
+        expect(body['resource']).to eq('Project')
         expect(body['errors']).to match_array([{
           'field' => 'base',
           'code' => 'already_finished',
@@ -877,9 +877,9 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'returns errors' do
         body = JSON.parse(response.body)
-        expect(body['message']).to match('Project not found')
-        expect(body['code']).to match('not_found')
-        expect(body['resource']).to match('Project')
+        expect(body['message']).to eq('Project not found')
+        expect(body['code']).to eq('not_found')
+        expect(body['resource']).to eq('Project')
       end
     end
   end
