@@ -2,12 +2,7 @@ import { get, post, patch } from './http'
 
 export default {
   create (name) {
-    const payload = {
-      project: {
-        name,
-      },
-    }
-    return post('/api/projects', payload)
+    return post('/api/projects', { name })
   },
 
   find (userIdentifier, projectName) {
@@ -19,21 +14,11 @@ export default {
   },
 
   start (project, dueAt) {
-    const payload = {
-      project: {
-        dueAt,
-      },
-    }
-    return post(`/api/projects/${project.id}/start`, payload)
+    return post(`/api/projects/${project.id}/start`, { dueAt })
   },
 
   finish (project, finishedAt) {
-    const payload = {
-      project: {
-        finishedAt,
-      },
-    }
-    return post(`/api/projects/${project.id}/finish`, payload)
+    return post(`/api/projects/${project.id}/finish`, { finishedAt })
   },
 
   stop (project) {

@@ -2,12 +2,7 @@ import { get, post } from './http'
 
 export default {
   register: (email) => {
-    const payload = {
-      user: {
-        email,
-      },
-    }
-    return post('/api/users', payload, false)
+    return post('/api/users', { email }, false)
   },
 
   activate: (token, username, password) => {
