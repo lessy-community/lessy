@@ -38,31 +38,17 @@ class Api::ProjectsController < ApplicationController
 
   def start
     @project = current_project
-    unless @project.started?
-      @project.start_now! due_at_param
-    else
-      render_error 'Project has already been started'
-    end
+    @project.start_now! due_at_param
   end
 
   def stop
     @project = current_project
-    if @project.stopped?
-      render_error 'Project has already been stopped'
-    elsif @project.finished?
-      render_error 'Project has already been finished'
-    else
-      @project.stop_now!
-    end
+    @project.stop_now!
   end
 
   def finish
     @project = current_project
-    unless @project.finished?
-      @project.finish_at! finished_at_param
-    else
-      render_error 'Project has already been finished'
-    end
+    @project.finish_at! finished_at_param
   end
 
 private

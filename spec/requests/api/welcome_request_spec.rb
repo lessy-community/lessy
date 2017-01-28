@@ -13,12 +13,13 @@ RSpec.describe Api::WelcomeController, type: :request do
     end
 
     it 'matches the error schema' do
-      expect(response).to match_response_schema('error')
+      expect(response).to match_response_schema('errors/custom_error')
     end
 
     it 'returns an error message' do
       error = JSON.parse(response.body)
-      expect(error['message']).to match(/Endpoint does not exist/)
+      expect(error['message']).to eq('Endpoint does not exist')
+      expect(error['code']).to eq('missing_endpoint')
     end
 
   end

@@ -223,16 +223,18 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:not_found)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_not_found')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/token matches no user/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('User not found')
+        expect(body['code']).to match('not_found')
+        expect(body['resource']).to match('User')
       end
     end
   end
@@ -279,12 +281,13 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Bad credentials/)
+        expect(error['message']).to eq('Bad credentials')
+        expect(error['code']).to eq('login_failed')
       end
     end
 
@@ -301,12 +304,13 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Bad credentials/)
+        expect(error['message']).to eq('Bad credentials')
+        expect(error['code']).to eq('login_failed')
       end
     end
   end
@@ -394,12 +398,13 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
 
@@ -413,12 +418,13 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
   end

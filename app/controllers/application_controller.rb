@@ -13,16 +13,17 @@ class ApplicationController < ActionController::API
 protected
 
   def require_login
-    render_error 'Authentication is required', :unauthorized unless current_user
+    render_custom_error 'Authentication is required', :authentication_required, :unauthorized unless current_user
   end
 
   def current_user
     @current_user ||= User.find_by_authorization_token(request.headers['Authorization'])
   end
 
-  def render_error(message, status = :bad_request)
+  def render_custom_error(message, code, status)
     @message = message
-    render 'api/errors/error', status: status
+    @code = code
+    render 'api/errors/custom_error', status: status
   end
 
   def render_record_invalid(exception)

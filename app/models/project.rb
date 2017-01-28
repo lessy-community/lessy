@@ -30,6 +30,10 @@ class Project < ApplicationRecord
   end
 
   def start_now!(due_at)
+    if started?
+      errors.add :base, :already_started, message: 'Project is already started'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
     if user.projects.in_progress.count >= 3
       errors.add :base, :reached_max_started, message: 'User cannot have more than 3 started projects'
       raise ActiveRecord::RecordInvalid.new(self)
@@ -38,10 +42,22 @@ class Project < ApplicationRecord
   end
 
   def stop_now!
+    if stopped?
+      errors.add :base, :already_stopped, message: 'Project is already stopped'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
+    if finished?
+      errors.add :base, :already_finished, message: 'Project is already finished'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
     update! started_at: nil, stopped_at: DateTime.now
   end
 
   def finish_at!(date)
+    if finished?
+      errors.add :base, :already_finished, message: 'Project is already finished'
+      raise ActiveRecord::RecordInvalid.new(self)
+    end
     update! finished_at: date
   end
 

@@ -116,12 +116,13 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
   end
@@ -283,12 +284,13 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/custom_error')
       end
 
       it 'returns an error message' do
         error = JSON.parse(response.body)
-        expect(error['message']).to match(/Authentication is required/)
+        expect(error['message']).to eq('Authentication is required')
+        expect(error['code']).to eq('authentication_required')
       end
     end
   end
@@ -468,16 +470,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been started/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_started',
+        }])
       end
     end
 
@@ -620,16 +628,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been finished/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_finished',
+        }])
       end
     end
 
@@ -801,16 +815,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been stopped/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_stopped',
+        }])
       end
     end
 
@@ -821,16 +841,22 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'fails' do
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'matches the error schema' do
-        expect(response).to match_response_schema('error')
+        expect(response).to match_response_schema('errors/record_invalid')
       end
 
       it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to match(/Project has already been finished/)
+        body = JSON.parse(response.body)
+        expect(body['message']).to match('Project validation failed')
+        expect(body['code']).to match('validation_failed')
+        expect(body['resource']).to match('Project')
+        expect(body['errors']).to match_array([{
+          'field' => 'base',
+          'code' => 'already_finished',
+        }])
       end
     end
 

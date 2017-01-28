@@ -10,13 +10,12 @@ class Api::UsersController < ApplicationController
 
   def activate
     @user = User.load_from_activation_token(params[:token])
-    if @user
-      @user.update! activate_user_params
-      @user.activate!
-      @token = @user.token(1.month.from_now)
-    else
-      render_error 'The token matches no user'
+    unless @user
+      raise ActiveRecord::RecordNotFound.new "Couldn't find User with token=#{ params[:token] }", User.name
     end
+    @user.update! activate_user_params
+    @user.activate!
+    @token = @user.token(1.month.from_now)
   end
 
   def authorize
@@ -24,7 +23,7 @@ class Api::UsersController < ApplicationController
     if @user
       @token = @user.token(1.month.from_now)
     else
-      render_error 'Bad credentials', :unauthorized
+      render_custom_error 'Bad credentials', :login_failed, :unauthorized
     end
   end
 
