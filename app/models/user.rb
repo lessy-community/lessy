@@ -7,8 +7,10 @@ class User < ApplicationRecord
   before_create :setup_activation
   after_create :send_activation_needed_email!
 
-  validates :email, :username, uniqueness: { case_sensitive: false }
-  validates :username, format: { with: /\A[a-z_\-]{1,}\z/, message: 'only allows lowercase letters, underscore and hiphen' }, allow_nil: true
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :username, format: { with: /\A[a-z_\-]{1,}\z/, message: 'only allows lowercase letters, underscore and hiphen' },
+                       uniqueness: { case_sensitive: false },
+                       allow_nil: true
 
   def self.find_by_authorization_token(token)
     decoded_token = JsonWebToken.decode(token)
