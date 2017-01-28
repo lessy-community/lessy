@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
     if @user
       @token = @user.token(1.month.from_now)
     else
-      render_custom_error 'Bad credentials', :login_failed, :unauthorized
+      render_custom_error 'Bad credentials', :login_failed, User, :unauthorized
     end
   end
 
