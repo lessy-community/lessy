@@ -39,6 +39,7 @@ export default {
         missing: 'Password is required',
       },
       username: {
+        exclusion: 'Username is a reserved word',
         invalid: 'Username does not match required pattern (only lowercase letters, underscore and hiphen are accepted)',
         missing: 'Username is required',
         taken: 'This username is not available',
