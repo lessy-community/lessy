@@ -28,7 +28,7 @@ const getters = {
         isStarted,
         isStopped,
         isFinished,
-        mdDescription: marked(project.description, { sanitize: true }),
+        mdDescription: marked(project.description, { sanitize: true, breaks: true, smartypants: true }),
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         stoppedAtLabel: isStopped ? formatDate(project.stoppedAt) : '',
