@@ -12,3 +12,12 @@ RSpec.shared_examples "failures" do |http_status, schema, error_body|
     expect(body).to eq(error_body)
   end
 end
+
+RSpec.shared_examples "missing param failures" do |resource, field|
+  it_behaves_like "failures", :unprocessable_entity, 'parameter_missing', {
+    message: 'Param is missing or empty',
+    code: 'missing_param',
+    resource: resource,
+    field: field,
+  }
+end

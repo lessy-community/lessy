@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared_examples_for_failures'
 
 RSpec.describe Api::ProjectsController, type: :request do
 
@@ -36,21 +37,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post '/api/projects', params: { project: {} }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('Project')
-        expect(body['field']).to eq('base')
-      end
+      it_behaves_like 'missing param failures', 'Project', 'base'
     end
 
     context 'with invalid name' do
@@ -205,21 +192,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('Project')
-        expect(body['field']).to eq('base')
-      end
+      it_behaves_like 'missing param failures', 'Project', 'base'
     end
 
     context 'with unknown project' do
@@ -440,21 +413,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/start", params: { project: { due_at: nil } }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('Project')
-        expect(body['field']).to eq('due_at')
-      end
+      it_behaves_like 'missing param failures', 'Project', 'due_at'
     end
 
     context 'with already started project' do
@@ -590,21 +549,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/finish", params: { project: { finished_at: nil } }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('Project')
-        expect(body['field']).to eq('finished_at')
-      end
+      it_behaves_like 'missing param failures', 'Project', 'finished_at'
     end
 
     context 'with already finished project' do

@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared_examples_for_failures'
 
 RSpec.describe Api::UsersController, type: :request do
 
@@ -44,21 +45,7 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('User')
-        expect(body['field']).to eq('base')
-      end
+      it_behaves_like 'missing param failures', 'User', 'base'
     end
 
     context 'with existing email' do
@@ -139,21 +126,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('User')
-        expect(body['field']).to eq('username')
-      end
+      it_behaves_like 'missing param failures', 'User', 'username'
     end
 
     context 'with invalid username' do
