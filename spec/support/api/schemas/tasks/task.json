@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["id", "label", "userId"],
+  "properties": {
+    "id": { "type": "integer" },
+    "label": { "type": "string" },
+    "userId": { "type": "integer" },
+    "dueAt": { "type": "integer" },
+    "finishedAt": { "type": "integer" }
+  },
+  "additionalProperties": false
+}

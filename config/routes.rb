@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         post 'finish'
       end
     end
+    resources :tasks, only: [:create]
 
     get '*path', to: 'welcome#not_found'
     post '*path', to: 'welcome#not_found'
