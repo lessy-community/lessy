@@ -109,7 +109,14 @@ export default {
     projectZero: 'Project Zero',
 
     project: {
+      dashboard: 'Dashboard',
+      projectsInbox: 'Projects inbox',
       settings: 'Settings',
+    },
+
+    sidebar: {
+      dashboard: 'Dashboard',
+      projectsInbox: 'Projects inbox',
     },
   },
 
@@ -121,13 +128,7 @@ export default {
 
     dashboard: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
-      createProject: '+ create a project',
       dueOn: 'Due on <b>{date}</b>',
-      finishedLabel: '(finished on {date})',
-      hideFinishedProjects: 'Hide your project | Hide your projects',
-      projectsPlaceholder: "You don't have any project yet, what are you working on?",
-      seeFinishedProjects: 'See your finished project | See your {count} finished projects',
-      stoppedOn: '(stopped on {date})',
     },
 
     error: {
@@ -154,6 +155,15 @@ export default {
     },
 
     projects: {
+      inbox: {
+        createProject: '+ create a project',
+        finishedLabel: '(finished on {date})',
+        hideFinishedProjects: 'Hide your project | Hide your projects',
+        projectsPlaceholder: "You don't have any project yet, what are you working on?",
+        seeFinishedProjects: 'See your finished project | See your {count} finished projects',
+        stoppedOn: '(stopped on {date})',
+      },
+
       finish: {
         intro: "Really? You've finished <b>{projectName}</b>? That's great!<br />Let us know when you finished it:",
       },

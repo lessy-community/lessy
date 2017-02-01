@@ -31,7 +31,6 @@
     margin-bottom: 20px;
     padding-bottom: 10px;
 
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -65,7 +64,6 @@
   .card-body {
     padding: 10px 20px;
 
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }

@@ -16,7 +16,7 @@ export default {
 
 <style>
 .container {
-  max-width: 950px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 
@@ -37,7 +37,6 @@ export default {
   flex-shrink: 0;
 }
 .container.row > .adapt {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
