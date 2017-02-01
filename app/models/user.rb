@@ -2,6 +2,7 @@ class User < ApplicationRecord
 
   authenticates_with_sorcery!
 
+  has_many :tasks, dependent: :destroy
   has_many :projects, dependent: :destroy
 
   before_create :setup_activation
