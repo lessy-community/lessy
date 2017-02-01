@@ -146,20 +146,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/not_the_token/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
   end
 
@@ -296,20 +283,7 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
 
     context 'with expired token' do

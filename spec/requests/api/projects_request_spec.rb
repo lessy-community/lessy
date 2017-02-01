@@ -159,20 +159,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
 
     context 'when authenticated with another user' do
@@ -182,20 +169,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
 
     context 'with invalid authentication' do
@@ -271,20 +245,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         get '/api/users/john/projects/my-project', headers: { 'Authorization': other_user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
 
     context 'when looking for a missing project' do
@@ -293,20 +254,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         get '/api/users/john/projects/my-project', headers: { 'Authorization': user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
   end
 
@@ -408,20 +356,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
   end
 
@@ -502,20 +437,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
   end
 
@@ -553,20 +475,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         get '/api/users/john/finished', headers: { 'Authorization': other_user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
   end
 
@@ -629,20 +538,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': other_user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('Project')
-      end
+      it_behaves_like 'not found failures', 'Project'
     end
   end
 

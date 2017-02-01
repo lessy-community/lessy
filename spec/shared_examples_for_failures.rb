@@ -30,3 +30,11 @@ RSpec.shared_examples "validation failed failures" do |resource, errors|
     errors: errors,
   }
 end
+
+RSpec.shared_examples "not found failures" do |resource|
+  it_behaves_like "failures", :not_found, 'record_not_found', {
+    message: "#{ resource } not found",
+    code: 'not_found',
+    resource: resource,
+  }
+end
