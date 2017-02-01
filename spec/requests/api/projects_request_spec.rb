@@ -46,21 +46,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'name' => ['invalid'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
     end
 
     context 'with existing project' do
@@ -70,21 +56,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'name' => ['taken'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { name: ['taken'] }
     end
 
     context 'with invalid authentication' do
@@ -154,21 +126,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'name' => ['invalid'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
     end
 
     context 'with not started project' do
@@ -422,21 +380,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'base' => ['already_started'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { base: ['already_started'] }
     end
 
     context 'with already 3 in_progress projects' do
@@ -445,21 +389,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'base' => ['reached_max_started'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { base: ['reached_max_started'] }
     end
 
     context 'with invalid due_at' do
@@ -468,21 +398,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/start", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'dueAt' => ['before_started_at'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { dueAt: ['before_started_at'] }
     end
 
     context 'when authenticated with another user' do
@@ -558,21 +474,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'base' => ['already_finished'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { base: ['already_finished'] }
     end
 
     context 'with a finish date in the future' do
@@ -581,21 +483,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'finishedAt' => ['outside_started_at_and_today'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['outside_started_at_and_today'] }
     end
 
     context 'with a finish date before started_at' do
@@ -604,21 +492,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/finish", params: payload, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'finishedAt' => ['outside_started_at_and_today'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['outside_started_at_and_today'] }
     end
 
     context 'when authenticated with another user' do
@@ -736,21 +610,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'base' => ['already_stopped'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { base: ['already_stopped'] }
     end
 
     context 'with already finished project' do
@@ -759,21 +619,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         post "/api/projects/#{ project.id }/stop", headers: { 'Authorization': user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Project validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('Project')
-        expect(body['errors']).to eq({ 'base' => ['already_finished'] })
-      end
+      it_behaves_like 'validation failed failures', 'Project', { base: ['already_finished'] }
     end
 
     context 'when authenticated with another user' do

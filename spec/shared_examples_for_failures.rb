@@ -21,3 +21,12 @@ RSpec.shared_examples "missing param failures" do |resource, field|
     field: field,
   }
 end
+
+RSpec.shared_examples "validation failed failures" do |resource, errors|
+  it_behaves_like "failures", :unprocessable_entity, 'record_invalid', {
+    message: "#{ resource } validation failed",
+    code: 'validation_failed',
+    resource: resource,
+    errors: errors,
+  }
+end

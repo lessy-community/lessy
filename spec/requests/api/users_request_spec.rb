@@ -57,21 +57,7 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'email' => ['taken'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { email: ['taken'] }
     end
   end
 
@@ -138,21 +124,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'username' => ['invalid'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { username: ['invalid'] }
     end
 
     context 'with existing username' do
@@ -165,21 +137,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'username' => ['taken'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { username: ['taken'] }
     end
 
     context 'with invalid token' do
