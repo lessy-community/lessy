@@ -65,19 +65,11 @@ RSpec.describe Api::ProjectsController, type: :request do
         post '/api/projects', params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
   end
 
@@ -177,19 +169,11 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
   end
 

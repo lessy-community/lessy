@@ -187,19 +187,11 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users/authorize', params: payload
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Bad credentials')
-        expect(error['code']).to eq('login_failed')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Bad credentials',
+        code: 'login_failed',
+        resource: 'User',
+      }
     end
 
     context 'with invalid password' do
@@ -210,19 +202,11 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users/authorize', params: payload
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Bad credentials')
-        expect(error['code']).to eq('login_failed')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Bad credentials',
+        code: 'login_failed',
+        resource: 'User',
+      }
     end
   end
 
@@ -291,19 +275,11 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': user.token(1.day.ago) }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
 
     context 'with no Authorization header' do
@@ -311,19 +287,11 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me'
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
   end
 
