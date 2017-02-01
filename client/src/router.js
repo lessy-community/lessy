@@ -12,6 +12,7 @@ import ProjectShowPage from './components/pages/projects/Show'
 import ProjectEditPage from './components/pages/projects/Edit'
 import ProjectStartPage from './components/pages/projects/Start'
 import ProjectFinishPage from './components/pages/projects/Finish'
+import ProjectsInboxPage from './components/pages/projects/Inbox'
 
 import auth from './auth'
 
@@ -22,6 +23,7 @@ const routes = [
   { path: '/login', component: LoginPage, meta: { restrictForUnauth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true } },
+  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { restrictForAuth: true } },
   { path: '/:userIdentifier/:projectName',
     component: ProjectLayout,
     children: [

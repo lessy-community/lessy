@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import users from './modules/users'
 import projects from './modules/projects'
+import tasks from './modules/tasks'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   modules: {
     users,
     projects,
+    tasks,
   },
   strict: debug,
 })

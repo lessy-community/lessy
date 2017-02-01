@@ -2,7 +2,8 @@
   <div v-if="project" class="project-layout">
     <container row align="center">
       <h1 class="adapt">
-        <router-link :to="project.user.urlShow">{{ project.user.displayedName }}</router-link>
+        <router-link v-if="project.isInProgress" to="/dashboard">{{ $t('layout.project.dashboard') }}</router-link>
+        <router-link v-else to="/projects/inbox">{{ $t('layout.project.projectsInbox') }}</router-link>
         /
         <router-link :to="project.urlShow">{{ project.name }}</router-link>
       </h1>

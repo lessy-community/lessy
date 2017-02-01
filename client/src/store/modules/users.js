@@ -61,6 +61,7 @@ const actions = {
     return usersApi.getCurrent()
       .then((data) => {
         commit('setCurrent', data.user)
+        commit('tasks/setup', data.tasks, { root: true })
         commit('projects/setup', data.projects, { root: true })
         commit('projects/setNumberFinished', data.numberFinishedProjects, { root: true })
       })

@@ -2,70 +2,50 @@
   <div class="dashboard-page">
     <p v-if="!user.activated" v-html="$t('pages.dashboard.activationInstructions', { email: user.email })"></p>
 
-    <div v-if="numberCurrentProjects > 0">
-      <container row>
-        <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
-          <span v-html="$t('pages.dashboard.dueOn', { date: project.dueAtLabel })" ></span>
-        </card>
-      </container>
+    <container v-if="inProgressProjects" row>
+      <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
+        <span v-html="$t('pages.dashboard.dueOn', { date: project.dueAtLabel })" ></span>
+      </card>
+    </container>
 
-      <list-item v-for="project in notStartedProjects">
-        <router-link :to="project.urlShow">
-          {{ project.name }}
-          <template v-if="project.isStopped">
-            {{ $t('pages.dashboard.stoppedOn', { date: project.stoppedAtLabel }) }}
-          </template>
-        </router-link>
-      </list-item>
-
-      <btn
-        v-if="!createFormEnabled"
-        type="primary"
-        @click="createFormEnabled = true"
+    <list-item v-for="task in tasks" :class="['task', { finished: task.isFinished }]">
+      <a
+        v-if="!task.isFinished"
+        href="#"
+        @click.prevent="finishTask(task)"
       >
-        {{ $t('pages.dashboard.createProject') }}
-      </btn>
-      <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>
-    </div>
-    <div v-else class="new-project-placeholder">
-      <p>{{ $t('pages.dashboard.projectsPlaceholder') }}</p>
-      <create-project-form :onSuccess="redirectToStartProject"></create-project-form>
-    </div>
-
-    <div v-if="numberFinishedProjects > 0" class="projects-finished">
-      <btn v-if="!showFinishedProjects" type="secondary" @click="loadFinishedProjects">
-      {{ $tc('pages.dashboard.seeFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
-      </btn>
-      <btn v-else type="secondary" @click="showFinishedProjects = false">
-        {{ $tc('pages.dashboard.hideFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
-      </btn>
-
-      <list-item v-if="showFinishedProjects" v-for="project in finishedProjects">
-        <router-link :to="project.urlShow">
-          {{ project.name }}
-          {{ $t('pages.dashboard.finishedLabel', { date: project.finishedAtLabel }) }}
-        </router-link>
-      </list-item>
-    </div>
+        ⬜ {{ task.label }}
+      </a>
+      <span v-else>
+        ⬛ {{ task.label }}
+      </span>
+    </list-item>
+    <btn
+      v-if="!createTaskEnabled"
+      type="primary"
+      @click="createTaskEnabled = true"
+    >
+      {{ $t('pages.dashboard.createTask') }}
+    </btn>
+    <create-task-form v-else :onCancel="disableCreateTask"></create-project-form>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex'
-  import CreateProjectForm from '../forms/CreateProject'
+  import { mapGetters } from 'vuex'
+  import CreateTaskForm from '../forms/CreateTask'
 
   export default {
 
     name: 'dashboard-page',
 
     components: {
-      CreateProjectForm,
+      CreateTaskForm,
     },
 
     data () {
       return {
-        createFormEnabled: false,
-        showFinishedProjects: false,
+        createTaskEnabled: false,
       }
     },
 
@@ -73,30 +53,17 @@
       ...mapGetters({
         user: 'users/current',
         inProgressProjects: 'projects/listInProgress',
-        notStartedProjects: 'projects/listNotStarted',
-        finishedProjects: 'projects/listFinished',
-        numberCurrentProjects: 'projects/numberCurrent',
-      }),
-      ...mapState({
-        numberFinishedProjects: state => state.projects.numberFinished,
+        tasks: 'tasks/list',
       }),
     },
 
     methods: {
-      disableCreateForm () {
-        this.createFormEnabled = false
+      disableCreateTask () {
+        this.createTaskEnabled = false
       },
 
-      loadFinishedProjects () {
-        const { dispatch, getters } = this.$store
-        dispatch('projects/getFinished', {
-          userIdentifier: getters['users/current'].identifier,
-        }).then(() => { this.showFinishedProjects = true })
-      },
-
-      redirectToStartProject (projectId) {
-        const project = this.$store.getters['projects/findById'](projectId)
-        this.$router.push(project.urlStart)
+      finishTask (task) {
+        this.$store.dispatch('tasks/finish', { task })
       },
     },
 
@@ -105,38 +72,19 @@
 
 <style>
 
-  .container > .dashboard-page {
-    padding-top: 30px;
-    padding-bottom: 60px;
+  .dashboard-page .container.row > .card {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
   }
 
   .dashboard-page .list-item:last-of-type {
     margin-bottom: 10px;
   }
 
-  .dashboard-page .card {
-    width: 30%;
-  }
-
-  .dashboard-page .projects-finished {
-    margin-top: 30px;
-  }
-
-  .dashboard-page .new-project-placeholder {
-    text-align: center;
-  }
-  .dashboard-page .new-project-placeholder p {
-    font-size: 1.2rem;
-    line-height: 2.5rem;
-  }
-
-  .dashboard-page .new-project-placeholder form {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .dashboard-page .new-project-placeholder .form-group-tip {
-    text-align: left;
+  .dashboard-page .task.finished {
+    color: #999;
+    text-decoration: line-through;
   }
 
 </style>

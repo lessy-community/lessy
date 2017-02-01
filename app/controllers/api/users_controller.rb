@@ -29,6 +29,7 @@ class Api::UsersController < ApplicationController
 
   def me
     @user = current_user
+    @tasks = @user.tasks.due_on_today
     user_projects = @user.projects
     @projects = user_projects.not_finished
     @number_finished_projects = user_projects.finished.count

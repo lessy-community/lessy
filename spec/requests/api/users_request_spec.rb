@@ -216,6 +216,8 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with valid token' do
       before do
         Timecop.freeze DateTime.new(2017)
+        create :task, user: user, label: 'My current task', due_at: DateTime.now
+        create :task, user: user, label: 'My previous task', due_at: 1.day.ago
         create :project, :finished, user: user, name: 'my-finished-project'
         create :project, :in_progress, user: user,
                                        name: 'my-project',
@@ -239,6 +241,12 @@ RSpec.describe Api::UsersController, type: :request do
       it 'returns the corresponding user' do
         json_user = JSON.parse(response.body)['user']
         expect(json_user['id']).to eq(user.id)
+      end
+
+      it 'returns tasks due on today' do
+        tasks = JSON.parse(response.body)['tasks']
+        expect(tasks.length).to eq(1)
+        expect(tasks[0]['label']).to eq('My current task')
       end
 
       it 'does not include finished project' do

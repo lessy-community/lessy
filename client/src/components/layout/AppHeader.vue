@@ -39,8 +39,6 @@ export default {
 
     background-color: #0080b0;
     color: #fff;
-
-    box-shadow: 0 1px 2px #aaa;
   }
   .app-header a {
     color: #fff;
