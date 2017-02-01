@@ -66,6 +66,11 @@ export default {
       submit: 'Create',
     },
 
+    createTask: {
+      cancel: 'Cancel',
+      submit: 'Create',
+    },
+
     editProject: {
       cancel: 'Cancel',
       descriptionLabel: 'Description',
@@ -128,6 +133,7 @@ export default {
 
     dashboard: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
+      createTask: '+ add tasks for today',
       dueOn: 'Due on <b>{date}</b>',
     },
 

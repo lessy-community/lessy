@@ -19,7 +19,7 @@
 
     line-height: 1.4rem;
   }
-  .list-item > a {
+  .list-item > * {
     display: block;
     padding: 10px 15px;
 
