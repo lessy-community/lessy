@@ -60,7 +60,8 @@ It's time to add the required environment variables, in your `~/.bashrc`, add th
 following lines and adapt them to your situation:
 
 ```
-export PROJECTZERO_SMTP_HOST=<your.smtp.server.com>
+export PROJECTZERO_HOST=<your.domain.com>
+export PROJECTZERO_HTTPS=true  # only if your server is configured to serve https
 export DATABASE_URL=postgres://<username>:<password>@localhost:5432/<db name>
 export RAILS_ENV=production
 export SECRET_KEY_BASE=<your secret key>

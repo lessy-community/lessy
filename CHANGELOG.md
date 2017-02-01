@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2 2016-xx-yy
+
+### Migration notes
+
+- `PROJECTZERO_SMTP_HOST` becomes `PROJECTZERO_HOST`
+- Add `export PROJECTZERO_HTTPS=true` in your .bashrc if you provide https
+
 ## 0.1 2017-01-29
 
 ### Features
