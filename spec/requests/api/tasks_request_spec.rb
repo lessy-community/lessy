@@ -66,4 +66,58 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'POST #finish' do
+    let(:task) { create :task, user: user }
+
+    before do
+      Timecop.freeze DateTime.new(2017)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid attributes' do
+      before do
+        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the projects/project schema' do
+        expect(response).to match_response_schema('tasks/task')
+      end
+
+      it 'saves finished_at' do
+        expect(task.reload.finished_at).to eq(DateTime.new(2017))
+      end
+
+      it 'returns the updated task' do
+        task = JSON.parse(response.body)
+        expect(task['finishedAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
+    context 'with already finished task' do
+      before do
+        task.finish_now!
+        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
+      end
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': other_user.token }
+      end
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
 end

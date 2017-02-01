@@ -5,7 +5,16 @@ class Api::TasksController < ApplicationController
     render status: :created
   end
 
+  def finish
+    @task = current_task
+    @task.finish_now!
+  end
+
 private
+
+  def current_task
+    @current_task ||= current_user.tasks.find(params[:id])
+  end
 
   def create_task_params
     require_resource_params(:task, [:label])
