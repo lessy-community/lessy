@@ -12,7 +12,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'does not accept reserved usernames' do
-      reserved_usernames = ['dashboard', 'login', 'register', 'logout']
+      reserved_usernames = [
+        'dashboard', 'login', 'register', 'logout',
+        'projects', 'tasks', 'users',
+      ]
       reserved_usernames.each do |username|
         user.username = username
         expect(user).to be_invalid, "'#{ username }' username should be invalid"
