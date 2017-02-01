@@ -1,8 +1,12 @@
 {
   "type": "object",
-  "required": ["user", "projects", "numberFinishedProjects"],
+  "required": ["user", "tasks", "projects", "numberFinishedProjects"],
   "properties": {
     "user": { "ref": "user.json" },
+    "tasks": {
+      "type": "array",
+      "items": { "ref": "../tasks/task.json" }
+    },
     "projects": {
       "type": "array",
       "items": { "ref": "../projects/project.json" }
