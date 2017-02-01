@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shared_examples_for_failures'
 
 RSpec.describe Api::UsersController, type: :request do
 
@@ -44,21 +45,7 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('User')
-        expect(body['field']).to eq('base')
-      end
+      it_behaves_like 'missing param failures', 'User', 'base'
     end
 
     context 'with existing email' do
@@ -70,21 +57,7 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'email' => ['taken'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { email: ['taken'] }
     end
   end
 
@@ -139,21 +112,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/parameter_missing')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('Param is missing or empty')
-        expect(body['code']).to eq('missing_param')
-        expect(body['resource']).to eq('User')
-        expect(body['field']).to eq('username')
-      end
+      it_behaves_like 'missing param failures', 'User', 'username'
     end
 
     context 'with invalid username' do
@@ -165,21 +124,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'username' => ['invalid'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { username: ['invalid'] }
     end
 
     context 'with existing username' do
@@ -192,21 +137,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_invalid')
-      end
-
-      it 'returns errors' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User validation failed')
-        expect(body['code']).to eq('validation_failed')
-        expect(body['resource']).to eq('User')
-        expect(body['errors']).to eq({ 'username' => ['taken'] })
-      end
+      it_behaves_like 'validation failed failures', 'User', { username: ['taken'] }
     end
 
     context 'with invalid token' do
@@ -215,20 +146,7 @@ RSpec.describe Api::UsersController, type: :request do
         post "/api/users/not_the_token/activate", params: { user: payload }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
   end
 
@@ -269,19 +187,11 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users/authorize', params: payload
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Bad credentials')
-        expect(error['code']).to eq('login_failed')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Bad credentials',
+        code: 'login_failed',
+        resource: 'User',
+      }
     end
 
     context 'with invalid password' do
@@ -292,19 +202,11 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users/authorize', params: payload
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Bad credentials')
-        expect(error['code']).to eq('login_failed')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Bad credentials',
+        code: 'login_failed',
+        resource: 'User',
+      }
     end
   end
 
@@ -365,20 +267,7 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': user.token }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/record_not_found')
-      end
-
-      it 'returns an error message' do
-        body = JSON.parse(response.body)
-        expect(body['message']).to eq('User not found')
-        expect(body['code']).to eq('not_found')
-        expect(body['resource']).to eq('User')
-      end
+      it_behaves_like 'not found failures', 'User'
     end
 
     context 'with expired token' do
@@ -386,19 +275,11 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': user.token(1.day.ago) }
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
 
     context 'with no Authorization header' do
@@ -406,19 +287,11 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me'
       end
 
-      it 'fails' do
-        expect(response).to have_http_status(:unauthorized)
-      end
-
-      it 'matches the error schema' do
-        expect(response).to match_response_schema('errors/custom_error')
-      end
-
-      it 'returns an error message' do
-        error = JSON.parse(response.body)
-        expect(error['message']).to eq('Authentication is required')
-        expect(error['code']).to eq('authentication_required')
-      end
+      it_behaves_like 'failures', :unauthorized, 'custom_error', {
+        message: 'Authentication is required',
+        code: 'authentication_required',
+        resource: 'User',
+      }
     end
   end
 
