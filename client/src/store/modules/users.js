@@ -1,6 +1,13 @@
 import usersApi from '../../api/users'
 import auth from '../../auth'
 
+function initUser (commit, data) {
+  commit('setCurrent', data.user)
+  commit('tasks/setup', data.tasks, { root: true })
+  commit('projects/setup', data.projects, { root: true })
+  commit('projects/setNumberFinished', data.numberFinishedProjects, { root: true })
+}
+
 const state = {
   current: null,
   byIds: {},
@@ -43,8 +50,7 @@ const actions = {
     return usersApi.activate(token, username, password)
       .then((data) => {
         auth.login(data.token)
-        commit('setCurrent', data.user)
-        commit('projects/setup', data.projects, { root: true })
+        initUser(commit, data)
       })
   },
 
@@ -52,19 +58,13 @@ const actions = {
     return usersApi.login(username, password)
       .then((data) => {
         auth.login(data.token)
-        commit('setCurrent', data.user)
-        commit('projects/setup', data.projects, { root: true })
+        initUser(commit, data)
       })
   },
 
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
-      .then((data) => {
-        commit('setCurrent', data.user)
-        commit('tasks/setup', data.tasks, { root: true })
-        commit('projects/setup', data.projects, { root: true })
-        commit('projects/setNumberFinished', data.numberFinishedProjects, { root: true })
-      })
+      .then((data) => initUser(commit, data))
   },
 
   logout ({ commit }) {
