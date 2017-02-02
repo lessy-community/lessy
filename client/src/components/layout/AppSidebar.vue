@@ -19,9 +19,11 @@
 
 <style>
 
-  .container > .app-sidebar {
+  .app-sidebar {
     width: 230px;
     padding-top: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .app-sidebar .list-item > a:hover {
     background-color: transparent;

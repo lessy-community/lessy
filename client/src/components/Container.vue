@@ -23,9 +23,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.container > * {
-  padding: 5px;
-}
 
 .container.row {
   display: flex;

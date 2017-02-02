@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-page">
+  <app-content sidebar contentClass="dashboard-page">
     <p v-if="!user.activated" v-html="$t('pages.dashboard.activationInstructions', { email: user.email })"></p>
 
     <container v-if="inProgressProjects" row>
@@ -28,7 +28,7 @@
       {{ $t('pages.dashboard.createTask') }}
     </btn>
     <create-task-form v-else :onCancel="disableCreateTask"></create-project-form>
-  </div>
+  </app-content>
 </template>
 
 <script>

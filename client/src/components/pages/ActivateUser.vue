@@ -1,12 +1,12 @@
 <template>
-  <div class="activate-user-page">
+  <app-content contentClass="activate-user-page">
     <h1>{{ $t('pages.activateUser.title') }}</h1>
     <p>{{ $t('pages.activateUser.intro') }}</p>
     <activate-user-form
       :token="token"
       :on-success="onActivationSuccess"
     />
-  </div>
+  </app-content>
 </template>
 
 <script>

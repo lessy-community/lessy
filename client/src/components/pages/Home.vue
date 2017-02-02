@@ -1,9 +1,9 @@
 <template>
-  <div class="home-page">
+  <app-content contentClass="home-page">
     <h1>{{ $t('pages.home.title') }}</h1>
     <p>{{ $t('pages.home.intro') }}</p>
     <register-form :on-success="onRegistrationSuccess" />
-  </div>
+  </app-content>
 </template>
 
 <script>

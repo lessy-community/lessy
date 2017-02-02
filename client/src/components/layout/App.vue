@@ -1,17 +1,13 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <container row class="app-container">
-      <app-sidebar></app-sidebar>
-      <router-view v-if="ready" class="app-content adapt"></router-view>
-      <loading-page v-else class="app-content adapt"></loading-page>
-    </container>
+    <router-view v-if="ready"></router-view>
+    <loading-page v-else></loading-page>
   </div>
 </template>
 
 <script>
   import AppHeader from './AppHeader'
-  import AppSidebar from './AppSidebar'
 
   import LoadingPage from '../pages/Loading'
 
@@ -24,7 +20,6 @@
 
     components: {
       AppHeader,
-      AppSidebar,
       LoadingPage,
     },
 
@@ -87,17 +82,6 @@
 
   h1 {
     margin-top: 0;
-  }
-
-  .app-container {
-    min-height: calc(100vh - 66px);
-    margin-top: -10px;
-  }
-  .app-container > .app-content {
-    padding: 25px;
-
-    background-color: #fff;
-    border-left: 1px solid #eee;
   }
 
 </style>

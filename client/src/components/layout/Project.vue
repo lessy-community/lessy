@@ -1,5 +1,5 @@
 <template>
-  <div v-if="project" class="project-layout">
+  <app-content v-if="project" sidebar contentClass="project-layout">
     <container row align="center">
       <h1 class="adapt">
         <router-link v-if="project.isInProgress" to="/dashboard">{{ $t('layout.project.dashboard') }}</router-link>
@@ -10,7 +10,7 @@
       <router-link :to="project.urlEdit" class="btn btn-settings">{{ $t('layout.project.settings') }}</router-link>
     </container>
     <router-view v-if="project" :project="project"></router-view>
-  </div>
+  </app-content>
   <error-page v-else-if="error" :message="error"></error-page>
   <loading-page v-else></loading-page>
 </template>
@@ -59,10 +59,6 @@
 </script>
 
 <style scoped>
-
-  .project-layout .container > h1 {
-    margin-left: -5px;
-  }
 
   .btn-settings.router-link-active {
     color: #666;

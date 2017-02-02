@@ -1,7 +1,7 @@
 <template>
-  <div class="loading-page">
+  <app-content contentClass="loading-page">
     {{ $t('pages.loading.inProgress') }}
-  </div>
+  </app-content>
 </template>
 
 <script>
@@ -14,7 +14,7 @@
 
 <style>
 
-  .container > .loading-page {
+  .loading-page {
     padding-top: 42px;
     font-size: 2rem;
     text-align: center;

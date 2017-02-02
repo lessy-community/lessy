@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-inbox-page">
+  <app-content sidebar contentClass="projects-inbox-page">
     <div>
       <list-item v-for="project in notStartedProjects">
         <router-link :to="project.urlShow">
@@ -39,7 +39,7 @@
         </router-link>
       </list-item>
     </div>
-  </div>
+  </app-content>
 </template>
 
 <script>

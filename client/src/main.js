@@ -14,6 +14,8 @@ import PasswordField from './components/fields/PasswordField'
 import StaticField from './components/fields/StaticField'
 import TextField from './components/fields/TextField'
 
+import AppContent from './components/layout/AppContent'
+
 import locales from './locales'
 import router from './router'
 import store from './store'
@@ -32,6 +34,8 @@ Vue.component('form-group', FormGroup)
 Vue.component('password-field', PasswordField)
 Vue.component('static-field', StaticField)
 Vue.component('text-field', TextField)
+
+Vue.component('app-content', AppContent)
 
 /* eslint-disable no-new */
 new Vue({

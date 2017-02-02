@@ -1,11 +1,11 @@
 <template>
-  <div class="not-found-page">
+  <app-content contentClass="not-found-page">
     <h1>{{ $t('pages.notFound.title') }}</h1>
     <p>{{ $t('pages.notFound.intro') }}</p>
     <div>
       <router-link to="/">{{ $t('pages.notFound.home') }}</router-link>
     </div>
-  </div>
+  </app-content>
 </template>
 
 <script>
@@ -18,7 +18,7 @@
 
 <style>
 
-  .container > .not-found-page {
+  .not-found-page {
     padding-top: 42px;
     font-size: 2rem;
     text-align: center;

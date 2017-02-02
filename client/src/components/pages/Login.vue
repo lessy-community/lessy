@@ -1,8 +1,8 @@
 <template>
-  <div class="login-page">
+  <app-content contentClass="login-page">
     <h1>{{ $t('pages.login.title') }}</h1>
     <login-form :on-success="onLoginSuccess" />
-  </div>
+  </app-content>
 </template>
 
 <script>
