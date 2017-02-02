@@ -57,6 +57,11 @@ const mutations = {
       [task.id]: task,
     }
   },
+
+  reset (state) {
+    state.current = null
+    state.byIds = {}
+  },
 }
 
 export default {

@@ -70,6 +70,7 @@ const actions = {
   logout ({ commit }) {
     auth.logout()
     commit('resetCurrent', true)
+    commit('tasks/reset', null, { root: true })
     commit('projects/reset', null, { root: true })
   },
 }
