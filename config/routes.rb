@@ -21,6 +21,9 @@ Rails.application.routes.draw do
       end
     end
     resources :tasks, only: [:create] do
+      collection do
+        get 'pending'
+      end
       member do
         post 'finish'
         post 'restart'

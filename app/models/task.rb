@@ -8,6 +8,10 @@ class Task < ApplicationRecord
     today = DateTime.now
     where('? <= due_at AND due_at <= ?', today.beginning_of_day, today.end_of_day)
   }
+  scope :pending, -> {
+    today = DateTime.now
+    where(finished_at: nil).where('due_at < ?', today.beginning_of_day)
+  }
 
   alias_attribute :finished?, :finished_at?
 
