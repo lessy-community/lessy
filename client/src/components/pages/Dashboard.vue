@@ -19,14 +19,17 @@
         {{ task.label }}
       </a>
     </list-item>
-    <btn
-      v-if="!createTaskEnabled"
-      type="primary"
-      @click="createTaskEnabled = true"
-    >
-      {{ $t('pages.dashboard.createTask') }}
-    </btn>
-    <create-task-form v-else :onCancel="disableCreateTask"></create-project-form>
+    <template v-if="tasks.length > 0">
+      <btn
+        v-if="!createTaskEnabled"
+        type="primary"
+        @click="createTaskEnabled = true"
+      >
+        {{ $t('pages.dashboard.createTask') }}
+      </btn>
+      <create-task-form v-else :onCancel="disableCreateTask" autoFocus></create-task-form>
+    </template>
+    <router-link v-else to="/tasks/planning">{{ $t('pages.dashboard.planning') }}</router-link>
   </app-content>
 </template>
 
@@ -52,7 +55,7 @@
       ...mapGetters({
         user: 'users/current',
         inProgressProjects: 'projects/listInProgress',
-        tasks: 'tasks/list',
+        tasks: 'tasks/listForToday',
       }),
     },
 

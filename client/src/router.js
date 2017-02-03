@@ -14,6 +14,9 @@ import ProjectStartPage from './components/pages/projects/Start'
 import ProjectFinishPage from './components/pages/projects/Finish'
 import ProjectsInboxPage from './components/pages/projects/Inbox'
 
+import TasksLayout from './components/layout/Tasks'
+import TasksPlanningPage from './components/pages/tasks/Planning'
+
 import auth from './auth'
 
 Vue.use(VueRouter)
@@ -24,6 +27,12 @@ const routes = [
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true } },
   { path: '/projects/inbox', component: ProjectsInboxPage, meta: { restrictForAuth: true } },
+  { path: '/tasks',
+    component: TasksLayout,
+    children: [
+      { path: 'planning', component: TasksPlanningPage, name: 'tasks/planning' },
+    ],
+  },
   { path: '/:userIdentifier/:projectName',
     component: ProjectLayout,
     children: [

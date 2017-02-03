@@ -1,4 +1,4 @@
-import { post } from './http'
+import { get, post } from './http'
 
 export default {
   create (label) {
@@ -11,5 +11,9 @@ export default {
 
   restart (task) {
     return post(`/api/tasks/${task.id}/restart`)
+  },
+
+  getPending () {
+    return get('/api/tasks/pending')
   },
 }
