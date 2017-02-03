@@ -9,16 +9,15 @@
     </container>
 
     <list-item v-for="task in tasks" :class="['task', { finished: task.isFinished }]">
-      <a
-        v-if="!task.isFinished"
-        href="#"
-        @click.prevent="finishTask(task)"
-      >
-        ⬜ {{ task.label }}
+      <a href="#" @click.prevent="toggleFinishTask(task)">
+        <template v-if="task.isFinished">
+          ⬛
+        </template>
+        <template v-else>
+          ⬜
+        </template>
+        {{ task.label }}
       </a>
-      <span v-else>
-        ⬛ {{ task.label }}
-      </span>
     </list-item>
     <btn
       v-if="!createTaskEnabled"
@@ -62,8 +61,12 @@
         this.createTaskEnabled = false
       },
 
-      finishTask (task) {
-        this.$store.dispatch('tasks/finish', { task })
+      toggleFinishTask (task) {
+        if (task.isFinished) {
+          this.$store.dispatch('tasks/restart', { task })
+        } else {
+          this.$store.dispatch('tasks/finish', { task })
+        }
       },
     },
 
@@ -82,7 +85,7 @@
     margin-bottom: 10px;
   }
 
-  .dashboard-page .task.finished {
+  .dashboard-page .task.finished a {
     color: #999;
     text-decoration: line-through;
   }

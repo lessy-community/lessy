@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :tasks, only: [:create] do
       member do
         post 'finish'
+        post 'restart'
       end
     end
 

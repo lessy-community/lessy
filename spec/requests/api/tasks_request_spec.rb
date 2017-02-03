@@ -67,7 +67,7 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   describe 'POST #finish' do
-    let(:task) { create :task, user: user }
+    let(:task) { create :task, :not_finished, user: user }
 
     before do
       Timecop.freeze DateTime.new(2017)
@@ -86,7 +86,7 @@ RSpec.describe Api::TasksController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the projects/project schema' do
+      it 'matches the tasks/task schema' do
         expect(response).to match_response_schema('tasks/task')
       end
 
@@ -101,8 +101,9 @@ RSpec.describe Api::TasksController, type: :request do
     end
 
     context 'with already finished task' do
+      let(:task) { create :task, :finished, user: user }
+
       before do
-        task.finish_now!
         post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
       end
 
@@ -114,6 +115,50 @@ RSpec.describe Api::TasksController, type: :request do
 
       before do
         post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': other_user.token }
+      end
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
+  describe 'POST #restart' do
+    let(:task) { create :task, :finished, user: user }
+
+    before do
+      Timecop.freeze DateTime.new(2017)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid attributes' do
+      before do
+        post "/api/tasks/#{ task.id }/restart", headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/task schema' do
+        expect(response).to match_response_schema('tasks/task')
+      end
+
+      it 'resets finished_at' do
+        expect(task.reload.finished_at).to be(nil)
+      end
+
+      it 'sets due_at to today' do
+        expect(task.reload.due_at).to eq(DateTime.new(2017))
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        post "/api/tasks/#{ task.id }/restart", headers: { 'Authorization': other_user.token }
       end
 
       it_behaves_like 'not found failures', 'Task'

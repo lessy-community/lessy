@@ -8,4 +8,8 @@ export default {
   finish (task) {
     return post(`/api/tasks/${task.id}/finish`)
   },
+
+  restart (task) {
+    return post(`/api/tasks/${task.id}/restart`)
+  },
 }

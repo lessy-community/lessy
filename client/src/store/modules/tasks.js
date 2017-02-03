@@ -37,6 +37,11 @@ const actions = {
     return tasksApi.finish(task)
                    .then((data) => commit('set', data))
   },
+
+  restart ({ commit }, { task }) {
+    return tasksApi.restart(task)
+                   .then((data) => commit('set', data))
+  },
 }
 
 const mutations = {

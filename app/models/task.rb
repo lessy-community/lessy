@@ -16,6 +16,11 @@ class Task < ApplicationRecord
     update! finished_at: DateTime.now
   end
 
+  def restart!
+    update! finished_at: nil,
+            due_at: DateTime.now
+  end
+
 private
 
   def validates_not_finished

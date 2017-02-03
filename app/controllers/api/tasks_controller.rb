@@ -10,6 +10,11 @@ class Api::TasksController < ApplicationController
     @task.finish_now!
   end
 
+  def restart
+    @task = current_task
+    @task.restart!
+  end
+
 private
 
   def current_task
