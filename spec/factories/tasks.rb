@@ -10,5 +10,10 @@ FactoryGirl.define do
     trait :not_finished do
       finished_at nil
     end
+
+    trait :pending do
+      due_at { 1.day.ago }
+      finished_at nil
+    end
   end
 end

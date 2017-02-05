@@ -25,6 +25,12 @@ export default {
       },
     },
 
+    Task: {
+      label: {
+        missing: 'Label is missing',
+      },
+    },
+
     User: {
       base: {
         login_failed: 'Oops we failed to log you, it seems your credentials were wrong…',
@@ -122,6 +128,7 @@ export default {
     sidebar: {
       dashboard: 'Dashboard',
       projectsInbox: 'Projects inbox',
+      tasks: 'Tasks',
     },
   },
 
@@ -135,6 +142,7 @@ export default {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       createTask: '+ add tasks for today',
       dueOn: 'Due on <b>{date}</b>',
+      planning: 'What will you be working on today?',
     },
 
     error: {
@@ -186,6 +194,18 @@ export default {
         startProject: 'Start this project',
         stoppedLabel: 'Stopped on',
         stopProject: 'Stop it, now',
+      },
+    },
+
+    tasks: {
+      planning: {
+        back: 'That’s all, go back to dashboard',
+        didIt: 'I did it',
+        dueOn: '(due on {date})',
+        pendingInfo: 'We found pending tasks, what do you want to do with them?',
+        replan: 'Replan for today',
+        title: 'Plan your tasks for today',
+        titleForToday: 'Tasks planned for today',
       },
     },
   },

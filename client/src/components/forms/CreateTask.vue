@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="create">
     <div :class="['form-group-control', { invalid: isInError('Task', 'label') }]">
-      <text-field id="label" v-model="label" required ref="labelInput" />
+      <text-field id="label" v-model="label" ref="labelInput" />
       <div v-if="isInError('Task', 'label')" class="form-group-tip">
         {{ getErrors('Task', 'label') }}
       </div>
@@ -25,6 +25,7 @@
 
     props: {
       'onCancel': { type: Function },
+      'autoFocus': { type: Boolean },
     },
 
     data () {
@@ -53,7 +54,9 @@
     },
 
     mounted () {
-      this.$refs.labelInput.$el.focus()
+      if (this.autoFocus) {
+        this.$refs.labelInput.$el.focus()
+      }
     },
 
   }

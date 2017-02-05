@@ -15,6 +15,10 @@ class Api::TasksController < ApplicationController
     @task.restart!
   end
 
+  def pending
+    @tasks = current_user.tasks.pending
+  end
+
 private
 
   def current_task

@@ -4,6 +4,9 @@
       <router-link to="/dashboard" active-class="active">{{ $t('layout.sidebar.dashboard') }}</router-link>
     </list-item>
     <list-item>
+      <router-link to="/tasks" active-class="active">{{ $t('layout.sidebar.tasks') }}</router-link>
+    </list-item>
+    <list-item>
       <router-link to="/projects/inbox" active-class="active">{{ $t('layout.sidebar.projectsInbox') }}</router-link>
     </list-item>
   </div>
