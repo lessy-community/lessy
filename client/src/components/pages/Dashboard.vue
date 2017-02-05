@@ -8,16 +8,14 @@
       </card>
     </container>
 
-    <list-item v-for="task in tasks" :class="['task', { finished: task.isFinished }]">
-      <a href="#" @click.prevent="toggleFinishTask(task)">
-        <template v-if="task.isFinished">
-          ⬛
-        </template>
-        <template v-else>
-          ⬜
-        </template>
-        {{ task.label }}
-      </a>
+    <list-item v-for="task in tasks" @click="toggleFinishTask(task)" :class="['task', { finished: task.isFinished }]">
+      <template v-if="task.isFinished">
+        ⬛
+      </template>
+      <template v-else>
+        ⬜
+      </template>
+      {{ task.label }}
     </list-item>
     <template v-if="tasks.length > 0">
       <btn
@@ -88,7 +86,7 @@
     margin-bottom: 10px;
   }
 
-  .dashboard-page .task.finished a {
+  .dashboard-page .task.finished {
     color: #999;
     text-decoration: line-through;
   }

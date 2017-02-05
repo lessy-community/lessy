@@ -1,14 +1,8 @@
 <template>
   <div class="app-sidebar">
-    <list-item>
-      <router-link to="/dashboard" active-class="active">{{ $t('layout.sidebar.dashboard') }}</router-link>
-    </list-item>
-    <list-item>
-      <router-link to="/tasks" active-class="active">{{ $t('layout.sidebar.tasks') }}</router-link>
-    </list-item>
-    <list-item>
-      <router-link to="/projects/inbox" active-class="active">{{ $t('layout.sidebar.projectsInbox') }}</router-link>
-    </list-item>
+    <router-link to="/dashboard" active-class="active">{{ $t('layout.sidebar.dashboard') }}</router-link>
+    <router-link to="/tasks" active-class="active">{{ $t('layout.sidebar.tasks') }}</router-link>
+    <router-link to="/projects/inbox" active-class="active">{{ $t('layout.sidebar.projectsInbox') }}</router-link>
   </div>
 </template>
 
@@ -28,11 +22,19 @@
     padding-left: 5px;
     padding-right: 5px;
   }
-  .app-sidebar .list-item > a:hover {
-    background-color: transparent;
+  .app-sidebar > a {
+    display: block;
+    padding: 10px 15px;
+
+    transition: all .1s ease-in-out;
   }
-  .app-sidebar .list-item > a:not(.active):hover {
-    border: 1px solid #ddd;
+  .app-sidebar > a:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  .app-sidebar a.active {
+    color: #000;
+    font-weight: bold;
   }
 
 </style>

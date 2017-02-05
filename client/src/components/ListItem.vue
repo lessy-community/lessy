@@ -1,5 +1,8 @@
 <template>
-  <div class="list-item">
+  <a v-if="isLink" href="#" @click.prevent="$emit('click')" class="list-item">
+    <slot></slot>
+  </a>
+  <div v-else class="list-item">
     <slot></slot>
   </div>
 </template>
@@ -9,6 +12,12 @@
 
     name: 'list-item',
 
+    computed: {
+      isLink () {
+        return !!this._events['click']
+      }
+    },
+
   }
 </script>
 
@@ -16,13 +25,9 @@
 
   .list-item {
     display: block;
-
-    line-height: 1.4rem;
-  }
-  .list-item > * {
-    display: block;
     padding: 10px 15px;
 
+    line-height: 1.4rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -32,15 +37,11 @@
 
     transition: all .1s ease-in-out;
   }
-  .list-item > a:hover {
+  a.list-item:hover {
     color: #000;
     text-decoration: none;
 
     background-color: #e2f4fb;
-  }
-  .list-item > a.active {
-    color: #000;
-    font-weight: bold;
   }
 
 </style>

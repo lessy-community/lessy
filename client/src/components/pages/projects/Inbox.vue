@@ -1,13 +1,11 @@
 <template>
   <app-content sidebar contentClass="projects-inbox-page">
     <div>
-      <list-item v-for="project in notStartedProjects">
-        <router-link :to="project.urlShow">
-          {{ project.name }}
-          <template v-if="project.isStopped">
-            {{ $t('pages.projects.inbox.stoppedOn', { date: project.stoppedAtLabel }) }}
-          </template>
-        </router-link>
+      <list-item v-for="project in notStartedProjects" @click="$router.push(project.urlShow)">
+        {{ project.name }}
+        <template v-if="project.isStopped">
+          {{ $t('pages.projects.inbox.stoppedOn', { date: project.stoppedAtLabel }) }}
+        </template>
       </list-item>
       <div v-if="!notStartedProjects" class="new-project-placeholder">
         <p>{{ $t('pages.projects.inbox.projectsPlaceholder') }}</p>
@@ -32,11 +30,9 @@
         {{ $tc('pages.projects.inbox.hideFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
       </btn>
 
-      <list-item v-if="showFinishedProjects" v-for="project in finishedProjects">
-        <router-link :to="project.urlShow">
-          {{ project.name }}
-          {{ $t('pages.projects.inbox.finishedLabel', { date: project.finishedAtLabel }) }}
-        </router-link>
+      <list-item v-if="showFinishedProjects" v-for="project in finishedProjects" @click="$router.push(project.urlShow)">
+        {{ project.name }}
+        {{ $t('pages.projects.inbox.finishedLabel', { date: project.finishedAtLabel }) }}
       </list-item>
     </div>
   </app-content>
