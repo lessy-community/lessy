@@ -130,6 +130,10 @@ export default {
       projectsInbox: 'Projects inbox',
       tasks: 'Tasks',
     },
+
+    tasks: {
+      planning: 'Plan for today',
+    },
   },
 
   pages: {
