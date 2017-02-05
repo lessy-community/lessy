@@ -1,5 +1,5 @@
 <template>
-  <app-content sidebar contentClass="projects-inbox-page">
+  <div class="projects-inbox-page">
     <div>
       <list-item v-for="project in notStartedProjects" @click="$router.push(project.urlShow)">
         {{ project.name }}
@@ -35,7 +35,7 @@
         {{ $t('pages.projects.inbox.finishedLabel', { date: project.finishedAtLabel }) }}
       </list-item>
     </div>
-  </app-content>
+  </div>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <div class="app-sidebar">
     <router-link to="/dashboard" active-class="active">{{ $t('layout.sidebar.dashboard') }}</router-link>
     <router-link to="/tasks" active-class="active">{{ $t('layout.sidebar.tasks') }}</router-link>
-    <router-link to="/projects/inbox" active-class="active">{{ $t('layout.sidebar.projectsInbox') }}</router-link>
+    <router-link to="/projects" active-class="active">{{ $t('layout.sidebar.projects') }}</router-link>
   </div>
 </template>
 

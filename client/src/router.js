@@ -8,6 +8,7 @@ import LoginPage from './components/pages/Login'
 import NotFoundPage from './components/pages/NotFound'
 
 import ProjectLayout from './components/layout/Project'
+import ProjectsLayout from './components/layout/Projects'
 import ProjectShowPage from './components/pages/projects/Show'
 import ProjectEditPage from './components/pages/projects/Edit'
 import ProjectStartPage from './components/pages/projects/Start'
@@ -26,21 +27,28 @@ const routes = [
   { path: '/login', component: LoginPage, meta: { restrictForUnauth: true } },
   { path: '/users/:token/activate', component: ActivateUserPage },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true } },
-  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { restrictForAuth: true } },
   { path: '/tasks',
     component: TasksLayout,
     children: [
       { path: 'planning', component: TasksPlanningPage, name: 'tasks/planning' },
     ],
+    meta: { restrictForAuth: true },
   },
-  { path: '/:userIdentifier/:projectName',
-    component: ProjectLayout,
+  { path: '/projects',
+    component: ProjectsLayout,
     children: [
-      { path: '', component: ProjectShowPage, name: 'project/show' },
-      { path: 'edit', component: ProjectEditPage, name: 'project/edit' },
-      { path: 'start', component: ProjectStartPage, name: 'project/start' },
-      { path: 'finish', component: ProjectFinishPage, name: 'project/finish' },
-    ]
+      { path: '', component: ProjectsInboxPage },
+      { path: ':projectName',
+        component: ProjectLayout,
+        children: [
+          { path: '', component: ProjectShowPage, name: 'project/show' },
+          { path: 'edit', component: ProjectEditPage, name: 'project/edit' },
+          { path: 'start', component: ProjectStartPage, name: 'project/start' },
+          { path: 'finish', component: ProjectFinishPage, name: 'project/finish' },
+        ],
+      },
+    ],
+    meta: { restrictForAuth: true },
   },
   { path: '*', component: NotFoundPage },
 ]
