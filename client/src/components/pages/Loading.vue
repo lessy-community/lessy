@@ -1,6 +1,9 @@
 <template>
   <app-content contentClass="loading-page">
-    {{ $t('pages.loading.inProgress') }}
+    <div>
+      <icon name="spinner" pulse size="2"></icon>
+    </div>
+    <div>{{ $t('pages.loading.inProgress') }}</div>
   </app-content>
 </template>
 
@@ -14,10 +17,12 @@
 
 <style>
 
-  .loading-page {
-    padding-top: 42px;
+  .app-body.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-size: 2rem;
-    text-align: center;
   }
 
 </style>

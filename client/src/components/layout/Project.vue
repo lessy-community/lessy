@@ -2,7 +2,10 @@
   <div v-if="project" class="project-layout">
     <container row align="center">
       <h1 class="adapt">{{ project.name }}</h1>
-      <router-link :to="project.urlEdit" class="btn btn-settings">{{ $t('layout.project.settings') }}</router-link>
+      <router-link :to="project.urlEdit" class="btn btn-settings">
+        <icon name="pencil"></icon>
+        {{ $t('layout.project.settings') }}
+      </router-link>
     </container>
     <router-view v-if="project" :project="project"></router-view>
   </div>
