@@ -125,10 +125,18 @@ export default {
       settings: 'Settings',
     },
 
+    projects: {
+      inbox: 'Inbox',
+    },
+
     sidebar: {
       dashboard: 'Dashboard',
-      projectsInbox: 'Projects inbox',
+      projects: 'Projects',
       tasks: 'Tasks',
+    },
+
+    tasks: {
+      planning: 'Plan for today',
     },
   },
 
@@ -204,7 +212,6 @@ export default {
         dueOn: '(due on {date})',
         pendingInfo: 'We found pending tasks, what do you want to do with them?',
         replan: 'Replan for today',
-        title: 'Plan your tasks for today',
         titleForToday: 'Tasks planned for today',
       },
     },

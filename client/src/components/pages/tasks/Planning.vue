@@ -1,7 +1,5 @@
 <template>
   <div v-if="ready" class="tasks-planning-page">
-    <h1>{{ $t('pages.tasks.planning.title') }}</h1>
-
     <div v-if="pendingTasks.length > 0" class="tasks-pending-box">
       <p>{{ $t('pages.tasks.planning.pendingInfo') }}</p>
       <div>

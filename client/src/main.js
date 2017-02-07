@@ -6,6 +6,7 @@ import Btn from './components/Btn'
 import Card from './components/Card'
 import Container from './components/Container'
 import ListItem from './components/ListItem'
+import Tabs from './components/Tabs'
 
 import DateField from './components/fields/DateField'
 import EmailField from './components/fields/EmailField'
@@ -27,6 +28,7 @@ Vue.component('btn', Btn)
 Vue.component('card', Card)
 Vue.component('container', Container)
 Vue.component('list-item', ListItem)
+Vue.component('tabs', Tabs)
 
 Vue.component('date-field', DateField)
 Vue.component('email-field', EmailField)

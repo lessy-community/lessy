@@ -1,16 +1,11 @@
 <template>
-  <app-content v-if="project" sidebar contentClass="project-layout">
+  <div v-if="project" class="project-layout">
     <container row align="center">
-      <h1 class="adapt">
-        <router-link v-if="project.isInProgress" to="/dashboard">{{ $t('layout.project.dashboard') }}</router-link>
-        <router-link v-else to="/projects/inbox">{{ $t('layout.project.projectsInbox') }}</router-link>
-        /
-        <router-link :to="project.urlShow">{{ project.name }}</router-link>
-      </h1>
+      <h1 class="adapt">{{ project.name }}</h1>
       <router-link :to="project.urlEdit" class="btn btn-settings">{{ $t('layout.project.settings') }}</router-link>
     </container>
     <router-view v-if="project" :project="project"></router-view>
-  </app-content>
+  </div>
   <error-page v-else-if="error" :message="error"></error-page>
   <loading-page v-else></loading-page>
 </template>
@@ -43,7 +38,8 @@
     },
 
     mounted () {
-      const { userIdentifier, projectName } = this.$route.params
+      const { projectName } = this.$route.params
+      const userIdentifier = this.$store.getters['users/current'].identifier
       this.$store
         .dispatch('projects/find', { userIdentifier, projectName })
         .catch((error) => {

@@ -1,7 +1,7 @@
 <template>
-  <app-content sidebar contentClass="tasks-layout">
+  <app-content sidebar contentClass="projects-layout">
     <tabs>
-      <router-link to="/tasks/planning" activeClass="active">{{ $t('layout.tasks.planning') }}</router-link>
+      <router-link to="/projects" activeClass="active">{{ $t('layout.projects.inbox') }}</router-link>
     </tabs>
     <router-view></router-view>
   </app-content>

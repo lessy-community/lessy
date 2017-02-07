@@ -11,12 +11,10 @@ const state = {
 }
 
 const getters = {
-  findById (state, getters, rootState, rootGetters) {
+  findById (state) {
     return id => {
       const project = state.byIds[id]
-      const user = rootGetters['users/findById'](project.userId)
       const params = {
-        userIdentifier: user.identifier,
         projectName: project.name,
       }
       const isStarted = !!project.startedAt
@@ -24,7 +22,6 @@ const getters = {
       const isFinished = !!project.finishedAt
       return {
         ...project,
-        user,
         isStarted,
         isStopped,
         isFinished,
