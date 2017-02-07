@@ -17,6 +17,7 @@
         type="primary"
         @click="createFormEnabled = true"
       >
+        <icon name="plus"></icon>
         {{ $t('pages.projects.inbox.createProject') }}
       </btn>
       <create-project-form v-else :onCancel="disableCreateForm"></create-project-form>

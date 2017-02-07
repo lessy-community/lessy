@@ -148,7 +148,7 @@ export default {
 
     dashboard: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
-      createTask: '+ add tasks for today',
+      createTask: 'add tasks for today',
       dueOn: 'Due on <b>{date}</b>',
       planning: 'What will you be working on today?',
     },
@@ -178,7 +178,7 @@ export default {
 
     projects: {
       inbox: {
-        createProject: '+ create a project',
+        createProject: 'create a project',
         finishedLabel: '(finished on {date})',
         hideFinishedProjects: 'Hide your project | Hide your projects',
         projectsPlaceholder: "You don't have any project yet, what are you working on?",

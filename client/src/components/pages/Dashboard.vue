@@ -10,10 +10,10 @@
 
     <list-item v-for="task in tasks" @click="toggleFinishTask(task)" :class="['task', { finished: task.isFinished }]">
       <template v-if="task.isFinished">
-        ⬛
+        <icon name="check-square-o"></icon>
       </template>
       <template v-else>
-        ⬜
+        <icon name="square-o"></icon>
       </template>
       {{ task.label }}
     </list-item>
@@ -23,6 +23,7 @@
         type="primary"
         @click="createTaskEnabled = true"
       >
+        <icon name="plus"></icon>
         {{ $t('pages.dashboard.createTask') }}
       </btn>
       <create-task-form v-else :onCancel="disableCreateTask" autoFocus></create-task-form>

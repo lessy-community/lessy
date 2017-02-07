@@ -12,7 +12,9 @@
       :tip="$t('fields.password.tip')"
       @on="showPassword = true"
       @off="showPassword = false"
-    >&#128065;</btn>
+    >
+      <icon name="eye"></icon>
+    </btn>
   </div>
 </template>
 

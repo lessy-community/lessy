@@ -5,6 +5,7 @@ import App from './components/layout/App'
 import Btn from './components/Btn'
 import Card from './components/Card'
 import Container from './components/Container'
+import Icon from './components/Icon'
 import ListItem from './components/ListItem'
 import Tabs from './components/Tabs'
 
@@ -27,6 +28,7 @@ locales.init()
 Vue.component('btn', Btn)
 Vue.component('card', Card)
 Vue.component('container', Container)
+Vue.component('icon', Icon)
 Vue.component('list-item', ListItem)
 Vue.component('tabs', Tabs)
 
