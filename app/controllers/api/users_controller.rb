@@ -34,11 +34,11 @@ class Api::UsersController < ApplicationController
 private
 
   def create_user_params
-    require_resource_params(:user, [:email])
+    fetch_resource_params(:user, [:email])
   end
 
   def activate_user_params
-    require_resource_params(:user, [:username, :password])
+    fetch_resource_params(:user, [:username, :password])
   end
 
 end

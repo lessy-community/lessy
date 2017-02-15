@@ -58,7 +58,7 @@ private
   end
 
   def create_project_params
-    require_resource_params(:project, [:name]).merge(user: current_user)
+    fetch_resource_params(:project, [:name]).merge(user: current_user)
   end
 
   def update_project_params
@@ -70,12 +70,12 @@ private
   end
 
   def due_at_param
-    parameters = require_resource_params(:project, [:due_at])
+    parameters = fetch_resource_params(:project, [:due_at])
     parameters[:due_at].to_datetime
   end
 
   def finished_at_param
-    parameters = require_resource_params(:project, [:finished_at])
+    parameters = fetch_resource_params(:project, [:finished_at])
     parameters[:finished_at].to_datetime
   end
 

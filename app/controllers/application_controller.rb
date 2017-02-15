@@ -13,12 +13,13 @@ class ApplicationController < ActionController::API
 
 protected
 
-  def require_resource_params(resource, params_to_require)
+  def fetch_resource_params(resource, params_to_require, optional_params = [])
     resource_params = params.require(resource)
     begin
-      resource_params.permit(*params_to_require).tap do |resource_params|
+      parameters = resource_params.permit(*params_to_require).tap do |resource_params|
         resource_params.require(params_to_require)
       end
+      parameters.merge(resource_params.permit(*optional_params))
     rescue ActionController::ParameterMissing => exception
       raise ActionController::ResourceParameterMissing.new resource, exception.param
     end

@@ -26,7 +26,7 @@ private
   end
 
   def create_task_params
-    require_resource_params(:task, [:label])
+    fetch_resource_params(:task, [:label])
       .merge(user: current_user, due_at: DateTime.now)
   end
 
