@@ -30,8 +30,9 @@ private
   end
 
   def create_task_params
-    fetch_resource_params(:task, [:label])
-      .merge(user: current_user, due_at: DateTime.now)
+    parameters = fetch_resource_params(:task, [:label], [:due_at])
+    parameters[:due_at] = parameters[:due_at].to_datetime if parameters.has_key?(:due_at)
+    parameters.merge(user: current_user)
   end
 
 end

@@ -1,8 +1,11 @@
 import { get, post } from './http'
 
+import moment from 'moment'
+
 export default {
   create (label) {
-    return post('/api/tasks', { label })
+    const dueAt = moment().endOf('day').unix()
+    return post('/api/tasks', { label, dueAt })
   },
 
   finish (task) {

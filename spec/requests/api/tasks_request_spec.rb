@@ -6,7 +6,7 @@ RSpec.describe Api::TasksController, type: :request do
   let(:user) { create :user, :activated }
 
   describe 'POST #create' do
-    let(:payload) { { label: 'My task' } }
+    let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
 
     before do
       Timecop.freeze DateTime.new(2017)
@@ -33,15 +33,29 @@ RSpec.describe Api::TasksController, type: :request do
         expect(Task.find_by_label('My task')).to be_present
       end
 
-      it 'sets due_at to today' do
-        task = Task.find(JSON.parse(response.body)['id'])
-        expect(task.due_at).to eq(DateTime.new(2017))
+      it 'returns the new project' do
+        task = JSON.parse(response.body)
+        expect(task['id']).not_to be_nil
+        expect(task['label']).to eq('My task')
+        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
+    context 'with no due date' do
+      before do
+        payload.except! :due_at
+        post '/api/tasks', params: { task: payload }, headers: { 'Authorization': user.token }, as: :json
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:created)
       end
 
       it 'returns the new project' do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
+        expect(task['dueAt']).to eq(0)
       end
     end
 
