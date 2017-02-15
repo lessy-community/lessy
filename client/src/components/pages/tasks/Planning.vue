@@ -20,7 +20,7 @@
         {{ task.label }}
       </list-item>
     </div>
-    <create-task-form></create-task-form>
+    <create-task-form :dueAt="dueAt"></create-task-form>
 
     <div class="planning-finish">
       <router-link to="/dashboard" class="btn">{{ $t('pages.tasks.planning.back') }}</router-link>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+  import moment from 'moment'
+
   import { mapGetters } from 'vuex'
 
   import CreateTaskForm from '../../forms/CreateTask'
@@ -51,6 +53,7 @@
       return {
         error: null,
         ready: false,
+        dueAt: moment().endOf('day'),
       }
     },
 

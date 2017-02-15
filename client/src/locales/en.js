@@ -136,6 +136,7 @@ export default {
     },
 
     tasks: {
+      backlog: 'Backlog',
       planning: 'Plan for today',
     },
   },

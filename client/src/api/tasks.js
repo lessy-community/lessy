@@ -1,10 +1,7 @@
 import { get, post } from './http'
 
-import moment from 'moment'
-
 export default {
-  create (label) {
-    const dueAt = moment().endOf('day').unix()
+  create (label, dueAt) {
     return post('/api/tasks', { label, dueAt })
   },
 
@@ -18,5 +15,9 @@ export default {
 
   getPending () {
     return get('/api/tasks/pending')
+  },
+
+  getBacklog () {
+    return get('/api/tasks/backlog')
   },
 }

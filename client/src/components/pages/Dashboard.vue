@@ -26,13 +26,20 @@
         <icon name="plus"></icon>
         {{ $t('pages.dashboard.createTask') }}
       </btn>
-      <create-task-form v-else :onCancel="disableCreateTask" autoFocus></create-task-form>
+      <create-task-form
+        v-else
+        :dueAt="dueAt"
+        :onCancel="disableCreateTask"
+        autoFocus
+      ></create-task-form>
     </template>
     <router-link v-else to="/tasks/planning">{{ $t('pages.dashboard.planning') }}</router-link>
   </app-content>
 </template>
 
 <script>
+  import moment from 'moment'
+
   import { mapGetters } from 'vuex'
   import CreateTaskForm from '../forms/CreateTask'
 
@@ -47,6 +54,7 @@
     data () {
       return {
         createTaskEnabled: false,
+        dueAt: moment().endOf('day'),
       }
     },
 
