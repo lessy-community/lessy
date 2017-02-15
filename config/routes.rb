@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :tasks, only: [:create] do
       collection do
         get 'pending'
+        get 'backlog'
       end
       member do
         post 'finish'

@@ -19,6 +19,10 @@ class Api::TasksController < ApplicationController
     @tasks = current_user.tasks.pending
   end
 
+  def backlog
+    @tasks = current_user.tasks.backlogged
+  end
+
 private
 
   def current_task

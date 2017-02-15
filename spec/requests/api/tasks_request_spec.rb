@@ -211,4 +211,51 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'GET #backlog' do
+    before do
+      Timecop.freeze DateTime.new(2017)
+      create :task, :finished, label: 'finished task', user: user
+      create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
+      create :task, :pending, label: 'pending task', user: user
+      create :task, :backlogged, label: 'backlogged task', user: user
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid authentication' do
+      before do
+        get '/api/tasks/backlog', headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/backlog schema' do
+        expect(response).to match_response_schema('tasks/backlog')
+      end
+
+      it 'returns backlogged tasks only' do
+        tasks = JSON.parse(response.body)
+        expect(tasks.length).to eq(1)
+        expect(tasks[0]['label']).to eq('backlogged task')
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        get '/api/tasks/backlog', headers: { 'Authorization': other_user.token }
+      end
+
+      it 'returns no task' do
+        tasks = JSON.parse(response.body)
+        expect(tasks.length).to eq(0)
+      end
+    end
+  end
+
 end
