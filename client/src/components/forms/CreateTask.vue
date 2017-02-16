@@ -26,6 +26,7 @@
     props: {
       'onCancel': { type: Function },
       'autoFocus': { type: Boolean },
+      'dueAt': { type: Object },
     },
 
     data () {
@@ -39,6 +40,7 @@
         this.$store
           .dispatch('tasks/create', {
             label: this.label,
+            dueAt: this.dueAt && this.dueAt.unix(),
           })
           .then((taskId) => {
             const { labelInput } = this.$refs

@@ -12,11 +12,13 @@ const getters = {
   findById (state, getters) {
     return id => {
       const task = state.byIds[id]
+      const isBacklogged = !task.dueAt
       const isFinished = !!task.finishedAt
-      const dueAtDate = moment.unix(task.dueAt)
-      const isPending = !isFinished && dueAtDate.isBefore(moment().startOf('day'))
+      const dueAtDate = !isBacklogged && moment.unix(task.dueAt)
+      const isPending = !isBacklogged && !isFinished && dueAtDate.isBefore(moment().startOf('day'))
       return {
         ...task,
+        isBacklogged,
         isFinished,
         isPending,
         dueAtLabel: formatDate(task.dueAt),
@@ -46,12 +48,19 @@ const getters = {
       .filter((task) => task.isPending)
       .sort((p1, p2) => p1.dueAt < p2.dueAt)
   },
+
+  listBacklog (state, getters) {
+    return getters
+      .list
+      .filter((task) => task.isBacklogged)
+      .sort((p1, p2) => p1.label.localeCompare(p2.label))
+  },
 }
 
 const actions = {
-  create ({ commit }, { label }) {
+  create ({ commit }, { label, dueAt }) {
     return tasksApi
-      .create(label)
+      .create(label, dueAt)
       .then((data) => {
         commit('add', data)
         return data.id
@@ -70,6 +79,11 @@ const actions = {
 
   getPending ({ commit }) {
     return tasksApi.getPending()
+                   .then((data) => commit('addList', data))
+  },
+
+  getBacklog ({ commit }) {
+    return tasksApi.getBacklog()
                    .then((data) => commit('addList', data))
   },
 }

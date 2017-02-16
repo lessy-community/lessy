@@ -6,7 +6,7 @@ RSpec.describe Api::TasksController, type: :request do
   let(:user) { create :user, :activated }
 
   describe 'POST #create' do
-    let(:payload) { { label: 'My task' } }
+    let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
 
     before do
       Timecop.freeze DateTime.new(2017)
@@ -33,15 +33,29 @@ RSpec.describe Api::TasksController, type: :request do
         expect(Task.find_by_label('My task')).to be_present
       end
 
-      it 'sets due_at to today' do
-        task = Task.find(JSON.parse(response.body)['id'])
-        expect(task.due_at).to eq(DateTime.new(2017))
+      it 'returns the new project' do
+        task = JSON.parse(response.body)
+        expect(task['id']).not_to be_nil
+        expect(task['label']).to eq('My task')
+        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
+    context 'with no due date' do
+      before do
+        payload.except! :due_at
+        post '/api/tasks', params: { task: payload }, headers: { 'Authorization': user.token }, as: :json
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:created)
       end
 
       it 'returns the new project' do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
+        expect(task['dueAt']).to eq(0)
       end
     end
 
@@ -202,6 +216,53 @@ RSpec.describe Api::TasksController, type: :request do
 
       before do
         get '/api/tasks/pending', headers: { 'Authorization': other_user.token }
+      end
+
+      it 'returns no task' do
+        tasks = JSON.parse(response.body)
+        expect(tasks.length).to eq(0)
+      end
+    end
+  end
+
+  describe 'GET #backlog' do
+    before do
+      Timecop.freeze DateTime.new(2017)
+      create :task, :finished, label: 'finished task', user: user
+      create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
+      create :task, :pending, label: 'pending task', user: user
+      create :task, :backlogged, label: 'backlogged task', user: user
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid authentication' do
+      before do
+        get '/api/tasks/backlog', headers: { 'Authorization': user.token }
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/backlog schema' do
+        expect(response).to match_response_schema('tasks/backlog')
+      end
+
+      it 'returns backlogged tasks only' do
+        tasks = JSON.parse(response.body)
+        expect(tasks.length).to eq(1)
+        expect(tasks[0]['label']).to eq('backlogged task')
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+
+      before do
+        get '/api/tasks/backlog', headers: { 'Authorization': other_user.token }
       end
 
       it 'returns no task' do

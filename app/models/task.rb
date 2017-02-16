@@ -12,6 +12,9 @@ class Task < ApplicationRecord
     today = DateTime.now
     where(finished_at: nil).where('due_at < ?', today.beginning_of_day)
   }
+  scope :backlogged, -> {
+    where(due_at: nil, finished_at: nil)
+  }
 
   alias_attribute :finished?, :finished_at?
 

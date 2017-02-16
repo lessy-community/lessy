@@ -1,8 +1,8 @@
 import { get, post } from './http'
 
 export default {
-  create (label) {
-    return post('/api/tasks', { label })
+  create (label, dueAt) {
+    return post('/api/tasks', { label, dueAt })
   },
 
   finish (task) {
@@ -15,5 +15,9 @@ export default {
 
   getPending () {
     return get('/api/tasks/pending')
+  },
+
+  getBacklog () {
+    return get('/api/tasks/backlog')
   },
 }

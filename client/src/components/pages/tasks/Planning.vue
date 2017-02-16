@@ -1,8 +1,8 @@
 <template>
   <div v-if="ready" class="tasks-planning-page">
-    <div v-if="pendingTasks.length > 0" class="tasks-pending-box">
+    <div v-if="pendingTasks.length > 0" class="box tasks-pending">
       <p>{{ $t('pages.tasks.planning.pendingInfo') }}</p>
-      <div>
+      <div class="list">
         <container v-for="task in pendingTasks" row class="task">
           <div class="task-label adapt">
             {{ task.label }} {{ $t('pages.tasks.planning.dueOn', { date: task.dueAtLabel }) }}
@@ -15,12 +15,26 @@
       </div>
     </div>
 
+    <div v-if="backloggedTasks.length > 0" class="box tasks-backlogged">
+      <p>{{ $t('pages.tasks.planning.backlogInfo') }}</p>
+      <div class="list">
+        <container v-for="task in backloggedTasks" row class="task">
+          <div class="task-label adapt">
+            {{ task.label }}
+          </div>
+          <div>
+            <btn type="primary" @click="restartTask(task)">{{ $t('pages.tasks.planning.plan') }}</btn>
+          </div>
+        </container>
+      </div>
+    </div>
+
     <div class="list">
       <list-item v-for="task in tasksForToday" :class="['task', { finished: task.isFinished }]">
         {{ task.label }}
       </list-item>
     </div>
-    <create-task-form></create-task-form>
+    <create-task-form :dueAt="dueAt"></create-task-form>
 
     <div class="planning-finish">
       <router-link to="/dashboard" class="btn">{{ $t('pages.tasks.planning.back') }}</router-link>
@@ -31,6 +45,8 @@
 </template>
 
 <script>
+  import moment from 'moment'
+
   import { mapGetters } from 'vuex'
 
   import CreateTaskForm from '../../forms/CreateTask'
@@ -51,6 +67,7 @@
       return {
         error: null,
         ready: false,
+        dueAt: moment().endOf('day'),
       }
     },
 
@@ -58,6 +75,7 @@
       ...mapGetters({
         tasksForToday: 'tasks/listForToday',
         pendingTasks: 'tasks/listPending',
+        backloggedTasks: 'tasks/listBacklog',
       }),
     },
 
@@ -72,8 +90,10 @@
     },
 
     mounted () {
-      this.$store
-        .dispatch('tasks/getPending')
+      Promise.all([
+        this.$store.dispatch('tasks/getPending'),
+        this.$store.dispatch('tasks/getBacklog'),
+      ])
         .then(() => {
           this.ready = true
         })
@@ -87,21 +107,27 @@
 
 <style scoped>
 
-  .tasks-pending-box {
+  .box {
     margin-bottom: 25px;
     padding: 25px;
 
-    background-color: #ffeedd;
     border: 1px solid #aaa;
     border-radius: 5px;
   }
-  .tasks-pending-box p {
+  .box p {
     margin-top: 0;
     margin-bottom: 25px;
 
     color: #666;
     text-align: center;
     font-style: italic;
+  }
+
+  .box.tasks-pending {
+    background-color: #ffeedd;
+  }
+  .box.tasks-backlogged {
+    background-color: #eeeeff;
   }
 
   .list {
