@@ -209,9 +209,11 @@ export default {
     tasks: {
       planning: {
         back: 'That’s all, go back to dashboard',
+        backlogInfo: 'You might want to pick tasks from your backlog',
         didIt: 'I did it',
         dueOn: '(due on {date})',
         pendingInfo: 'We found pending tasks, what do you want to do with them?',
+        plan: 'Plan for today',
         replan: 'Replan for today',
         titleForToday: 'Tasks planned for today',
       },
