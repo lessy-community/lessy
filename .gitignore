@@ -23,3 +23,5 @@
 # Ignore public/ folder
 public/index.html
 public/static
+
+/vendor
