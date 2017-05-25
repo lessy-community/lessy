@@ -24,7 +24,7 @@ $ git clone git@github.com:marienfressinaud/project-zero.git
 $ cd project-zero
 project-zero$ rbenv install
 project-zero$ gem install bundler
-project-zero$ bundle install  # install backend's dependencies
+project-zero$ bundle install --path vendor  # install backend's dependencies
 project-zero$ bundle exec rails db:setup  # setup the database
 project-zero$ bundle exec rails server  # run the backend
 ```
