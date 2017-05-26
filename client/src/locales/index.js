@@ -3,12 +3,13 @@ import VueI18n from 'vue-i18n'
 
 import en from './en'
 
-function init () {
-  Vue.use(VueI18n)
-  Vue.config.lang = 'en'
-  Vue.locale('en', en)
-}
+Vue.use(VueI18n)
 
-export default {
-  init,
-}
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en,
+  },
+})
+
+export default i18n

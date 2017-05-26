@@ -18,11 +18,9 @@ import TextField from './components/fields/TextField'
 
 import AppContent from './components/layout/AppContent'
 
-import locales from './locales'
+import i18n from './locales'
 import router from './router'
 import store from './store'
-
-locales.init()
 
 // register global components
 Vue.component('btn', Btn)
@@ -48,4 +46,5 @@ new Vue({
   components: { App },
   router,
   store,
+  i18n,
 })
