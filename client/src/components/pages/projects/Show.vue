@@ -33,7 +33,7 @@
           disabled
         >
           {{ $t('pages.projects.show.startProject') }}
-        </span>
+        </btn>
       </div>
       <div v-else-if="!project.isFinished" class="project-actions adapt">
         <router-link :to="project.urlFinish" class="btn primary">
