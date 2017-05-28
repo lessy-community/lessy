@@ -49,6 +49,7 @@ export default {
         invalid: 'Username does not match required pattern (only lowercase letters, underscore and hiphen are accepted)',
         missing: 'Username is required',
         taken: 'This username is not available',
+        too_long: 'Username is too long (max 25 caracters)',
       },
     },
   },

@@ -127,6 +127,18 @@ RSpec.describe Api::UsersController, type: :request do
       it_behaves_like 'validation failed failures', 'User', { username: ['invalid'] }
     end
 
+    context 'with too long username' do
+      before do
+        payload = {
+          username: 'johnjohnjohnjohnjohnjohnjohn',
+          password: 'secret',
+        }
+        post "/api/users/#{ user.activation_token }/activate", params: { user: payload }
+      end
+
+      it_behaves_like 'validation failed failures', 'User', { username: ['too_long'] }
+    end
+
     context 'with existing username' do
       before do
         create :user, username: 'john'

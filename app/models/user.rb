@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: { case_sensitive: false }
   validates :username, format: { with: /\A[a-z_\-]{1,}\z/, message: 'only allows lowercase letters, underscore and hiphen' },
+                       length: { maximum: 25 },
                        exclusion: { in: %w(dashboard login register logout projects tasks users) },
                        uniqueness: { case_sensitive: false },
                        allow_nil: true

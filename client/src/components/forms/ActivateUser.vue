@@ -11,7 +11,7 @@
       :tip="getErrors('User', 'username') || $t('forms.activateUser.usernameTip')"
       :invalid="isInError('User', 'username')"
     >
-      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
+      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,25}" required />
     </form-group>
 
     <form-group
