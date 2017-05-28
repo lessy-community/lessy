@@ -1,0 +1,13 @@
+$color-primary: #0080b0;
+$color-primary-shadow: lighten($color-primary, 60%);
+$color-primary-lighter: lighten($color-primary, 15%);
+$color-primary-light: lighten($color-primary, 5%);
+$color-primary-dark: darken($color-primary, 5%);
+$color-primary-darker: darken($color-primary, 15%);
+
+$color-danger: #ff2c00;
+$color-danger-shadow: lighten($color-danger, 60%);
+$color-danger-lighter: lighten($color-danger, 15%);
+$color-danger-light: lighten($color-danger, 5%);
+$color-danger-dark: darken($color-danger, 5%);
+$color-danger-darker: darken($color-danger, 15%);

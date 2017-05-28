@@ -35,7 +35,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .btn {
     display: inline-block;
@@ -66,45 +66,45 @@
 
   .btn.primary {
     color: #fff;
-    background-color: #0080b0;
+    background-color: $color-primary;
   }
   .btn.primary:hover {
-    background-color: #006389;
+    background-color: $color-primary-dark;
   }
   .btn.primary:focus {
-    box-shadow: 0 0 0 2px #09b8fb;
+    box-shadow: 0 0 0 2px $color-primary-lighter;
   }
 
   .btn.secondary {
-    color: #0080b0;
-    border-color: #0080b0;
+    color: $color-primary;
+    border-color: $color-primary;
   }
   .btn.secondary:hover {
-    background-color: #e2f4fb;
+    background-color: $color-primary-shadow;
   }
   .btn.secondary:focus {
-    box-shadow: 0 0 0 2px #09b8fb;
+    box-shadow: 0 0 0 2px $color-primary-lighter;
   }
 
   .btn.danger {
     color: #fff;
-    background-color: #ff2c00;
+    background-color: $color-danger;
   }
   .btn.danger:hover {
-    background-color: #C62200;
+    background-color: $color-danger-dark;
   }
   .btn.danger:focus {
-    box-shadow: 0 0 0 2px #ff7f64;
+    box-shadow: 0 0 0 2px $color-danger-lighter;
   }
 
   .btn.cancel {
-    color: #ff2c00;
+    color: $color-danger;
   }
   .btn.cancel:hover {
-    border-color: #ff2c00;
+    border-color: $color-danger;
   }
   .btn.cancel:focus {
-    box-shadow: 0 0 0 2px #ff7f64;
+    box-shadow: 0 0 0 2px $color-danger-lighter;
   }
 
 </style>

@@ -31,7 +31,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .form-group {
     display: flex;
@@ -63,7 +63,7 @@
     font-size: .9rem;
   }
   .form-group-control.invalid .form-group-tip {
-    color: #ff2c00;
+    color: $color-danger;
   }
 
   .form-group-control {
@@ -102,8 +102,8 @@
   .form-group-control input[type="email"]:focus,
   .form-group-control input[type="password"]:focus,
   .form-group-control textarea:focus {
-    border-color: #0080b0;
-    background-color: #e2f4fb;
+    border-color: $color-primary;
+    background-color: $color-primary-shadow;
   }
   .form-group-control.invalid input[type="text"],
   .form-group-control.invalid input[type="email"],
@@ -113,7 +113,7 @@
   .form-group-control input[type="email"]:invalid,
   .form-group-control input[type="password"]:invalid,
   .form-group-control textarea:invalid {
-    border-color: #ff2c00;
+    border-color: $color-danger;
     background-color: #fbf2f4;
   }
 

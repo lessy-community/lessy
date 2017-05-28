@@ -56,7 +56,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   * {
     box-sizing: border-box;
@@ -73,7 +73,7 @@
   }
 
   a {
-    color: #0080b0;
+    color: $color-primary;
     text-decoration: none;
   }
   a:hover {

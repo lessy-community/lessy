@@ -64,14 +64,14 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   .form-errors {
     margin-bottom: 20px;
 
     text-align: center;
 
-    color: #ff2c00;
+    color: $color-danger;
   }
 
 </style>

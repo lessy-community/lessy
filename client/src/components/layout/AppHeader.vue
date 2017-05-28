@@ -31,13 +31,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
   .app-header {
     margin-bottom: 10px;
     padding: 1rem 1rem;
 
-    background-color: #0080b0;
+    background-color: $color-primary;
     color: #fff;
   }
   .app-header a {

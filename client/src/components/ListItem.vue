@@ -21,7 +21,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .list-item {
     display: block;
@@ -41,7 +41,7 @@
     color: #000;
     text-decoration: none;
 
-    background-color: #e2f4fb;
+    background-color: $color-primary-shadow;
   }
 
 </style>
