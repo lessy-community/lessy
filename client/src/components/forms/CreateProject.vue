@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="create">
     <div :class="['form-group-control', { invalid: isInError('Project', 'name') }]">
-      <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required ref="nameInput" />
+      <text-field id="name" v-model="name" pattern="[\w\-]{1,100}" required ref="nameInput" />
       <div v-if="isInError('Project', 'name')" class="form-group-tip">{{ getErrors('Project', 'name') }}</div>
     </div>
 

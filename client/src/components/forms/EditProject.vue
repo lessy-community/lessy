@@ -11,7 +11,7 @@
       :tip="getErrors('Project', 'name') || $t('forms.editProject.nameTip')"
       :invalid="isInError('Project', 'name')"
     >
-      <text-field id="name" v-model="name" pattern="[\w\-]{1,}" required />
+      <text-field id="name" v-model="name" pattern="[\w\-]{1,100}" required />
     </form-group>
 
     <form-group

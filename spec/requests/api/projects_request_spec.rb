@@ -49,6 +49,15 @@ RSpec.describe Api::ProjectsController, type: :request do
       it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
     end
 
+    context 'with too long name' do
+      before do
+        payload = { name: 'my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project' }
+        post '/api/projects', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
+      end
+
+      it_behaves_like 'validation failed failures', 'Project', { name: ['too_long'] }
+    end
+
     context 'with existing project' do
       before do
         create :project, user: user, name: 'my-project'

@@ -22,6 +22,7 @@ export default {
         invalid: 'Name does not match required pattern (only letters, numbers, underscores and hiphens are accepted)',
         missing: 'Name is required',
         taken: 'This name is not available',
+        too_long: 'Name is too long (max 100 caracters)',
       },
     },
 
