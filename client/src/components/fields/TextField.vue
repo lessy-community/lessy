@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import autosize from 'autosize'
+
   export default {
 
     name: 'text-field',
@@ -28,6 +30,18 @@
       required: { type: Boolean },
       pattern: { type: String },
       multiplelines: { type: Boolean },
+    },
+
+    mounted () {
+      if (this.multiplelines) {
+        autosize(this.$el)
+      }
+    },
+
+    beforeDestroy () {
+      if (this.multiplelines) {
+        autosize.destroy(this.$el)
+      }
     },
 
   }
