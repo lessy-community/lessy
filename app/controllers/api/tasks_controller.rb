@@ -5,6 +5,11 @@ class Api::TasksController < ApplicationController
     render status: :created
   end
 
+  def update
+    @task = current_task
+    @task.update! update_task_params
+  end
+
   def finish
     @task = current_task
     @task.finish_now!
@@ -13,6 +18,11 @@ class Api::TasksController < ApplicationController
   def restart
     @task = current_task
     @task.restart!
+  end
+
+  def abandon
+    @task = current_task
+    @task.abandon!
   end
 
   def pending
@@ -33,6 +43,10 @@ private
     parameters = fetch_resource_params(:task, [:label], [:due_at])
     parameters[:due_at] = parameters[:due_at].to_datetime if parameters.has_key?(:due_at)
     parameters.merge(user: current_user)
+  end
+
+  def update_task_params
+    fetch_resource_params(:task, [], [:label])
   end
 
 end

@@ -6,7 +6,8 @@
     "label": { "type": "string" },
     "userId": { "type": "integer" },
     "dueAt": { "type": "integer" },
-    "finishedAt": { "type": "integer" }
+    "finishedAt": { "type": "integer" },
+    "abandonedAt": { "type": "integer" }
   },
   "additionalProperties": false
 }
