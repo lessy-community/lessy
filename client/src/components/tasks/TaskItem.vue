@@ -1,6 +1,6 @@
 <template>
   <list-item :class="['task-item', { finished: task.isFinished }]">
-    <a href="#" @click.prevent="toggleFinishTask" class="toggle">
+    <a v-if="!disableToggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
       <icon v-if="task.isFinished" name="check-square-o"></icon>
       <icon v-else name="square-o"></icon>
     </a>
@@ -13,6 +13,7 @@
 
     props: {
       'task': { type: Object, required: true },
+      'disable-toggle': { type: Boolean },
     },
 
     methods: {
@@ -34,6 +35,10 @@
   .task-item {
     .toggle {
       padding: 5px;
+    }
+
+    &:nth-child(even) {
+      background-color: #f4f4f4;
     }
 
     &.finished .label {
