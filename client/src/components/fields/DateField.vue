@@ -1,18 +1,17 @@
 <template>
   <input
-    type="text"
+    type="date"
     :value="dateText"
     :id="id"
     :required="required"
     @input="onDateChange($event.target.value)"
-    pattern="\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) \d{4}"
   />
 </template>
 
 <script>
   import moment from 'moment'
 
-  const DATE_FORMAT = 'DD MMMM YYYY'
+  const DATE_FORMAT = 'YYYY-MM-DD'
 
   export default {
 

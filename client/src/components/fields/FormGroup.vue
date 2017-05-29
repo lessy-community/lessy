@@ -73,6 +73,7 @@
   .form-group-control input[type="text"],
   .form-group-control input[type="email"],
   .form-group-control input[type="password"],
+  .form-group-control input[type="date"],
   .form-group-control textarea,
   .form-group-control .static-field {
     width: 100%;
@@ -101,6 +102,7 @@
   .form-group-control input[type="text"]:focus,
   .form-group-control input[type="email"]:focus,
   .form-group-control input[type="password"]:focus,
+  .form-group-control input[type="date"]:focus,
   .form-group-control textarea:focus {
     border-color: $color-primary;
     background-color: $color-primary-shadow;
@@ -108,10 +110,12 @@
   .form-group-control.invalid input[type="text"],
   .form-group-control.invalid input[type="email"],
   .form-group-control.invalid input[type="password"],
+  .form-group-control.invalid input[type="date"],
   .form-group-control.invalid textarea,
   .form-group-control input[type="text"]:invalid,
   .form-group-control input[type="email"]:invalid,
   .form-group-control input[type="password"]:invalid,
+  .form-group-control input[type="date"]:invalid,
   .form-group-control textarea:invalid {
     border-color: $color-danger;
     background-color: #fbf2f4;
