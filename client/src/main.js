@@ -7,6 +7,7 @@ import Card from './components/Card'
 import Container from './components/Container'
 import Icon from './components/Icon'
 import ListItem from './components/ListItem'
+import { Popover, PopoverItem } from './components/Popover'
 import Tabs from './components/Tabs'
 
 import DateField from './components/fields/DateField'
@@ -28,6 +29,8 @@ Vue.component('card', Card)
 Vue.component('container', Container)
 Vue.component('icon', Icon)
 Vue.component('list-item', ListItem)
+Vue.component('popover', Popover)
+Vue.component('popover-item', PopoverItem)
 Vue.component('tabs', Tabs)
 
 Vue.component('date-field', DateField)
