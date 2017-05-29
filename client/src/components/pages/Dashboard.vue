@@ -8,15 +8,7 @@
       </card>
     </container>
 
-    <list-item v-for="task in tasks" @click="toggleFinishTask(task)" :class="['task', { finished: task.isFinished }]">
-      <template v-if="task.isFinished">
-        <icon name="check-square-o"></icon>
-      </template>
-      <template v-else>
-        <icon name="square-o"></icon>
-      </template>
-      {{ task.label }}
-    </list-item>
+    <task-item v-for="task in tasks" :key="task.id" :task="task"></task-item>
     <template v-if="tasks.length > 0">
       <btn
         v-if="!createTaskEnabled"
@@ -42,6 +34,7 @@
 
   import { mapGetters } from 'vuex'
   import CreateTaskForm from '../forms/CreateTask'
+  import TaskItem from '../tasks/TaskItem'
 
   export default {
 
@@ -49,6 +42,7 @@
 
     components: {
       CreateTaskForm,
+      TaskItem,
     },
 
     data () {
@@ -70,14 +64,6 @@
       disableCreateTask () {
         this.createTaskEnabled = false
       },
-
-      toggleFinishTask (task) {
-        if (task.isFinished) {
-          this.$store.dispatch('tasks/restart', { task })
-        } else {
-          this.$store.dispatch('tasks/finish', { task })
-        }
-      },
     },
 
   }
@@ -93,11 +79,6 @@
 
   .dashboard-page .list-item:last-of-type {
     margin-bottom: 10px;
-  }
-
-  .dashboard-page .task.finished {
-    color: #999;
-    text-decoration: line-through;
   }
 
 </style>
