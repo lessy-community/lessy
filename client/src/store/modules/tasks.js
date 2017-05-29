@@ -12,14 +12,16 @@ const getters = {
   findById (state, getters) {
     return id => {
       const task = state.byIds[id]
-      const isBacklogged = !task.dueAt
+      const isAbandoned = !!task.abandonedAt
+      const isBacklogged = !isAbandoned && !task.dueAt
       const isFinished = !!task.finishedAt
       const dueAtDate = !isBacklogged && moment.unix(task.dueAt)
-      const isPending = !isBacklogged && !isFinished && dueAtDate.isBefore(moment().startOf('day'))
+      const isPending = !isBacklogged && !isFinished && !isAbandoned && dueAtDate.isBefore(moment().startOf('day'))
       return {
         ...task,
         isBacklogged,
         isFinished,
+        isAbandoned,
         isPending,
         dueAtLabel: formatDate(task.dueAt),
       }
@@ -67,6 +69,11 @@ const actions = {
       })
   },
 
+  update ({ commit }, { task, label }) {
+    return tasksApi.update(task, label)
+                   .then((data) => commit('set', data))
+  },
+
   finish ({ commit }, { task }) {
     return tasksApi.finish(task)
                    .then((data) => commit('set', data))
@@ -74,6 +81,11 @@ const actions = {
 
   restart ({ commit }, { task }) {
     return tasksApi.restart(task)
+                   .then((data) => commit('set', data))
+  },
+
+  abandon ({ commit }, { task }) {
+    return tasksApi.abandon(task)
                    .then((data) => commit('set', data))
   },
 

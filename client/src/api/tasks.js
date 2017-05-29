@@ -1,8 +1,12 @@
-import { get, post } from './http'
+import { get, post, patch } from './http'
 
 export default {
   create (label, dueAt) {
     return post('/api/tasks', { label, dueAt })
+  },
+
+  update (task, label) {
+    return patch(`/api/tasks/${task.id}`, { label })
   },
 
   finish (task) {
@@ -11,6 +15,10 @@ export default {
 
   restart (task) {
     return post(`/api/tasks/${task.id}/restart`)
+  },
+
+  abandon (task) {
+    return post(`/api/tasks/${task.id}/abandon`)
   },
 
   getPending () {
