@@ -30,9 +30,12 @@
     </div>
 
     <div class="list">
-      <list-item v-for="task in tasksForToday" :class="['task', { finished: task.isFinished }]">
-        {{ task.label }}
-      </list-item>
+      <task-item
+        v-for="task in tasksForToday"
+        :key="task.id"
+        :task="task"
+        disable-toggle
+      ></task-item>
     </div>
     <create-task-form :dueAt="dueAt"></create-task-form>
 
@@ -50,6 +53,7 @@
   import { mapGetters } from 'vuex'
 
   import CreateTaskForm from '../../forms/CreateTask'
+  import TaskItem from '../../tasks/TaskItem'
   import ErrorPage from '../Error'
   import LoadingPage from '../Loading'
 
@@ -59,6 +63,7 @@
 
     components: {
       CreateTaskForm,
+      TaskItem,
       ErrorPage,
       LoadingPage,
     },
@@ -130,24 +135,10 @@
     background-color: #eeeeff;
   }
 
-  .list {
-    margin-bottom: 10px;
-  }
-  .task {
-    padding: 5px 5px 5px 10px;
-  }
-  .task.finished {
-    color: #999;
-    text-decoration: line-through;
-  }
   .container.task {
-    align-items: center;
-  }
-  .list-item.task {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 5px;
 
-    border: none;
+    align-items: center;
   }
 
   .planning-finish {
