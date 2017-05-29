@@ -1,12 +1,10 @@
 <template>
-  <list-item @click="toggleFinishTask" :class="['task-item', { finished: task.isFinished }]">
-    <template v-if="task.isFinished">
-      <icon name="check-square-o"></icon>
-    </template>
-    <template v-else>
-      <icon name="square-o"></icon>
-    </template>
-    {{ task.label }}
+  <list-item :class="['task-item', { finished: task.isFinished }]">
+    <a href="#" @click.prevent="toggleFinishTask" class="toggle">
+      <icon v-if="task.isFinished" name="check-square-o"></icon>
+      <icon v-else name="square-o"></icon>
+    </a>
+    <span class="label">{{ task.label }}</span>
   </list-item>
 </template>
 
@@ -33,9 +31,18 @@
 
 <style lang="scss">
 
-  .task-item.finished {
-    color: #999;
-    text-decoration: line-through;
+  .task-item {
+    .toggle {
+      padding: 5px;
+    }
+
+    &.finished .label {
+      color: #999;
+      text-decoration: line-through;
+    }
+    &.finished .toggle {
+      color: #999;
+    }
   }
 
 </style>
