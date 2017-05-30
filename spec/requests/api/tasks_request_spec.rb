@@ -5,16 +5,16 @@ RSpec.describe Api::TasksController, type: :request do
 
   let(:user) { create :user, :activated }
 
+  before do
+    Timecop.freeze DateTime.new(2017)
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'POST #create' do
     let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
-
-    before do
-      Timecop.freeze DateTime.new(2017)
-    end
-
-    after do
-      Timecop.return
-    end
 
     context 'with valid attributes' do
       before do
@@ -80,16 +80,37 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'PATCH #update' do
+    let(:token) { user.token }
+    let(:payload) { { label: 'A new label for a task' } }
+    let(:task) { create :task, label: 'My task', user: user }
+
+    subject! { patch "/api/tasks/#{ task.id }", params: { task: payload }, headers: { 'Authorization': token }, as: :json }
+
+    context 'with valid attributes' do
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/task schema' do
+        expect(response).to match_response_schema('tasks/task')
+      end
+
+      it 'saves the new task' do
+        expect(task.reload.label).to eq('A new label for a task')
+      end
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create(:user) }
+      let(:token) { other_user.token }
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
   describe 'POST #finish' do
     let(:task) { create :task, :not_finished, user: user }
-
-    before do
-      Timecop.freeze DateTime.new(2017)
-    end
-
-    after do
-      Timecop.return
-    end
 
     context 'with valid attributes' do
       before do
@@ -124,6 +145,16 @@ RSpec.describe Api::TasksController, type: :request do
       it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
     end
 
+    context 'with abandoned task' do
+      let(:task) { create :task, :abandoned, user: user }
+
+      before do
+        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
+      end
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+    end
+
     context 'when authenticated with another user' do
       let(:other_user) { create :user }
 
@@ -137,14 +168,6 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'POST #restart' do
     let(:task) { create :task, :finished, user: user }
-
-    before do
-      Timecop.freeze DateTime.new(2017)
-    end
-
-    after do
-      Timecop.return
-    end
 
     context 'with valid attributes' do
       before do
@@ -179,16 +202,56 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'POST #abandon' do
+    let(:token) { user.token }
+    let(:task) { create :task, :not_finished, user: user }
+
+    subject! { post "/api/tasks/#{ task.id }/abandon", headers: { 'Authorization': token } }
+
+    context 'with valid attributes' do
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/task schema' do
+        expect(response).to match_response_schema('tasks/task')
+      end
+
+      it 'saves abandoned_at' do
+        expect(task.reload.abandoned_at).to eq(DateTime.new(2017))
+      end
+
+      it 'returns the updated task' do
+        task = JSON.parse(response.body)
+        expect(task['abandonedAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
+    context 'with finished task' do
+      let(:task) { create :task, :finished, user: user }
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+    end
+
+    context 'with abandoned task' do
+      let(:task) { create :task, :abandoned, user: user }
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+      let(:token) { other_user.token }
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
   describe 'GET #pending' do
     before do
-      Timecop.freeze DateTime.new(2017)
       create :task, :finished, label: 'finished task', user: user
       create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
       create :task, :pending, label: 'pending task', user: user
-    end
-
-    after do
-      Timecop.return
     end
 
     context 'with valid authentication' do
@@ -227,15 +290,10 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'GET #backlog' do
     before do
-      Timecop.freeze DateTime.new(2017)
       create :task, :finished, label: 'finished task', user: user
       create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
       create :task, :pending, label: 'pending task', user: user
       create :task, :backlogged, label: 'backlogged task', user: user
-    end
-
-    after do
-      Timecop.return
     end
 
     context 'with valid authentication' do

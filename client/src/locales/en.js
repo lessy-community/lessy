@@ -89,6 +89,11 @@ export default {
       submit: 'Validate',
     },
 
+    editTask: {
+      cancel: 'Cancel',
+      submit: 'Update',
+    },
+
     finishProject: {
       cancel: 'No, I lied :(',
       finishedLabel: 'Finished on',
@@ -220,5 +225,11 @@ export default {
         titleForToday: 'Tasks planned for today',
       },
     },
+  },
+
+  tasks: {
+    abandon: 'Abandon',
+    confirmAbandon: 'Oh? The task will me marked as abandoned and will disappear from the list. Can you confirm?',
+    edit: 'Edit',
   },
 }
