@@ -1,0 +1,75 @@
+$popper-background-color: rgba(#000, .9);
+
+.vue-tooltip {
+  background-color: $popper-background-color;
+  box-sizing: border-box;
+  color: #fff;
+  min-width: 120px;
+  max-width: 320px;
+  padding: 6px 10px;
+  border-radius: 3px;
+  z-index: 100;
+  box-shadow: 2px 2px 3px rgba(#000, 0.4);
+
+  .vue-tooltip-content {
+    font-size: .9rem;
+    text-align: center;
+  }
+
+  [x-arrow] {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: 5px;
+
+    [x-arrow] {
+      border-width: 5px 5px 0 5px;
+      border-color: $popper-background-color transparent transparent transparent;
+      bottom: -5px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: 5px;
+
+    [x-arrow] {
+      border-width: 0 5px 5px 5px;
+      border-color: transparent transparent $popper-background-color transparent;
+      top: -5px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: 5px;
+
+    [x-arrow] {
+      border-width: 5px 5px 5px 0;
+      border-color: transparent $popper-background-color transparent transparent;
+      left: -5px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: 5px;
+
+    [x-arrow] {
+      border-width: 5px 0 5px 5px;
+      border-color: transparent transparent transparent $popper-background-color;
+      right: -5px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

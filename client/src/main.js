@@ -23,6 +23,10 @@ import i18n from './locales'
 import router from './router'
 import store from './store'
 
+import Tooltip from 'vue-directive-tooltip'
+
+Vue.use(Tooltip)
+
 // register global components
 Vue.component('btn', Btn)
 Vue.component('card', Card)
