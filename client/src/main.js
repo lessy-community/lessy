@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import App from './components/layout/App'
 
+import Badge from './components/Badge'
 import Btn from './components/Btn'
 import Card from './components/Card'
 import Container from './components/Container'
@@ -28,6 +29,7 @@ import Tooltip from 'vue-directive-tooltip'
 Vue.use(Tooltip)
 
 // register global components
+Vue.component('badge', Badge)
 Vue.component('btn', Btn)
 Vue.component('card', Card)
 Vue.component('container', Container)
