@@ -167,7 +167,7 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   describe 'POST #restart' do
-    let(:task) { create :task, :finished, user: user }
+    let(:task) { create :task, :finished, restarted_count: 1, user: user }
 
     context 'with valid attributes' do
       before do
@@ -188,6 +188,10 @@ RSpec.describe Api::TasksController, type: :request do
 
       it 'sets due_at to today' do
         expect(task.reload.due_at).to eq(DateTime.new(2017))
+      end
+
+      it 'increments restarted_count' do
+        expect(task.reload.restarted_count).to eq(2)
       end
     end
 

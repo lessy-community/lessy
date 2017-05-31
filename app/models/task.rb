@@ -2,7 +2,8 @@ class Task < ApplicationRecord
 
   belongs_to :user
 
-  validates :label, :user, presence: true
+  validates :label, :user, :restarted_count, presence: true
+  validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }
 
   scope :due_on_today, -> {
     today = DateTime.now
@@ -27,6 +28,7 @@ class Task < ApplicationRecord
 
   def restart!
     update! finished_at: nil,
+            restarted_count: restarted_count + 1,
             due_at: DateTime.now
   end
 

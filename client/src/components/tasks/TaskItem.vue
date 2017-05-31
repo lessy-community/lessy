@@ -11,7 +11,15 @@
         <icon v-if="task.isFinished" name="check-square-o"></icon>
         <icon v-else name="square-o"></icon>
       </a>
-      <div class="label adapt">{{ task.label }}</div>
+      <div class="label adapt">
+        {{ task.label }}
+        <badge
+          v-if="task.restartedCount > 0"
+          v-tooltip.top="$tc('tasks.restarted', task.restartedCount, { count: task.restartedCount })"
+        >
+          <icon name="repeat"></icon> {{ task.restartedCount }}
+        </badge>
+      </div>
 
       <popover>
         <icon slot="toggle" name="ellipsis-h"></icon>

@@ -231,5 +231,6 @@ export default {
     abandon: 'Abandon',
     confirmAbandon: 'Oh? The task will me marked as abandoned and will disappear from the list. Can you confirm?',
     edit: 'Edit',
+    restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
   },
 }
