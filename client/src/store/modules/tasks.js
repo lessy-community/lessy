@@ -31,6 +31,7 @@ const getters = {
   list (state, getters) {
     return Object.keys(state.byIds)
                  .map(getters.findById)
+                 .sort((t1, t2) => t1.order - t2.order)
   },
 
   listForToday (state, getters) {
@@ -48,14 +49,12 @@ const getters = {
     return getters
       .list
       .filter((task) => task.isPending)
-      .sort((p1, p2) => p1.dueAt < p2.dueAt)
   },
 
   listBacklog (state, getters) {
     return getters
       .list
       .filter((task) => task.isBacklogged)
-      .sort((p1, p2) => p1.label.localeCompare(p2.label))
   },
 }
 

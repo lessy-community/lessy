@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :task do
     label "My task"
     user
+    sequence :order
 
     trait :finished do
       finished_at { 15.days.ago }

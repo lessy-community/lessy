@@ -4,6 +4,9 @@ class Task < ApplicationRecord
 
   validates :label, :user, :restarted_count, presence: true
   validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }
+  validates_uniqueness_of :order, scope: :user
+
+  before_create :set_order_attribute
 
   scope :due_on_today, -> {
     today = DateTime.now
@@ -52,6 +55,10 @@ private
       errors.add :base, :already_abandoned, message: 'Task is already abandoned'
       raise ActiveRecord::RecordInvalid.new(self)
     end
+  end
+
+  def set_order_attribute
+    self.order = (user.tasks.maximum(:order) || 0) + 1 unless order.present?
   end
 
 end
