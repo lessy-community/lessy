@@ -97,6 +97,11 @@ const actions = {
     return tasksApi.getBacklog()
                    .then((data) => commit('addList', data))
   },
+
+  orderAfter ({ commit }, { task, afterTaskId }) {
+    return tasksApi.orderAfter(task, afterTaskId)
+                   .then((data) => commit('setOrder', data))
+  },
 }
 
 const mutations = {
@@ -122,6 +127,19 @@ const mutations = {
     state.byIds = {
       ...state.byIds,
       [task.id]: task,
+    }
+  },
+
+  setOrder (state, newOrderTasks) {
+    const impactedTasks = newOrderTasks.map(orderTask => {
+      return {
+        ...state.byIds[orderTask.id],
+        order: orderTask.order,
+      }
+    }).filter(task => task.id != null)
+    state.byIds = {
+      ...state.byIds,
+      ...mapElementsById(impactedTasks),
     }
   },
 

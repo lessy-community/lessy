@@ -28,4 +28,8 @@ export default {
   getBacklog () {
     return get('/api/tasks/backlog')
   },
+
+  orderAfter (task, afterTaskId) {
+    return post(`/api/tasks/${task.id}/order_after`, { afterTaskId })
+  },
 }
