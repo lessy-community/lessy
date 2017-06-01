@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         post 'finish'
         post 'restart'
         post 'abandon'
+        post 'order_after'
       end
     end
 

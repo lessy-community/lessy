@@ -33,6 +33,11 @@ class Api::TasksController < ApplicationController
     @tasks = current_user.tasks.backlogged
   end
 
+  def order_after
+    task = current_task
+    @impacted_tasks = task.order_after!(params[:after_task_id])
+  end
+
 private
 
   def current_task
