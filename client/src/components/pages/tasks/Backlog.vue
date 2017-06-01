@@ -1,13 +1,6 @@
 <template>
   <div v-if="ready" class="tasks-backlog-page">
-    <div class="list">
-      <task-item
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        disable-toggle
-      ></task-item>
-    </div>
+    <task-list :tasks="tasks" notoggle></task-list>
     <create-task-form></create-task-form>
   </div>
   <error-page v-else-if="error" :message="error"></error-page>
@@ -18,7 +11,7 @@
   import { mapGetters } from 'vuex'
 
   import CreateTaskForm from '../../forms/CreateTask'
-  import TaskItem from '../../tasks/TaskItem'
+  import TaskList from '../../tasks/TaskList'
   import ErrorPage from '../Error'
   import LoadingPage from '../Loading'
 
@@ -28,7 +21,7 @@
 
     components: {
       CreateTaskForm,
-      TaskItem,
+      TaskList,
       ErrorPage,
       LoadingPage,
     },

@@ -29,14 +29,7 @@
       </div>
     </div>
 
-    <div class="list">
-      <task-item
-        v-for="task in tasksForToday"
-        :key="task.id"
-        :task="task"
-        disable-toggle
-      ></task-item>
-    </div>
+    <task-list :tasks="tasksForToday" notoggle></task-list>
     <create-task-form :dueAt="dueAt"></create-task-form>
 
     <div class="planning-finish">
@@ -53,7 +46,7 @@
   import { mapGetters } from 'vuex'
 
   import CreateTaskForm from '../../forms/CreateTask'
-  import TaskItem from '../../tasks/TaskItem'
+  import TaskList from '../../tasks/TaskList'
   import ErrorPage from '../Error'
   import LoadingPage from '../Loading'
 
@@ -63,7 +56,7 @@
 
     components: {
       CreateTaskForm,
-      TaskItem,
+      TaskList,
       ErrorPage,
       LoadingPage,
     },

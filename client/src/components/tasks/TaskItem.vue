@@ -7,7 +7,7 @@
   ></edit-task>
   <list-item v-else :class="['task-item', { finished: task.isFinished }]">
     <container row align="center">
-      <a v-if="!disableToggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
+      <a v-if="!notoggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
         <icon v-if="task.isFinished" name="check-square-o"></icon>
         <icon v-else name="square-o"></icon>
       </a>
@@ -40,7 +40,7 @@
 
     props: {
       'task': { type: Object, required: true },
-      'disable-toggle': { type: Boolean },
+      'notoggle': { type: Boolean },
     },
 
     components: {

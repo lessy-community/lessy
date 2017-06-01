@@ -8,7 +8,7 @@
       </card>
     </container>
 
-    <task-item v-for="task in tasks" :key="task.id" :task="task"></task-item>
+    <task-list :tasks="tasks"></task-list>
     <template v-if="tasks.length > 0">
       <btn
         v-if="!createTaskEnabled"
@@ -34,7 +34,7 @@
 
   import { mapGetters } from 'vuex'
   import CreateTaskForm from '../forms/CreateTask'
-  import TaskItem from '../tasks/TaskItem'
+  import TaskList from '../tasks/TaskList'
 
   export default {
 
@@ -42,7 +42,7 @@
 
     components: {
       CreateTaskForm,
-      TaskItem,
+      TaskList,
     },
 
     data () {
@@ -75,10 +75,6 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0;
-  }
-
-  .dashboard-page .list-item:last-of-type {
-    margin-bottom: 10px;
   }
 
 </style>
