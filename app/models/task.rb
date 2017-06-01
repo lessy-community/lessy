@@ -4,6 +4,9 @@ class Task < ApplicationRecord
 
   validates :label, :user, :restarted_count, presence: true
   validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }
+  validates_uniqueness_of :order, scope: :user
+
+  before_create :set_order_attribute
 
   scope :due_on_today, -> {
     today = DateTime.now
@@ -38,6 +41,24 @@ class Task < ApplicationRecord
     update! abandoned_at: DateTime.now
   end
 
+  def order_after!(after_task_id)
+    # TODO: unit test + refactor
+    next_order = 1
+    impacted_tasks = user.tasks
+    if after_task_id.present?
+      other_task = impacted_tasks.find(after_task_id)
+      impacted_tasks = impacted_tasks.where('"order" > ?', other_task.order)
+      next_order = other_task.order + 1
+    end
+
+    Task.transaction do
+      impacted_tasks.update_all('"order" = "order" + 1')
+      self.update! order: next_order
+    end
+
+    [impacted_tasks, self].flatten.uniq
+  end
+
 private
 
   def validates_not_finished
@@ -52,6 +73,10 @@ private
       errors.add :base, :already_abandoned, message: 'Task is already abandoned'
       raise ActiveRecord::RecordInvalid.new(self)
     end
+  end
+
+  def set_order_attribute
+    self.order = (user.tasks.maximum(:order) || 0) + 1 unless order.present?
   end
 
 end

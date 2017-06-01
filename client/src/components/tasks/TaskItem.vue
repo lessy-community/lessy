@@ -7,6 +7,8 @@
   ></edit-task>
   <list-item v-else :class="['task-item', { finished: task.isFinished }]">
     <container row align="center">
+      <span class="my-handle">::</span>
+
       <a v-if="!notoggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
         <icon v-if="task.isFinished" name="check-square-o"></icon>
         <icon v-else name="square-o"></icon>
@@ -85,6 +87,15 @@
 <style lang="scss">
 
   .task-item {
+    .my-handle {
+      padding: 5px;
+      visibility: hidden;
+      cursor: move;
+    }
+    &:hover .my-handle {
+      visibility: visible;
+    }
+
     .toggle {
       padding: 5px;
     }

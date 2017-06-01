@@ -251,6 +251,66 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'POST #order_after' do
+    let(:task) { create :task, order: 40, user: user }
+    let!(:other_task) { create :task, order: 41, user: user }
+    let!(:still_another_task) { create :task, order: 42, user: user }
+    let(:payload) { { after_task_id: other_task.id } }
+    let(:token) { user.token }
+
+    subject! { post "/api/tasks/#{ task.id }/order_after", params: payload, headers: { 'Authorization': token }, as: :json }
+
+    context 'with valid attributes' do
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/order_after schema' do
+        expect(response).to match_response_schema('tasks/order_after')
+      end
+
+      it 'saves the task' do
+        expect(task.reload.order).to eq(42)
+      end
+
+      it 'increments tasks strictly after the given one' do
+        expect(other_task.reload.order).to eq(41)
+        expect(still_another_task.reload.order).to eq(43)
+      end
+    end
+
+    context 'with after_task_id nil' do
+      let(:payload) { { after_task_id: nil } }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'sets the order to 1' do
+        expect(task.reload.order).to eq(1)
+      end
+
+      it 'increments all the other tasks' do
+        expect(other_task.reload.order).to eq(42)
+        expect(still_another_task.reload.order).to eq(43)
+      end
+    end
+
+    context 'when other task has been created by another user' do
+      let(:other_user) { create(:user) }
+      let(:other_task) { create :task, order: 41, user: other_user }
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create(:user) }
+      let(:token) { other_user.token }
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
   describe 'GET #pending' do
     before do
       create :task, :finished, label: 'finished task', user: user
