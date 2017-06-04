@@ -18,6 +18,8 @@
         <badge
           v-if="task.restartedCount > 0"
           v-tooltip.top="$tc('tasks.restarted', task.restartedCount, { count: task.restartedCount })"
+          :warn="task.restartedCount === 2"
+          :alert="task.restartedCount > 2"
         >
           <icon name="repeat"></icon> {{ task.restartedCount }}
         </badge>
