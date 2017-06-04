@@ -50,11 +50,21 @@ documentation](https://wiki.postgresql.org/wiki/First_steps).
 ~$ git clone -b https://github.com/marienfressinaud/project-zero.git
 ~$ cd project-zero
 project-zero$ gem install bundler
-project-zero$ RAILS_ENV=production bundle install --deployment --without test development
+project-zero$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
 ```
 
 If you face any problem during installation, please open a ticket [on
 GitHub](https://github.com/marienfressinaud/project-zero/issues).
+
+I spent quite a long time figuring out why building `pg` gem was failing on my
+server (CentOS). I'm using a custom package of `pgsql` so I can use the latest
+version, but Bundler still try to build the gem with an incorrect configuration,
+I had to run these two commands before `bundle install` to make it works:
+
+```bash
+project-zero$ export ARCHFLAGS="-arch x86_64"
+project-zero$ bundle config build.pg --with-pg-config=/usr/pgsql-9.6/bin/pg_config
+```
 
 It's time to add the required environment variables, in your `~/.bashrc`, add the
 following lines and adapt them to your situation:
@@ -141,6 +151,41 @@ root# systemctl reload httpd  # or apache2 depending on what is your system
 ```
 
 You should now be able to access Project Zero at http://your.domain.com.
+
+## Update
+
+For each new version of Project Zero, you'll need to get the new source code,
+migrate the database, install new gems (Ruby) and packages (NodeJS) and restart
+the Rails server. The following commands try to be as exhaustive as possible:
+
+```bash
+project-zero$ # First, stop the server (I'll try to find a better method later ;))
+project-zero$ screen -r
+project-zero$ <ctrl+c>
+project-zero$
+project-zero$ # Let's get the new code
+project-zero$ git pull
+project-zero$ git checkout <tag version>  # to adapt with desired version
+project-zero$
+project-zero$ # You'll need to do that ONLY if we updated Ruby version
+project-zero$ # Please check the changelog to know if it applies to you
+project-zero$ rbenv install
+project-zero$ gem install bundler
+project-zero$
+project-zero$ # Then, update the backend
+project-zero$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
+project-zero$ bundle exec rails db:migrate
+project-zero$
+project-zero$ # After that, we update the client and rebuild the frontend
+project-zero$ cd client
+project-zero/client$ npm install  # if anything goes wrong here, try to remove the node_modules folder
+project-zero/client$ npm run build
+project-zero/client$ cd ..
+project-zero$
+project-zero$ # Finally, restart the Rails server
+project-zero$ screen bundle exec rails s -p 3001
+project-zero$ <ctrl+a><d>
+```
 
 ## Documentation credits
 
