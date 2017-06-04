@@ -206,6 +206,46 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
+  describe 'POST #start' do
+    let(:task) { create :task, :backlogged, user: user }
+    let(:token) { user.token }
+
+    subject! { post "/api/tasks/#{ task.id }/start", headers: { 'Authorization': token } }
+
+    context 'with valid task' do
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/task schema' do
+        expect(response).to match_response_schema('tasks/task')
+      end
+
+      it 'sets due_at to today' do
+        expect(task.reload.due_at).to eq(DateTime.new(2017))
+      end
+    end
+
+    context 'with finished task' do
+      let(:task) { create :task, :finished, user: user }
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+    end
+
+    context 'with abandoned task' do
+      let(:task) { create :task, :abandoned, user: user }
+
+      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+    end
+
+    context 'when authenticated with another user' do
+      let(:other_user) { create :user }
+      let(:token) { other_user.token }
+
+      it_behaves_like 'not found failures', 'Task'
+    end
+  end
+
   describe 'POST #abandon' do
     let(:token) { user.token }
     let(:task) { create :task, :not_finished, user: user }

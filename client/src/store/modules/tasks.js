@@ -83,6 +83,11 @@ const actions = {
                    .then((data) => commit('set', data))
   },
 
+  start ({ commit }, { task }) {
+    return tasksApi.start(task)
+                   .then((data) => commit('set', data))
+  },
+
   abandon ({ commit }, { task }) {
     return tasksApi.abandon(task)
                    .then((data) => commit('set', data))

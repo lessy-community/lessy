@@ -17,6 +17,10 @@ export default {
     return post(`/api/tasks/${task.id}/restart`)
   },
 
+  start (task) {
+    return post(`/api/tasks/${task.id}/start`)
+  },
+
   abandon (task) {
     return post(`/api/tasks/${task.id}/abandon`)
   },

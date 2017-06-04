@@ -20,6 +20,11 @@ class Api::TasksController < ApplicationController
     @task.restart!
   end
 
+  def start
+    @task = current_task
+    @task.start!
+  end
+
   def abandon
     @task = current_task
     @task.abandon!

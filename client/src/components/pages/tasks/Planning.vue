@@ -23,7 +23,7 @@
             {{ task.label }}
           </div>
           <div>
-            <btn type="primary" @click="restartTask(task)">{{ $t('pages.tasks.planning.plan') }}</btn>
+            <btn type="primary" @click="startTask(task)">{{ $t('pages.tasks.planning.plan') }}</btn>
           </div>
         </container>
       </div>
@@ -84,6 +84,10 @@
 
       restartTask (task) {
         this.$store.dispatch('tasks/restart', { task })
+      },
+
+      startTask (task) {
+        this.$store.dispatch('tasks/start', { task })
       },
     },
 
