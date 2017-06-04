@@ -35,7 +35,12 @@ class Api::TasksController < ApplicationController
 
   def order_after
     task = current_task
-    @impacted_tasks = task.order_after!(params[:after_task_id])
+    @impacted_tasks = if params[:after_task_id].nil?
+                        task.order_first!
+                      else
+                        other_task = current_user.tasks.find(params[:after_task_id])
+                        task.order_after! other_task
+                      end
   end
 
 private

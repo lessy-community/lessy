@@ -41,22 +41,26 @@ class Task < ApplicationRecord
     update! abandoned_at: DateTime.now
   end
 
-  def order_after!(after_task_id)
-    # TODO: unit test + refactor
-    next_order = 1
-    impacted_tasks = user.tasks
-    if after_task_id.present?
-      other_task = impacted_tasks.find(after_task_id)
-      impacted_tasks = impacted_tasks.where('"order" > ?', other_task.order)
-      next_order = other_task.order + 1
-    end
+  def order_after!(after_task)
+    impacted_tasks = user.tasks.where('"order" > ?', after_task.order)
 
     Task.transaction do
       impacted_tasks.update_all('"order" = "order" + 1')
-      self.update! order: next_order
+      self.update! order: after_task.order + 1
     end
 
-    [impacted_tasks, self].flatten.uniq
+    [*impacted_tasks, self].uniq
+  end
+
+  def order_first!
+    impacted_tasks = user.tasks
+
+    Task.transaction do
+      impacted_tasks.update_all('"order" = "order" + 1')
+      self.update! order: 1
+    end
+
+    impacted_tasks
   end
 
 private
