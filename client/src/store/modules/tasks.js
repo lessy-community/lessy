@@ -17,12 +17,14 @@ const getters = {
       const isFinished = !!task.finishedAt
       const dueAtDate = !isBacklogged && moment.unix(task.dueAt)
       const isPending = !isBacklogged && !isFinished && !isAbandoned && dueAtDate.isBefore(moment().startOf('day'))
+      const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
       return {
         ...task,
         isBacklogged,
         isFinished,
         isAbandoned,
         isPending,
+        createdSinceWeeks,
         dueAtLabel: formatDate(task.dueAt),
       }
     }

@@ -230,6 +230,7 @@ export default {
   tasks: {
     abandon: 'Abandon',
     confirmAbandon: 'Oh? The task will me marked as abandoned and will disappear from the list. Can you confirm?',
+    createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
     edit: 'Edit',
     restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
   },

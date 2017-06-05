@@ -1,12 +1,13 @@
 {
   "type": "object",
-  "required": ["id", "label", "order", "restartedCount", "userId"],
+  "required": ["id", "label", "order", "restartedCount", "userId", "createdAt"],
   "properties": {
     "id": { "type": "integer" },
     "label": { "type": "string" },
     "order": { "type": "integer" },
     "restartedCount": { "type": "integer" },
     "userId": { "type": "integer" },
+    "createdAt": { "type": "integer" },
     "dueAt": { "type": "integer" },
     "finishedAt": { "type": "integer" },
     "abandonedAt": { "type": "integer" }

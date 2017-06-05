@@ -16,6 +16,14 @@
       <div class="label adapt">
         {{ task.label }}
         <badge
+          v-if="task.createdSinceWeeks > 0"
+          v-tooltip.top="$tc('tasks.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
+          :warn="task.createdSinceWeeks === 2"
+          :alert="task.createdSinceWeeks > 2"
+        >
+          <icon name="calendar"></icon> {{ task.createdSinceWeeks }}w
+        </badge>
+        <badge
           v-if="task.restartedCount > 0"
           v-tooltip.top="$tc('tasks.restarted', task.restartedCount, { count: task.restartedCount })"
           :warn="task.restartedCount === 2"
