@@ -1,4 +1,6 @@
 import moment from 'moment'
+import sanitizeHtml from 'sanitize-html'
+import anchorme from 'anchorme'
 
 import { mapElementsById, formatDate } from '../../utils'
 
@@ -18,6 +20,16 @@ const getters = {
       const dueAtDate = !isBacklogged && moment.unix(task.dueAt)
       const isPending = !isBacklogged && !isFinished && !isAbandoned && dueAtDate.isBefore(moment().startOf('day'))
       const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
+
+      const allowedTags = ['b', 'i', 'em', 'strong']
+      const anchorOptions = {
+        files: false,
+        attributes: [
+          { name: 'target', value: '_blank' },
+          { name: 'rel', value: 'noreferrer' },
+        ]
+      }
+
       return {
         ...task,
         isBacklogged,
@@ -26,6 +38,7 @@ const getters = {
         isPending,
         createdSinceWeeks,
         dueAtLabel: formatDate(task.dueAt),
+        formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
       }
     }
   },

@@ -14,7 +14,7 @@
         <icon v-else name="square-o"></icon>
       </a>
       <div class="label adapt">
-        {{ task.label }}
+        <span v-html="task.formattedLabel"></span>
         <badge
           v-if="task.createdSinceWeeks > 0"
           v-tooltip.top="$tc('tasks.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
