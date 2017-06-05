@@ -30,6 +30,9 @@ export default {
 .container.row.center {
   align-items: center;
 }
+.container.row.baseline {
+  align-items: baseline;
+}
 .container.row > * {
   flex-shrink: 0;
 }

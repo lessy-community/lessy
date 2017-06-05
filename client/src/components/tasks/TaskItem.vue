@@ -6,7 +6,7 @@
     :onCancel="stopEditMode"
   ></edit-task>
   <list-item v-else :class="['task-item', { finished: task.isFinished }]">
-    <container row align="center">
+    <container row align="baseline">
       <span class="my-handle">::</span>
 
       <a v-if="!notoggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
@@ -108,6 +108,10 @@
 
     .toggle {
       padding: 5px;
+    }
+
+    .label {
+      white-space: normal;
     }
 
     &:nth-child(even) {
