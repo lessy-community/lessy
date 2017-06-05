@@ -1,6 +1,30 @@
 # Changelog
 
-## 0.2 2016-xx-yy
+## 0.2 2017-06-05
+
+### Features
+
+- [#64](https://github.com/marienfressinaud/project-zero/issues/64) Provide basic task support
+- Restart finished tasks
+- [#65](https://github.com/marienfressinaud/project-zero/issues/65) Add today's planning
+- [#69](https://github.com/marienfressinaud/project-zero/issues/69) Provide tasks backlog
+- [#30](https://github.com/marienfressinaud/project-zero/issues/30) Set max length on some attributes
+- [#61](https://github.com/marienfressinaud/project-zero/issues/61) Autosize textarea according to content
+- [#66](https://github.com/marienfressinaud/project-zero/issues/66) Add more actions on tasks
+- [#68](https://github.com/marienfressinaud/project-zero/issues/68) Add help on repeated tasks
+- [#67](https://github.com/marienfressinaud/project-zero/issues/67) Order tasks
+- [#88](https://github.com/marienfressinaud/project-zero/issues/88) Add a badge about task's creation date
+- Transform link in tasks' label
+
+### Bug fixes
+
+- Unload tasks on logout
+- Load user correctly on authorize and activate
+
+### Documentation
+
+- [#74](https://github.com/marienfressinaud/project-zero/issues/74) Add a section about application's updates
+- Update backend's installation instructions
 
 ### Migration notes
 
