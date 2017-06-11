@@ -46,6 +46,7 @@ const getters = {
   list (state, getters) {
     return Object.keys(state.byIds)
                  .map(getters.findById)
+                 .filter((task) => !task.isAbandoned)
                  .sort((t1, t2) => t1.order - t2.order)
   },
 
