@@ -55,33 +55,3 @@
 
   }
 </script>
-
-<style lang="scss">
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-
-    font-family: 'Open Sans', sans-serif;
-
-    background-color: #fafafa;
-  }
-
-  a {
-    color: $color-primary;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-
-  h1 {
-    margin-top: 0;
-  }
-
-</style>
