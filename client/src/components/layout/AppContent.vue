@@ -26,7 +26,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .app-content {
     min-height: calc(100vh - 66px);
@@ -39,6 +39,12 @@
     background-color: #fff;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
+  }
+
+  @media(max-width: $small-screen-width) {
+    .app-body {
+      padding: 5px;
+    }
   }
 
 </style>

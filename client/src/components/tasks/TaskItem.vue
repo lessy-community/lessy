@@ -141,4 +141,17 @@
     &:hover .popover { visibility: visible; }
   }
 
+  @media(max-width: $small-screen-width) {
+    .task-item {
+      .container.row {
+        flex-direction: row;
+      }
+
+      .my-handle,
+      .popover {
+        display: none;
+      }
+    }
+  }
+
 </style>

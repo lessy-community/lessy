@@ -44,4 +44,10 @@
     background-color: $color-primary-shadow;
   }
 
+  @media(max-width: $small-screen-width) {
+    .list-item {
+      padding: 5px;
+    }
+  }
+
 </style>

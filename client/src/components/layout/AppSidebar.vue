@@ -14,7 +14,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .app-sidebar {
     width: 230px;
@@ -35,6 +35,22 @@
   .app-sidebar a.active {
     color: #000;
     font-weight: bold;
+  }
+
+  @media(max-width: $small-screen-width) {
+    .app-sidebar {
+      display: none;
+      width: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      background-color: #eaeaea;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .with-app-sidebar .app-sidebar {
+      display: block;
+    }
   }
 
 </style>

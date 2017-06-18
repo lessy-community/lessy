@@ -14,35 +14,45 @@ export default {
 }
 </script>
 
-<style>
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+<style lang="scss">
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.container.row {
-  display: flex;
-}
-.container.row.center {
-  align-items: center;
-}
-.container.row.baseline {
-  align-items: baseline;
-}
-.container.row > * {
-  flex-shrink: 0;
-}
-.container.row > .adapt {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.container.row > .adapt,
-.container.row > .separator {
-  flex-grow: 1;
-  flex-shrink: 1;
-}
+  .container.row {
+    display: flex;
+  }
+  .container.row.center {
+    align-items: center;
+  }
+  .container.row.baseline {
+    align-items: baseline;
+  }
+  .container.row > * {
+    flex-shrink: 0;
+  }
+  .container.row > .adapt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .container.row > .adapt,
+  .container.row > .separator {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  @media(max-width: $small-screen-width) {
+    .container.row {
+      flex-direction: column;
+
+      > * {
+        margin-bottom: 5px;
+      }
+    }
+  }
 </style>

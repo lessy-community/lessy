@@ -56,6 +56,15 @@
     }
   }
 
+  @media(max-width: $small-screen-width) {
+    .container.row > .card {
+      flex-basis: auto;
+
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+
   .card-header {
     padding: 10px 20px;
 
