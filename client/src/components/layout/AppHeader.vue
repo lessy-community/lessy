@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <container row align="baseline">
-      <btn type="link" @click="toggleSidebar">
+      <btn type="link" @click="toggleSidebar" class="header-sidebar-toggle">
         <icon name="bars"></icon>
       </btn>
       <router-link to="/" class="header-title">{{ $t('layout.projectZero') }}</router-link>
@@ -56,6 +56,9 @@
 
     color: #fff;
   }
+  .app-header .header-sidebar-toggle {
+    display: none;
+  }
   .app-header .header-title {
     font-size: 1.1rem;
     font-weight: bold;
@@ -70,6 +73,9 @@
       flex-direction: row;
     }
 
+    .app-header .header-sidebar-toggle {
+      display: block;
+    }
     .app-header .header-profile {
       display: none;
     }
