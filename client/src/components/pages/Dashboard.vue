@@ -71,10 +71,4 @@
 
 <style>
 
-  .dashboard-page .container.row > .card {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 0;
-  }
-
 </style>

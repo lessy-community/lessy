@@ -23,7 +23,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 
   .card {
     display: flex;
@@ -42,13 +42,18 @@
     box-shadow: 0 0px 3px #ccc;
   }
 
-  .container > .card {
+  .container.row > .card {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+
     margin-right: 20px;
     padding: 0;
     padding-bottom: 10px;
-  }
-  .container > .card:last-of-type {
-    margin-right: 0;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 
   .card-header {
