@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="update">
     <div :class="['form-group-control', { invalid: isInError('Task', 'label') }]">
-      <text-field id="label" v-model="label" ref="labelInput" />
+      <text-field id="label" v-model="label" ref="labelInput" autocomplete="off" />
       <div v-if="isInError('Task', 'label')" class="form-group-tip">
         {{ getErrors('Task', 'label') }}
       </div>
