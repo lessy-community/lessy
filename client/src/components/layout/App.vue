@@ -34,18 +34,22 @@
       if (!shouldFetchUser) {
         this.ready = true
       } else {
-        this.$store
-            .dispatch('users/getCurrent')
-            .then((user) => {
-              this.ready = true
-            })
-            .catch(() => {
-              // having troubles to fetch current user? It probably means token
-              // expired or user does not exist. Logout and return to home page.
-              auth.logout()
-              this.$router.push('/')
-              this.ready = true
-            })
+        this.$store.dispatch('users/getCurrent')
+          .then((user) => {
+            return Promise.all([
+              this.$store.dispatch('tasks/list'),
+            ])
+          })
+          .then(() => {
+            this.ready = true
+          })
+          .catch(() => {
+            // having troubles to fetch current user? It probably means token
+            // expired or user does not exist. Logout and return to home page.
+            auth.logout()
+            this.$router.push('/')
+            this.ready = true
+          })
       }
     },
 

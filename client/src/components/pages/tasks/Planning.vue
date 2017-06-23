@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ready" class="tasks-planning-page">
+  <div class="tasks-planning-page">
     <div v-if="pendingTasks.length > 0" class="box tasks-pending">
       <p>{{ $t('pages.tasks.planning.pendingInfo') }}</p>
       <div class="list">
@@ -36,8 +36,6 @@
       <router-link to="/dashboard" class="btn">{{ $t('pages.tasks.planning.back') }}</router-link>
     </div>
   </div>
-  <error-page v-else-if="error" :message="error"></error-page>
-  <loading-page v-else></loading-page>
 </template>
 
 <script>
@@ -47,24 +45,15 @@
 
   import CreateTaskForm from '../../forms/CreateTask'
   import TaskList from '../../tasks/TaskList'
-  import ErrorPage from '../Error'
-  import LoadingPage from '../Loading'
 
   export default {
-
-    name: 'tasks-planning-page',
-
     components: {
       CreateTaskForm,
       TaskList,
-      ErrorPage,
-      LoadingPage,
     },
 
     data () {
       return {
-        error: null,
-        ready: false,
         dueAt: moment().endOf('day'),
       }
     },
@@ -90,20 +79,6 @@
         this.$store.dispatch('tasks/start', { task })
       },
     },
-
-    mounted () {
-      Promise.all([
-        this.$store.dispatch('tasks/getPending'),
-        this.$store.dispatch('tasks/getBacklog'),
-      ])
-        .then(() => {
-          this.ready = true
-        })
-        .catch((failure) => {
-          this.error = failure.data.message
-        })
-    },
-
   }
 </script>
 

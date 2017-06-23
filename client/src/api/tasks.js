@@ -1,6 +1,10 @@
 import { get, post, patch } from './http'
 
 export default {
+  list () {
+    return get('/api/tasks')
+  },
+
   create (label, dueAt) {
     return post('/api/tasks', { label, dueAt })
   },
@@ -23,14 +27,6 @@ export default {
 
   abandon (task) {
     return post(`/api/tasks/${task.id}/abandon`)
-  },
-
-  getPending () {
-    return get('/api/tasks/pending')
-  },
-
-  getBacklog () {
-    return get('/api/tasks/backlog')
   },
 
   orderAfter (task, afterTaskId) {
