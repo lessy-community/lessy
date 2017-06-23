@@ -172,7 +172,7 @@ export default {
     },
 
     loading: {
-      inProgress: 'Loading in progress…',
+      inProgress: 'Loading, please wait…',
     },
 
     login: {
