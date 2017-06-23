@@ -32,6 +32,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5'
   gem 'timecop', '~> 0.8'
   gem 'json_matchers'
+  gem 'faker'
 end
 
 group :development do

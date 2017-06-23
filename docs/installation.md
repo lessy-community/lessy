@@ -50,3 +50,9 @@ project-zero/client$ npm run dev
 The last line should have opened a new window in your browser at
 http://localhost:8080 and serve the frontend. All the AJAX requests to the
 backend are proxified to http://localhost:3000 (served by Rails).
+
+## Connect to the app
+
+You can login into the app with following credentials: `dalecooper` / `secret`.
+A bunch of fake data have been generated for you so you can start to code
+quickly.
