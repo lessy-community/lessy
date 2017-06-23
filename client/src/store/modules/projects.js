@@ -6,7 +6,6 @@ import projectsApi from '../../api/projects'
 
 const state = {
   current: null,
-  numberFinished: 0,
   byIds: {},
 }
 
@@ -88,21 +87,28 @@ const getters = {
       .filter((project) => !project.isFinished)
       .length
   },
+
+  numberFinished (state, getters) {
+    return Object.keys(state.byIds)
+      .map(getters.findById)
+      .filter((project) => project.isFinished)
+      .length
+  },
 }
 
 const actions = {
+  list ({ commit }) {
+    return projectsApi.list()
+                      .then((data) => commit('addList', data))
+  },
+
   create ({ commit }, { name }) {
     return projectsApi
       .create(name)
       .then((data) => {
-        commit('add', data)
+        commit('addList', [data])
         return data.id
       })
-  },
-
-  find ({ commit }, { userIdentifier, projectName }) {
-    return projectsApi.find(userIdentifier, projectName)
-                      .then((data) => commit('setCurrent', data))
   },
 
   update ({ commit }, { project, ...payload }) {
@@ -128,28 +134,9 @@ const actions = {
         commit('setNumberFinished', state.numberFinished + 1)
       })
   },
-
-  getFinished ({ commit }, { userIdentifier }) {
-    return projectsApi
-      .getFinished(userIdentifier)
-      .then((data) => {
-        commit('addList', data)
-      })
-  },
 }
 
 const mutations = {
-  setup (state, projects) {
-    state.byIds = mapElementsById(projects)
-  },
-
-  add (state, project) {
-    state.byIds = {
-      ...state.byIds,
-      [project.id]: project,
-    }
-  },
-
   addList (state, projects) {
     state.byIds = {
       ...state.byIds,
@@ -164,29 +151,14 @@ const mutations = {
     }
   },
 
-  setCurrent (state, project) {
-    state.byIds = {
-      ...state.byIds,
-      [project.id]: project,
-    }
-    state.current = project.id
-  },
-
-  resetCurrent (state, hard = false) {
-    if (hard) {
-      delete state.byIds[state.current]
-    }
-    state.current = null
+  setCurrent (state, projectName) {
+    state.current = Object.keys(state.byIds)
+                          .find((id) => state.byIds[id].name === projectName)
   },
 
   reset (state) {
     state.current = null
     state.byIds = {}
-    state.numberFinished = 0
-  },
-
-  setNumberFinished (state, numberFinished) {
-    state.numberFinished = numberFinished
   },
 }
 

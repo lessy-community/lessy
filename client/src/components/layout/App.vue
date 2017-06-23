@@ -38,6 +38,7 @@
           .then((user) => {
             return Promise.all([
               this.$store.dispatch('tasks/list'),
+              this.$store.dispatch('projects/list'),
             ])
           })
           .then(() => {

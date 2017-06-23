@@ -9,31 +9,12 @@
     </container>
     <router-view v-if="project" :project="project"></router-view>
   </div>
-  <error-page v-else-if="error" :message="error"></error-page>
-  <loading-page v-else></loading-page>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
 
-  import ErrorPage from '../pages/Error'
-  import LoadingPage from '../pages/Loading'
-
   export default {
-
-    name: 'project-layout',
-
-    components: {
-      ErrorPage,
-      LoadingPage,
-    },
-
-    data () {
-      return {
-        error: null,
-      }
-    },
-
     computed: {
       ...mapGetters({
         project: 'projects/current',
@@ -42,18 +23,8 @@
 
     mounted () {
       const { projectName } = this.$route.params
-      const userIdentifier = this.$store.getters['users/current'].identifier
-      this.$store
-        .dispatch('projects/find', { userIdentifier, projectName })
-        .catch((error) => {
-          this.error = error.data.message
-        })
+      this.$store.commit('projects/setCurrent', projectName)
     },
-
-    destroyed () {
-      this.$store.commit('projects/resetCurrent')
-    },
-
   }
 </script>
 
