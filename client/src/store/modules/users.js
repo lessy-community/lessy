@@ -62,7 +62,7 @@ const actions = {
 
   logout ({ commit }) {
     auth.logout()
-    commit('resetCurrent', true)
+    commit('reset')
     commit('tasks/reset', null, { root: true })
     commit('projects/reset', null, { root: true })
   },
@@ -77,10 +77,8 @@ const mutations = {
     state.current = user.id
   },
 
-  resetCurrent (state, hard = false) {
-    if (hard) {
-      delete state.byIds[state.current]
-    }
+  reset (state) {
+    state.byIds = {}
     state.current = null
   }
 }
