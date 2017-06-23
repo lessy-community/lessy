@@ -205,71 +205,6 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
   end
 
-  describe 'GET #find' do
-    let(:user) { create :user, :activated, username: 'john' }
-
-    before do
-      @project = create(:project, user: user, name: 'my-project')
-    end
-
-    context 'when looking for own existing project' do
-      before do
-        get '/api/users/john/projects/my-project', headers: { 'Authorization': user.token }
-      end
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the projects/project schema' do
-        expect(response).to match_response_schema('projects/project')
-      end
-
-      it 'returns the corresponding project' do
-        json_project = JSON.parse(response.body)
-        expect(json_project['id']).to eq(@project.id)
-      end
-    end
-
-    context 'when looking for own existing project by user id' do
-      before do
-        get "/api/users/#{ user.id }/projects/my-project", headers: { 'Authorization': user.token }
-      end
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the projects/project schema' do
-        expect(response).to match_response_schema('projects/project')
-      end
-
-      it 'returns the corresponding project' do
-        json_project = JSON.parse(response.body)
-        expect(json_project['id']).to eq(@project.id)
-      end
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-
-      before do
-        get '/api/users/john/projects/my-project', headers: { 'Authorization': other_user.token }
-      end
-
-      it_behaves_like 'not found failures', 'User'
-    end
-
-    context 'when looking for a missing project' do
-      before do
-        @project.destroy
-        get '/api/users/john/projects/my-project', headers: { 'Authorization': user.token }
-      end
-
-      it_behaves_like 'not found failures', 'Project'
-    end
-  end
-
   describe 'POST #start' do
     let(:project) { create :project, :not_started, user: user }
     let(:payload) { { project: { due_at: DateTime.new(2017, 01, 20, 14).to_i } } }
@@ -450,44 +385,6 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it_behaves_like 'not found failures', 'Project'
-    end
-  end
-
-  describe 'GET #get_finished' do
-    let(:user) { create :user, :activated, username: 'john' }
-
-    before do
-      @project = create(:project, :finished, user: user, name: 'my-project')
-    end
-
-    context 'when looking for own existing project' do
-      before do
-        get '/api/users/john/finished', headers: { 'Authorization': user.token }
-      end
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the projects/project schema' do
-        expect(response).to match_response_schema('projects/get_finished')
-      end
-
-      it 'returns the corresponding project' do
-        projects = JSON.parse(response.body)
-        expect(projects.length).to eq(1)
-        expect(projects[0]['id']).to eq(@project.id)
-      end
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-
-      before do
-        get '/api/users/john/finished', headers: { 'Authorization': other_user.token }
-      end
-
-      it_behaves_like 'not found failures', 'User'
     end
   end
 

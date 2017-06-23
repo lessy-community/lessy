@@ -224,24 +224,11 @@ RSpec.describe Api::UsersController, type: :request do
 
   describe 'GET #me' do
     let(:user) { create :user }
+    let(:token) { user.token }
+
+    subject! { get '/api/users/me', headers: { 'Authorization': token } }
 
     context 'with valid token' do
-      before do
-        Timecop.freeze DateTime.new(2017)
-        create :task, user: user, label: 'My current task', due_at: DateTime.now
-        create :task, user: user, label: 'My previous task', due_at: 1.day.ago
-        create :project, :finished, user: user, name: 'my-finished-project'
-        create :project, :in_progress, user: user,
-                                       name: 'my-project',
-                                       started_at: 15.days.ago,
-                                       due_at: 15.days.from_now
-        get '/api/users/me', headers: { 'Authorization': user.token }
-      end
-
-      after do
-        Timecop.return
-      end
-
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -254,46 +241,19 @@ RSpec.describe Api::UsersController, type: :request do
         json_user = JSON.parse(response.body)['user']
         expect(json_user['id']).to eq(user.id)
       end
-
-      it 'returns tasks due on today' do
-        tasks = JSON.parse(response.body)['tasks']
-        expect(tasks.length).to eq(1)
-        expect(tasks[0]['label']).to eq('My current task')
-      end
-
-      it 'does not include finished project' do
-        projects = JSON.parse(response.body)['projects']
-        expect(projects.length).to eq(1)
-        expect(projects[0]['name']).not_to eq('my-finished-project')
-      end
-
-      it 'returns number of finished projects' do
-        expect(JSON.parse(response.body)['numberFinishedProjects']).to eq(1)
-      end
-
-      it 'includes in progress project' do
-        projects = JSON.parse(response.body)['projects']
-        expect(projects.length).to eq(1)
-        expect(projects[0]['name']).to eq('my-project')
-        expect(projects[0]['userId']).to eq(user.id)
-        expect(projects[0]['startedAt']).to eq(15.days.ago.to_i)
-        expect(projects[0]['dueAt']).to eq(15.days.from_now.to_i)
-      end
     end
 
     context 'with token of a deleted user' do
       before do
         user.destroy
-        get '/api/users/me', headers: { 'Authorization': user.token }
+        get '/api/users/me', headers: { 'Authorization': token }
       end
 
       it_behaves_like 'not found failures', 'User'
     end
 
     context 'with expired token' do
-      before do
-        get '/api/users/me', headers: { 'Authorization': user.token(1.day.ago) }
-      end
+      let(:token) { user.token(1.day.ago) }
 
       it_behaves_like 'failures', :unauthorized, 'custom_error', {
         message: 'Authentication is required',
@@ -303,9 +263,7 @@ RSpec.describe Api::UsersController, type: :request do
     end
 
     context 'with no Authorization header' do
-      before do
-        get '/api/users/me'
-      end
+      let(:token) { nil }
 
       it_behaves_like 'failures', :unauthorized, 'custom_error', {
         message: 'Authentication is required',

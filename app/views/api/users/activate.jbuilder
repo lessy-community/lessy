@@ -1,2 +1,2 @@
-json.partial! 'api/users/user_me', user: @user
+json.user @user, partial: 'api/users/user', as: :user
 json.token @token

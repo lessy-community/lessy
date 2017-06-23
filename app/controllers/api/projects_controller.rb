@@ -14,32 +14,6 @@ class Api::ProjectsController < ApplicationController
     @project.update! update_project_params
   end
 
-  def find
-    user = User.find_by_identifier!(params[:id])
-
-    # Note: for the moment, projects are all private so we forbid accessing
-    # projects not owned by current_user. We raise a RecordNotFound to avoid
-    # possible leakages.
-    if user != current_user
-      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
-    end
-
-    @project = user.projects.find_by_name!(params[:project_name])
-  end
-
-  def get_finished
-    user = User.find_by_identifier!(params[:id])
-
-    # Note: for the moment, projects are all private so we forbid accessing
-    # projects not owned by current_user. We raise a RecordNotFound to avoid
-    # possible leakages.
-    if user != current_user
-      raise ActiveRecord::RecordNotFound.new "Couldn't find User with identifier=#{ params[:id] }", User.name
-    end
-
-    @projects = user.projects.finished
-  end
-
   def start
     @project = current_project
     @project.start_now! due_at_param

@@ -1,6 +1,0 @@
-{
-  "projects": {
-    "type": "array",
-    "items": { "ref": "./project.json" }
-  }
-}

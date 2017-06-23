@@ -34,14 +34,6 @@ class Api::TasksController < ApplicationController
     @task.abandon!
   end
 
-  def pending
-    @tasks = current_user.tasks.pending
-  end
-
-  def backlog
-    @tasks = current_user.tasks.backlogged
-  end
-
   def order_after
     task = current_task
     @impacted_tasks = if params[:after_task_id].nil?
