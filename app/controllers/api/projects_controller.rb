@@ -1,5 +1,9 @@
 class Api::ProjectsController < ApplicationController
 
+  def index
+    @projects = current_user.projects
+  end
+
   def create
     @project = Project.create!(create_project_params)
     render status: :created

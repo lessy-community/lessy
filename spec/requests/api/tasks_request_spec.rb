@@ -13,6 +13,27 @@ RSpec.describe Api::TasksController, type: :request do
     Timecop.return
   end
 
+  describe 'GET #index' do
+    let!(:tasks) { create_list :task, 3, :not_abandoned, user: user }
+    let!(:abandoned_task) { create :task, :abandoned, user: user }
+    let(:json_response) { JSON.parse(response.body) }
+
+    subject! { get api_tasks_path, headers: { 'Authorization': user.token } }
+
+    it 'succeeds' do
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'matches the tasks/index schema' do
+      expect(response).to match_response_schema('tasks/index')
+    end
+
+    it 'returns the list of non abandoned tasks' do
+      expect(json_response.length).to eq(3)
+      expect(json_response.map { |t| t['id'] }).not_to include(abandoned_task.id)
+    end
+  end
+
   describe 'POST #create' do
     let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
 

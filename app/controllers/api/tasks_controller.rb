@@ -1,5 +1,9 @@
 class Api::TasksController < ApplicationController
 
+  def index
+    @tasks = current_user.tasks.not_abandoned
+  end
+
   def create
     @task = Task.create!(create_task_params)
     render status: :created

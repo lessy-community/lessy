@@ -13,14 +13,14 @@ Rails.application.routes.draw do
         get '/finished', to: 'projects#get_finished', as: 'get_finished'
       end
     end
-    resources :projects, only: [:create, :update] do
+    resources :projects, only: [:create, :update, :index] do
       member do
         post 'start'
         post 'stop'
         post 'finish'
       end
     end
-    resources :tasks, only: [:create, :update] do
+    resources :tasks, only: [:create, :update, :index] do
       collection do
         get 'pending'
         get 'backlog'

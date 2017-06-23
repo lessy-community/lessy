@@ -19,6 +19,9 @@ class Task < ApplicationRecord
   scope :backlogged, -> {
     where(due_at: nil, finished_at: nil)
   }
+  scope :not_abandoned, -> {
+    where(abandoned_at: nil)
+  }
 
   alias_attribute :finished?, :finished_at?
   alias_attribute :abandoned?, :abandoned_at?
