@@ -75,11 +75,16 @@ const getters = {
 }
 
 const actions = {
+  list ({ commit }) {
+    return tasksApi.list()
+                   .then((data) => commit('addList', data))
+  },
+
   create ({ commit }, { label, dueAt }) {
     return tasksApi
       .create(label, dueAt)
       .then((data) => {
-        commit('add', data)
+        commit('addList', [data])
         return data.id
       })
   },
@@ -109,16 +114,6 @@ const actions = {
                    .then((data) => commit('set', data))
   },
 
-  getPending ({ commit }) {
-    return tasksApi.getPending()
-                   .then((data) => commit('addList', data))
-  },
-
-  getBacklog ({ commit }) {
-    return tasksApi.getBacklog()
-                   .then((data) => commit('addList', data))
-  },
-
   orderAfter ({ commit }, { task, afterTaskId }) {
     return tasksApi.orderAfter(task, afterTaskId)
                    .then((data) => commit('setOrder', data))
@@ -126,17 +121,6 @@ const actions = {
 }
 
 const mutations = {
-  setup (state, tasks) {
-    state.byIds = mapElementsById(tasks)
-  },
-
-  add (state, task) {
-    state.byIds = {
-      ...state.byIds,
-      [task.id]: task,
-    }
-  },
-
   addList (state, tasks) {
     state.byIds = {
       ...state.byIds,

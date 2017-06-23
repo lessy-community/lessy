@@ -24,7 +24,7 @@
     </div>
 
     <div v-if="numberFinishedProjects > 0" class="projects-finished">
-      <btn v-if="!showFinishedProjects" type="secondary" @click="loadFinishedProjects">
+      <btn v-if="!showFinishedProjects" type="secondary" @click="showFinishedProjects = true">
       {{ $tc('pages.projects.inbox.seeFinishedProjects', numberFinishedProjects, { count: numberFinishedProjects }) }}
       </btn>
       <btn v-else type="secondary" @click="showFinishedProjects = false">
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex'
+  import { mapGetters } from 'vuex'
   import CreateProjectForm from '../../forms/CreateProject'
 
   export default {
@@ -63,22 +63,13 @@
         notStartedProjects: 'projects/listNotStarted',
         finishedProjects: 'projects/listFinished',
         numberCurrentProjects: 'projects/numberCurrent',
-      }),
-      ...mapState({
-        numberFinishedProjects: state => state.projects.numberFinished,
+        numberFinishedProjects: 'projects/numberFinished',
       }),
     },
 
     methods: {
       disableCreateForm () {
         this.createFormEnabled = false
-      },
-
-      loadFinishedProjects () {
-        const { dispatch, getters } = this.$store
-        dispatch('projects/getFinished', {
-          userIdentifier: getters['users/current'].identifier,
-        }).then(() => { this.showFinishedProjects = true })
       },
 
       redirectToStartProject (projectId) {

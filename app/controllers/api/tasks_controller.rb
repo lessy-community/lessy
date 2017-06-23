@@ -1,5 +1,9 @@
 class Api::TasksController < ApplicationController
 
+  def index
+    @tasks = current_user.tasks.not_abandoned
+  end
+
   def create
     @task = Task.create!(create_task_params)
     render status: :created
@@ -28,14 +32,6 @@ class Api::TasksController < ApplicationController
   def abandon
     @task = current_task
     @task.abandon!
-  end
-
-  def pending
-    @tasks = current_user.tasks.pending
-  end
-
-  def backlog
-    @tasks = current_user.tasks.backlogged
   end
 
   def order_after

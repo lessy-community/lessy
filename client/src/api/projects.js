@@ -1,12 +1,12 @@
 import { get, post, patch } from './http'
 
 export default {
-  create (name) {
-    return post('/api/projects', { name })
+  list () {
+    return get('/api/projects')
   },
 
-  find (userIdentifier, projectName) {
-    return get(`/api/users/${userIdentifier}/projects/${projectName}`)
+  create (name) {
+    return post('/api/projects', { name })
   },
 
   update (project, payload) {
@@ -23,9 +23,5 @@ export default {
 
   stop (project) {
     return post(`/api/projects/${project.id}/stop`)
-  },
-
-  getFinished (userIdentifier) {
-    return get(`/api/users/${userIdentifier}/finished`)
   },
 }

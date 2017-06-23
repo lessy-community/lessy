@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     onLoginSuccess () {
-      this.$router.push('/dashboard')
+      window.location = '/dashboard'
     },
   },
 }

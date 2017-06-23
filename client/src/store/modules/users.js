@@ -1,13 +1,6 @@
 import usersApi from '../../api/users'
 import auth from '../../auth'
 
-function initUser (commit, data) {
-  commit('setCurrent', data.user)
-  commit('tasks/setup', data.tasks, { root: true })
-  commit('projects/setup', data.projects, { root: true })
-  commit('projects/setNumberFinished', data.numberFinishedProjects, { root: true })
-}
-
 const state = {
   current: null,
   byIds: {},
@@ -50,7 +43,7 @@ const actions = {
     return usersApi.activate(token, username, password)
       .then((data) => {
         auth.login(data.token)
-        initUser(commit, data)
+        commit('setCurrent', data.user)
       })
   },
 
@@ -58,18 +51,18 @@ const actions = {
     return usersApi.login(username, password)
       .then((data) => {
         auth.login(data.token)
-        initUser(commit, data)
+        commit('setCurrent', data.user)
       })
   },
 
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
-      .then((data) => initUser(commit, data))
+                   .then((data) => commit('setCurrent', data.user))
   },
 
   logout ({ commit }) {
     auth.logout()
-    commit('resetCurrent', true)
+    commit('reset')
     commit('tasks/reset', null, { root: true })
     commit('projects/reset', null, { root: true })
   },
@@ -84,10 +77,8 @@ const mutations = {
     state.current = user.id
   },
 
-  resetCurrent (state, hard = false) {
-    if (hard) {
-      delete state.byIds[state.current]
-    }
+  reset (state) {
+    state.byIds = {}
     state.current = null
   }
 }

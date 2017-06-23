@@ -7,24 +7,15 @@ Rails.application.routes.draw do
         post 'authorize'
         post '/:token/activate', action: 'activate', as: 'activate'
       end
-
-      member do
-        get '/projects/:project_name', to: 'projects#find', as: 'find_project'
-        get '/finished', to: 'projects#get_finished', as: 'get_finished'
-      end
     end
-    resources :projects, only: [:create, :update] do
+    resources :projects, only: [:create, :update, :index] do
       member do
         post 'start'
         post 'stop'
         post 'finish'
       end
     end
-    resources :tasks, only: [:create, :update] do
-      collection do
-        get 'pending'
-        get 'backlog'
-      end
+    resources :tasks, only: [:create, :update, :index] do
       member do
         post 'finish'
         post 'restart'

@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     onActivationSuccess () {
-      this.$router.push('/dashboard')
+      window.location = '/dashboard'
     },
   },
 }

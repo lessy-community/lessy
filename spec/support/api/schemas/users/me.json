@@ -1,17 +1,8 @@
 {
   "type": "object",
-  "required": ["user", "tasks", "projects", "numberFinishedProjects"],
+  "required": ["user"],
   "properties": {
-    "user": { "ref": "user.json" },
-    "tasks": {
-      "type": "array",
-      "items": { "ref": "../tasks/task.json" }
-    },
-    "projects": {
-      "type": "array",
-      "items": { "ref": "../projects/project.json" }
-    },
-    "numberFinishedProjects": { "type": "integer" }
+    "user": { "ref": "user.json" }
   },
   "additionalProperties": false
 }

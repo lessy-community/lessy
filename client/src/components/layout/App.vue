@@ -15,9 +15,6 @@
   import { isRestrictedForAuth, isRestrictedForUnauth } from '../../router'
 
   export default {
-
-    name: 'app',
-
     components: {
       AppHeader,
       LoadingPage,
@@ -33,25 +30,26 @@
       const shouldFetchUser = isRestrictedForAuth(this.$route) || (!isRestrictedForUnauth(this.$route) && auth.isLoggedIn())
       if (!shouldFetchUser) {
         this.ready = true
-      } else {
-        this.$store
-            .dispatch('users/getCurrent')
-            .then((user) => {
-              this.ready = true
-            })
-            .catch(() => {
-              // having troubles to fetch current user? It probably means token
-              // expired or user does not exist. Logout and return to home page.
-              auth.logout()
-              this.$router.push('/')
-              this.ready = true
-            })
+        return
       }
-    },
 
-    destroyed () {
-      this.$store.commit('users/resetCurrent', true)
+      this.$store
+          .dispatch('users/getCurrent')
+          .then((user) => {
+            return Promise.all([
+              this.$store.dispatch('tasks/list'),
+              this.$store.dispatch('projects/list'),
+            ])
+          })
+          .then(() => {
+            this.ready = true
+          })
+          .catch(() => {
+            // having troubles to fetch current user? It probably means token
+            // expired or user does not exist. Logout and return to home page.
+            auth.logout()
+            window.location = '/'
+          })
     },
-
   }
 </script>

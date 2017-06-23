@@ -13,6 +13,27 @@ RSpec.describe Api::TasksController, type: :request do
     Timecop.return
   end
 
+  describe 'GET #index' do
+    let!(:tasks) { create_list :task, 3, :not_abandoned, user: user }
+    let!(:abandoned_task) { create :task, :abandoned, user: user }
+    let(:json_response) { JSON.parse(response.body) }
+
+    subject! { get api_tasks_path, headers: { 'Authorization': user.token } }
+
+    it 'succeeds' do
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'matches the tasks/index schema' do
+      expect(response).to match_response_schema('tasks/index')
+    end
+
+    it 'returns the list of non abandoned tasks' do
+      expect(json_response.length).to eq(3)
+      expect(json_response.map { |t| t['id'] }).not_to include(abandoned_task.id)
+    end
+  end
+
   describe 'POST #create' do
     let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
 
@@ -348,89 +369,6 @@ RSpec.describe Api::TasksController, type: :request do
       let(:token) { other_user.token }
 
       it_behaves_like 'not found failures', 'Task'
-    end
-  end
-
-  describe 'GET #pending' do
-    before do
-      create :task, :finished, label: 'finished task', user: user
-      create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
-      create :task, :pending, label: 'pending task', user: user
-    end
-
-    context 'with valid authentication' do
-      before do
-        get '/api/tasks/pending', headers: { 'Authorization': user.token }
-      end
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the tasks/pending schema' do
-        expect(response).to match_response_schema('tasks/pending')
-      end
-
-      it 'returns pending tasks only' do
-        tasks = JSON.parse(response.body)
-        expect(tasks.length).to eq(1)
-        expect(tasks[0]['label']).to eq('pending task')
-      end
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-
-      before do
-        get '/api/tasks/pending', headers: { 'Authorization': other_user.token }
-      end
-
-      it 'returns no task' do
-        tasks = JSON.parse(response.body)
-        expect(tasks.length).to eq(0)
-      end
-    end
-  end
-
-  describe 'GET #backlog' do
-    before do
-      create :task, :finished, label: 'finished task', user: user
-      create :task, :not_finished, due_at: DateTime.now, label: 'today task', user: user
-      create :task, :pending, label: 'pending task', user: user
-      create :task, :backlogged, label: 'backlogged task', user: user
-    end
-
-    context 'with valid authentication' do
-      before do
-        get '/api/tasks/backlog', headers: { 'Authorization': user.token }
-      end
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the tasks/backlog schema' do
-        expect(response).to match_response_schema('tasks/backlog')
-      end
-
-      it 'returns backlogged tasks only' do
-        tasks = JSON.parse(response.body)
-        expect(tasks.length).to eq(1)
-        expect(tasks[0]['label']).to eq('backlogged task')
-      end
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-
-      before do
-        get '/api/tasks/backlog', headers: { 'Authorization': other_user.token }
-      end
-
-      it 'returns no task' do
-        tasks = JSON.parse(response.body)
-        expect(tasks.length).to eq(0)
-      end
     end
   end
 
