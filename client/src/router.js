@@ -15,6 +15,8 @@ import ProjectStartPage from './components/pages/projects/Start'
 import ProjectFinishPage from './components/pages/projects/Finish'
 import ProjectsInboxPage from './components/pages/projects/Inbox'
 
+import StatisticsPage from './components/pages/Statistics'
+
 import TasksLayout from './components/layout/Tasks'
 import TasksBacklogPage from './components/pages/tasks/Backlog'
 import TasksPlanningPage from './components/pages/tasks/Planning'
@@ -53,6 +55,7 @@ const routes = [
     ],
     meta: { restrictForAuth: true },
   },
+  { path: '/statistics', component: StatisticsPage, meta: { restrictForAuth: true } },
   { path: '*', component: NotFoundPage },
 ]
 

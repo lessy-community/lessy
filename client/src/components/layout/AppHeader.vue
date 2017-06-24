@@ -6,6 +6,9 @@
       </btn>
       <router-link to="/" class="header-title">{{ $t('layout.projectZero') }}</router-link>
       <div class="separator"></div>
+      <router-link to="/statistics" class="header-statistics-link">
+        <icon name="line-chart"></icon>
+      </router-link>
       <div v-if="user && user.isLoggedIn" class="header-profile">
         {{ user.displayedName }}
         (<a href="/logout" @click.prevent="logout">{{ $t('layout.logout') }}</a>)
@@ -50,7 +53,8 @@
   .app-header a {
     color: #fff;
   }
-  .app-header .btn.link {
+  .app-header .btn.link,
+  .app-header .header-statistics-link {
     margin: 0;
     padding: 4px 6px;
 

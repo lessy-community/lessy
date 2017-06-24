@@ -72,6 +72,30 @@ const getters = {
       .list
       .filter((task) => task.isBacklogged)
   },
+
+  listFinished (state, getters) {
+    return getters.list.filter((task) => task.isFinished)
+  },
+
+  countFinishedByDays (state, getters) {
+    const byDays = {}
+    getters.listFinished.forEach((task) => {
+      const finishedAt = moment.unix(task.finishedAt)
+      const key = finishedAt.format('YYYY-MM-DD')
+      byDays[key] = (byDays[key] || 0) + 1
+    })
+    return byDays
+  },
+
+  countCreatedByDays (state, getters) {
+    const byDays = {}
+    getters.list.forEach((task) => {
+      const createdAt = moment.unix(task.createdAt)
+      const key = createdAt.format('YYYY-MM-DD')
+      byDays[key] = (byDays[key] || 0) + 1
+    })
+    return byDays
+  },
 }
 
 const actions = {
