@@ -122,6 +122,9 @@
       color: #999;
       text-decoration: line-through;
     }
+    &.finished .badge {
+      display: none;
+    }
     &.finished .toggle {
       color: #999;
     }
