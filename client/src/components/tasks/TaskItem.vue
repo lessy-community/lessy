@@ -1,6 +1,7 @@
 <template>
   <edit-task
     v-if="editMode"
+    autoFocus
     :task="task"
     :onSuccess="stopEditMode"
     :onCancel="stopEditMode"
