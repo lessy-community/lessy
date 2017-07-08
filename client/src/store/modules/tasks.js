@@ -17,11 +17,12 @@ const getters = {
 
       const today = moment()
       const dueAtDate = moment.unix(task.dueAt)
-      const isForToday = dueAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
 
-      const isAbandoned = !!task.abandonedAt
-      const isBacklogged = !isAbandoned && !isForToday
       const isFinished = !!task.finishedAt
+      const isAbandoned = !!task.abandonedAt
+
+      const isForToday = !isAbandoned && dueAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
+      const isBacklogged = !isFinished && !isAbandoned && !isForToday
       const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
 
       const allowedTags = ['b', 'i', 'em', 'strong']
@@ -35,6 +36,7 @@ const getters = {
 
       return {
         ...task,
+        isForToday,
         isBacklogged,
         isFinished,
         isAbandoned,
@@ -55,7 +57,7 @@ const getters = {
   listForToday (state, getters) {
     return getters
       .list
-      .filter((task) => !task.isBacklogged)
+      .filter((task) => task.isForToday)
   },
 
   listBacklog (state, getters) {
