@@ -1,20 +1,5 @@
 <template>
   <div class="tasks-planning-page">
-    <div v-if="pendingTasks.length > 0" class="box tasks-pending">
-      <p>{{ $t('pages.tasks.planning.pendingInfo') }}</p>
-      <div class="list">
-        <container v-for="task in pendingTasks" row class="task">
-          <div class="task-label adapt">
-            {{ task.label }} {{ $t('pages.tasks.planning.dueOn', { date: task.dueAtLabel }) }}
-          </div>
-          <div>
-            <btn type="secondary" @click="finishTask(task)">{{ $t('pages.tasks.planning.didIt') }}</btn>
-            <btn type="primary" @click="restartTask(task)">{{ $t('pages.tasks.planning.replan') }}</btn>
-          </div>
-        </container>
-      </div>
-    </div>
-
     <div v-if="backloggedTasks.length > 0" class="box tasks-backlogged">
       <p>{{ $t('pages.tasks.planning.backlogInfo') }}</p>
       <div class="list">
@@ -61,20 +46,11 @@
     computed: {
       ...mapGetters({
         tasksForToday: 'tasks/listForToday',
-        pendingTasks: 'tasks/listPending',
         backloggedTasks: 'tasks/listBacklog',
       }),
     },
 
     methods: {
-      finishTask (task) {
-        this.$store.dispatch('tasks/finish', { task })
-      },
-
-      restartTask (task) {
-        this.$store.dispatch('tasks/restart', { task })
-      },
-
       startTask (task) {
         this.$store.dispatch('tasks/start', { task })
       },
@@ -100,9 +76,6 @@
     font-style: italic;
   }
 
-  .box.tasks-pending {
-    background-color: #ffeedd;
-  }
   .box.tasks-backlogged {
     background-color: #eeeeff;
   }

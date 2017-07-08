@@ -14,11 +14,14 @@ const getters = {
   findById (state, getters) {
     return id => {
       const task = state.byIds[id]
+
+      const today = moment()
+      const dueAtDate = moment.unix(task.dueAt)
+      const isForToday = dueAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
+
       const isAbandoned = !!task.abandonedAt
-      const isBacklogged = !isAbandoned && !task.dueAt
+      const isBacklogged = !isAbandoned && !isForToday
       const isFinished = !!task.finishedAt
-      const dueAtDate = !isBacklogged && moment.unix(task.dueAt)
-      const isPending = !isBacklogged && !isFinished && !isAbandoned && dueAtDate.isBefore(moment().startOf('day'))
       const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
 
       const allowedTags = ['b', 'i', 'em', 'strong']
@@ -35,7 +38,6 @@ const getters = {
         isBacklogged,
         isFinished,
         isAbandoned,
-        isPending,
         createdSinceWeeks,
         dueAtLabel: formatDate(task.dueAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
@@ -53,18 +55,7 @@ const getters = {
   listForToday (state, getters) {
     return getters
       .list
-      .filter((task) => {
-        const now = moment()
-        const dueAtDate = moment.unix(task.dueAt)
-        const isToday = dueAtDate.isBetween(now.startOf('day'), now.endOf('day'), 'day', '[]')
-        return isToday
-      })
-  },
-
-  listPending (state, getters) {
-    return getters
-      .list
-      .filter((task) => task.isPending)
+      .filter((task) => !task.isBacklogged)
   },
 
   listBacklog (state, getters) {
