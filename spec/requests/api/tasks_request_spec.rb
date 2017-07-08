@@ -103,8 +103,11 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'PATCH #update' do
     let(:token) { user.token }
-    let(:payload) { { label: 'A new label for a task' } }
-    let(:task) { create :task, label: 'My task', user: user }
+    let(:payload) { {
+      label: 'A new label for a task',
+      due_at: nil,
+    } }
+    let(:task) { create :task, label: 'My task', due_at: DateTime.new(2017), user: user }
 
     subject! { patch "/api/tasks/#{ task.id }", params: { task: payload }, headers: { 'Authorization': token }, as: :json }
 
@@ -119,6 +122,7 @@ RSpec.describe Api::TasksController, type: :request do
 
       it 'saves the new task' do
         expect(task.reload.label).to eq('A new label for a task')
+        expect(task.reload.due_at).to be nil
       end
     end
 

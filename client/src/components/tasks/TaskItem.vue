@@ -40,6 +40,7 @@
         <template slot="menu">
           <popover-item :action="startEditMode">{{ $t('tasks.edit') }}</popover-item>
           <popover-item :action="confirmAbandon">{{ $t('tasks.abandon') }}</popover-item>
+          <popover-item v-if="!task.isBacklogged" :action="sendToBacklog">{{ $t('tasks.sendToBacklog') }}</popover-item>
         </template>
       </popover>
     </container>
@@ -89,6 +90,14 @@
         if (window.confirm(this.$t('tasks.confirmAbandon'))) {
           this.$store.dispatch('tasks/abandon', { task })
         }
+      },
+
+      sendToBacklog () {
+        const { task } = this
+        this.$store.dispatch('tasks/update', {
+          task,
+          dueAt: null,
+        })
       },
     },
 

@@ -234,5 +234,6 @@ export default {
     createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
     edit: 'Edit',
     restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
+    sendToBacklog: 'Send to backlog',
   },
 }
