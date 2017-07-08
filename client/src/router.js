@@ -19,7 +19,6 @@ import StatisticsPage from './components/pages/Statistics'
 
 import TasksLayout from './components/layout/Tasks'
 import TasksBacklogPage from './components/pages/tasks/Backlog'
-import TasksPlanningPage from './components/pages/tasks/Planning'
 
 import auth from './auth'
 
@@ -35,7 +34,6 @@ const routes = [
     children: [
       { path: '', redirect: 'backlog' },
       { path: 'backlog', component: TasksBacklogPage, name: 'tasks/backlog' },
-      { path: 'planning', component: TasksPlanningPage, name: 'tasks/planning' },
     ],
     meta: { restrictForAuth: true },
   },
