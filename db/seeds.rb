@@ -19,7 +19,7 @@ Project.create!([
   { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user, started_at: 10.days.ago, due_at: 42.days.from_now },
 ])
 
-order_sequence = (0..10).to_a.shuffle
+order_sequence = (1..11).to_a.shuffle
 Task.create!([
   { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
   { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
