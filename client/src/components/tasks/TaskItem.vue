@@ -34,6 +34,15 @@
         </badge>
       </div>
 
+      <btn
+        v-if="task.isBacklogged"
+        type="primary"
+        @click="start"
+        class="plan-btn"
+      >
+        {{ $t('tasks.plan') }}
+      </btn>
+
       <popover>
         <icon slot="toggle" name="ellipsis-h"></icon>
 
@@ -75,6 +84,11 @@
         } else {
           this.$store.dispatch('tasks/finish', { task })
         }
+      },
+
+      start () {
+        const { task } = this
+        this.$store.dispatch('tasks/start', { task })
       },
 
       startEditMode () {
@@ -137,6 +151,10 @@
     }
     &.finished .toggle {
       color: #999;
+    }
+
+    .plan-btn {
+      margin: 2px 5px;
     }
 
     .popover-toggle {
