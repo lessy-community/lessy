@@ -34,15 +34,6 @@
         </badge>
       </div>
 
-      <btn
-        v-if="task.isBacklogged"
-        type="primary"
-        @click="start"
-        class="plan-btn"
-      >
-        {{ $t('tasks.plan') }}
-      </btn>
-
       <popover>
         <icon slot="toggle" name="ellipsis-h"></icon>
 
@@ -52,6 +43,26 @@
           <popover-item v-if="!task.isBacklogged" :action="sendToBacklog">{{ $t('tasks.sendToBacklog') }}</popover-item>
         </template>
       </popover>
+
+      <template v-if="task.isBacklogged">
+        <btn
+          v-if="task.isBacklogged && !task.dueAt"
+          type="primary"
+          @click="start"
+          class="plan-btn"
+        >
+          {{ $t('tasks.plan') }}
+        </btn>
+        <btn
+          v-else
+          type="primary"
+          @click="restart"
+          class="plan-btn"
+          v-tooltip.top="$t('tasks.dueOn', { date: task.dueAtLabel })"
+        >
+          {{ $t('tasks.replan') }}
+        </btn>
+      </template>
     </container>
   </list-item>
 </template>
@@ -89,6 +100,11 @@
       start () {
         const { task } = this
         this.$store.dispatch('tasks/start', { task })
+      },
+
+      restart () {
+        const { task } = this
+        this.$store.dispatch('tasks/restart', { task })
       },
 
       startEditMode () {
