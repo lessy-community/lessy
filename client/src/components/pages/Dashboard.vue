@@ -15,23 +15,26 @@
     </container>
 
     <task-list :tasks="tasks"></task-list>
-    <template v-if="tasks.length > 0">
+
+    <template v-if="!createTaskEnabled">
       <btn
-        v-if="!createTaskEnabled"
         type="primary"
         @click="createTaskEnabled = true"
       >
         <icon name="plus"></icon>
         {{ $t('pages.dashboard.createTask') }}
       </btn>
-      <create-task-form
-        v-else
-        :dueAt="dueAt"
-        :onCancel="disableCreateTask"
-        autoFocus
-      ></create-task-form>
+
+      {{ $t('pages.dashboard.or') }}
+
+      <router-link to="/tasks/backlog">{{ $t('pages.dashboard.backlog') }}</router-link>
     </template>
-    <router-link v-else to="/tasks/planning">{{ $t('pages.dashboard.planning') }}</router-link>
+    <create-task-form
+      v-else
+      :dueAt="dueAt"
+      :onCancel="disableCreateTask"
+      autoFocus
+    ></create-task-form>
   </app-content>
 </template>
 

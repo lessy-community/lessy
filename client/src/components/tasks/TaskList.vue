@@ -1,5 +1,8 @@
 <template>
   <div class="list task-list">
+    <div v-if="sortableTasks.length === 0" class="list-placeholder">
+      {{ $t('tasks.emptyList') }}
+    </div>
     <draggable
       v-model="sortableTasks"
       @change="changeOrder"
@@ -57,5 +60,12 @@
 <style lang="scss">
   .task-list {
     margin-bottom: 10px;
+  }
+
+  .list-placeholder {
+    padding: 10px 15px;
+
+    color: #777;
+    font-style: italic;
   }
 </style>

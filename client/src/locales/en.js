@@ -144,7 +144,6 @@ export default {
 
     tasks: {
       backlog: 'Backlog',
-      planning: 'Plan for today',
     },
   },
 
@@ -156,10 +155,11 @@ export default {
 
     dashboard: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
+      backlog: 'pick some from backlog',
       createTask: 'add tasks for today',
       datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
       dueOn: 'Due on <b>{date}</b>',
-      planning: 'What will you be working on today?',
+      or: 'or',
     },
 
     error: {
@@ -213,15 +213,6 @@ export default {
         stopProject: 'Stop it, now',
       },
     },
-
-    tasks: {
-      planning: {
-        back: 'That’s all, go back to dashboard',
-        backlogInfo: 'You might want to pick tasks from your backlog',
-        plan: 'Plan for today',
-        titleForToday: 'Tasks planned for today',
-      },
-    },
   },
 
   tasks: {
@@ -229,6 +220,7 @@ export default {
     confirmAbandon: 'Oh? The task will me marked as abandoned and will disappear from the list. Can you confirm?',
     createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
     edit: 'Edit',
+    emptyList: 'There is no task here…',
     plan: 'Plan for today',
     restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
     sendToBacklog: 'Send to backlog',
