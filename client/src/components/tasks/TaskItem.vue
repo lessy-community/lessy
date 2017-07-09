@@ -34,7 +34,7 @@
         </badge>
       </div>
 
-      <popover>
+      <popover v-if="!task.isFinished">
         <icon slot="toggle" name="ellipsis-h"></icon>
 
         <template slot="menu">
