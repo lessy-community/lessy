@@ -57,9 +57,7 @@ private
   end
 
   def update_task_params
-    parameters = fetch_resource_params(:task, [], [:label, :due_at])
-    parameters[:due_at] = parameters[:due_at].to_datetime if parameters[:due_at].is_a? Integer
-    parameters
+    fetch_resource_params(:task, [], [:label])
   end
 
 end

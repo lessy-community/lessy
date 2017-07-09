@@ -9,8 +9,8 @@ export default {
     return post('/api/tasks', { label, dueAt })
   },
 
-  update (task, payload) {
-    return patch(`/api/tasks/${task.id}`, payload)
+  update (task, label) {
+    return patch(`/api/tasks/${task.id}`, { label })
   },
 
   finish (task) {

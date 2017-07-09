@@ -225,6 +225,5 @@ export default {
     plan: 'Plan for today',
     replan: 'Replan for today',
     restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
-    sendToBacklog: 'Send to backlog',
   },
 }

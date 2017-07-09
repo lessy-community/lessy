@@ -106,9 +106,8 @@ const actions = {
       })
   },
 
-  update ({ commit }, { task, label, dueAt }) {
-    const payload = { label, dueAt }
-    return tasksApi.update(task, payload)
+  update ({ commit }, { task, label }) {
+    return tasksApi.update(task, label)
                    .then((data) => commit('set', data))
   },
 
