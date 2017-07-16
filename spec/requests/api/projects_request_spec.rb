@@ -6,21 +6,24 @@ RSpec.describe Api::ProjectsController, type: :request do
   let(:user) { create :user, :activated }
 
   describe 'GET #index' do
-    let!(:projects) { create_list :project, 3, user: user }
     let(:json_response) { JSON.parse(response.body) }
 
-    subject! { get api_projects_path, headers: { 'Authorization': user.token } }
+    context 'with no related task' do
+      let!(:projects) { create_list :project, 3, user: user }
 
-    it 'succeeds' do
-      expect(response).to have_http_status(:ok)
-    end
+      subject! { get api_projects_path, headers: { 'Authorization': user.token } }
 
-    it 'matches the projects/index schema' do
-      expect(response).to match_response_schema('projects/index')
-    end
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
 
-    it 'returns the list of projects' do
-      expect(json_response.length).to eq(3)
+      it 'matches the projects/index schema' do
+        expect(response).to match_response_schema('projects/index')
+      end
+
+      it 'returns the list of projects' do
+        expect(json_response.length).to eq(3)
+      end
     end
   end
 
