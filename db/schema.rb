@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601094145) do
+ActiveRecord::Schema.define(version: 20170716102855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 20170601094145) do
     t.datetime "abandoned_at"
     t.integer  "restarted_count", default: 0, null: false
     t.integer  "order"
+    t.integer  "project_id"
     t.index ["order"], name: "index_tasks_on_order", using: :btree
+    t.index ["project_id"], name: "index_tasks_on_project_id", using: :btree
     t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
   end
 
@@ -60,5 +62,6 @@ ActiveRecord::Schema.define(version: 20170601094145) do
   end
 
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
 end

@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
 
   belongs_to :user
+  belongs_to :project
 
   validates :label, :user, :restarted_count, presence: true
   validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }

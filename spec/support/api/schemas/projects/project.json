@@ -1,10 +1,14 @@
 {
   "type": "object",
-  "required": ["id", "name", "userId", "isInProgress"],
+  "required": ["id", "name", "userId", "taskIds", "isInProgress"],
   "properties": {
     "id": { "type": "integer" },
     "name": { "type": "string" },
     "userId": { "type": "integer" },
+    "taskIds": {
+      "type": "array",
+      "items": { "type": "integer" }
+    },
     "description": { "type": "string" },
     "startedAt": { "type": "integer" },
     "dueAt": { "type": "integer" },
