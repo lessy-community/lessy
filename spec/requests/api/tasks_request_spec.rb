@@ -36,12 +36,11 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'POST #create' do
     let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
+    let(:token) { user.token }
+
+    subject! { post '/api/tasks', params: { task: payload }, headers: { 'Authorization': token }, as: :json }
 
     context 'with valid attributes' do
-      before do
-        post '/api/tasks', params: { task: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
-
       it 'succeeds' do
         expect(response).to have_http_status(:created)
       end
@@ -63,16 +62,13 @@ RSpec.describe Api::TasksController, type: :request do
     end
 
     context 'with no due date' do
-      before do
-        payload.except! :due_at
-        post '/api/tasks', params: { task: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { { label: 'My task' } }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
       end
 
-      it 'returns the new project' do
+      it 'returns the new task' do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
@@ -81,17 +77,13 @@ RSpec.describe Api::TasksController, type: :request do
     end
 
     context 'with missing attribute' do
-      before do
-        post '/api/tasks', params: { task: {} }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { { } }
 
       it_behaves_like 'missing param failures', 'Task', 'base'
     end
 
     context 'with invalid authentication' do
-      before do
-        post '/api/projects', params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
-      end
+      let(:token) { 'not a token' }
 
       it_behaves_like 'failures', :unauthorized, 'custom_error', {
         message: 'Authentication is required',
