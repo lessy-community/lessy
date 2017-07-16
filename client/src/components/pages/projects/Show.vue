@@ -56,7 +56,7 @@
     </p>
 
     <h2>Project's tasks</h2>
-    <task-list :tasks="tasks" notoggle></task-list>
+    <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
     <create-task-form :project-id="project.id"></create-task-form>
   </div>
 </template>

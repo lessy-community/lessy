@@ -1,10 +1,11 @@
 {
   "type": "object",
-  "required": ["id", "label", "projectId", "order", "restartedCount", "userId", "createdAt"],
+  "required": ["id", "label", "projectId", "projectName", "order", "restartedCount", "userId", "createdAt"],
   "properties": {
     "id": { "type": "integer" },
     "label": { "type": "string" },
     "projectId": { "type": ["null", "integer"] },
+    "projectName": { "type": ["null", "string"] },
     "order": { "type": "integer" },
     "restartedCount": { "type": "integer" },
     "userId": { "type": "integer" },

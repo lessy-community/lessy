@@ -14,6 +14,7 @@
           :key="task.id"
           :task="task"
           :notoggle="notoggle"
+          :hide-project-badge="hideProjectBadge"
         ></task-item>
       </transition-group>
     </draggable>
@@ -29,6 +30,7 @@
     props: {
       'tasks': { type: Array },
       'notoggle': { type: Boolean },
+      'hideProjectBadge': { type: Boolean },
     },
 
     components: {

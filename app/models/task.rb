@@ -9,6 +9,8 @@ class Task < ApplicationRecord
 
   before_create :set_order_attribute
 
+  delegate :name, to: :project, prefix: true, allow_nil: true
+
   scope :due_on_today, -> {
     today = DateTime.now
     where('? <= due_at AND due_at <= ?', today.beginning_of_day, today.end_of_day)

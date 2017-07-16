@@ -16,6 +16,11 @@
       </a>
       <div class="label adapt">
         <span v-html="task.formattedLabel"></span>
+        <badge v-if="task.projectName && !hideProjectBadge">
+          <router-link :to="task.urlProjectShow">
+            {{ task.projectName }}
+          </router-link>
+        </badge>
         <badge
           v-if="task.createdSinceWeeks > 0"
           v-tooltip.top="$tc('tasks.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
@@ -74,6 +79,7 @@
     props: {
       'task': { type: Object, required: true },
       'notoggle': { type: Boolean },
+      'hideProjectBadge': { type: Boolean },
     },
 
     components: {
