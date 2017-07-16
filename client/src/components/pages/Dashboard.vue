@@ -4,6 +4,20 @@
 
     <container v-if="inProgressProjects" row>
       <card v-for="project in inProgressProjects" :title="project.name" :to="project.urlShow">
+        <div class="badge-container">
+          <badge
+            v-if="project.tasksCount === 0 || project.tasksCount === project.finishedTasksCount"
+            v-tooltip.top="project.tasksCount === 0 ? $t('pages.dashboard.shouldAddTasks') : $t('pages.dashboard.shouldAddMoreTasks')"
+            :warn="project.tasksCount === project.finishedTasksCount"
+            :alert="project.tasksCount === 0"
+          >
+            {{ $t('pages.dashboard.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
+          </badge>
+          <badge v-else>
+            {{ $t('pages.dashboard.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
+          </badge>
+        </div>
+
         <span v-html="$t('pages.dashboard.dueOn', { date: project.dueAtLabel })" ></span>
         <date-bar-indicator
           :start="project.startedAt"
@@ -81,6 +95,15 @@
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .badge-container {
+    margin-top: -5px;
+    margin-bottom: 10px;
 
+    text-align: center;
+
+    > .badge {
+      font-size: 1rem;
+    }
+  }
 </style>

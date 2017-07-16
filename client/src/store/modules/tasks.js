@@ -71,12 +71,18 @@ const getters = {
     return getters.list.filter((task) => task.isFinished)
   },
 
+  listForProject (state, getters, rootState, rootGetters) {
+    return project => {
+      return project.taskIds
+                    .map(getters.findById)
+                    .filter((task) => !task.isAbandoned)
+                    .sort((t1, t2) => t1.order - t2.order)
+    }
+  },
+
   listForCurrentProject (state, getters, rootState, rootGetters) {
     const currentProject = rootGetters['projects/current']
-    return currentProject.taskIds
-                         .map(getters.findById)
-                         .filter((task) => !task.isAbandoned)
-                         .sort((t1, t2) => t1.order - t2.order)
+    return getters.listForProject(currentProject)
   },
 
   countFinishedByDays (state, getters) {

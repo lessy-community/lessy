@@ -160,6 +160,9 @@ export default {
       datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
       dueOn: 'Due on <b>{date}</b>',
       or: 'or',
+      shouldAddTasks: 'You should add tasks to this project to make sure it is progressing',
+      shouldAddMoreTasks: 'You should add more tasks to this project or close it if it’s finished',
+      tasksCount: 'Tasks: {finishedCount} / {totalCount}',
     },
 
     error: {
