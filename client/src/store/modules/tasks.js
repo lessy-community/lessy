@@ -70,6 +70,14 @@ const getters = {
     return getters.list.filter((task) => task.isFinished)
   },
 
+  listForCurrentProject (state, getters, rootState, rootGetters) {
+    const currentProject = rootGetters['projects/current']
+    return currentProject.taskIds
+                         .map(getters.findById)
+                         .filter((task) => !task.isAbandoned)
+                         .sort((t1, t2) => t1.order - t2.order)
+  },
+
   countFinishedByDays (state, getters) {
     const byDays = {}
     getters.listFinished.forEach((task) => {
@@ -102,6 +110,18 @@ const actions = {
       .create(label, dueAt)
       .then((data) => {
         commit('addList', [data])
+        return data.id
+      })
+  },
+
+  createForProject ({ commit }, { label, dueAt, projectId }) {
+    return tasksApi
+      .create(label, dueAt, projectId)
+      .then((data) => {
+        commit('addList', [data])
+        commit('projects/addTaskToProject',
+               { projectId, taskId: data.id },
+               { root: true })
         return data.id
       })
   },

@@ -156,6 +156,24 @@ const mutations = {
                           .find((id) => state.byIds[id].name === projectName)
   },
 
+  addTaskToProject (state, { projectId, taskId }) {
+    const project = state.byIds[projectId]
+    if (project != null) {
+      const newProject = {
+        ...project,
+        taskIds: [
+          ...project.taskIds,
+          taskId,
+        ],
+      }
+
+      state.byIds = {
+        ...state.byIds,
+        [project.id]: newProject,
+      }
+    }
+  },
+
   reset (state) {
     state.current = null
     state.byIds = {}

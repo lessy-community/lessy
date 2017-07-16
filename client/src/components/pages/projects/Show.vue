@@ -54,15 +54,24 @@
         </router-link>
       </em>
     </p>
+
+    <h2>Project's tasks</h2>
+    <task-list :tasks="tasks" notoggle></task-list>
+    <create-task-form :project-id="project.id"></create-task-form>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
 
-  export default {
+  import CreateTaskForm from '../../forms/CreateTask'
+  import TaskList from '../../tasks/TaskList'
 
-    name: 'project-show-page',
+  export default {
+    components: {
+      CreateTaskForm,
+      TaskList,
+    },
 
     props: {
       'project': { type: Object, required: true },
@@ -71,6 +80,7 @@
     computed: {
       ...mapGetters({
         canStartProject: 'projects/canStartProject',
+        tasks: 'tasks/listForCurrentProject',
       }),
     },
 
