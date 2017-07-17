@@ -5,8 +5,8 @@ export default {
     return get('/api/tasks')
   },
 
-  create (label, dueAt) {
-    return post('/api/tasks', { label, dueAt })
+  create (label, dueAt, projectId) {
+    return post('/api/tasks', { label, dueAt, projectId })
   },
 
   update (task, label) {

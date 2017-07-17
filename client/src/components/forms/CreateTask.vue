@@ -27,6 +27,7 @@
       'onCancel': { type: Function },
       'autoFocus': { type: Boolean },
       'dueAt': { type: Object },
+      'projectId': { type: Number },
     },
 
     data () {
@@ -37,10 +38,13 @@
 
     methods: {
       create () {
+        const action = this.projectId == null ? 'tasks/create'
+                                              : 'tasks/createForProject'
         this.$store
-          .dispatch('tasks/create', {
+          .dispatch(action, {
             label: this.label,
             dueAt: this.dueAt && this.dueAt.unix(),
+            projectId: this.projectId,
           })
           .then((taskId) => {
             const { labelInput } = this.$refs

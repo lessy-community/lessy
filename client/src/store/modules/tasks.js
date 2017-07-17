@@ -43,6 +43,7 @@ const getters = {
         createdSinceWeeks,
         dueAtLabel: formatDate(task.dueAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
+        urlProjectShow: task.projectName && { name: 'project/show', params: { projectName: task.projectName } },
       }
     }
   },
@@ -68,6 +69,20 @@ const getters = {
 
   listFinished (state, getters) {
     return getters.list.filter((task) => task.isFinished)
+  },
+
+  listForProject (state, getters, rootState, rootGetters) {
+    return project => {
+      return project.taskIds
+                    .map(getters.findById)
+                    .filter((task) => !task.isAbandoned)
+                    .sort((t1, t2) => t1.order - t2.order)
+    }
+  },
+
+  listForCurrentProject (state, getters, rootState, rootGetters) {
+    const currentProject = rootGetters['projects/current']
+    return getters.listForProject(currentProject)
   },
 
   countFinishedByDays (state, getters) {
@@ -102,6 +117,18 @@ const actions = {
       .create(label, dueAt)
       .then((data) => {
         commit('addList', [data])
+        return data.id
+      })
+  },
+
+  createForProject ({ commit }, { label, dueAt, projectId }) {
+    return tasksApi
+      .create(label, dueAt, projectId)
+      .then((data) => {
+        commit('addList', [data])
+        commit('projects/addTaskToProject',
+               { projectId, taskId: data.id },
+               { root: true })
         return data.id
       })
   },

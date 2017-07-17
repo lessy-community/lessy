@@ -1,12 +1,15 @@
 class Task < ApplicationRecord
 
   belongs_to :user
+  belongs_to :project
 
   validates :label, :user, :restarted_count, presence: true
   validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }
   validates_uniqueness_of :order, scope: :user
 
   before_create :set_order_attribute
+
+  delegate :name, to: :project, prefix: true, allow_nil: true
 
   scope :due_on_today, -> {
     today = DateTime.now

@@ -25,6 +25,26 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(json_response.length).to eq(3)
       end
     end
+
+    context 'with related task' do
+      let!(:project) { create :project, user: user }
+      let!(:task) { create :task, project: project, user: user }
+
+      subject! { get api_projects_path, headers: { 'Authorization': user.token } }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the projects/index schema' do
+        expect(response).to match_response_schema('projects/index')
+      end
+
+      it 'returns id of related task' do
+        json_project = json_response[0]
+        expect(json_project['taskIds']).to contain_exactly(task.id)
+      end
+    end
   end
 
   describe 'POST #create' do

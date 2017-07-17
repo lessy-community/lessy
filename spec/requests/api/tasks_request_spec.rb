@@ -61,6 +61,23 @@ RSpec.describe Api::TasksController, type: :request do
       end
     end
 
+    context 'with project_id' do
+      let(:project) { create :project }
+      let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i, project_id: project.id } }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns the new task' do
+        task = JSON.parse(response.body)
+        expect(task['id']).not_to be_nil
+        expect(task['label']).to eq('My task')
+        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['projectId']).to eq(project.id)
+      end
+    end
+
     context 'with no due date' do
       let(:payload) { { label: 'My task' } }
 

@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
 
   belongs_to :user
+  has_many :tasks, dependent: :nullify
 
   validates :user, :name, presence: true
   validates :started_at, presence: true, if: :finished?

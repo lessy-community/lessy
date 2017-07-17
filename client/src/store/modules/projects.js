@@ -10,9 +10,11 @@ const state = {
 }
 
 const getters = {
-  findById (state) {
+  findById (state, getters, rootState, rootGetters) {
     return id => {
       const project = state.byIds[id]
+      const tasks = rootGetters['tasks/listForProject'](project)
+      const finishedTasksCount = tasks.filter(task => task.isFinished).length
       const params = {
         projectName: project.name,
       }
@@ -29,6 +31,8 @@ const getters = {
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         stoppedAtLabel: isStopped ? formatDate(project.stoppedAt) : '',
         finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
+        finishedTasksCount,
+        tasksCount: tasks.length,
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
         urlStart: { name: 'project/start', params },
@@ -154,6 +158,24 @@ const mutations = {
   setCurrent (state, projectName) {
     state.current = Object.keys(state.byIds)
                           .find((id) => state.byIds[id].name === projectName)
+  },
+
+  addTaskToProject (state, { projectId, taskId }) {
+    const project = state.byIds[projectId]
+    if (project != null) {
+      const newProject = {
+        ...project,
+        taskIds: [
+          ...project.taskIds,
+          taskId,
+        ],
+      }
+
+      state.byIds = {
+        ...state.byIds,
+        [project.id]: newProject,
+      }
+    }
   },
 
   reset (state) {
