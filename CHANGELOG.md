@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.3 2017-07-23
+
+### Features
+
+- [#96](https://github.com/marienfressinaud/project-zero/issues/96) Add a project's deadline visualisation
+- [#104](https://github.com/marienfressinaud/project-zero/issues/104) Provide a statistics page
+- [#95](https://github.com/marienfressinaud/project-zero/issues/95) Associate tasks to project
+
+### Improvements
+
+- [#97](https://github.com/marienfressinaud/project-zero/issues/97) Improve design on small devices
+- [#114](https://github.com/marienfressinaud/project-zero/issues/114) Hide indicators on finished tasks
+- [#111](https://github.com/marienfressinaud/project-zero/issues/111) Add autofocus on edit task form
+- [#112](https://github.com/marienfressinaud/project-zero/issues/112) Remove planning page
+- [#122](https://github.com/marienfressinaud/project-zero/issues/122) Disable actions popover on ended tasks
+
+### Bug fixes
+
+- [#91](https://github.com/marienfressinaud/project-zero/issues/91) Hide abandoned tasks when listing
+
+### Documentation
+
+- [#90](https://github.com/marienfressinaud/project-zero/issues/90) Document release process
+
 ## 0.2 2017-06-05
 
 ### Features
