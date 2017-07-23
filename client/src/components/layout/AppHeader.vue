@@ -6,7 +6,7 @@
       </btn>
       <router-link to="/" class="header-title">{{ $t('layout.projectZero') }}</router-link>
       <div class="separator"></div>
-      <router-link to="/statistics" class="header-statistics-link">
+      <router-link v-if="user && user.isLoggedIn" to="/statistics" class="header-statistics-link">
         <icon name="line-chart"></icon>
       </router-link>
       <div v-if="user && user.isLoggedIn" class="header-profile">
