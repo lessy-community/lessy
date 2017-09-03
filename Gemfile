@@ -33,6 +33,13 @@ group :development, :test do
   gem 'timecop', '~> 0.8'
   gem 'json_matchers'
   gem 'faker'
+
+  # Linters
+  gem 'pronto', require: false
+  gem 'pronto-eslint', require: false
+  gem 'pronto-rubocop', require: false
+  gem 'pronto-scss', require: false
+  gem 'rubocop', require: false
 end
 
 group :development do
