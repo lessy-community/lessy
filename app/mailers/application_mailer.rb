@@ -1,12 +1,12 @@
 class ApplicationMailer < ActionMailer::Base
 
-  default from: 'noreply@projectzero.org'
+  default from: 'noreply@lessy.io'
   layout 'mailer'
 
 protected
 
   def mail(options={})
-    options[:subject] = "[Project Zero] #{ options[:subject] }" if options.has_key? :subject
+    options[:subject] = "[Lessy] #{ options[:subject] }" if options.has_key? :subject
     super options
   end
 

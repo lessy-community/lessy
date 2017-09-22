@@ -6,7 +6,7 @@ describe UserMailer do
     let(:mail) { described_class.activation_needed_email(user).deliver_now }
 
     it 'renders the subject' do
-      expect(mail.subject).to eq('[Project Zero] Welcome on Project Zero!')
+      expect(mail.subject).to eq('[Lessy] Welcome on Lessy!')
     end
 
     it 'renders the receiver email' do
@@ -14,7 +14,7 @@ describe UserMailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['noreply@projectzero.org'])
+      expect(mail.from).to eq(['noreply@lessy.io'])
     end
 
     it 'renders the user activation link' do
@@ -27,7 +27,7 @@ describe UserMailer do
     let(:mail) { described_class.activation_success_email(user).deliver_now }
 
     it 'renders the subject' do
-      expect(mail.subject).to eq('[Project Zero] Your account is now activated')
+      expect(mail.subject).to eq('[Lessy] Your account is now activated')
     end
 
     it 'renders the receiver email' do
@@ -35,7 +35,7 @@ describe UserMailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eq(['noreply@projectzero.org'])
+      expect(mail.from).to eq(['noreply@lessy.io'])
     end
 
     it 'renders the sender username' do

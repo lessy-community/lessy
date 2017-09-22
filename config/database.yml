@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: projectzero_development
+  database: lessy_development
   username: postgres
   password: postgres
   host: localhost
@@ -16,7 +16,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: projectzero_test
+  database: lessy_test
   username: postgres
   password: postgres
   host: localhost

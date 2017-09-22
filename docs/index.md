@@ -1,4 +1,4 @@
-# Project Zero documentation
+# Lessy documentation
 
 - [installation](installation.md)
 - [deployment](deployment.md)

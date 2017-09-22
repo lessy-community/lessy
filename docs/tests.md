@@ -7,5 +7,5 @@ For the moment, tests exist for backend only. Tests are using
 $ bundle exec rspec
 ```
 
-Tests' suite is running against [TravisCI](https://travis-ci.org/marienfressinaud/project-zero).
+Tests' suite is running against [TravisCI](https://travis-ci.org/marienfressinaud/lessy).
 Pull requests must pass tests to be merged.

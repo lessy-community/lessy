@@ -1,4 +1,4 @@
-# Deploy Project Zero on your server
+# Deploy Lessy on your server
 
 ## Install packages
 
@@ -14,12 +14,12 @@ solution will not be presented though.
 
 ## Create a dedicated user
 
-Even if it is not required, you should create a user dedicated to Project Zero
+Even if it is not required, you should create a user dedicated to Lessy
 on your system:
 
 ```
-root# adduser project-zero
-root# chmod 755 /home/project-zero
+root# adduser lessy
+root# chmod 755 /home/lessy
 ```
 
 ## Install database
@@ -33,28 +33,28 @@ root# systemctl start postgresql
 ```
 
 You should consider to create a new Postgre user as well (note from now, `$`
-prompt indicates that you should be connected with `project-zero` user you
+prompt indicates that you should be connected with `lessy` user you
 created above):
 
 ```bash
 $ sudo -u postgres psql
-postgres=# CREATE USER projectzero WITH CREATEDB PASSWORD '<password>';
+postgres=# CREATE USER lessy WITH CREATEDB PASSWORD '<password>';
 ```
 
 For more information, please refer to the official [PostgreSQL
 documentation](https://wiki.postgresql.org/wiki/First_steps).
 
-## Get Project Zero and configure it
+## Get Lessy and configure it
 
 ```bash
-~$ git clone -b https://github.com/marienfressinaud/project-zero.git
-~$ cd project-zero
-project-zero$ gem install bundler
-project-zero$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
+~$ git clone -b https://github.com/marienfressinaud/lessy.git
+~$ cd lessy
+lessy$ gem install bundler
+lessy$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
 ```
 
 If you face any problem during installation, please open a ticket [on
-GitHub](https://github.com/marienfressinaud/project-zero/issues).
+GitHub](https://github.com/marienfressinaud/lessy/issues).
 
 I spent quite a long time figuring out why building `pg` gem was failing on my
 server (CentOS). I'm using a custom package of `pgsql` so I can use the latest
@@ -62,8 +62,8 @@ version, but Bundler still try to build the gem with an incorrect configuration,
 I had to run these two commands before `bundle install` to make it works:
 
 ```bash
-project-zero$ export ARCHFLAGS="-arch x86_64"
-project-zero$ bundle config build.pg --with-pg-config=/usr/pgsql-9.6/bin/pg_config
+lessy$ export ARCHFLAGS="-arch x86_64"
+lessy$ bundle config build.pg --with-pg-config=/usr/pgsql-9.6/bin/pg_config
 ```
 
 It's time to add the required environment variables, in your `~/.bashrc`, add the
@@ -86,7 +86,7 @@ Then, run `source ~/.bashrc` to load these variables in your session.
 Simply run:
 
 ```bash
-project-zero$ bundle exec rails db:create db:schema:load
+lessy$ bundle exec rails db:create db:schema:load
 ```
 
 It's the final test to check if your Postgre user is well configured! :). If
@@ -101,9 +101,9 @@ Frontend must now be built and moved under `public` folder. Make
 sure you have `npm` installed and run:
 
 ```bash
-project-zero$ cd client
-project-zero/client$ npm install
-project-zero/client$ npm run build
+lessy$ cd client
+lessy/client$ npm install
+lessy/client$ npm run build
 ```
 
 ## Serve the application with Apache
@@ -114,7 +114,7 @@ possibilities but only one is described here. Advantage is it's very simple.
 First, run the application as you would normally, but with `screen`:
 
 ```bash
-project-zero$ screen bundle exec rails s -p 8081
+lessy$ screen bundle exec rails s -p 8081
 ```
 
 You can leave `screen` by typing `ctrl+a d`. Application is now running in
@@ -126,13 +126,13 @@ Apache mods `proxy` and `proxy_http` and provide a `VirtualHost` configuration:
 ```
 <VirtualHost *:80>
     ServerAdmin your@emailaddress.com
-    DocumentRoot /home/project-zero/project-zero/public
+    DocumentRoot /home/lessy/lessy/public
     ServerName your.domain.com
 
     <Location /static>
         ProxyPass !
     </Location>
-    <Directory /home/project-zero/project-zero/public/static>
+    <Directory /home/lessy/lessy/public/static>
         Require all granted
     </Directory>
 
@@ -150,41 +150,41 @@ Now reload the server:
 root# systemctl reload httpd  # or apache2 depending on what is your system
 ```
 
-You should now be able to access Project Zero at http://your.domain.com.
+You should now be able to access Lessy at http://your.domain.com.
 
 ## Update
 
-For each new version of Project Zero, you'll need to get the new source code,
-migrate the database, install new gems (Ruby) and packages (NodeJS) and restart
-the Rails server. The following commands try to be as exhaustive as possible:
+For each new version of Lessy, you'll need to get the new source code, migrate
+the database, install new gems (Ruby) and packages (NodeJS) and restart the
+Rails server. The following commands try to be as exhaustive as possible:
 
 ```bash
-project-zero$ # First, stop the server (I'll try to find a better method later ;))
-project-zero$ screen -r
-project-zero$ <ctrl+c>
-project-zero$
-project-zero$ # Let's get the new code
-project-zero$ git pull
-project-zero$ git checkout <tag version>  # to adapt with desired version
-project-zero$
-project-zero$ # You'll need to do that ONLY if we updated Ruby version
-project-zero$ # Please check the changelog to know if it applies to you
-project-zero$ rbenv install
-project-zero$ gem install bundler
-project-zero$
-project-zero$ # Then, update the backend
-project-zero$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
-project-zero$ bundle exec rails db:migrate
-project-zero$
-project-zero$ # After that, we update the client and rebuild the frontend
-project-zero$ cd client
-project-zero/client$ npm install  # if anything goes wrong here, try to remove the node_modules folder
-project-zero/client$ npm run build
-project-zero/client$ cd ..
-project-zero$
-project-zero$ # Finally, restart the Rails server
-project-zero$ screen bundle exec rails s -p 3001
-project-zero$ <ctrl+a><d>
+lessy$ # First, stop the server (I'll try to find a better method later ;))
+lessy$ screen -r
+lessy$ <ctrl+c>
+lessy$
+lessy$ # Let's get the new code
+lessy$ git pull
+lessy$ git checkout <tag version>  # to adapt with desired version
+lessy$
+lessy$ # You'll need to do that ONLY if we updated Ruby version
+lessy$ # Please check the changelog to know if it applies to you
+lessy$ rbenv install
+lessy$ gem install bundler
+lessy$
+lessy$ # Then, update the backend
+lessy$ RAILS_ENV=production bundle install --deployment --without test development --path vendor
+lessy$ bundle exec rails db:migrate
+lessy$
+lessy$ # After that, we update the client and rebuild the frontend
+lessy$ cd client
+lessy/client$ npm install  # if anything goes wrong here, try to remove the node_modules folder
+lessy/client$ npm run build
+lessy/client$ cd ..
+lessy$
+lessy$ # Finally, restart the Rails server
+lessy$ screen bundle exec rails s -p 3001
+lessy$ <ctrl+a><d>
 ```
 
 ## Documentation credits
@@ -200,4 +200,4 @@ master what you explain :). I want to thank:
   because I think I would still be trying to make it works.
 
 This documentation is probably not complete and you are welcome to [open a pull
-request](https://github.com/marienfressinaud/project-zero/pulls) to improve it.
+request](https://github.com/marienfressinaud/lessy/pulls) to improve it.

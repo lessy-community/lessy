@@ -4,7 +4,7 @@
       <btn type="link" @click="toggleSidebar" class="header-sidebar-toggle">
         <icon name="bars"></icon>
       </btn>
-      <router-link to="/" class="header-title">{{ $t('layout.projectZero') }}</router-link>
+      <router-link to="/" class="header-title">{{ $t('layout.lessy') }}</router-link>
       <div class="separator"></div>
       <router-link v-if="user && user.isLoggedIn" to="/statistics" class="header-statistics-link">
         <icon name="line-chart"></icon>

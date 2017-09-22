@@ -1,4 +1,4 @@
-# Project Zero
+# Lessy
 
 > Projects and todos manager
 

@@ -2,11 +2,11 @@
 
 ## Start a new release
 
-To start a new release, open a [new ticket on GitHub](https://github.com/marienfressinaud/project-zero/issues/new)
+To start a new release, open a [new ticket on GitHub](https://github.com/marienfressinaud/lessy/issues/new)
 named "Release XXX", with the following content:
 
 ```
-- [ ] close all [XXX tickets](https://github.com/marienfressinaud/project-zero/milestone/XXX)
+- [ ] close all [XXX tickets](https://github.com/marienfressinaud/lessy/milestone/XXX)
 - [ ] write blog article
 - [ ] update changelog
 - [ ] tag last commit with XXX

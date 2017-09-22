@@ -2,19 +2,18 @@
 
 ## Submit an idea
 
-Just open a ticket [on GitHub](https://github.com/marienfressinaud/project-zero/issues)
-but please note Project Zero is still a personnal project and I have my
-priorities.
+Just open a ticket [on GitHub](https://github.com/marienfressinaud/lessy/issues)
+but please note Lessy is still a personnal project and I have my priorities.
 
 If you have questions and think documentation is incomplete (and it is!), do
 not hesitate to open a ticket as well.
 
 ## Report a bug
 
-Open a ticket [on GitHub](https://github.com/marienfressinaud/project-zero/issues)
+Open a ticket [on GitHub](https://github.com/marienfressinaud/lessy/issues)
 and please be as specific as possible:
 
-- Project Zero version
+- Lessy version
 - environment (Ruby and Rails version, OS, etc.)
 - related logs
 - what was expected

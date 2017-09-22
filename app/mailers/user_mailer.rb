@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @activation_url = "#{ root_url }users/#{ user.activation_token }/activate"
     mail to: user.email,
-         subject: 'Welcome on Project Zero!'
+         subject: 'Welcome on Lessy!'
   end
 
   def activation_success_email(user)

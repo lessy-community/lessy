@@ -124,7 +124,7 @@ export default {
   layout: {
     login: 'Login',
     logout: 'Logout',
-    projectZero: 'Project Zero',
+    lessy: 'Lessy',
 
     project: {
       dashboard: 'Dashboard',
@@ -171,7 +171,7 @@ export default {
 
     home: {
       intro: 'A new era begins for the project managers.',
-      title: 'Welcome on Project Zero!',
+      title: 'Welcome on Lessy!',
     },
 
     loading: {
