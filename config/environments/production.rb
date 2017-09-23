@@ -53,6 +53,11 @@ Rails.application.configure do
     protocol: ENV['LESSY_HTTPS'].present? ? 'https' : 'http',
   }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    port: ENV['SMTP_PORT'],
+    address: ENV['SMTP_SERVER'],
+    openssl_verify_mode: ENV['SMTP_OPENSSL_VERIFY_MODE'],
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
