@@ -1,0 +1,32 @@
+FROM ruby:2.4-alpine
+MAINTAINER Marien Fressinaud <dev@marienfressinaud.fr>
+
+EXPOSE 3000 5000
+
+WORKDIR /app/
+COPY Gemfile Gemfile.lock /app/
+COPY client/package.json /app/client/
+
+RUN apk add --no-cache \
+      nodejs \
+      postgresql-client \
+      tzdata \
+  && apk --update add --virtual build-dependencies \
+      build-base \
+      ruby-dev \
+      openssl-dev \
+      postgresql-dev \
+      libc-dev \
+      linux-headers \
+      cmake \
+  && gem install bundler \
+  && bundle install \
+  && apk del build-dependencies
+
+RUN cd /app/client \
+  && npm install \
+  && npm cache clean
+
+VOLUME /app
+
+CMD ["bundle", "exec", "foreman", "start"]

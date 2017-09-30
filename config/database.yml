@@ -2,14 +2,14 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+  username: <%= ENV.fetch 'DATABASE_USERNAME', 'postgres' %>
+  password: <%= ENV.fetch 'DATABASE_PASSWORD', 'postgres' %>
+  host: <%= ENV.fetch 'DATABASE_HOST', 'localhost' %>
+  post: <%= ENV.fetch 'DATABASE_PORT', 5432 %>
 
 development:
   <<: *default
   database: lessy_development
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,11 +17,7 @@ development:
 test:
   <<: *default
   database: lessy_test
-  username: postgres
-  password: postgres
-  host: localhost
-  port: 5432
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV['DATABASE_NAME'] %>

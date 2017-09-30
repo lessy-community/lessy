@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  lessy:
+    image: lessy:dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db
+    links:
+      - db:db
+    ports:
+      - "3000:3000"
+      - "5000:5000"
+    volumes:
+      - .:/app:z
+      - /app/client/node_modules
+    environment:
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_PORT: 5432
+      DATABASE_HOST: db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
