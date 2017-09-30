@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4 2017-xx-yy
+
+### Migration notes
+
+- `PROJECTZERO_HOST` becomes `LESSY_HOST`
+- `PROJECTZERO_HTTPS` becomes `LESSY_HTTPS`
+
 ## 0.3 2017-07-23
 
 ### Features

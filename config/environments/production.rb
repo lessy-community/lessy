@@ -49,8 +49,8 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "lessy_#{Rails.env}"
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = {
-    host: ENV['PROJECTZERO_HOST'],
-    protocol: ENV['PROJECTZERO_HTTPS'].present? ? 'https' : 'http',
+    host: ENV['LESSY_HOST'],
+    protocol: ENV['LESSY_HTTPS'].present? ? 'https' : 'http',
   }
   config.action_mailer.delivery_method = :smtp
 
