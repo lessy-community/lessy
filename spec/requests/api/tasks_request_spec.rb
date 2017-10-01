@@ -13,103 +13,6 @@ RSpec.describe Api::TasksController, type: :request do
     Timecop.return
   end
 
-  describe 'GET #index' do
-    let!(:tasks) { create_list :task, 3, :not_abandoned, user: user }
-    let!(:abandoned_task) { create :task, :abandoned, user: user }
-    let(:json_response) { JSON.parse(response.body) }
-
-    subject! { get api_tasks_path, headers: { 'Authorization': user.token } }
-
-    it 'succeeds' do
-      expect(response).to have_http_status(:ok)
-    end
-
-    it 'matches the tasks/index schema' do
-      expect(response).to match_response_schema('tasks/index')
-    end
-
-    it 'returns the list of non abandoned tasks' do
-      expect(json_response.length).to eq(3)
-      expect(json_response.map { |t| t['id'] }).not_to include(abandoned_task.id)
-    end
-  end
-
-  describe 'POST #create' do
-    let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
-    let(:token) { user.token }
-
-    subject! { post '/api/tasks', params: { task: payload }, headers: { 'Authorization': token }, as: :json }
-
-    context 'with valid attributes' do
-      it 'succeeds' do
-        expect(response).to have_http_status(:created)
-      end
-
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
-      end
-
-      it 'saves the new task' do
-        expect(Task.find_by_label('My task')).to be_present
-      end
-
-      it 'returns the new project' do
-        task = JSON.parse(response.body)
-        expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
-      end
-    end
-
-    context 'with project_id' do
-      let(:project) { create :project }
-      let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i, project_id: project.id } }
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:created)
-      end
-
-      it 'returns the new task' do
-        task = JSON.parse(response.body)
-        expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
-        expect(task['projectId']).to eq(project.id)
-      end
-    end
-
-    context 'with no due date' do
-      let(:payload) { { label: 'My task' } }
-
-      it 'succeeds' do
-        expect(response).to have_http_status(:created)
-      end
-
-      it 'returns the new task' do
-        task = JSON.parse(response.body)
-        expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(0)
-      end
-    end
-
-    context 'with missing attribute' do
-      let(:payload) { { } }
-
-      it_behaves_like 'missing param failures', 'Task', 'base'
-    end
-
-    context 'with invalid authentication' do
-      let(:token) { 'not a token' }
-
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
-      }
-    end
-  end
-
   describe 'PATCH #update' do
     let(:token) { user.token }
     let(:payload) { { label: 'A new label for a task' } }
@@ -139,70 +42,56 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
-  describe 'POST #finish' do
-    let(:task) { create :task, :not_finished, user: user }
+  describe 'PUT #update_state' do
+    let(:token) { user.token }
 
-    context 'with valid attributes' do
-      before do
-        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
+    before do
+      put "/api/tasks/#{ task.id }/state", params: payload, headers: { 'Authorization': token }
+    end
+
+    context 'when finishing a task' do
+      let(:task) { create :task, :not_finished, user: user }
+      let(:payload) { {
+        state: 'finished'
+      } }
+
+      context 'with valid attributes' do
+        it 'succeeds' do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'matches the tasks/task schema' do
+          expect(response).to match_response_schema('tasks/task')
+        end
+
+        it 'saves finished_at' do
+          expect(task.reload.finished_at).to eq(DateTime.new(2017))
+        end
+
+        it 'returns the updated task' do
+          task = JSON.parse(response.body)
+          expect(task['finishedAt']).to eq(DateTime.new(2017).to_i)
+        end
       end
 
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
+      context 'with already finished task' do
+        let(:task) { create :task, :finished, user: user }
+
+        it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
       end
 
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
-      end
+      context 'with abandoned task' do
+        let(:task) { create :task, :abandoned, user: user }
 
-      it 'saves finished_at' do
-        expect(task.reload.finished_at).to eq(DateTime.new(2017))
-      end
-
-      it 'returns the updated task' do
-        task = JSON.parse(response.body)
-        expect(task['finishedAt']).to eq(DateTime.new(2017).to_i)
+        it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
       end
     end
 
-    context 'with already finished task' do
-      let(:task) { create :task, :finished, user: user }
-
-      before do
-        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
-      end
-
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
-    end
-
-    context 'with abandoned task' do
-      let(:task) { create :task, :abandoned, user: user }
-
-      before do
-        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': user.token }
-      end
-
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-
-      before do
-        post "/api/tasks/#{ task.id }/finish", headers: { 'Authorization': other_user.token }
-      end
-
-      it_behaves_like 'not found failures', 'Task'
-    end
-  end
-
-  describe 'POST #restart' do
-    let(:task) { create :task, :finished, started_count: 1, user: user }
-
-    context 'with valid attributes' do
-      before do
-        post "/api/tasks/#{ task.id }/restart", headers: { 'Authorization': user.token }
-      end
+    context 'when starting a finished task' do
+      let(:task) { create :task, :finished, started_count: 1, user: user }
+      let(:payload) { {
+        state: 'started'
+      } }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -225,24 +114,12 @@ RSpec.describe Api::TasksController, type: :request do
       end
     end
 
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
+    context 'when starting a backlogged task' do
+      let(:task) { create :task, :backlogged, started_count: 0, user: user }
+      let(:payload) { {
+        state: 'started'
+      } }
 
-      before do
-        post "/api/tasks/#{ task.id }/restart", headers: { 'Authorization': other_user.token }
-      end
-
-      it_behaves_like 'not found failures', 'Task'
-    end
-  end
-
-  describe 'POST #start' do
-    let(:task) { create :task, :backlogged, started_count: 0, user: user }
-    let(:token) { user.token }
-
-    subject! { post "/api/tasks/#{ task.id }/start", headers: { 'Authorization': token } }
-
-    context 'with valid task' do
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -260,19 +137,58 @@ RSpec.describe Api::TasksController, type: :request do
       end
     end
 
-    context 'with finished task' do
-      let(:task) { create :task, :finished, user: user }
-
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
-    end
-
-    context 'with abandoned task' do
+    context 'when starting an abandoned task' do
       let(:task) { create :task, :abandoned, user: user }
+      let(:payload) { {
+        state: 'started'
+      } }
 
       it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
     end
 
+    context 'when abandoning a task' do
+      let(:task) { create :task, :not_finished, user: user }
+      let(:payload) { {
+        state: 'abandoned'
+      } }
+
+      context 'with valid attributes' do
+        it 'succeeds' do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'matches the tasks/task schema' do
+          expect(response).to match_response_schema('tasks/task')
+        end
+
+        it 'saves abandoned_at' do
+          expect(task.reload.abandoned_at).to eq(DateTime.new(2017))
+        end
+
+        it 'returns the updated task' do
+          task = JSON.parse(response.body)
+          expect(task['abandonedAt']).to eq(DateTime.new(2017).to_i)
+        end
+      end
+
+      context 'with finished task' do
+        let(:task) { create :task, :finished, user: user }
+
+        it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+      end
+
+      context 'with abandoned task' do
+        let(:task) { create :task, :abandoned, user: user }
+
+        it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+      end
+    end
+
     context 'when authenticated with another user' do
+      let(:task) { create :task, :not_finished, user: user }
+      let(:payload) { {
+        state: 'finished'
+      } }
       let(:other_user) { create :user }
       let(:token) { other_user.token }
 
@@ -280,67 +196,22 @@ RSpec.describe Api::TasksController, type: :request do
     end
   end
 
-  describe 'POST #abandon' do
-    let(:token) { user.token }
-    let(:task) { create :task, :not_finished, user: user }
-
-    subject! { post "/api/tasks/#{ task.id }/abandon", headers: { 'Authorization': token } }
-
-    context 'with valid attributes' do
-      it 'succeeds' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
-      end
-
-      it 'saves abandoned_at' do
-        expect(task.reload.abandoned_at).to eq(DateTime.new(2017))
-      end
-
-      it 'returns the updated task' do
-        task = JSON.parse(response.body)
-        expect(task['abandonedAt']).to eq(DateTime.new(2017).to_i)
-      end
-    end
-
-    context 'with finished task' do
-      let(:task) { create :task, :finished, user: user }
-
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
-    end
-
-    context 'with abandoned task' do
-      let(:task) { create :task, :abandoned, user: user }
-
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
-    end
-
-    context 'when authenticated with another user' do
-      let(:other_user) { create :user }
-      let(:token) { other_user.token }
-
-      it_behaves_like 'not found failures', 'Task'
-    end
-  end
-
-  describe 'POST #order_after' do
+  describe 'PUT #update_order' do
     let(:task) { create :task, order: 40, user: user }
     let!(:other_task) { create :task, order: 41, user: user }
     let!(:still_another_task) { create :task, order: 42, user: user }
     let(:payload) { { after_task_id: other_task.id } }
     let(:token) { user.token }
 
-    subject! { post "/api/tasks/#{ task.id }/order_after", params: payload, headers: { 'Authorization': token }, as: :json }
+    subject! { put "/api/tasks/#{ task.id }/order", params: payload, headers: { 'Authorization': token }, as: :json }
 
     context 'with valid attributes' do
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the tasks/order_after schema' do
-        expect(response).to match_response_schema('tasks/order_after')
+      it 'matches the tasks/update_order schema' do
+        expect(response).to match_response_schema('tasks/update_order')
       end
 
       it 'saves the task' do

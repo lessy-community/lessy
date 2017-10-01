@@ -6,6 +6,8 @@ Rails.application.routes.draw do
         get 'me', action: 'show'
         post 'me/projects', module: :users, controller: 'users/projects', action: :create
         get 'me/projects', module: :users, controller: 'users/projects', action: :index
+        post 'me/tasks', module: :users, controller: 'users/tasks', action: :create
+        get 'me/tasks', module: :users, controller: 'users/tasks', action: :index
       end
     end
 
@@ -20,13 +22,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tasks, only: [:create, :update, :index] do
+    resources :tasks, only: [:update] do
       member do
-        post 'finish'
-        post 'restart'
-        post 'start'
-        post 'abandon'
-        post 'order_after'
+        put 'state', action: :update_state
+        put 'order', action: :update_order
       end
     end
 
