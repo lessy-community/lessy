@@ -6,12 +6,13 @@ export default {
   },
 
   activate: (token, username, password) => {
-    const url = `/api/users/${token}/activate`
+    const url = `/api/users/activations`
     const payload = {
       user: {
         username,
         password,
       },
+      token,
     }
     return post(url, payload, false)
   },
@@ -21,7 +22,7 @@ export default {
       username,
       password,
     }
-    return post('/api/users/authorize', payload, false)
+    return post('/api/users/authorizations', payload, false)
   },
 
   getCurrent: () => {

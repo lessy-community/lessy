@@ -3,11 +3,15 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:create] do
       collection do
-        get 'me'
-        post 'authorize'
-        post '/:token/activate', action: 'activate', as: 'activate'
+        get 'me', action: 'show'
       end
     end
+
+    namespace :users do
+      resources :authorizations, only: [:create]
+      resources :activations, only: [:create]
+    end
+
     resources :projects, only: [:create, :update, :index] do
       member do
         post 'start'
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
         post 'finish'
       end
     end
+
     resources :tasks, only: [:create, :update, :index] do
       member do
         post 'finish'
