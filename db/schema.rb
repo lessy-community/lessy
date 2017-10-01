@@ -10,55 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170716102855) do
+ActiveRecord::Schema.define(version: 20171001201530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.integer  "user_id",                  null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.text     "description", default: ""
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description", default: ""
     t.datetime "started_at"
     t.datetime "due_at"
     t.datetime "finished_at"
     t.datetime "stopped_at"
-    t.index ["name", "user_id"], name: "index_projects_on_name_and_user_id", unique: true, using: :btree
-    t.index ["name"], name: "index_projects_on_name", using: :btree
-    t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
+    t.index ["name", "user_id"], name: "index_projects_on_name_and_user_id", unique: true
+    t.index ["name"], name: "index_projects_on_name"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "label",                       null: false
+    t.string "label", null: false
     t.datetime "due_at"
     t.datetime "finished_at"
-    t.integer  "user_id",                     null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "abandoned_at"
-    t.integer  "restarted_count", default: 0, null: false
-    t.integer  "order"
-    t.integer  "project_id"
-    t.index ["order"], name: "index_tasks_on_order", using: :btree
-    t.index ["project_id"], name: "index_tasks_on_project_id", using: :btree
-    t.index ["user_id"], name: "index_tasks_on_user_id", using: :btree
+    t.integer "started_count", default: 0, null: false
+    t.integer "order"
+    t.integer "project_id"
+    t.index ["order"], name: "index_tasks_on_order"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                       null: false
-    t.string   "crypted_password"
-    t.string   "salt"
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "activation_state"
-    t.string   "activation_token"
+    t.string "activation_state"
+    t.string "activation_token"
     t.datetime "activation_token_expires_at"
-    t.string   "username"
-    t.index ["activation_token"], name: "index_users_on_activation_token", using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
+    t.string "username"
+    t.index ["activation_token"], name: "index_users_on_activation_token"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "projects", "users"

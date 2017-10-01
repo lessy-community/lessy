@@ -41,6 +41,7 @@ const getters = {
         isFinished,
         isAbandoned,
         createdSinceWeeks,
+        restartedCount: task.startedCount - 1,
         dueAtLabel: formatDate(task.dueAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
         urlProjectShow: task.projectName && { name: 'project/show', params: { projectName: task.projectName } },

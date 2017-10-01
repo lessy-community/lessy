@@ -197,7 +197,7 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   describe 'POST #restart' do
-    let(:task) { create :task, :finished, restarted_count: 1, user: user }
+    let(:task) { create :task, :finished, started_count: 1, user: user }
 
     context 'with valid attributes' do
       before do
@@ -220,8 +220,8 @@ RSpec.describe Api::TasksController, type: :request do
         expect(task.reload.due_at).to eq(DateTime.new(2017))
       end
 
-      it 'increments restarted_count' do
-        expect(task.reload.restarted_count).to eq(2)
+      it 'increments started_count' do
+        expect(task.reload.started_count).to eq(2)
       end
     end
 
@@ -237,7 +237,7 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   describe 'POST #start' do
-    let(:task) { create :task, :backlogged, user: user }
+    let(:task) { create :task, :backlogged, started_count: 0, user: user }
     let(:token) { user.token }
 
     subject! { post "/api/tasks/#{ task.id }/start", headers: { 'Authorization': token } }
@@ -253,6 +253,10 @@ RSpec.describe Api::TasksController, type: :request do
 
       it 'sets due_at to today' do
         expect(task.reload.due_at).to eq(DateTime.new(2017))
+      end
+
+      it 'increments started_count' do
+        expect(task.reload.started_count).to eq(1)
       end
     end
 

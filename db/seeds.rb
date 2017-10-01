@@ -38,7 +38,7 @@ Task.create!([
   { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 2.weeks.ago },
   { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, due_at: 1.day.ago },
   { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, due_at: 2.days.ago },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 1.week.ago, due_at: 1.day.ago, restarted_count: 2 },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 1.week.ago, due_at: 1.day.ago, started_count: 3 },
 ])
 
 puts 'Seeds are now ready! You can login with: dalecooper / secret'

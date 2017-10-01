@@ -3,11 +3,12 @@ class Task < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
-  validates :label, :user, :restarted_count, presence: true
-  validates :restarted_count, numericality: { greater_than_or_equal_to: 0 }
+  validates :label, :user, :started_count, presence: true
+  validates :started_count, numericality: { greater_than_or_equal_to: 0 }
   validates_uniqueness_of :order, scope: :user
 
   before_create :set_order_attribute
+  before_create :set_started_count_attribute
 
   delegate :name, to: :project, prefix: true, allow_nil: true
 
@@ -38,12 +39,13 @@ class Task < ApplicationRecord
   def start!
     validates_not_finished
     validates_not_abandoned
-    update! due_at: DateTime.now
+    update! due_at: DateTime.now,
+            started_count: started_count + 1
   end
 
   def restart!
     update! finished_at: nil,
-            restarted_count: restarted_count + 1,
+            started_count: started_count + 1,
             due_at: DateTime.now
   end
 
@@ -93,6 +95,10 @@ private
 
   def set_order_attribute
     self.order = (user.tasks.maximum(:order) || 0) + 1 unless order.present?
+  end
+
+  def set_started_count_attribute
+    self.started_count = 1 if due_at.present? && started_count == 0
   end
 
 end
