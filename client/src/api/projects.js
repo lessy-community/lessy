@@ -1,12 +1,12 @@
-import { get, post, patch } from './http'
+import { get, post, patch, put } from './http'
 
 export default {
   list () {
-    return get('/api/projects')
+    return get('/api/users/me/projects')
   },
 
   create (name) {
-    return post('/api/projects', { name })
+    return post('/api/users/me/projects', { name })
   },
 
   update (project, payload) {
@@ -14,14 +14,22 @@ export default {
   },
 
   start (project, dueAt) {
-    return post(`/api/projects/${project.id}/start`, { dueAt })
+    return put(`/api/projects/${project.id}/state`, {
+      state: 'started',
+      date: dueAt,
+    })
   },
 
   finish (project, finishedAt) {
-    return post(`/api/projects/${project.id}/finish`, { finishedAt })
+    return put(`/api/projects/${project.id}/state`, {
+      state: 'finished',
+      date: finishedAt,
+    })
   },
 
   stop (project) {
-    return post(`/api/projects/${project.id}/stop`)
+    return put(`/api/projects/${project.id}/state`, {
+      state: 'stopped',
+    })
   },
 }

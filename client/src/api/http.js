@@ -64,8 +64,23 @@ function patch (url, payload) {
                .then(handleErrors)
 }
 
+function put (url, payload) {
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': auth.getToken(),
+    },
+    body: JSON.stringify(payload),
+  }
+  return window.fetch(url, options)
+               .then(parseJson)
+               .then(handleErrors)
+}
+
 export {
   get,
   post,
   patch,
+  put,
 }

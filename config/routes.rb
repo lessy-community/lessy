@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :users, only: [:create] do
       collection do
         get 'me', action: 'show'
+        post 'me/projects', module: :users, controller: 'users/projects', action: :create
+        get 'me/projects', module: :users, controller: 'users/projects', action: :index
       end
     end
 
@@ -12,11 +14,9 @@ Rails.application.routes.draw do
       resources :activations, only: [:create]
     end
 
-    resources :projects, only: [:create, :update, :index] do
+    resources :projects, only: [:update] do
       member do
-        post 'start'
-        post 'stop'
-        post 'finish'
+        put 'state', action: :update_state
       end
     end
 
