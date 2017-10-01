@@ -23,6 +23,7 @@ RUN apk add --no-cache \
       libc-dev \
       linux-headers \
       cmake \
+      gmp-dev \
   && gem install bundler \
   && bundle install --without test development \
   && apk del build-dependencies

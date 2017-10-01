@@ -16,7 +16,8 @@ RUN apk --update add --virtual build-dependencies \
       postgresql-dev \
       libc-dev \
       linux-headers \
-      cmake
+      cmake \
+      gmp-dev
 
 COPY Gemfile Gemfile.lock /app/
 COPY client/package.json /app/client/
