@@ -31,7 +31,12 @@ export default {
     })
   },
 
-  orderAfter (task, afterTaskId) {
-    return put(`/api/tasks/${task.id}/order`, { afterTaskId })
+  updateOrder (task, order) {
+    const payload = {
+      task: {
+        order,
+      },
+    }
+    return put(`/api/tasks/${task.id}/order`, payload)
   },
 }

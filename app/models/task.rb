@@ -49,26 +49,26 @@ class Task < ApplicationRecord
     update! abandoned_at: DateTime.now
   end
 
-  def order_after!(after_task)
-    impacted_tasks = user.tasks.where('"order" > ?', after_task.order)
+  def order_incremental!(new_order)
+    impacted_tasks = user.tasks.where('? <= "order" AND "order" < ?', new_order, self.order)
 
     Task.transaction do
       impacted_tasks.update_all('"order" = "order" + 1')
-      self.update! order: after_task.order + 1
+      self.update! order: new_order
     end
 
-    [*impacted_tasks, self].uniq
+    impacted_tasks + [self]
   end
 
-  def order_first!
-    impacted_tasks = user.tasks
+  def order_decremental!(new_order)
+    impacted_tasks = user.tasks.where('? < "order" AND "order" <= ?', self.order, new_order)
 
     Task.transaction do
-      impacted_tasks.update_all('"order" = "order" + 1')
-      self.update! order: 1
+      impacted_tasks.update_all('"order" = "order" - 1')
+      self.update! order: new_order
     end
 
-    impacted_tasks
+    impacted_tasks + [self]
   end
 
 private

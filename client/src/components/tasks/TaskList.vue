@@ -50,10 +50,8 @@
       changeOrder (event) {
         const { moved: { oldIndex, newIndex } } = event
         const task = this.tasks[oldIndex]
-        const afterTaskIndex = newIndex > oldIndex ? newIndex : newIndex - 1
-        const afterTask = this.tasks[afterTaskIndex]
-        const afterTaskId = afterTask == null ? null : afterTask.id
-        this.$store.dispatch('tasks/orderAfter', { task, afterTaskId })
+        const order = this.tasks[newIndex].order
+        this.$store.dispatch('tasks/updateOrder', { task, order })
       },
     },
   }

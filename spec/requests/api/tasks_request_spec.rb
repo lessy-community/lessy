@@ -197,15 +197,23 @@ RSpec.describe Api::TasksController, type: :request do
   end
 
   describe 'PUT #update_order' do
-    let(:task) { create :task, order: 40, user: user }
-    let!(:other_task) { create :task, order: 41, user: user }
-    let!(:still_another_task) { create :task, order: 42, user: user }
-    let(:payload) { { after_task_id: other_task.id } }
+    let!(:task1) { create :task, order: 40, user: user }
+    let!(:task2) { create :task, order: 41, user: user }
+    let!(:task3) { create :task, order: 42, user: user }
+    let!(:task4) { create :task, order: 43, user: user }
+    let!(:task5) { create :task, order: 44, user: user }
     let(:token) { user.token }
+    let(:task) { task3 }
 
-    subject! { put "/api/tasks/#{ task.id }/order", params: payload, headers: { 'Authorization': token }, as: :json }
+    subject! { put order_api_task_path(task.id), params: payload, headers: { 'Authorization': token }, as: :json }
 
-    context 'with valid attributes' do
+    context 'whith new order lesser than current' do
+      let(:payload) { {
+        task: {
+          order: 40,
+        },
+      } }
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -215,42 +223,57 @@ RSpec.describe Api::TasksController, type: :request do
       end
 
       it 'saves the task' do
-        expect(task.reload.order).to eq(42)
+        expect(task.reload.order).to eq(40)
       end
 
       it 'increments tasks strictly after the given one' do
-        expect(other_task.reload.order).to eq(41)
-        expect(still_another_task.reload.order).to eq(43)
+        expect(task1.reload.order).to eq(41)
+        expect(task2.reload.order).to eq(42)
+        expect(task4.reload.order).to eq(43)
+        expect(task5.reload.order).to eq(44)
       end
     end
 
-    context 'with after_task_id nil' do
-      let(:payload) { { after_task_id: nil } }
+    context 'whith new order greater than current' do
+      let(:payload) { {
+        task: {
+          order: 44,
+        },
+      } }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'sets the order to 1' do
-        expect(task.reload.order).to eq(1)
+      it 'matches the tasks/update_order schema' do
+        expect(response).to match_response_schema('tasks/update_order')
       end
 
-      it 'increments all the other tasks' do
-        expect(other_task.reload.order).to eq(42)
-        expect(still_another_task.reload.order).to eq(43)
+      it 'saves the task' do
+        expect(task.reload.order).to eq(44)
+      end
+
+      it 'increments tasks strictly after the given one' do
+        expect(task1.reload.order).to eq(40)
+        expect(task2.reload.order).to eq(41)
+        expect(task4.reload.order).to eq(42)
+        expect(task5.reload.order).to eq(43)
       end
     end
 
-    context 'when other task has been created by another user' do
-      let(:other_user) { create(:user) }
-      let(:other_task) { create :task, order: 41, user: other_user }
+    context 'with missing attribute' do
+      let(:payload) { { } }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'missing param failures', 'Task', 'base'
     end
 
     context 'when authenticated with another user' do
-      let(:other_user) { create(:user) }
-      let(:token) { other_user.token }
+      let(:token) { create(:user).token }
+      let(:payload) { {
+        task: {
+          order: 40,
+        },
+      } }
 
       it_behaves_like 'not found failures', 'Task'
     end

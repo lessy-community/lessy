@@ -159,8 +159,8 @@ const actions = {
                    .then((data) => commit('set', data))
   },
 
-  orderAfter ({ commit }, { task, afterTaskId }) {
-    return tasksApi.orderAfter(task, afterTaskId)
+  updateOrder ({ commit }, { task, order }) {
+    return tasksApi.updateOrder(task, order)
                    .then((data) => commit('setOrder', data))
   },
 }
