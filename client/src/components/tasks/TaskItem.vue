@@ -60,7 +60,7 @@
         <btn
           v-else
           type="primary"
-          @click="restart"
+          @click="start"
           class="plan-btn"
           v-tooltip.top="$t('tasks.dueOn', { date: task.dueAtLabel })"
         >
@@ -96,7 +96,7 @@
       toggleFinishTask () {
         const { task } = this
         if (task.isFinished) {
-          this.$store.dispatch('tasks/restart', { task })
+          this.$store.dispatch('tasks/start', { task })
         } else {
           this.$store.dispatch('tasks/finish', { task })
         }
@@ -105,11 +105,6 @@
       start () {
         const { task } = this
         this.$store.dispatch('tasks/start', { task })
-      },
-
-      restart () {
-        const { task } = this
-        this.$store.dispatch('tasks/restart', { task })
       },
 
       startEditMode () {

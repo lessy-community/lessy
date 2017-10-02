@@ -1,40 +1,20 @@
 class Api::TasksController < ApplicationController
 
-  def index
-    @tasks = current_user.tasks.not_abandoned
-  end
-
-  def create
-    @task = Task.create!(create_task_params)
-    render status: :created
-  end
-
   def update
     @task = current_task
     @task.update! update_task_params
   end
 
-  def finish
+  def update_state
     @task = current_task
-    @task.finish_now!
+
+    state = params[:state]
+    @task.finish_now! if state == 'finished'
+    @task.start! if state == 'started'
+    @task.abandon! if state == 'abandoned'
   end
 
-  def restart
-    @task = current_task
-    @task.restart!
-  end
-
-  def start
-    @task = current_task
-    @task.start!
-  end
-
-  def abandon
-    @task = current_task
-    @task.abandon!
-  end
-
-  def order_after
+  def update_order
     task = current_task
     @impacted_tasks = if params[:after_task_id].nil?
                         task.order_first!
@@ -48,12 +28,6 @@ private
 
   def current_task
     @current_task ||= current_user.tasks.find(params[:id])
-  end
-
-  def create_task_params
-    parameters = fetch_resource_params(:task, [:label], [:due_at, :project_id])
-    parameters[:due_at] = parameters[:due_at].to_datetime if parameters.has_key?(:due_at)
-    parameters.merge(user: current_user)
   end
 
   def update_task_params

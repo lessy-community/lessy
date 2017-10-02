@@ -3,25 +3,29 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:create] do
       collection do
-        get 'me'
-        post 'authorize'
-        post '/:token/activate', action: 'activate', as: 'activate'
+        get 'me', action: 'show'
+        post 'me/projects', module: :users, controller: 'users/projects', action: :create
+        get 'me/projects', module: :users, controller: 'users/projects', action: :index
+        post 'me/tasks', module: :users, controller: 'users/tasks', action: :create
+        get 'me/tasks', module: :users, controller: 'users/tasks', action: :index
       end
     end
-    resources :projects, only: [:create, :update, :index] do
+
+    namespace :users do
+      resources :authorizations, only: [:create]
+      resources :activations, only: [:create]
+    end
+
+    resources :projects, only: [:update] do
       member do
-        post 'start'
-        post 'stop'
-        post 'finish'
+        put 'state', action: :update_state
       end
     end
-    resources :tasks, only: [:create, :update, :index] do
+
+    resources :tasks, only: [:update] do
       member do
-        post 'finish'
-        post 'restart'
-        post 'start'
-        post 'abandon'
-        post 'order_after'
+        put 'state', action: :update_state
+        put 'order', action: :update_order
       end
     end
 

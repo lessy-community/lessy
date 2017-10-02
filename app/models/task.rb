@@ -37,16 +37,10 @@ class Task < ApplicationRecord
   end
 
   def start!
-    validates_not_finished
     validates_not_abandoned
-    update! due_at: DateTime.now,
-            started_count: started_count + 1
-  end
-
-  def restart!
     update! finished_at: nil,
-            started_count: started_count + 1,
-            due_at: DateTime.now
+            due_at: DateTime.now,
+            started_count: started_count + 1
   end
 
   def abandon!
