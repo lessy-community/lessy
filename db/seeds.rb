@@ -21,8 +21,8 @@ Project.create!([
   { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user },
   { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user },
   { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user },
-  { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user, started_at: 30.days.ago, due_at: 20.days.from_now },
-  { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user, started_at: 10.days.ago, due_at: 42.days.from_now },
+  { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user, state: 'started', started_at: 30.days.ago, due_at: 20.days.from_now },
+  { name: Faker::Company.catch_phrase.gsub(/\s/, '-'), user: user, state: 'started', started_at: 10.days.ago, due_at: 42.days.from_now },
 ])
 
 puts 'Creating Tasks records...'

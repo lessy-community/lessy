@@ -18,9 +18,9 @@ const getters = {
       const params = {
         projectName: project.name,
       }
-      const isStarted = !!project.startedAt
       const isStopped = !!project.stoppedAt
       const isFinished = !!project.finishedAt
+      const isStarted = !!project.startedAt && !isStopped
       return {
         ...project,
         isStarted,

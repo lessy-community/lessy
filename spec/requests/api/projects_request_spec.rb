@@ -6,9 +6,9 @@ RSpec.describe Api::ProjectsController, type: :request do
   let(:user) { create :user, :activated }
 
   describe 'PATCH #update' do
-    let(:project) { create :project, :in_progress, user: user,
-                                                   name: 'my-project',
-                                                   description: 'Old description' }
+    let(:project) { create :project, :started, user: user,
+                                               name: 'my-project',
+                                               description: 'Old description' }
     let(:payload) { {
       name: 'new-name-for-a-project',
       description: 'New description',
@@ -53,11 +53,11 @@ RSpec.describe Api::ProjectsController, type: :request do
       it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
     end
 
-    context 'with not started project' do
-      let(:not_started_project) { create :project, :not_started, user: user }
+    context 'with newed project' do
+      let(:project) { create :project, :newed, user: user }
 
       before do
-        patch "/api/projects/#{not_started_project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
+        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
       it 'succeeds' do
@@ -65,7 +65,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'does not change due_at' do
-        expect(not_started_project.reload.due_at).to be_nil
+        expect(project.reload.due_at).to be_nil
       end
     end
 
@@ -119,10 +119,12 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'when starting a project' do
-      let(:project) { create :project, :not_started, user: user }
+      let(:project) { create :project, :newed, user: user }
       let(:payload) { {
-        state: 'started',
-        date: DateTime.new(2017, 01, 27).to_i,
+        project: {
+          state: 'started',
+          due_at: DateTime.new(2017, 01, 27).to_i,
+        },
       } }
 
       context 'with valid attributes' do
@@ -147,9 +149,10 @@ RSpec.describe Api::ProjectsController, type: :request do
         end
       end
 
-      context 'with a stopped project' do
+      context 'with a paused project' do
+        let(:project) { create :project, :paused, user: user }
+
         before do
-          project.stop_now!
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
@@ -157,44 +160,47 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'sets stopped_at to nil' do
-          expect(project.reload.stopped_at).to be_nil
+        it 'sets paused_at to nil' do
+          expect(project.reload.paused_at).to be_nil
         end
       end
 
       context 'with already started project' do
+        let(:project) { create :project, :started, user: user }
+
         before do
-          project.start_now! 15.days.from_now
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { base: ['already_started'] }
+        it_behaves_like 'invalid transition failures', 'Project', from: 'started', to: 'started'
       end
 
-      context 'with already 3 in_progress projects' do
+      context 'with already 3 started projects' do
         before do
-          create_list :project, 3, :in_progress, user: user
+          create_list :project, 3, :started, user: user
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { base: ['reached_max_started'] }
+        it_behaves_like 'forbidden transition failures', 'Project', 'reached_max_started', from: 'newed', to: 'started'
       end
 
-      context 'with invalid date' do
+      context 'with invalid due_at' do
         before do
-          payload[:date] = DateTime.new(2016, 12, 31).to_i
+          payload[:project][:due_at] = DateTime.new(2016, 12, 31).to_i
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { dueAt: ['before_started_at'] }
+        it_behaves_like 'validation failed failures', 'Project', { dueAt: ['cannot_be_before_started_at'] }
       end
     end
 
     context 'when finishing a project' do
-      let(:project) { create :project, :in_progress, user: user, started_at: DateTime.new(2017, 1, 1) }
+      let(:project) { create :project, :started, user: user, started_at: DateTime.new(2017, 1, 1) }
       let(:payload) { {
-        state: 'finished',
-        date: DateTime.new(2017, 01, 19).to_i,
+        project: {
+          state: 'finished',
+          finished_at: DateTime.new(2017, 01, 19).to_i,
+        },
       } }
 
       context 'with valid attributes' do
@@ -216,37 +222,39 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       context 'with already finished project' do
+        let(:project) { create :project, :finished, user: user }
         before do
-          project.finish_at! DateTime.new(2017, 01, 15)
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { base: ['already_finished'] }
+        it_behaves_like 'invalid transition failures', 'Project', from: 'finished', to: 'finished'
       end
 
       context 'with a finish date in the future' do
         before do
-          payload[:date] = 15.days.from_now.to_i
+          payload[:project][:finished_at] = 15.days.from_now.to_i
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['outside_started_at_and_today'] }
+        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_after_today'] }
       end
 
       context 'with a finish date before started_at' do
         before do
-          payload[:date] = DateTime.new(2016, 12, 15).to_i
+          payload[:project][:finished_at] = DateTime.new(2016, 12, 15).to_i
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['outside_started_at_and_today'] }
+        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_before_started_at'] }
       end
     end
 
     context 'when stopping a project' do
-      let(:project) { create :project, :in_progress, user: user, started_at: DateTime.new(2017, 1, 1) }
+      let(:project) { create :project, :started, user: user, started_at: DateTime.new(2017, 1, 1) }
       let(:payload) { {
-        state: 'stopped',
+        project: {
+          state: 'paused',
+        },
       } }
 
       context 'with valid project' do
@@ -262,35 +270,19 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(response).to match_response_schema('projects/project')
         end
 
-        it 'saves stopped_at' do
-          expect(project.reload.stopped_at).to eq(DateTime.new(2017, 1, 20))
+        it 'saves paused_at' do
+          expect(project.reload.paused_at).to eq(DateTime.new(2017, 1, 20))
         end
-      end
-
-      context 'with already stopped project' do
-        before do
-          project.stop_now!
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
-
-        it_behaves_like 'validation failed failures', 'Project', { base: ['already_stopped'] }
-      end
-
-      context 'with already finished project' do
-        before do
-          project.finish_at! DateTime.new(2017, 01, 15)
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
-
-        it_behaves_like 'validation failed failures', 'Project', { base: ['already_finished'] }
       end
     end
 
     context 'when authenticated with another user' do
-      let(:project) { create :project, :not_started, user: user }
+      let(:project) { create :project, :newed, user: user }
       let(:payload) { {
-        state: 'started',
-        date: DateTime.new(2017, 01, 27).to_i,
+        project: {
+          state: 'started',
+          finished_at: DateTime.new(2017, 01, 27).to_i,
+        },
       } }
       let(:other_user) { create :user }
 

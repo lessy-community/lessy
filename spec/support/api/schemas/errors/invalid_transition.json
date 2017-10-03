@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": ["message", "code", "resource", "transition"],
+  "properties": {
+    "message": { "type": "string" },
+    "code": { "type": "string" },
+    "resource": { "type": "string" },
+    "transition": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

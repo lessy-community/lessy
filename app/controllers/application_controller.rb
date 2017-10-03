@@ -6,6 +6,8 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
+  rescue_from Project::InvalidTransition, with: :render_project_invalid_transition
+  rescue_from Project::ForbiddenTransition, with: :render_project_forbidden_transition
 
   def client
     render file: 'public/index.html'
@@ -65,6 +67,25 @@ protected
       @field = 'base'
     end
     render 'api/errors/parameter_missing', status: :unprocessable_entity
+  end
+
+  def render_project_forbidden_transition(exception)
+    @resource = 'Project'
+    @code = exception.code
+    @transition = {
+      from: exception.from,
+      to: exception.to,
+    }
+    render 'api/errors/forbidden_transition', status: :unprocessable_entity
+  end
+
+  def render_project_invalid_transition(exception)
+    @resource = 'Project'
+    @transition = {
+      from: exception.from,
+      to: exception.to,
+    }
+    render 'api/errors/invalid_transition', status: :unprocessable_entity
   end
 
 end

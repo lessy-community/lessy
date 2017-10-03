@@ -15,21 +15,27 @@ export default {
 
   start (project, dueAt) {
     return put(`/api/projects/${project.id}/state`, {
-      state: 'started',
-      date: dueAt,
+      project: {
+        state: 'started',
+        due_at: dueAt,
+      },
     })
   },
 
   finish (project, finishedAt) {
     return put(`/api/projects/${project.id}/state`, {
-      state: 'finished',
-      date: finishedAt,
+      project: {
+        state: 'finished',
+        finished_at: finishedAt,
+      },
     })
   },
 
   stop (project) {
     return put(`/api/projects/${project.id}/state`, {
-      state: 'stopped',
+      project: {
+        state: 'paused',
+      },
     })
   },
 }
