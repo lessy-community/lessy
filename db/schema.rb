@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006180251) do
+ActiveRecord::Schema.define(version: 20171006212950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,15 +33,17 @@ ActiveRecord::Schema.define(version: 20171006180251) do
 
   create_table "tasks", id: :serial, force: :cascade do |t|
     t.string "label", null: false
-    t.datetime "due_at"
+    t.datetime "planned_at"
     t.datetime "finished_at"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "abandoned_at"
-    t.integer "started_count", default: 0, null: false
+    t.integer "planned_count", default: 0, null: false
     t.integer "order"
     t.integer "project_id"
+    t.string "state", default: "newed", null: false
+    t.datetime "started_at"
     t.index ["order"], name: "index_tasks_on_order"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"

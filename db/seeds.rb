@@ -28,17 +28,17 @@ Project.create!([
 puts 'Creating Tasks records...'
 order_sequence = (1..11).to_a.shuffle
 Task.create!([
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 1.week.ago },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 2.weeks.ago },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, due_at: 1.day.ago },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, due_at: 2.days.ago },
-  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, created_at: 1.week.ago, due_at: 1.day.ago, started_count: 3 },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: DateTime.now },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: 1.week.ago },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'started', started_at: 2.weeks.ago },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'planned', started_at: DateTime.now, planned_at: 1.day.ago },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'planned', started_at: DateTime.now, planned_at: 2.days.ago },
+  { label: Faker::TwinPeaks.quote, user: user, order: order_sequence.pop, state: 'planned', started_at: 1.week.ago, planned_at: 1.day.ago, planned_count: 3 },
 ])
 
 puts 'Seeds are now ready! You can login with: dalecooper / secret'

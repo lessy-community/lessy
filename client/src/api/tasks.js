@@ -5,8 +5,8 @@ export default {
     return get('/api/users/me/tasks')
   },
 
-  create (label, dueAt, projectId) {
-    return post('/api/users/me/tasks', { label, dueAt, projectId })
+  create (label, plannedAt, projectId) {
+    return post('/api/users/me/tasks', { label, plannedAt, projectId })
   },
 
   update (task, label) {
@@ -21,7 +21,7 @@ export default {
 
   start (task) {
     return put(`/api/tasks/${task.id}/state`, {
-      state: 'started',
+      state: 'planned',
     })
   },
 

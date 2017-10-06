@@ -1,16 +1,16 @@
 {
   "type": "object",
-  "required": ["id", "label", "projectId", "projectName", "order", "startedCount", "userId", "createdAt"],
+  "required": ["id", "label", "projectId", "projectName", "order", "plannedCount", "userId", "createdAt"],
   "properties": {
     "id": { "type": "integer" },
     "label": { "type": "string" },
     "projectId": { "type": ["null", "integer"] },
     "projectName": { "type": ["null", "string"] },
     "order": { "type": "integer" },
-    "startedCount": { "type": "integer" },
+    "plannedCount": { "type": "integer" },
     "userId": { "type": "integer" },
     "createdAt": { "type": "integer" },
-    "dueAt": { "type": "integer" },
+    "plannedAt": { "type": "integer" },
     "finishedAt": { "type": "integer" },
     "abandonedAt": { "type": "integer" }
   },

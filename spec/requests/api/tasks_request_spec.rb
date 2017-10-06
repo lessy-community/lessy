@@ -50,9 +50,11 @@ RSpec.describe Api::TasksController, type: :request do
     end
 
     context 'when finishing a task' do
-      let(:task) { create :task, :not_finished, user: user }
+      let(:task) { create :task, :planned, user: user }
       let(:payload) { {
-        state: 'finished'
+        task: {
+          state: 'finished',
+        },
       } }
 
       context 'with valid attributes' do
@@ -77,20 +79,22 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with already finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'finished'
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'finished'
       end
     end
 
-    context 'when starting a finished task' do
-      let(:task) { create :task, :finished, started_count: 1, user: user }
+    context 'when replaning a finished task' do
+      let(:task) { create :task, :finished, planned_count: 1, user: user }
       let(:payload) { {
-        state: 'started'
+        task: {
+          state: 'planned',
+        },
       } }
 
       it 'succeeds' do
@@ -105,19 +109,21 @@ RSpec.describe Api::TasksController, type: :request do
         expect(task.reload.finished_at).to be(nil)
       end
 
-      it 'sets due_at to today' do
-        expect(task.reload.due_at).to eq(DateTime.new(2017))
+      it 'sets planned_at to today' do
+        expect(task.reload.planned_at).to eq(DateTime.new(2017))
       end
 
-      it 'increments started_count' do
-        expect(task.reload.started_count).to eq(2)
+      it 'increments planned_count' do
+        expect(task.reload.planned_count).to eq(2)
       end
     end
 
-    context 'when starting a backlogged task' do
-      let(:task) { create :task, :backlogged, started_count: 0, user: user }
+    context 'when planning a started task' do
+      let(:task) { create :task, :started, planned_count: 0, user: user }
       let(:payload) { {
-        state: 'started'
+        task: {
+          state: 'planned',
+        },
       } }
 
       it 'succeeds' do
@@ -128,28 +134,32 @@ RSpec.describe Api::TasksController, type: :request do
         expect(response).to match_response_schema('tasks/task')
       end
 
-      it 'sets due_at to today' do
-        expect(task.reload.due_at).to eq(DateTime.new(2017))
+      it 'sets planned_at to today' do
+        expect(task.reload.planned_at).to eq(DateTime.new(2017))
       end
 
-      it 'increments started_count' do
-        expect(task.reload.started_count).to eq(1)
+      it 'increments planned_count' do
+        expect(task.reload.planned_count).to eq(1)
       end
     end
 
     context 'when starting an abandoned task' do
       let(:task) { create :task, :abandoned, user: user }
       let(:payload) { {
-        state: 'started'
+        task: {
+          state: 'started',
+        },
       } }
 
-      it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+      it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'started'
     end
 
     context 'when abandoning a task' do
-      let(:task) { create :task, :not_finished, user: user }
+      let(:task) { create :task, :planned, user: user }
       let(:payload) { {
-        state: 'abandoned'
+        task: {
+          state: 'abandoned',
+        },
       } }
 
       context 'with valid attributes' do
@@ -174,20 +184,22 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'validation failed failures', 'Task', { base: ['already_finished'] }
+        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'abandoned'
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'validation failed failures', 'Task', { base: ['already_abandoned'] }
+        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'abandoned'
       end
     end
 
     context 'when authenticated with another user' do
-      let(:task) { create :task, :not_finished, user: user }
+      let(:task) { create :task, :planned, user: user }
       let(:payload) { {
-        state: 'finished'
+        task: {
+          state: 'finished',
+        },
       } }
       let(:other_user) { create :user }
       let(:token) { other_user.token }

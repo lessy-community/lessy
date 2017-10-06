@@ -7,11 +7,7 @@ class Api::TasksController < ApplicationController
 
   def update_state
     @task = current_task
-
-    state = params[:state]
-    @task.finish_now! if state == 'finished'
-    @task.start! if state == 'started'
-    @task.abandon! if state == 'abandoned'
+    @task.update_with_transition! update_task_state_params
   end
 
   def update_order
@@ -34,6 +30,10 @@ private
 
   def update_task_order_params
     fetch_resource_params(:task, [:order])
+  end
+
+  def update_task_state_params
+    fetch_resource_params(:task, [:state])
   end
 
 end

@@ -16,12 +16,12 @@ const getters = {
       const task = state.byIds[id]
 
       const today = moment()
-      const dueAtDate = moment.unix(task.dueAt)
+      const plannedAtDate = moment.unix(task.plannedAt)
 
       const isFinished = !!task.finishedAt
       const isAbandoned = !!task.abandonedAt
 
-      const isForToday = !isAbandoned && dueAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
+      const isForToday = !isAbandoned && plannedAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
       const isBacklogged = !isFinished && !isAbandoned && !isForToday
       const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
 
@@ -41,8 +41,8 @@ const getters = {
         isFinished,
         isAbandoned,
         createdSinceWeeks,
-        restartedCount: task.startedCount - 1,
-        dueAtLabel: formatDate(task.dueAt),
+        restartedCount: task.plannedCount - 1,
+        plannedAtLabel: formatDate(task.plannedAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
         urlProjectShow: task.projectName && { name: 'project/show', params: { projectName: task.projectName } },
       }
@@ -113,18 +113,18 @@ const actions = {
                    .then((data) => commit('addList', data))
   },
 
-  create ({ commit }, { label, dueAt }) {
+  create ({ commit }, { label, plannedAt }) {
     return tasksApi
-      .create(label, dueAt)
+      .create(label, plannedAt)
       .then((data) => {
         commit('addList', [data])
         return data.id
       })
   },
 
-  createForProject ({ commit }, { label, dueAt, projectId }) {
+  createForProject ({ commit }, { label, plannedAt, projectId }) {
     return tasksApi
-      .create(label, dueAt, projectId)
+      .create(label, plannedAt, projectId)
       .then((data) => {
         commit('addList', [data])
         commit('projects/addTaskToProject',

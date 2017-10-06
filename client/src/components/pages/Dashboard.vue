@@ -45,7 +45,7 @@
     </template>
     <create-task-form
       v-else
-      :dueAt="dueAt"
+      :plannedAt="plannedAt"
       :onCancel="disableCreateTask"
       autoFocus
     ></create-task-form>
@@ -73,7 +73,7 @@
     data () {
       return {
         createTaskEnabled: false,
-        dueAt: moment().endOf('day'),
+        plannedAt: moment().endOf('day'),
         today: moment().unix(),
       }
     },

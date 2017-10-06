@@ -7,7 +7,9 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
   rescue_from Project::InvalidTransition, with: :render_project_invalid_transition
+  rescue_from Task::InvalidTransition, with: :render_task_invalid_transition
   rescue_from Project::ForbiddenTransition, with: :render_project_forbidden_transition
+  rescue_from Task::ForbiddenTransition, with: :render_task_forbidden_transition
 
   def client
     render file: 'public/index.html'
@@ -81,6 +83,25 @@ protected
 
   def render_project_invalid_transition(exception)
     @resource = 'Project'
+    @transition = {
+      from: exception.from,
+      to: exception.to,
+    }
+    render 'api/errors/invalid_transition', status: :unprocessable_entity
+  end
+
+  def render_task_forbidden_transition(exception)
+    @resource = 'Task'
+    @code = exception.code
+    @transition = {
+      from: exception.from,
+      to: exception.to,
+    }
+    render 'api/errors/forbidden_transition', status: :unprocessable_entity
+  end
+
+  def render_task_invalid_transition(exception)
+    @resource = 'Task'
     @transition = {
       from: exception.from,
       to: exception.to,

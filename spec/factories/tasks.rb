@@ -1,33 +1,43 @@
 FactoryGirl.define do
-  factory :task do
+  factory :task, traits: [:newed] do
     label "My task"
     user
     sequence :order
 
-    trait :finished do
-      finished_at { 15.days.ago }
-    end
-
-    trait :not_finished do
+    trait :newed do
+      state 'newed'
+      started_at nil
+      planned_at nil
       finished_at nil
-    end
-
-    trait :abandoned do
-      abandoned_at { 15.days.ago }
-    end
-
-    trait :not_abandoned do
       abandoned_at nil
     end
 
-    trait :pending do
-      due_at { 1.day.ago }
+    trait :started do
+      state 'started'
+      started_at { 15.days.ago }
+      planned_at nil
       finished_at nil
+      abandoned_at nil
     end
 
-    trait :backlogged do
-      due_at nil
+    trait :planned do
+      state 'planned'
+      planned_at { 15.days.from_now }
       finished_at nil
+      abandoned_at nil
+    end
+
+    trait :finished do
+      state 'finished'
+      planned_at { 15.days.ago }
+      finished_at { 5.days.ago }
+      abandoned_at nil
+    end
+
+    trait :abandoned do
+      state 'abandoned'
+      finished_at nil
+      abandoned_at { 5.days.ago }
     end
   end
 end

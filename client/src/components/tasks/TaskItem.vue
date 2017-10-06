@@ -50,7 +50,7 @@
 
       <template v-if="task.isBacklogged">
         <btn
-          v-if="task.isBacklogged && !task.dueAt"
+          v-if="task.isBacklogged && !task.plannedAt"
           type="primary"
           @click="start"
           class="plan-btn"
@@ -62,7 +62,7 @@
           type="primary"
           @click="start"
           class="plan-btn"
-          v-tooltip.top="$t('tasks.dueOn', { date: task.dueAtLabel })"
+          v-tooltip.top="$t('tasks.dueOn', { date: task.plannedAtLabel })"
         >
           {{ $t('tasks.replan') }}
         </btn>
