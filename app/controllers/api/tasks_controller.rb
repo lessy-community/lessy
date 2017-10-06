@@ -7,21 +7,15 @@ class Api::TasksController < ApplicationController
 
   def update_state
     @task = current_task
-
-    state = params[:state]
-    @task.finish_now! if state == 'finished'
-    @task.start! if state == 'started'
-    @task.abandon! if state == 'abandoned'
+    @task.update_with_transition! update_task_state_params
   end
 
   def update_order
     task = current_task
-    @impacted_tasks = if params[:after_task_id].nil?
-                        task.order_first!
-                      else
-                        other_task = current_user.tasks.find(params[:after_task_id])
-                        task.order_after! other_task
-                      end
+    order = update_task_order_params[:order]
+    @impacted_tasks = []
+    @impacted_tasks = task.order_incremental!(order) if order < task.order
+    @impacted_tasks = task.order_decremental!(order) if order > task.order
   end
 
 private
@@ -32,6 +26,14 @@ private
 
   def update_task_params
     fetch_resource_params(:task, [], [:label])
+  end
+
+  def update_task_order_params
+    fetch_resource_params(:task, [:order])
+  end
+
+  def update_task_state_params
+    fetch_resource_params(:task, [:state])
   end
 
 end

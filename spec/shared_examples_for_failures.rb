@@ -22,6 +22,24 @@ RSpec.shared_examples "missing param failures" do |resource, field|
   }
 end
 
+RSpec.shared_examples "invalid transition failures" do |resource, transition|
+  it_behaves_like "failures", :unprocessable_entity, 'invalid_transition', {
+    message: "#{ resource } transition is invalid",
+    code: 'invalid_transition',
+    resource: resource,
+    transition: transition,
+  }
+end
+
+RSpec.shared_examples "forbidden transition failures" do |resource, code, transition|
+  it_behaves_like "failures", :unprocessable_entity, 'forbidden_transition', {
+    message: "#{ resource } transition is forbidden",
+    code: code,
+    resource: resource,
+    transition: transition,
+  }
+end
+
 RSpec.shared_examples "validation failed failures" do |resource, errors|
   it_behaves_like "failures", :unprocessable_entity, 'record_invalid', {
     message: "#{ resource } validation failed",

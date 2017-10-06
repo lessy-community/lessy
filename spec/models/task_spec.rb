@@ -3,8 +3,16 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   let(:user) { create :user }
 
+  before do
+    Timecop.freeze DateTime.new(2017, 1, 20)
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'create!' do
-    subject { Task.create! label: 'a task', started_count: 0, due_at: DateTime.new(2017), user: user }
+    subject { Task.create! label: 'a task', state: 'planned', planned_count: 0, planned_at: DateTime.new(2017), user: user }
 
     it 'sets order to 1 by default' do
       Task.destroy_all
@@ -16,8 +24,8 @@ RSpec.describe Task, type: :model do
       expect(subject.order).to eq 42
     end
 
-    it 'sets started_count to 1 if due_at is set' do
-      expect(subject.started_count).to eq 1
+    it 'sets planned_count to 1 if planned_at is set' do
+      expect(subject.planned_count).to eq 1
     end
   end
 
@@ -39,45 +47,433 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe '#order_after!' do
-    let(:task) { create :task, order: 40, user: user }
-    let!(:other_task) { create :task, order: 41, user: user }
-    let!(:still_another_task) { create :task, order: 42, user: user }
+  describe '#state' do
+    context 'when it is newed' do
+      let(:task) { build :task, :newed }
 
-    subject! { task.order_after! other_task }
+      it 'does not accept started_at' do
+        task.started_at = DateTime.new(2017, 1, 1)
+        expect(task).to be_invalid
+      end
 
-    it 'sets order with other task order plus 1' do
-      expect(task.reload.order).to eq(42)
+      it 'does not accept planned_at' do
+        task.planned_at = DateTime.new(2017, 1, 30)
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        task.finished_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept abandoned_at' do
+        task.abandoned_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
     end
 
-    it 'increments tasks strictly after the given one' do
-      expect(other_task.reload.order).to eq(41)
-      expect(still_another_task.reload.order).to eq(43)
+    context 'when it is started' do
+      let(:task) { build :task, :started }
+
+      it 'requires started_at' do
+        task.started_at = nil
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept planned_at' do
+        task.planned_at = DateTime.new(2017, 1, 30)
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        task.finished_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept abandoned_at' do
+        task.abandoned_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
     end
 
-    it 'returns the list of impacted tasks' do
-      expect(subject).to contain_exactly(task, still_another_task)
+    context 'when it is planned' do
+      let(:task) { build :task, :planned }
+
+      it 'requires planned_at' do
+        task.planned_at = nil
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        task.finished_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept abandoned_at' do
+        task.abandoned_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+    end
+
+    context 'when it is finished' do
+      let(:task) { build :task, :finished }
+
+      it 'requires planned_at' do
+        task.planned_at = nil
+        expect(task).to be_invalid
+      end
+
+      it 'requires finished_at' do
+        task.finished_at = nil
+        expect(task).to be_invalid
+      end
+
+      it 'does not accept abandoned_at' do
+        task.abandoned_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+    end
+
+    context 'when it is abandoned' do
+      let(:task) { build :task, :abandoned }
+
+      it 'does not accept finished_at' do
+        task.finished_at = DateTime.new(2017, 1, 15)
+        expect(task).to be_invalid
+      end
+
+      it 'requires abandoned_at' do
+        task.abandoned_at = nil
+        expect(task).to be_invalid
+      end
     end
   end
 
-  describe '#order_first!' do
-    let!(:other_task) { create :task, order: 41, user: user }
-    let!(:still_another_task) { create :task, order: 42, user: user }
-    let(:task) { create :task, order: 43, user: user }
+  describe '#update_with_transition!' do
+    subject { task.update_with_transition! params }
 
-    subject! { task.order_first! }
+    context 'when executing without state param' do
+      let(:task) { create :task, :newed }
+      let(:params) { { } }
 
-    it 'sets order to 1' do
-      expect(task.reload.order).to eq(1)
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidState, /State must be precised/)
+      end
     end
 
-    it 'increments all the other tasks' do
-      expect(other_task.reload.order).to eq(42)
-      expect(still_another_task.reload.order).to eq(43)
+    context 'when executing with a unknown state param' do
+      let(:task) { create :task, :newed }
+      let(:params) { {
+        state: 'not_a_state',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidState, /'not_a_state' is not a valid state/)
+      end
     end
 
-    it 'returns the list of impacted tasks' do
-      expect(subject).to contain_exactly(task, other_task, still_another_task)
+    context 'when starting a newed task' do
+      let(:task) { create :task, :newed }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'sets task state to started' do
+        expect(subject.reload.state).to eq('started')
+      end
+
+      it 'sets started_at attribute to today' do
+        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when trying to start a planned task' do
+      let(:task) { create :task, :planned }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'planned' to 'started'/)
+      end
+    end
+
+    context 'when trying to start a finished task' do
+      let(:task) { create :task, :finished }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'finished' to 'started'/)
+      end
+    end
+
+    context 'when trying to start a abandoned task' do
+      let(:task) { create :task, :abandoned }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'abandoned' to 'started'/)
+      end
+    end
+
+    context 'when planning a started task' do
+      let(:task) { create :task, :started, planned_count: 0 }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'sets task state to planned' do
+        expect(subject.reload.state).to eq('planned')
+      end
+
+      it 'sets planned_at attribute to today' do
+        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+
+      it 'increments planned_count by 1' do
+        expect(subject.reload.planned_count).to eq(1)
+      end
+    end
+
+    context 'when planning a finished task' do
+      let(:task) { create :task, :finished, planned_count: 1 }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'sets task state to planned' do
+        expect(subject.reload.state).to eq('planned')
+      end
+
+      it 'sets finished_at attribute to nil' do
+        expect(subject.reload.finished_at).to be_nil
+      end
+
+      it 'sets planned_at attribute to today' do
+        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+
+      it 'increments planned_count by 1' do
+        expect(subject.reload.planned_count).to eq(2)
+      end
+    end
+
+    context 'when replanning a planned task' do
+      let(:task) { create :task, :planned, planned_at: 3.days.ago, planned_count: 1 }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'keeps task state to planned' do
+        expect(subject.reload.state).to eq('planned')
+      end
+
+      it 'sets planned_at attribute to today' do
+        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+
+      it 'increments planned_count by 1' do
+        expect(subject.reload.planned_count).to eq(2)
+      end
+    end
+
+    context 'when trying to plan a newed task' do
+      let(:task) { create :task, :newed }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'newed' to 'planned'/)
+      end
+    end
+
+    context 'when trying to plan a abandoned task' do
+      let(:task) { create :task, :abandoned }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'abandoned' to 'planned'/)
+      end
+    end
+
+    context 'when finishing a planned task' do
+      let(:task) { create :task, :planned }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'sets task state to finished' do
+        expect(subject.reload.state).to eq('finished')
+      end
+
+      it 'sets finished_at attribute to today' do
+        expect(subject.reload.finished_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when trying to finish a newed task' do
+      let(:task) { create :task, :newed }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'newed' to 'finished'/)
+      end
+    end
+
+    context 'when trying to finish a started task' do
+      let(:task) { create :task, :started }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'started' to 'finished'/)
+      end
+    end
+
+    context 'when trying to finish a abandoned task' do
+      let(:task) { create :task, :abandoned }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'abandoned' to 'finished'/)
+      end
+    end
+
+    context 'when abandoning a newed task' do
+      let(:task) { create :task, :newed }
+      let(:params) { {
+        state: 'abandoned',
+      } }
+
+      it 'sets task state to abandoned' do
+        expect(subject.reload.state).to eq('abandoned')
+      end
+
+      it 'sets abandoned_at attribute to today' do
+        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when abandoning a started task' do
+      let(:task) { create :task, :started }
+      let(:params) { {
+        state: 'abandoned',
+      } }
+
+      it 'sets task state to abandoned' do
+        expect(subject.reload.state).to eq('abandoned')
+      end
+
+      it 'sets abandoned_at attribute to today' do
+        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when abandoning a planned task' do
+      let(:task) { create :task, :planned }
+      let(:params) { {
+        state: 'abandoned',
+      } }
+
+      it 'sets task state to abandoned' do
+        expect(subject.reload.state).to eq('abandoned')
+      end
+
+      it 'sets abandoned_at attribute to today' do
+        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when trying to abandon a finished task' do
+      let(:task) { create :task, :finished }
+      let(:params) { {
+        state: 'abandoned',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'finished' to 'abandoned'/)
+      end
+    end
+
+    context 'when canceling a started task' do
+      let(:task) { create :task, :started }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'sets task state to newed' do
+        expect(subject.reload.state).to eq('newed')
+      end
+
+      it 'sets started_at attribute to nil' do
+        expect(subject.reload.started_at).to be_nil
+      end
+    end
+
+    context 'when canceling a planned task' do
+      let(:task) { create :task, :planned }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'sets task state to newed' do
+        expect(subject.reload.state).to eq('newed')
+      end
+
+      it 'sets started_at attribute to nil' do
+        expect(subject.reload.started_at).to be_nil
+      end
+
+      it 'sets planned_at attribute to nil' do
+        expect(subject.reload.planned_at).to be_nil
+      end
+    end
+
+    context 'when trying to cancel a finished task' do
+      let(:task) { create :task, :finished }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'finished' to 'newed'/)
+      end
+    end
+
+    context 'when trying to cancel a abandoned task' do
+      let(:task) { create :task, :abandoned }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'abandoned' to 'newed'/)
+      end
     end
   end
 end

@@ -7,11 +7,7 @@ class Api::ProjectsController < ApplicationController
 
   def update_state
     @project = current_project
-
-    state = params[:state]
-    @project.start_now! params[:date].to_datetime if state == 'started'
-    @project.finish_at! params[:date].to_datetime if state == 'finished'
-    @project.stop_now! if state == 'stopped'
+    @project.update_with_transition! update_project_state_params
   end
 
 private
@@ -26,6 +22,20 @@ private
     update_params = params.require(:project).permit(*permitted_params)
     update_params[:due_at] = update_params[:due_at].to_datetime if update_params.has_key? :due_at
     update_params
+  end
+
+  def update_project_state_params
+    state = params[:project][:state]
+    parameters = if state == 'started'
+                   fetch_resource_params(:project, [:state, :due_at])
+                 elsif state == 'finished'
+                   fetch_resource_params(:project, [:state, :finished_at])
+                 else
+                   fetch_resource_params(:project, [:state])
+                 end
+    parameters[:due_at] = parameters[:due_at].to_datetime if parameters.has_key? :due_at
+    parameters[:finished_at] = parameters[:finished_at].to_datetime if parameters.has_key? :finished_at
+    parameters
   end
 
 end

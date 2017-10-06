@@ -14,7 +14,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
   end
 
   describe 'GET #index' do
-    let!(:tasks) { create_list :task, 3, :not_abandoned, user: user }
+    let!(:tasks) { create_list :task, 3, :started, user: user }
     let!(:abandoned_task) { create :task, :abandoned, user: user }
     let(:json_response) { JSON.parse(response.body) }
 
@@ -35,7 +35,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
   end
 
   describe 'POST #create' do
-    let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i } }
+    let(:payload) { { label: 'My task', planned_at: DateTime.new(2017).to_i } }
     let(:token) { user.token }
 
     subject! { post me_tasks_api_users_path, params: { task: payload }, headers: { 'Authorization': token }, as: :json }
@@ -57,13 +57,13 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['plannedAt']).to eq(DateTime.new(2017).to_i)
       end
     end
 
     context 'with project_id' do
       let(:project) { create :project }
-      let(:payload) { { label: 'My task', due_at: DateTime.new(2017).to_i, project_id: project.id } }
+      let(:payload) { { label: 'My task', planned_at: DateTime.new(2017).to_i, project_id: project.id } }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
@@ -73,7 +73,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['plannedAt']).to eq(DateTime.new(2017).to_i)
         expect(task['projectId']).to eq(project.id)
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)
         expect(task['id']).not_to be_nil
         expect(task['label']).to eq('My task')
-        expect(task['dueAt']).to eq(0)
+        expect(task['plannedAt']).to eq(0)
       end
     end
 

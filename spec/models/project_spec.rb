@@ -5,42 +5,137 @@ RSpec.describe Project, type: :model do
   let(:user) { create :user }
 
   before do
-    Timecop.freeze DateTime.new(2017)
+    Timecop.freeze DateTime.new(2017, 1, 20)
   end
 
   after do
     Timecop.return
   end
 
-  describe 'validation' do
-    it 'does not accept due_at before started_at' do
-      project = build :project, due_at: DateTime.new(2016),
-                                started_at: DateTime.new(2017)
-      expect(project).to be_invalid
+  describe '#state' do
+    context 'when it is newed' do
+      let(:project) { build :project, :newed }
+
+      it 'does not accept started_at' do
+        project.started_at = DateTime.new(2017, 1, 1)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept paused_at' do
+        project.paused_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept due_at' do
+        project.due_at = DateTime.new(2017, 2, 20)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        project.finished_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
     end
 
-    it 'does not accept finished_at without started_at' do
-      project = build :project, finished_at: DateTime.new(2016)
-      expect(project).to be_invalid
+    context 'when it is started' do
+      let(:project) { build :project, :started }
+
+      it 'requires started_at' do
+        project.started_at = nil
+        expect(project).to be_invalid
+      end
+
+      it 'requires due_at' do
+        project.due_at = nil
+        expect(project).to be_invalid
+      end
+
+      it 'requires due_at greater than started_at' do
+        project.due_at = DateTime.new(2017, 1, 1)
+        project.started_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept paused_at' do
+        project.paused_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        project.finished_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
     end
 
-    it 'does not accept finished_at before started_at' do
-      project = build :project, finished_at: DateTime.new(2016),
-                                started_at: DateTime.new(2017)
-      expect(project).to be_invalid
+    context 'when it is paused' do
+      let(:project) { build :project, :paused }
+
+      it 'requires started_at' do
+        project.started_at = nil
+        expect(project).to be_invalid
+      end
+
+      it 'requires paused_at' do
+        project.paused_at = nil
+        expect(project).to be_invalid
+      end
+
+      it 'requires paused_at greater than started_at' do
+        project.paused_at = DateTime.new(2017, 1, 1)
+        project.started_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'requires due_at greater than started_at' do
+        project.due_at = DateTime.new(2017, 1, 1)
+        project.started_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept finished_at' do
+        project.finished_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
     end
 
-    it 'does not accept finished_at after today' do
-      project = build :project, finished_at: DateTime.new(2018),
-                                started_at: DateTime.new(2017)
-      expect(project).to be_invalid
-    end
+    context 'when it is finished' do
+      let(:project) { build :project, :finished }
 
-    it 'does not accept stopped_at with started_at' do
-      project = build :project, :in_progress, :stopped
-      expect(project).to be_invalid
-    end
+      it 'requires started_at' do
+        project.started_at = nil
+        expect(project).to be_invalid
+      end
 
+      it 'requires finished_at' do
+        project.finished_at = nil
+        expect(project).to be_invalid
+      end
+
+      it 'requires due_at greater than started_at' do
+        project.due_at = DateTime.new(2017, 1, 1)
+        project.started_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'requires finished_at greater than started_at' do
+        project.finished_at = DateTime.new(2017, 1, 1)
+        project.started_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+
+      it 'requires finished_at lesser or equal to today' do
+        project.finished_at = 1.day.from_now
+        expect(project).to be_invalid
+      end
+
+      it 'does not accept paused_at' do
+        project.paused_at = DateTime.new(2017, 1, 15)
+        expect(project).to be_invalid
+      end
+    end
+  end
+
+  describe '#name' do
     it 'does not accept names with spaces inside' do
       project = build :project, name: 'invalid name'
       expect(project).to be_invalid
@@ -60,53 +155,226 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe '#start_now!' do
-    let(:project) { create :project, :not_started, user: user }
-    let(:due_at) { DateTime.new(2018) }
+  describe '#update_with_transition!' do
+    subject { project.update_with_transition! params }
 
-    context 'with less than 3 started projects' do
-      it 'succeeds' do
-        create_list :project, 2, :in_progress, user: user
-        expect { project.start_now! due_at }.not_to raise_error
-      end
-    end
+    context 'when executing without state param' do
+      let(:project) { create :project, :newed }
+      let(:params) { { } }
 
-    context 'with stopped projects' do
-      it 'succeeds' do
-        project.stop_now!
-        expect { project.start_now! due_at }.not_to raise_error
-      end
-    end
-
-    context 'with finished projects' do
-      it 'succeeds' do
-        create_list :project, 3, :finished, user: user
-        expect { project.start_now! due_at }.not_to raise_error
-      end
-    end
-
-    context 'with at least 3 started projects' do
       it 'fails' do
-        create_list :project, 3, :in_progress, user: user
-        expect { project.start_now! due_at }.to raise_error(ActiveRecord::RecordInvalid, /User cannot have more than 3 started projects/)
+        expect { subject }
+          .to raise_error(Project::InvalidState, /State must be precised/)
       end
     end
-  end
 
-  describe '#stop_now!' do
-    let(:project) { create :project, :in_progress }
+    context 'when executing with a unknown state param' do
+      let(:project) { create :project, :newed }
+      let(:params) { {
+        state: 'not_a_state',
+      } }
 
-    before do
-      Timecop.freeze DateTime.new(2017)
-      project.stop_now!
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidState, /'not_a_state' is not a valid state/)
+      end
     end
 
-    it 'sets started_at to nil' do
-      expect(project.started_at).to be_nil
+    context 'when trying to new a started project' do
+      let(:project) { create :project, :started }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'started' to 'newed'/)
+      end
     end
 
-    it 'sets stopped_at to now' do
-      expect(project.stopped_at).to eq(DateTime.now)
+    context 'when trying to new a paused project' do
+      let(:project) { create :project, :paused }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'paused' to 'newed'/)
+      end
+    end
+
+    context 'when trying to new a finished project' do
+      let(:project) { create :project, :finished }
+      let(:params) { {
+        state: 'newed',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'finished' to 'newed'/)
+      end
+    end
+
+    context 'when starting a newed project' do
+      let(:project) { create :project, :newed }
+      let(:params) { {
+        state: 'started',
+        due_at: DateTime.new(2017, 2, 20),
+      } }
+
+      it 'sets project state to started' do
+        expect(subject.reload.state).to eq('started')
+      end
+
+      it 'updates due_at attribute' do
+        expect(subject.reload.due_at).to eq(DateTime.new(2017, 2, 20))
+      end
+
+      it 'sets started_at attribute to today' do
+        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when trying to start a newed project with already 3 started project' do
+      let!(:projects) { create_list :project, 3, :started, user: user }
+      let(:project) { create :project, :newed, user: user }
+      let(:params) { {
+        state: 'started',
+        due_at: DateTime.new(2017, 2, 20),
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::ForbiddenTransition, /User cannot have more than 3 started projects/)
+      end
+    end
+
+    context 'when trying to start a finished project' do
+      let(:project) { create :project, :finished }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'finished' to 'started'/)
+      end
+    end
+
+    context 'when pausing a started project' do
+      let(:project) { create :project, :started }
+      let(:params) { {
+        state: 'paused',
+      } }
+
+      it 'sets project state to paused' do
+        expect(subject.reload.state).to eq('paused')
+      end
+
+      it 'sets paused_at attribute to today' do
+        expect(subject.reload.paused_at).to eq(DateTime.new(2017, 1, 20))
+      end
+    end
+
+    context 'when trying to pause a newed project' do
+      let(:project) { create :project, :newed }
+      let(:params) { {
+        state: 'paused',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'newed' to 'paused'/)
+      end
+    end
+
+    context 'when trying to pause a finished project' do
+      let(:project) { create :project, :finished }
+      let(:params) { {
+        state: 'paused',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'finished' to 'paused'/)
+      end
+    end
+
+    context 'when restarting a paused project' do
+      let(:project) { create :project, :paused, started_at: DateTime.new(2017, 1, 1) }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'sets project state to started' do
+        expect(subject.reload.state).to eq('started')
+      end
+
+      it 'sets paused_at attribute to nil' do
+        expect(subject.reload.paused_at).to be_nil
+      end
+
+      it 'does not change started_at attribute' do
+        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 1))
+      end
+    end
+
+    context 'when trying to restart a paused project with already 3 started project' do
+      let!(:projects) { create_list :project, 3, :started, user: user }
+      let(:project) { create :project, :paused, user: user }
+      let(:params) { {
+        state: 'started',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::ForbiddenTransition, /User cannot have more than 3 started projects/)
+      end
+    end
+
+    context 'when finishing a started project' do
+      let(:project) { create :project, :started, started_at: DateTime.new(2017, 1, 1) }
+      let(:params) { {
+        state: 'finished',
+        finished_at: DateTime.new(2017, 1, 15),
+      } }
+
+      it 'sets project state to finished' do
+        expect(subject.reload.state).to eq('finished')
+      end
+
+      it 'updates finished_at attribute' do
+        expect(subject.reload.finished_at).to eq(DateTime.new(2017, 1, 15))
+      end
+
+      it 'does not change started_at' do
+        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 1))
+      end
+    end
+
+    context 'when trying to finish a newed project' do
+      let(:project) { create :project, :newed }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'newed' to 'finished'/)
+      end
+    end
+
+    context 'when trying to finish a paused project' do
+      let(:project) { create :project, :paused }
+      let(:params) { {
+        state: 'finished',
+      } }
+
+      it 'fails' do
+        expect { subject }
+          .to raise_error(Project::InvalidTransition, /Project cannot transition from 'paused' to 'finished'/)
+      end
     end
   end
 

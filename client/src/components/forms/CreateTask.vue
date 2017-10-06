@@ -26,7 +26,7 @@
     props: {
       'onCancel': { type: Function },
       'autoFocus': { type: Boolean },
-      'dueAt': { type: Object },
+      'plannedAt': { type: Object },
       'projectId': { type: Number },
     },
 
@@ -43,7 +43,7 @@
         this.$store
           .dispatch(action, {
             label: this.label,
-            dueAt: this.dueAt && this.dueAt.unix(),
+            plannedAt: this.plannedAt && this.plannedAt.unix(),
             projectId: this.projectId,
           })
           .then((taskId) => {
