@@ -1,4 +1,4 @@
-class Api::TasksController < ApplicationController
+class Api::TasksController < ApiController
 
   def update
     @task = current_task

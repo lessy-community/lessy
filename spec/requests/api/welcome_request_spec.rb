@@ -11,7 +11,7 @@ RSpec.describe Api::WelcomeController, type: :request do
     it_behaves_like 'failures', :not_found, 'custom_error', {
       message: 'Endpoint does not exist',
       code: 'missing_endpoint',
-      resource: 'ApplicationController',
+      resource: 'ApiController',
     }
   end
 

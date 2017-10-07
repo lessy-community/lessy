@@ -1,4 +1,4 @@
-class Api::ProjectsController < ApplicationController
+class Api::ProjectsController < ApiController
 
   def update
     @project = current_project
