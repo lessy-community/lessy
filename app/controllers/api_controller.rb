@@ -2,8 +2,16 @@ class ApiController < ActionController::API
 
   before_action :require_login
 
-  rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
-  rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: -> (exception) do
+    errors = ApiErrors::RecordInvalid.load(exception)
+    render_errors errors, :unprocessable_entity
+  end
+
+  rescue_from ActiveRecord::RecordNotFound, with: -> (exception) do
+    errors = [ApiErrors::RecordNotFound.new(exception)]
+    render_errors errors, :not_found
+  end
+
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
 
@@ -45,22 +53,6 @@ protected
   def render_errors(errors, http_status)
     @errors = errors
     render 'api/errors', status: http_status
-  end
-
-  def render_record_invalid(exception)
-    @resource = exception.record.model_name.name
-    @errors = exception.record.errors.details.map do |field, errors|
-      [
-        field.to_s.camelize(:lower),
-        errors.map { |error| error[:error] }
-      ]
-    end.to_h
-    render 'api/errors/record_invalid', status: :unprocessable_entity
-  end
-
-  def render_record_not_found(exception)
-    @resource = exception.model
-    render 'api/errors/record_not_found', status: :not_found
   end
 
   def render_parameter_missing(exception)

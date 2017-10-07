@@ -57,7 +57,15 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { user: payload }
       end
 
-      it_behaves_like 'validation failed failures', 'User', { email: ['taken'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/email' },
+        }],
+      }
     end
   end
 
@@ -88,7 +96,15 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': token }
       end
 
-      it_behaves_like 'not found failures', 'User'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/user' },
+        }],
+      }
     end
 
     context 'with expired token' do

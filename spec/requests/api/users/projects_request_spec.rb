@@ -88,7 +88,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with too long name' do
@@ -97,7 +105,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['too_long'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'too_long',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with existing project' do
@@ -107,7 +123,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['taken'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do

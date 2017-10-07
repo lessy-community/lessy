@@ -31,6 +31,37 @@ module ApiErrors
     end
   end
 
+  class RecordNotFound < Base
+    def initialize(exception)
+      @status = '404 Not Found'
+      @code = :record_not_found
+      @title = 'Record not found'
+      @detail = 'Record cannot be found, it has been deleted or you may not have access to it.'
+      @source_pointer = "/#{exception.model.downcase}"
+    end
+  end
+
+  class RecordInvalid < Base
+    def self.load(exception)
+      record = exception.record
+
+      resource = record.model_name.name.downcase
+      record.errors.details.map do |field, errors|
+        errors.map do |error|
+          RecordInvalid.new resource, field, error[:error]
+        end
+      end.flatten
+    end
+
+    def initialize(resource, field, error_code)
+      @status = '422 Unprocessable Entity'
+      @code = error_code
+      @title = 'Resource validation failed'
+      @detail = 'Resource cannot be saved because of validation constraints.'
+      @source_pointer = "/#{resource}/#{field}"
+    end
+  end
+
   class InvalidTransition < Base
     def initialize(exception)
       @status = '422 Unprocessable Entity'

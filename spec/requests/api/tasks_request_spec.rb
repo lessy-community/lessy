@@ -38,7 +38,15 @@ RSpec.describe Api::TasksController, type: :request do
       let(:other_user) { create(:user) }
       let(:token) { other_user.token }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 
@@ -244,7 +252,15 @@ RSpec.describe Api::TasksController, type: :request do
       let(:other_user) { create :user }
       let(:token) { other_user.token }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 
@@ -327,7 +343,15 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 

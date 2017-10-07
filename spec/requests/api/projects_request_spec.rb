@@ -50,7 +50,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with newed project' do
@@ -83,7 +91,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'when authenticated with another user' do
@@ -93,7 +109,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do
@@ -209,7 +233,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { dueAt: ['cannot_be_before_started_at'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_before_started_at',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/due_at' },
+          }],
+        }
       end
     end
 
@@ -263,7 +295,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_after_today'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_after_today',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/finished_at' },
+          }],
+        }
       end
 
       context 'with a finish date before started_at' do
@@ -272,7 +312,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_before_started_at'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_before_started_at',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/finished_at' },
+          }],
+        }
       end
     end
 
@@ -317,7 +365,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
   end
 
