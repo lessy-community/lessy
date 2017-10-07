@@ -24,18 +24,19 @@ protected
   end
 
   def require_login
-    render_custom_error 'Authentication is required', :authentication_required, User, :unauthorized unless current_user
+    if current_user.nil?
+      errors = [ApiErrors::AuthenticationRequired.new]
+      render_errors errors, :unauthorized
+    end
   end
 
   def current_user
     @current_user ||= User.find_by_authorization_token(request.headers['Authorization'])
   end
 
-  def render_custom_error(message, code, resource, status)
-    @message = message
-    @code = code
-    @resource = resource.name
-    render 'api/errors/custom_error', status: status
+  def render_errors(errors, http_status)
+    @errors = errors
+    render 'api/errors', status: http_status
   end
 
   def render_record_invalid(exception)

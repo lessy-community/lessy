@@ -102,10 +102,13 @@ RSpec.describe Api::Users::TasksController, type: :request do
     context 'with invalid authentication' do
       let(:token) { 'not a token' }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end

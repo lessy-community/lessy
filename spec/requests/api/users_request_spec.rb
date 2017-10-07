@@ -94,20 +94,26 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with expired token' do
       let(:token) { user.token(1.day.ago) }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
 
     context 'with no Authorization header' do
       let(:token) { nil }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end

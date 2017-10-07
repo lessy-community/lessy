@@ -116,10 +116,13 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end
