@@ -3,17 +3,25 @@ require 'shared_examples_for_failures'
 
 RSpec.describe Api::UsersController, type: :request do
 
-  describe 'POST #create' do
-    context 'with valid attributes' do
-      before do
-        Timecop.freeze Date.new(2017)
-        payload = { email: 'john@doe.com' }
-        post '/api/users', params: { user: payload }
-      end
+  before do
+    Timecop.freeze Date.new(2017)
+  end
 
-      after do
-        Timecop.return
-      end
+  after do
+    Timecop.return
+  end
+
+  describe 'POST #create' do
+    let(:payload) { {
+      user: {
+        email: 'john@doe.com',
+      },
+    } }
+
+    subject { post api_users_path, params: payload, as: :json }
+
+    context 'with valid attributes' do
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
@@ -41,9 +49,9 @@ RSpec.describe Api::UsersController, type: :request do
     end
 
     context 'with missing paramenters' do
-      before do
-        post '/api/users', params: { }
-      end
+      let(:payload) { { } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -57,12 +65,9 @@ RSpec.describe Api::UsersController, type: :request do
     end
 
     context 'with existing email' do
-      let(:email) { 'john@doe.com' }
-
       before do
-        create :user, email: email
-        payload = { email: email }
-        post '/api/users', params: { user: payload }
+        create :user, email: payload[:user][:email]
+        subject
       end
 
       it_behaves_like 'API errors', :unprocessable_entity, {
@@ -81,9 +86,11 @@ RSpec.describe Api::UsersController, type: :request do
     let(:user) { create :user }
     let(:token) { user.token }
 
-    subject! { get '/api/users/me', headers: { 'Authorization': token } }
+    subject { get me_api_users_path, headers: { 'Authorization': token } }
 
     context 'with valid token' do
+      before { subject }
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -101,7 +108,7 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with token of a deleted user' do
       before do
         user.destroy
-        get '/api/users/me', headers: { 'Authorization': token }
+        subject
       end
 
       it_behaves_like 'API errors', :not_found, {
@@ -118,6 +125,8 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with expired token' do
       let(:token) { user.token(1.day.ago) }
 
+      before { subject }
+
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{
           status: '401 Unauthorized',
@@ -130,6 +139,8 @@ RSpec.describe Api::UsersController, type: :request do
 
     context 'with no Authorization header' do
       let(:token) { nil }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{

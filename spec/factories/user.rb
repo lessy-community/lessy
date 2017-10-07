@@ -8,5 +8,9 @@ FactoryGirl.define do
         user.activate!
       end
     end
+
+    trait :inactive do
+      # nothing on purpose
+    end
   end
 end

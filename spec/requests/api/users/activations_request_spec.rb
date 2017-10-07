@@ -3,25 +3,29 @@ require 'shared_examples_for_failures'
 
 RSpec.describe Api::Users::ActivationsController, type: :request do
 
+  before do
+    Timecop.freeze Date.new(2017)
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'POST #create' do
-    let(:user) { create :user, email: 'john@doe.com' }
+    let(:user) { create :user, :inactive, email: 'john@doe.com' }
+    let(:payload) { {
+      user: {
+        username: 'john',
+        password: 'secret',
+      },
+      token: user.activation_token,
+    } }
+
+    subject { post api_users_activations_path, params: payload,
+                                               as: :json }
 
     context 'with valid attributes' do
-      before do
-        Timecop.freeze Date.new(2017)
-        payload = {
-          user: {
-            username: 'john',
-            password: 'secret',
-          },
-          token: user.activation_token,
-        }
-        post '/api/users/activations', params: payload
-      end
-
-      after do
-        Timecop.return
-      end
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -50,15 +54,14 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
     end
 
     context 'with missing attributes' do
-      before do
-        payload = {
-          user: {
-            password: 'secret',
-          },
-          token: user.activation_token,
-        }
-        post '/api/users/activations', params: payload
-      end
+      let(:payload) { {
+        user: {
+          password: 'secret',
+        },
+        token: user.activation_token,
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -72,16 +75,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
     end
 
     context 'with invalid username' do
-      before do
-        payload = {
-          user: {
-            username: 'John Doe',
-            password: 'secret',
-          },
-          token: user.activation_token,
-        }
-        post '/api/users/activations', params: payload
-      end
+      let(:payload) { {
+        user: {
+          username: 'John Doe',
+          password: 'secret',
+        },
+        token: user.activation_token,
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -95,16 +97,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
     end
 
     context 'with too long username' do
-      before do
-        payload = {
-          user: {
-            username: 'johnjohnjohnjohnjohnjohnjohn',
-            password: 'secret',
-          },
-          token: user.activation_token,
-        }
-        post '/api/users/activations', params: payload
-      end
+      let(:payload) { {
+        user: {
+          username: 'johnjohnjohnjohnjohnjohnjohn',
+          password: 'secret',
+        },
+        token: user.activation_token,
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -119,15 +120,8 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
 
     context 'with existing username' do
       before do
-        create :user, username: 'john'
-        payload = {
-          user: {
-            username: 'john',
-            password: 'secret',
-          },
-          token: user.activation_token,
-        }
-        post '/api/users/activations', params: payload
+        create :user, username: payload[:user][:username]
+        subject
       end
 
       it_behaves_like 'API errors', :unprocessable_entity, {
@@ -142,16 +136,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
     end
 
     context 'with invalid token' do
-      before do
-        payload = {
-          user: {
-            username: 'john',
-            password: 'secret',
-          },
-          token: 'not_the_token',
-        }
-        post '/api/users/activations', params: payload
-      end
+      let(:payload) { {
+        user: {
+          username: 'john',
+          password: 'secret',
+        },
+        token: 'not_the_token',
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :not_found, {
         errors: [{

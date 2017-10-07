@@ -8,10 +8,13 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
   describe 'GET #index' do
     let(:json_response) { JSON.parse(response.body) }
 
-    context 'with no related task' do
-      let!(:projects) { create_list :project, 3, user: user }
+    subject { get me_projects_api_users_path(user.id), headers: { 'Authorization': user.token } }
 
-      subject! { get me_projects_api_users_path(user.id), headers: { 'Authorization': user.token } }
+    context 'with no related task' do
+      before do
+        create_list :project, 3, user: user
+        subject
+      end
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -27,10 +30,12 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     end
 
     context 'with related task' do
-      let!(:project) { create :project, user: user }
-      let!(:task) { create :task, project: project, user: user }
+      let(:task) { create :task, user: user }
 
-      subject! { get me_projects_api_users_path(user.id), headers: { 'Authorization': user.token } }
+      before do
+        create :project, user: user, tasks: [task]
+        subject
+      end
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -48,11 +53,19 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
   end
 
   describe 'POST #create' do
+    let(:token) { user.token }
+    let(:payload) { {
+      project: {
+        name: 'my-project',
+      },
+    } }
+
+    subject { post me_projects_api_users_path, params: payload,
+                                               headers: { 'Authorization': token },
+                                               as: :json }
+
     context 'with valid attributes' do
-      before do
-        payload = { name: 'my-project' }
-        post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
@@ -75,9 +88,9 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     end
 
     context 'with missing attribute' do
-      before do
-        post me_projects_api_users_path, params: { project: {} }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { { } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -91,10 +104,13 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     end
 
     context 'with invalid name' do
-      before do
-        payload = { name: 'An invalid name' }
-        post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { {
+        project: {
+          name: 'An invalid name',
+        },
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -108,10 +124,13 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     end
 
     context 'with too long name' do
-      before do
-        payload = { name: 'my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project' }
-        post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { {
+        project: {
+          name: 'my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project',
+        },
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -126,9 +145,8 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
 
     context 'with existing project' do
       before do
-        create :project, user: user, name: 'my-project'
-        payload = { name: 'my-project' }
-        post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
+        create :project, user: user, name: payload[:project][:name]
+        subject
       end
 
       it_behaves_like 'API errors', :unprocessable_entity, {
@@ -143,10 +161,9 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     end
 
     context 'with invalid authentication' do
-      before do
-        payload = { name: 'my-project' }
-        post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
-      end
+      let(:token) { 'not a token' }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{

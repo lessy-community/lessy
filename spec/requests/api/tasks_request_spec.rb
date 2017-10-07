@@ -15,12 +15,20 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'PATCH #update' do
     let(:token) { user.token }
-    let(:payload) { { label: 'A new label for a task' } }
+    let(:payload) { {
+      task: {
+        label: 'A new label for a task',
+      },
+    } }
     let(:task) { create :task, label: 'My task', user: user }
 
-    subject! { patch "/api/tasks/#{ task.id }", params: { task: payload }, headers: { 'Authorization': token }, as: :json }
+    subject { patch api_task_path(task.id), params: payload,
+                                            headers: { 'Authorization': token },
+                                            as: :json }
 
     context 'with valid attributes' do
+      before { subject }
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -38,6 +46,8 @@ RSpec.describe Api::TasksController, type: :request do
       let(:other_user) { create(:user) }
       let(:token) { other_user.token }
 
+      before { subject }
+
       it_behaves_like 'API errors', :not_found, {
         errors: [{
           status: '404 Not Found',
@@ -53,9 +63,9 @@ RSpec.describe Api::TasksController, type: :request do
   describe 'PUT #update_state' do
     let(:token) { user.token }
 
-    before do
-      put "/api/tasks/#{ task.id }/state", params: payload, headers: { 'Authorization': token }
-    end
+    subject { put state_api_task_path(task.id), params: payload,
+                                                headers: { 'Authorization': token },
+                                                as: :json }
 
     context 'when finishing a task' do
       let(:task) { create :task, :planned, user: user }
@@ -66,6 +76,8 @@ RSpec.describe Api::TasksController, type: :request do
       } }
 
       context 'with valid attributes' do
+        before { subject }
+
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
         end
@@ -87,6 +99,8 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with already finished task' do
         let(:task) { create :task, :finished, user: user }
 
+        before { subject }
+
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
             status: '422 Unprocessable Entity',
@@ -100,6 +114,8 @@ RSpec.describe Api::TasksController, type: :request do
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
+
+        before { subject }
 
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
@@ -120,6 +136,8 @@ RSpec.describe Api::TasksController, type: :request do
           state: 'planned',
         },
       } }
+
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -150,6 +168,8 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
+      before { subject }
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -175,15 +195,17 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
-        it_behaves_like 'API errors', :unprocessable_entity, {
-          errors: [{
-            status: '422 Unprocessable Entity',
-            code: 'invalid_transition',
-            title: 'Invalid transition',
-            detail: "Task cannot transition from 'abandoned' to 'started'",
-            source: { pointer: '/task/state' }
-          }]
-        }
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid_transition',
+          title: 'Invalid transition',
+          detail: "Task cannot transition from 'abandoned' to 'started'",
+          source: { pointer: '/task/state' }
+        }]
+      }
     end
 
     context 'when abandoning a task' do
@@ -195,6 +217,8 @@ RSpec.describe Api::TasksController, type: :request do
       } }
 
       context 'with valid attributes' do
+        before { subject }
+
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
         end
@@ -216,6 +240,8 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with finished task' do
         let(:task) { create :task, :finished, user: user }
 
+        before { subject }
+
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
             status: '422 Unprocessable Entity',
@@ -229,6 +255,8 @@ RSpec.describe Api::TasksController, type: :request do
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
+
+        before { subject }
 
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
@@ -249,8 +277,9 @@ RSpec.describe Api::TasksController, type: :request do
           state: 'finished',
         },
       } }
-      let(:other_user) { create :user }
-      let(:token) { other_user.token }
+      let(:token) { create(:user).token }
+
+      before { subject }
 
       it_behaves_like 'API errors', :not_found, {
         errors: [{
@@ -273,7 +302,9 @@ RSpec.describe Api::TasksController, type: :request do
     let(:token) { user.token }
     let(:task) { task3 }
 
-    subject! { put order_api_task_path(task.id), params: payload, headers: { 'Authorization': token }, as: :json }
+    subject { put order_api_task_path(task.id), params: payload,
+                                                headers: { 'Authorization': token },
+                                                as: :json }
 
     context 'whith new order lesser than current' do
       let(:payload) { {
@@ -281,6 +312,8 @@ RSpec.describe Api::TasksController, type: :request do
           order: 40,
         },
       } }
+
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -309,6 +342,8 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
+      before { subject }
+
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
       end
@@ -332,6 +367,8 @@ RSpec.describe Api::TasksController, type: :request do
     context 'with missing attribute' do
       let(:payload) { { } }
 
+      before { subject }
+
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
           status: '422 Unprocessable Entity',
@@ -350,6 +387,8 @@ RSpec.describe Api::TasksController, type: :request do
           order: 40,
         },
       } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :not_found, {
         errors: [{

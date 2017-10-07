@@ -3,18 +3,28 @@ require 'shared_examples_for_failures'
 
 RSpec.describe Api::Users::AuthorizationsController, type: :request do
 
+  before do
+    Timecop.freeze Date.new(2017)
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'POST #create' do
+    let!(:user) { create :user, :inactive, username: 'john', password: 'secret' }
+    let(:payload) { {
+      username: 'john',
+      password: 'secret',
+    } }
+
+    subject { post api_users_authorizations_path, params: payload,
+                                                  as: :json }
+
     context 'with valid username and password' do
-      let(:payload) { { username: 'john', password: 'secret' } }
-
       before do
-        Timecop.freeze Date.new(2017)
-        create :user, :activated, username: 'john', password: 'secret'
-        post '/api/users/authorizations', params: payload
-      end
-
-      after do
-        Timecop.return
+        user.activate!
+        subject
       end
 
       it 'succeeds' do
@@ -33,12 +43,7 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
     end
 
     context 'with inactive user' do
-      let(:payload) { { username: 'john', password: 'secret' } }
-
-      before do
-        create :user, username: 'john', password: 'secret'
-        post '/api/users/authorizations', params: payload
-      end
+      before { subject }
 
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{
@@ -51,11 +56,14 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
     end
 
     context 'with invalid password' do
-      let(:payload) { { username: 'john', password: 'wrong secret' } }
+      let(:payload) { {
+        username: 'john',
+        password: 'wrong secret',
+      } }
 
       before do
-        create :user, :activated, username: 'john', password: 'secret'
-        post '/api/users/authorizations', params: payload
+        user.activate!
+        subject
       end
 
       it_behaves_like 'API errors', :unauthorized, {

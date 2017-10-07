@@ -18,7 +18,9 @@ RSpec.describe Api::Users::TasksController, type: :request do
     let!(:abandoned_task) { create :task, :abandoned, user: user }
     let(:json_response) { JSON.parse(response.body) }
 
-    subject! { get me_tasks_api_users_path, headers: { 'Authorization': user.token } }
+    subject { get me_tasks_api_users_path, headers: { 'Authorization': user.token } }
+
+    before { subject }
 
     it 'succeeds' do
       expect(response).to have_http_status(:ok)
@@ -35,12 +37,21 @@ RSpec.describe Api::Users::TasksController, type: :request do
   end
 
   describe 'POST #create' do
-    let(:payload) { { label: 'My task', planned_at: DateTime.new(2017).to_i } }
+    let(:payload) { {
+      task: {
+        label: 'My task',
+        planned_at: DateTime.new(2017).to_i,
+      },
+    } }
     let(:token) { user.token }
 
-    subject! { post me_tasks_api_users_path, params: { task: payload }, headers: { 'Authorization': token }, as: :json }
+    subject { post me_tasks_api_users_path, params: payload,
+                                            headers: { 'Authorization': token },
+                                            as: :json }
 
     context 'with valid attributes' do
+      before { subject }
+
       it 'succeeds' do
         expect(response).to have_http_status(:created)
       end
@@ -63,7 +74,15 @@ RSpec.describe Api::Users::TasksController, type: :request do
 
     context 'with project_id' do
       let(:project) { create :project }
-      let(:payload) { { label: 'My task', planned_at: DateTime.new(2017).to_i, project_id: project.id } }
+      let(:payload) { {
+        task: {
+          label: 'My task',
+          planned_at: DateTime.new(2017).to_i,
+          project_id: project.id,
+        },
+      } }
+
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
@@ -78,8 +97,14 @@ RSpec.describe Api::Users::TasksController, type: :request do
       end
     end
 
-    context 'with no due date' do
-      let(:payload) { { label: 'My task' } }
+    context 'with no planned date' do
+      let(:payload) { {
+        task: {
+          label: 'My task',
+        },
+      } }
+
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:created)
@@ -94,7 +119,13 @@ RSpec.describe Api::Users::TasksController, type: :request do
     end
 
     context 'with missing attribute' do
-      let(:payload) { { } }
+      let(:payload) { {
+        task: {
+          planned_at: DateTime.new(2017).to_i,
+        },
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -102,13 +133,15 @@ RSpec.describe Api::Users::TasksController, type: :request do
           code: 'parameter_missing',
           title: 'Parameter is missing',
           detail: 'A parameter is missing or empty but it is required.',
-          source: { pointer: '/task' },
+          source: { pointer: '/task/label' },
         }],
       }
     end
 
     context 'with invalid authentication' do
       let(:token) { 'not a token' }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{

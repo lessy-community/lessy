@@ -5,20 +5,33 @@ RSpec.describe Api::ProjectsController, type: :request do
 
   let(:user) { create :user, :activated }
 
+  before do
+    Timecop.freeze DateTime.new(2017, 1, 20)
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'PATCH #update' do
     let(:project) { create :project, :started, user: user,
                                                name: 'my-project',
                                                description: 'Old description' }
     let(:payload) { {
-      name: 'new-name-for-a-project',
-      description: 'New description',
-      due_at: DateTime.new(2018, 1, 20).to_i,
+      project: {
+        name: 'new-name-for-a-project',
+        description: 'New description',
+        due_at: DateTime.new(2018, 1, 20).to_i,
+      },
     } }
+    let(:token) { user.token }
+
+    subject { patch api_project_path(project.id), params: payload,
+                                                  headers: { 'Authorization': token },
+                                                  as: :json }
 
     context 'with valid attributes' do
-      before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -45,10 +58,15 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'with invalid name' do
-      before do
-        payload[:name] = 'an invalid name'
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { {
+        project: {
+          name: 'an invalid name',
+          description: 'New description',
+          due_at: DateTime.new(2018, 1, 20).to_i,
+        },
+      } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -64,9 +82,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     context 'with newed project' do
       let(:project) { create :project, :newed, user: user }
 
-      before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
-      end
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -78,9 +94,9 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'with missing attribute' do
-      before do
-        patch "/api/projects/#{project.id}", params: { }, headers: { 'Authorization': user.token }, as: :json
-      end
+      let(:payload) { { } }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unprocessable_entity, {
         errors: [{
@@ -95,8 +111,8 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'with unknown project' do
       before do
-        Project.destroy_all
-        patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
+        project.destroy!
+        subject
       end
 
       it_behaves_like 'API errors', :not_found, {
@@ -111,11 +127,9 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'when authenticated with another user' do
-      let(:other_user) { create :user }
+      let(:token) { create(:user).token }
 
-      before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }, as: :json
-      end
+      before { subject }
 
       it_behaves_like 'API errors', :not_found, {
         errors: [{
@@ -129,9 +143,9 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'with invalid authentication' do
-      before do
-        patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
-      end
+      let(:token) { 'not a token' }
+
+      before { subject }
 
       it_behaves_like 'API errors', :unauthorized, {
         errors: [{
@@ -145,14 +159,11 @@ RSpec.describe Api::ProjectsController, type: :request do
   end
 
   describe 'PUT #update_state' do
-    before do
-      Timecop.freeze DateTime.new(2017, 1, 20)
-    end
+    let(:token) { user.token }
 
-    after do
-      Timecop.return
-    end
-
+    subject { put state_api_project_path(project.id), params: payload,
+                                                      headers: { 'Authorization': token },
+                                                      as: :json }
     context 'when starting a project' do
       let(:project) { create :project, :newed, user: user }
       let(:payload) { {
@@ -163,9 +174,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       } }
 
       context 'with valid attributes' do
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+        before { subject }
 
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
@@ -187,9 +196,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with a paused project' do
         let(:project) { create :project, :paused, user: user }
 
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+        before { subject }
 
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
@@ -203,9 +210,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with already started project' do
         let(:project) { create :project, :started, user: user }
 
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+        before { subject }
 
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
@@ -221,7 +226,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with already 3 started projects' do
         before do
           create_list :project, 3, :started, user: user
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
+          subject
         end
 
         it_behaves_like 'API errors', :unprocessable_entity, {
@@ -238,7 +243,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with invalid due_at' do
         before do
           payload[:project][:due_at] = DateTime.new(2016, 12, 31).to_i
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
+          subject
         end
 
         it_behaves_like 'API errors', :unprocessable_entity, {
@@ -263,9 +268,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       } }
 
       context 'with valid attributes' do
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+        before { subject }
 
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
@@ -282,9 +285,8 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       context 'with already finished project' do
         let(:project) { create :project, :finished, user: user }
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+
+        before { subject }
 
         it_behaves_like 'API errors', :unprocessable_entity, {
           errors: [{
@@ -300,7 +302,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with a finish date in the future' do
         before do
           payload[:project][:finished_at] = 15.days.from_now.to_i
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
+          subject
         end
 
         it_behaves_like 'API errors', :unprocessable_entity, {
@@ -317,7 +319,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       context 'with a finish date before started_at' do
         before do
           payload[:project][:finished_at] = DateTime.new(2016, 12, 15).to_i
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
+          subject
         end
 
         it_behaves_like 'API errors', :unprocessable_entity, {
@@ -341,9 +343,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       } }
 
       context 'with valid project' do
-        before do
-          put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
-        end
+        before { subject }
 
         it 'succeeds' do
           expect(response).to have_http_status(:ok)
@@ -367,11 +367,9 @@ RSpec.describe Api::ProjectsController, type: :request do
           finished_at: DateTime.new(2017, 01, 27).to_i,
         },
       } }
-      let(:other_user) { create :user }
+      let(:token) { create(:user).token }
 
-      before do
-        put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': other_user.token }, as: :json
-      end
+      before { subject }
 
       it_behaves_like 'API errors', :not_found, {
         errors: [{
