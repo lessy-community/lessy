@@ -1,113 +1,70 @@
 module TaskLifecycle
 
   extend ActiveSupport::Concern
+  include StateMachine
 
   included do
-    class InvalidTransition < RuntimeError
-      attr_reader :from, :to
-
-      def initialize(state_from, state_to)
-        @from = state_from
-        @to = state_to
-        super("Task cannot transition from '#{@from}' to '#{@to}'")
-      end
-    end
-
-    class ForbiddenTransition < RuntimeError
-      attr_reader :code, :from, :to
-
-      def initialize(message, code, state_from, state_to)
-        @code = code
-        @from = state_from
-        @to = state_to
-        super(message)
-      end
-    end
-
-    class InvalidState < RuntimeError
-      def initialize(state = nil)
-        if state.nil?
-          super('State must be precised')
-        else
-          super("'#{state}' is not a valid state")
-        end
-      end
-    end
-
     validate :newed_task_is_valid, if: :newed?
     validate :started_task_is_valid, if: :started?
     validate :planned_task_is_valid, if: :planned?
     validate :finished_task_is_valid, if: :finished?
     validate :abandoned_task_is_valid, if: :abandoned?
 
-    scope :newed, -> { where(state: 'newed') }
-    scope :started, -> { where(state: 'started') }
-    scope :planned, -> { where(state: 'planned') }
-    scope :finished, -> { where(state: 'finished') }
-    scope :abandoned, -> { where(state: 'abandoned') }
-    scope :not_abandoned, -> { where.not(state: 'abandoned') }
+    init_state_machine do
+      state :newed
+      state :started
+      state :planned
+      state :finished
+      state :abandoned
 
-    def newed?
-      self.state == 'newed'
+      # main workflow
+      transition :start, from: :newed, to: :started
+      transition :plan, from: :started, to: :planned
+      transition :replan, from: :planned, to: :planned
+      transition :finish, from: :planned, to: :finished
+
+      # canceled transitions
+      transition :replan, from: :finished, to: :planned
+      transition :cancel, from: [:planned, :started], to: :newed
+
+      # abandon
+      transition :abandon, from: [:newed, :started, :planned], to: :abandoned
     end
 
-    def started?
-      self.state == 'started'
+  protected
+
+    def on_start(params)
+      params[:started_at] = DateTime.now
+      params
     end
 
-    def planned?
-      self.state == 'planned'
+    def on_plan(params)
+      params[:planned_at] = DateTime.now
+      params[:planned_count] = self.planned_count + 1
+      params
     end
 
-    def finished?
-      self.state == 'finished'
+    def on_replan(params)
+      params[:finished_at] = nil
+      params[:planned_at] = DateTime.now
+      params[:planned_count] = self.planned_count + 1
+      params
     end
 
-    def abandoned?
-      self.state == 'abandoned'
+    def on_finish(params)
+      params[:finished_at] = DateTime.now
+      params
     end
 
-    def update_with_transition!(params)
-      raise InvalidState.new unless params.key? :state
-      raise InvalidState.new(params[:state]) unless %w(newed started planned finished abandoned).include? params[:state]
+    def on_cancel(params)
+      params[:started_at] = nil
+      params[:planned_at] = nil
+      params
+    end
 
-      if self.state == 'newed'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(started abandoned).include? params[:state]
-        params[:started_at] = DateTime.now if params[:state] == 'started'
-        params[:abandoned_at] = DateTime.now if params[:state] == 'abandoned'
-      end
-
-      if self.state == 'started'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(newed planned abandoned).include? params[:state]
-        params[:started_at] = nil if params[:state] == 'newed'
-        params[:planned_at] = DateTime.now if params[:state] == 'planned'
-        params[:planned_count] = self.planned_count + 1 if params[:state] == 'planned'
-        params[:abandoned_at] = DateTime.now if params[:state] == 'abandoned'
-      end
-
-      if self.state == 'planned'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(newed planned finished abandoned).include? params[:state]
-        params[:started_at] = nil if params[:state] == 'newed'
-        params[:planned_at] = nil if params[:state] == 'newed'
-        params[:planned_at] = DateTime.now if params[:state] == 'planned'
-        params[:planned_count] = self.planned_count + 1 if params[:state] == 'planned'
-        params[:finished_at] = DateTime.now if params[:state] == 'finished'
-        params[:abandoned_at] = DateTime.now if params[:state] == 'abandoned'
-      end
-
-      if self.state == 'finished'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(planned).include? params[:state]
-        params[:finished_at] = nil
-        params[:planned_at] = DateTime.now
-        params[:planned_count] = self.planned_count + 1
-      end
-
-      if self.state == 'abandoned'
-        raise InvalidTransition.new(self.state, params[:state])
-      end
-
-      self.update! params
-      self
+    def on_abandon(params)
+      params[:abandoned_at] = DateTime.now
+      params
     end
 
   private

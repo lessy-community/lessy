@@ -1,96 +1,52 @@
 module ProjectLifecycle
 
   extend ActiveSupport::Concern
+  include StateMachine
 
   included do
-    class InvalidTransition < RuntimeError
-      attr_reader :from, :to
-
-      def initialize(state_from, state_to)
-        @from = state_from
-        @to = state_to
-        super("Project cannot transition from '#{@from}' to '#{@to}'")
-      end
-    end
-
-    class ForbiddenTransition < RuntimeError
-      attr_reader :code, :from, :to
-
-      def initialize(message, code, state_from, state_to)
-        @code = code
-        @from = state_from
-        @to = state_to
-        super(message)
-      end
-    end
-
-    class InvalidState < RuntimeError
-      def initialize(state = nil)
-        if state.nil?
-          super('State must be precised')
-        else
-          super("'#{state}' is not a valid state")
-        end
-      end
-    end
-
     validate :newed_project_is_valid, if: :newed?
     validate :started_project_is_valid, if: :started?
     validate :paused_project_is_valid, if: :paused?
     validate :finished_project_is_valid, if: :finished?
 
-    scope :newed, -> { where(state: 'newed') }
-    scope :started, -> { where(state: 'started') }
-    scope :paused, -> { where(state: 'paused') }
-    scope :finished, -> { where(state: 'finished') }
+    init_state_machine do
+      state :newed
+      state :started
+      state :paused
+      state :finished
 
-    def newed?
-      self.state == 'newed'
+      transition :start, from: :newed, to: :started
+      transition :pause, from: :started, to: :paused
+      transition :restart, from: :paused, to: :started
+      transition :finish, from: :started, to: :finished
     end
 
-    def started?
-      self.state == 'started'
+  protected
+
+    def on_start(params)
+      check_transition_no_limit_started_projects
+      params[:started_at] = DateTime.now
+      params
     end
 
-    def paused?
-      self.state == 'paused'
+    def on_pause(params)
+      params[:paused_at] = DateTime.now
+      params
     end
 
-    def finished?
-      self.state == 'finished'
-    end
-
-    def update_with_transition!(params)
-      raise InvalidState.new unless params.key? :state
-      raise InvalidState.new(params[:state]) unless %w(newed started paused finished).include? params[:state]
-
-      if self.state == 'newed'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(started).include? params[:state]
-        raise ForbiddenTransition.new('User cannot have more than 3 started projects', :reached_max_started, self.state, params[:state]) if user.projects.started.count >= 3
-        params[:started_at] = DateTime.now
-      end
-
-      if self.state == 'started'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(paused finished).include? params[:state]
-        params[:paused_at] = DateTime.now if params[:state] == 'paused'
-      end
-
-      if self.state == 'paused'
-        raise InvalidTransition.new(self.state, params[:state]) unless %w(started).include? params[:state]
-        raise ForbiddenTransition.new('User cannot have more than 3 started projects', :reached_max_started, self.state, params[:state]) if user.projects.started.count >= 3
-        params[:paused_at] = nil
-      end
-
-      if self.state == 'finished'
-        raise InvalidTransition.new(self.state, params[:state])
-      end
-
-
-      self.update! params
-      self
+    def on_restart(params)
+      check_transition_no_limit_started_projects
+      params[:paused_at] = nil
+      params
     end
 
   private
+
+    def check_transition_no_limit_started_projects
+      if user.projects.started.count >= 3
+        raise StateMachine::ForbiddenTransition.new(self, :started, :reached_max_started, 'User cannot have more than 3 started projects')
+      end
+    end
 
     def newed_project_is_valid
       errors.add :started_at, :cannot_be_set, message: 'cannot be set when project is newed' if started_at.present?
