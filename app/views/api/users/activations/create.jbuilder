@@ -1,2 +1,4 @@
-json.user @user, partial: 'api/users/user', as: :user
-json.token @token
+json.data @user, partial: 'api/users/user', as: :user
+json.meta do
+  json.token @token
+end

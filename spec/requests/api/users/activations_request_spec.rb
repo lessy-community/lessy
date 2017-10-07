@@ -40,14 +40,14 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)['user']
+        contact = JSON.parse(response.body)['data']
         expect(contact['id']).not_to be_nil
-        expect(contact['username']).to eq('john')
-        expect(contact['email']).to eq('john@doe.com')
+        expect(contact['attributes']['username']).to eq('john')
+        expect(contact['attributes']['email']).to eq('john@doe.com')
       end
 
       it 'returns a token valid for 1 month' do
-        token = JSON.parse(response.body)['token']
+        token = JSON.parse(response.body)['meta']['token']
         decoded_token = JsonWebToken.decode(token)
         expect(decoded_token[:exp]).to eq(1.month.from_now.to_i)
       end
@@ -128,6 +128,28 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         errors: [{
           status: '422 Unprocessable Entity',
           code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
+    end
+
+    context 'with blacklisted username' do
+      let(:payload) { {
+        user: {
+          username: 'dashboard',
+          password: 'secret',
+        },
+        token: user.activation_token,
+      } }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'exclusion',
           title: 'Resource validation failed',
           detail: 'Resource cannot be saved because of validation constraints.',
           source: { pointer: '/user/username' },

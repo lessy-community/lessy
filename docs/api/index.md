@@ -10,4 +10,5 @@ Please note all examples are based on lessy.io official service but you MUST
 assume that users are not necessarily hosted on this server.
 
 - [Authentication](authentication.md)
+- [Users](users.md)
 - [Errors](errors.md)

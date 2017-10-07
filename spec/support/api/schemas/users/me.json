@@ -1,8 +1,8 @@
 {
   "type": "object",
-  "required": ["user"],
+  "required": ["data"],
   "properties": {
-    "user": { "ref": "user.json" }
+    "data": { "$ref": "user.json" }
   },
   "additionalProperties": false
 }

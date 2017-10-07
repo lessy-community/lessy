@@ -1,1 +1,1 @@
-json.user @user, partial: 'api/users/user', as: :user
+json.data @user, partial: 'api/users/user', as: :user

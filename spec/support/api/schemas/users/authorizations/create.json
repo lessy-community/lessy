@@ -1,9 +1,16 @@
 {
   "type": "object",
-  "required": ["user", "token"],
+  "required": ["data", "meta"],
   "properties": {
-    "user": { "ref": "user.json" },
-    "token": { "type": "string" }
+    "data": { "$ref": "../user.json" },
+    "meta": {
+      "type": "object",
+      "required": ["token"],
+      "properties": {
+        "token": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }
