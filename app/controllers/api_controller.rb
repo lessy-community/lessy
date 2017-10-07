@@ -6,8 +6,16 @@ class ApiController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
   rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
-  rescue_from StateMachine::InvalidTransition, with: :render_invalid_transition
-  rescue_from StateMachine::ForbiddenTransition, with: :render_forbidden_transition
+
+  rescue_from StateMachine::InvalidTransition, with: -> (exception) do
+    errors = [ApiErrors::InvalidTransition.new(exception)]
+    render_errors errors, :unprocessable_entity
+  end
+
+  rescue_from StateMachine::ForbiddenTransition, with: -> (exception) do
+    errors = [ApiErrors::ForbiddenTransition.new(exception)]
+    render_errors errors, :unprocessable_entity
+  end
 
 protected
 
@@ -64,25 +72,6 @@ protected
       @field = 'base'
     end
     render 'api/errors/parameter_missing', status: :unprocessable_entity
-  end
-
-  def render_forbidden_transition(exception)
-    @resource = exception.resource
-    @code = exception.code
-    @transition = {
-      from: exception.from,
-      to: exception.to,
-    }
-    render 'api/errors/forbidden_transition', status: :unprocessable_entity
-  end
-
-  def render_invalid_transition(exception)
-    @resource = exception.resource
-    @transition = {
-      from: exception.from,
-      to: exception.to,
-    }
-    render 'api/errors/invalid_transition', status: :unprocessable_entity
   end
 
 end

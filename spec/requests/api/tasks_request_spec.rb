@@ -79,13 +79,29 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with already finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'finished' to 'finished'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'finished'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
     end
 
@@ -151,7 +167,15 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
-      it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'started'",
+            source: { pointer: '/task/state' }
+          }]
+        }
     end
 
     context 'when abandoning a task' do
@@ -184,13 +208,29 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'abandoned'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'finished' to 'abandoned'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'abandoned'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'abandoned'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
     end
 

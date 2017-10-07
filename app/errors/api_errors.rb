@@ -31,4 +31,24 @@ module ApiErrors
     end
   end
 
+  class InvalidTransition < Base
+    def initialize(exception)
+      @status = '422 Unprocessable Entity'
+      @code = :invalid_transition
+      @title = 'Invalid transition'
+      @detail = exception.message
+      @source_pointer = "/#{exception.resource.downcase}/state"
+    end
+  end
+
+  class ForbiddenTransition < Base
+    def initialize(exception)
+      @status = '422 Unprocessable Entity'
+      @code = exception.code
+      @title = 'Forbidden transition'
+      @detail = exception.message
+      @source_pointer = "/#{exception.resource.downcase}/state"
+    end
+  end
+
 end

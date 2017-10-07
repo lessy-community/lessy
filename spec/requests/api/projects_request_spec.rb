@@ -175,7 +175,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'invalid transition failures', 'Project', from: 'started', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Project cannot transition from 'started' to 'started'",
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with already 3 started projects' do
@@ -184,7 +192,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'forbidden transition failures', 'Project', 'reached_max_started', from: 'newed', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'reached_max_started',
+            title: 'Forbidden transition',
+            detail: 'User cannot have more than 3 started projects',
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with invalid due_at' do
@@ -230,7 +246,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'invalid transition failures', 'Project', from: 'finished', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Project cannot transition from 'finished' to 'finished'",
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with a finish date in the future' do
