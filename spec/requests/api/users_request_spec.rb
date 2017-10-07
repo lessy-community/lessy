@@ -45,7 +45,15 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { }
       end
 
-      it_behaves_like 'missing param failures', 'User', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/user' },
+        }],
+      }
     end
 
     context 'with existing email' do
@@ -57,7 +65,15 @@ RSpec.describe Api::UsersController, type: :request do
         post '/api/users', params: { user: payload }
       end
 
-      it_behaves_like 'validation failed failures', 'User', { email: ['taken'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/email' },
+        }],
+      }
     end
   end
 
@@ -88,26 +104,40 @@ RSpec.describe Api::UsersController, type: :request do
         get '/api/users/me', headers: { 'Authorization': token }
       end
 
-      it_behaves_like 'not found failures', 'User'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/user' },
+        }],
+      }
     end
 
     context 'with expired token' do
       let(:token) { user.token(1.day.ago) }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
 
     context 'with no Authorization header' do
       let(:token) { nil }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end

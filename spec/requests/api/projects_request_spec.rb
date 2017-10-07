@@ -50,7 +50,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with newed project' do
@@ -74,7 +82,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'missing param failures', 'Project', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'with unknown project' do
@@ -83,7 +99,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch '/api/projects/42', params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'when authenticated with another user' do
@@ -93,7 +117,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do
@@ -101,10 +133,13 @@ RSpec.describe Api::ProjectsController, type: :request do
         patch "/api/projects/#{project.id}", params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end
@@ -172,7 +207,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'invalid transition failures', 'Project', from: 'started', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Project cannot transition from 'started' to 'started'",
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with already 3 started projects' do
@@ -181,7 +224,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'forbidden transition failures', 'Project', 'reached_max_started', from: 'newed', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'reached_max_started',
+            title: 'Forbidden transition',
+            detail: 'User cannot have more than 3 started projects',
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with invalid due_at' do
@@ -190,7 +241,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { dueAt: ['cannot_be_before_started_at'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_before_started_at',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/due_at' },
+          }],
+        }
       end
     end
 
@@ -227,7 +286,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'invalid transition failures', 'Project', from: 'finished', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Project cannot transition from 'finished' to 'finished'",
+            source: { pointer: '/project/state' }
+          }]
+        }
       end
 
       context 'with a finish date in the future' do
@@ -236,7 +303,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_after_today'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_after_today',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/finished_at' },
+          }],
+        }
       end
 
       context 'with a finish date before started_at' do
@@ -245,7 +320,15 @@ RSpec.describe Api::ProjectsController, type: :request do
           put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': user.token }, as: :json
         end
 
-        it_behaves_like 'validation failed failures', 'Project', { finishedAt: ['cannot_be_before_started_at'] }
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'cannot_be_before_started_at',
+            title: 'Resource validation failed',
+            detail: 'Resource cannot be saved because of validation constraints.',
+            source: { pointer: '/project/finished_at' },
+          }],
+        }
       end
     end
 
@@ -290,7 +373,15 @@ RSpec.describe Api::ProjectsController, type: :request do
         put "/api/projects/#{ project.id }/state", params: payload, headers: { 'Authorization': other_user.token }, as: :json
       end
 
-      it_behaves_like 'not found failures', 'Project'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
   end
 

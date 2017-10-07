@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": ["errors"],
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["status", "code", "title", "detail"],
+        "properties": {
+          "status": { "type": "string" },
+          "code": { "type": "string" },
+          "title": { "type": "string" },
+          "detail": { "type": "string" },
+          "source": {
+            "type": "object",
+            "required": ["pointer"],
+            "properties": {
+              "pointer": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -79,7 +79,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: {} }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'missing param failures', 'Project', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'with invalid name' do
@@ -88,7 +96,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['invalid'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with too long name' do
@@ -97,7 +113,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['too_long'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'too_long',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with existing project' do
@@ -107,7 +131,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'validation failed failures', 'Project', { name: ['taken'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/project/name' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do
@@ -116,10 +148,13 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: payload }, headers: { 'Authorization': 'not a token' }, as: :json
       end
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end

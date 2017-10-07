@@ -1,4 +1,4 @@
-class Api::Users::AuthorizationsController < ApplicationController
+class Api::Users::AuthorizationsController < ApiController
 
   skip_before_action :require_login, only: [:create]
 
@@ -7,7 +7,8 @@ class Api::Users::AuthorizationsController < ApplicationController
     if @user
       @token = @user.token(1.month.from_now)
     else
-      render_custom_error 'Bad credentials', :login_failed, User, :unauthorized
+      errors = [ApiErrors::LoginFailed.new]
+      render_errors errors, :unauthorized
     end
   end
 

@@ -1,4 +1,4 @@
-class Api::Users::TasksController < ApplicationController
+class Api::Users::TasksController < ApiController
 
   def index
     @tasks = current_user.tasks.not_abandoned

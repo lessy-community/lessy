@@ -60,7 +60,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'missing param failures', 'User', 'username'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/user/username' },
+        }],
+      }
     end
 
     context 'with invalid username' do
@@ -75,7 +83,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'validation failed failures', 'User', { username: ['invalid'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
     end
 
     context 'with too long username' do
@@ -90,7 +106,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'validation failed failures', 'User', { username: ['too_long'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'too_long',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
     end
 
     context 'with existing username' do
@@ -106,7 +130,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'validation failed failures', 'User', { username: ['taken'] }
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
     end
 
     context 'with invalid token' do
@@ -121,7 +153,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'not found failures', 'User'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/user' },
+        }],
+      }
     end
   end
 

@@ -1,9 +1,10 @@
-class Api::WelcomeController < ApplicationController
+class Api::WelcomeController < ApiController
 
   skip_before_action :require_login
 
   def not_found
-    render_custom_error 'Endpoint does not exist', :missing_endpoint, ApplicationController, :not_found
+    errors = [ApiErrors::MissingEndpoint.new]
+    render_errors errors, :not_found
   end
 
 end

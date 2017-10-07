@@ -40,10 +40,13 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
         post '/api/users/authorizations', params: payload
       end
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Bad credentials',
-        code: 'login_failed',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'login_failed',
+          title: 'Credentials are wrong',
+          detail: 'You failed to authenticate yourself, credentials are probably wrong.',
+        }],
       }
     end
 
@@ -55,10 +58,13 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
         post '/api/users/authorizations', params: payload
       end
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Bad credentials',
-        code: 'login_failed',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'login_failed',
+          title: 'Credentials are wrong',
+          detail: 'You failed to authenticate yourself, credentials are probably wrong.',
+        }],
       }
     end
   end

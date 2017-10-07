@@ -1,4 +1,4 @@
-class Api::Users::ActivationsController < ApplicationController
+class Api::Users::ActivationsController < ApiController
 
   skip_before_action :require_login, only: [:create]
 

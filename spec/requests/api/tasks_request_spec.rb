@@ -38,7 +38,15 @@ RSpec.describe Api::TasksController, type: :request do
       let(:other_user) { create(:user) }
       let(:token) { other_user.token }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 
@@ -79,13 +87,29 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with already finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'finished' to 'finished'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'finished'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'finished'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
     end
 
@@ -151,7 +175,15 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
-      it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'started'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'started'",
+            source: { pointer: '/task/state' }
+          }]
+        }
     end
 
     context 'when abandoning a task' do
@@ -184,13 +216,29 @@ RSpec.describe Api::TasksController, type: :request do
       context 'with finished task' do
         let(:task) { create :task, :finished, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'finished', to: 'abandoned'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'finished' to 'abandoned'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
 
       context 'with abandoned task' do
         let(:task) { create :task, :abandoned, user: user }
 
-        it_behaves_like 'invalid transition failures', 'Task', from: 'abandoned', to: 'abandoned'
+        it_behaves_like 'API errors', :unprocessable_entity, {
+          errors: [{
+            status: '422 Unprocessable Entity',
+            code: 'invalid_transition',
+            title: 'Invalid transition',
+            detail: "Task cannot transition from 'abandoned' to 'abandoned'",
+            source: { pointer: '/task/state' }
+          }]
+        }
       end
     end
 
@@ -204,7 +252,15 @@ RSpec.describe Api::TasksController, type: :request do
       let(:other_user) { create :user }
       let(:token) { other_user.token }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 
@@ -276,7 +332,15 @@ RSpec.describe Api::TasksController, type: :request do
     context 'with missing attribute' do
       let(:payload) { { } }
 
-      it_behaves_like 'missing param failures', 'Task', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
 
     context 'when authenticated with another user' do
@@ -287,7 +351,15 @@ RSpec.describe Api::TasksController, type: :request do
         },
       } }
 
-      it_behaves_like 'not found failures', 'Task'
+      it_behaves_like 'API errors', :not_found, {
+        errors: [{
+          status: '404 Not Found',
+          code: 'record_not_found',
+          title: 'Record not found',
+          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
   end
 

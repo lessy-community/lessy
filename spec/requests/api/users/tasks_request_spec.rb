@@ -96,16 +96,27 @@ RSpec.describe Api::Users::TasksController, type: :request do
     context 'with missing attribute' do
       let(:payload) { { } }
 
-      it_behaves_like 'missing param failures', 'Task', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do
       let(:token) { 'not a token' }
 
-      it_behaves_like 'failures', :unauthorized, 'custom_error', {
-        message: 'Authentication is required',
-        code: 'authentication_required',
-        resource: 'User',
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
       }
     end
   end
