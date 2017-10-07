@@ -79,7 +79,15 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         post me_projects_api_users_path, params: { project: {} }, headers: { 'Authorization': user.token }, as: :json
       end
 
-      it_behaves_like 'missing param failures', 'Project', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/project' },
+        }],
+      }
     end
 
     context 'with invalid name' do

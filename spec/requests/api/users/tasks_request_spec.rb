@@ -96,7 +96,15 @@ RSpec.describe Api::Users::TasksController, type: :request do
     context 'with missing attribute' do
       let(:payload) { { } }
 
-      it_behaves_like 'missing param failures', 'Task', 'base'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/task' },
+        }],
+      }
     end
 
     context 'with invalid authentication' do

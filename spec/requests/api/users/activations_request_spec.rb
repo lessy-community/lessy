@@ -60,7 +60,15 @@ RSpec.describe Api::Users::ActivationsController, type: :request do
         post '/api/users/activations', params: payload
       end
 
-      it_behaves_like 'missing param failures', 'User', 'username'
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'parameter_missing',
+          title: 'Parameter is missing',
+          detail: 'A parameter is missing or empty but it is required.',
+          source: { pointer: '/user/username' },
+        }],
+      }
     end
 
     context 'with invalid username' do

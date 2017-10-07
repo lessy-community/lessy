@@ -12,8 +12,10 @@ class ApiController < ActionController::API
     render_errors errors, :not_found
   end
 
-  rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
-  rescue_from ActionController::ResourceParameterMissing, with: :render_parameter_missing
+  rescue_from ActionController::ParameterMissing, with: -> (exception) do
+    errors = [ApiErrors::ParameterMissing.new(exception)]
+    render_errors errors, :unprocessable_entity
+  end
 
   rescue_from StateMachine::InvalidTransition, with: -> (exception) do
     errors = [ApiErrors::InvalidTransition.new(exception)]
@@ -53,17 +55,6 @@ protected
   def render_errors(errors, http_status)
     @errors = errors
     render 'api/errors', status: http_status
-  end
-
-  def render_parameter_missing(exception)
-    if exception.is_a? ActionController::ResourceParameterMissing
-      @resource = exception.resource.to_s.camelize
-      @field = exception.param
-    else
-      @resource = exception.param.to_s.camelize
-      @field = 'base'
-    end
-    render 'api/errors/parameter_missing', status: :unprocessable_entity
   end
 
 end

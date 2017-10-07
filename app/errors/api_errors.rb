@@ -31,6 +31,22 @@ module ApiErrors
     end
   end
 
+  class ParameterMissing < Base
+    def initialize(exception)
+      if exception.is_a? ActionController::ResourceParameterMissing
+        resource = exception.resource
+        field = exception.param
+      else
+        resource = exception.param
+      end
+      @status = '422 Unprocessable Entity'
+      @code = :parameter_missing
+      @title = 'Parameter is missing'
+      @detail = 'A parameter is missing or empty but it is required.'
+      @source_pointer = "/#{resource.to_s.downcase}" + (field.present? ? "/#{field}" : '')
+    end
+  end
+
   class RecordNotFound < Base
     def initialize(exception)
       @status = '404 Not Found'
