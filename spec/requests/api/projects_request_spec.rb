@@ -37,8 +37,8 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the projects/project schema' do
-        expect(response).to match_response_schema('projects/project')
+      it 'matches the projects/update schema' do
+        expect(response).to match_response_schema('projects/update')
       end
 
       it 'saves the new project' do
@@ -49,11 +49,11 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
 
       it 'returns the new project' do
-        api_project = JSON.parse(response.body)
+        api_project = JSON.parse(response.body)['data']
         expect(api_project['id']).to eq(project.id)
-        expect(api_project['name']).to eq('new-name-for-a-project')
-        expect(api_project['description']).to eq('New description')
-        expect(api_project['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
+        expect(api_project['attributes']['name']).to eq('new-name-for-a-project')
+        expect(api_project['attributes']['description']).to eq('New description')
+        expect(api_project['attributes']['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
       end
     end
 
@@ -164,6 +164,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     subject { put state_api_project_path(project.id), params: payload,
                                                       headers: { 'Authorization': token },
                                                       as: :json }
+
     context 'when starting a project' do
       let(:project) { create :project, :newed, user: user }
       let(:payload) { {
@@ -180,8 +181,8 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'matches the projects/project schema' do
-          expect(response).to match_response_schema('projects/project')
+        it 'matches the projects/update_state schema' do
+          expect(response).to match_response_schema('projects/update_state')
         end
 
         it 'saves due_at' do
@@ -274,8 +275,8 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'matches the projects/project schema' do
-          expect(response).to match_response_schema('projects/project')
+        it 'matches the projects/update_state schema' do
+          expect(response).to match_response_schema('projects/update_state')
         end
 
         it 'saves finished_at' do
@@ -349,8 +350,8 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'matches the projects/project schema' do
-          expect(response).to match_response_schema('projects/project')
+        it 'matches the projects/update_state schema' do
+          expect(response).to match_response_schema('projects/update_state')
         end
 
         it 'saves paused_at' do

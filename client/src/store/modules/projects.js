@@ -1,6 +1,6 @@
 import marked from 'marked'
 
-import { mapElementsById, formatDate } from '../../utils'
+import { formatDate } from '../../utils'
 
 import projectsApi from '../../api/projects'
 
@@ -103,55 +103,70 @@ const getters = {
 const actions = {
   list ({ commit }) {
     return projectsApi.list()
-                      .then((data) => commit('addList', data))
+                      .then((res) => commit('addList', res.data))
   },
 
   create ({ commit }, { name }) {
     return projectsApi
       .create(name)
-      .then((data) => {
-        commit('addList', [data])
-        return data.id
+      .then((res) => {
+        commit('addList', [res.data])
+        return res.data.id
       })
   },
 
   update ({ commit }, { project, ...payload }) {
     return projectsApi.update(project, payload)
-                      .then((data) => commit('set', data))
+                      .then((res) => commit('set', res.data))
   },
 
   start ({ commit }, { project, dueAt }) {
     return projectsApi.start(project, dueAt)
-                      .then((data) => commit('set', data))
+                      .then((res) => commit('set', res.data))
   },
 
   stop ({ commit }, { project }) {
     return projectsApi.stop(project)
-                      .then((data) => commit('set', data))
+                      .then((res) => commit('set', res.data))
   },
 
   finish ({ commit, state }, { project, finishedAt }) {
     return projectsApi
       .finish(project, finishedAt)
-      .then((data) => {
-        commit('set', data)
+      .then((res) => {
+        commit('set', res.data)
         commit('setNumberFinished', state.numberFinished + 1)
       })
   },
 }
 
 const mutations = {
-  addList (state, projects) {
+  addList (state, data) {
+    let byIds = {}
+    data.forEach((element) => {
+      byIds[element.id] = {
+        id: element.id,
+        ...element.attributes,
+        userId: element.relationships.user.data.id,
+        taskIds: element.relationships.tasks.data.map(task => task.id),
+      }
+    })
+
     state.byIds = {
       ...state.byIds,
-      ...mapElementsById(projects),
+      ...byIds,
     }
   },
 
-  set (state, project) {
+  set (state, data) {
     state.byIds = {
       ...state.byIds,
-      [project.id]: project,
+      [data.id]: {
+        id: data.id,
+        ...data.attributes,
+        userId: data.relationships.user.data.id,
+        taskIds: data.relationships.tasks.data.map(task => task.id),
+      },
     }
   },
 
