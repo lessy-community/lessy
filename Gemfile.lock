@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    action-cable-testing (0.2.0)
+      actioncable (~> 5.0)
     actioncable (5.1.4)
       actionpack (= 5.1.4)
       nio4r (~> 2.0)
@@ -253,6 +255,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  action-cable-testing
   awesome_print
   byebug
   factory_bot_rails (~> 4.8)

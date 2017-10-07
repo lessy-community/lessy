@@ -5,6 +5,10 @@ export default {
     return get('/api/users/me/projects?page=1')
   },
 
+  get (id) {
+    return get(`/api/projects/${id}`)
+  },
+
   create (name) {
     return post('/api/users/me/projects', { name })
   },

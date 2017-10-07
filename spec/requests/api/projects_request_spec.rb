@@ -112,6 +112,18 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
     end
 
+    context 'with websocket support' do
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#projects',
+            id: project.id,
+            updatedAt: project.updated_at.to_i,
+          })
+      end
+    end
+
     context 'with missing attribute' do
       let(:payload) { { } }
 
@@ -393,6 +405,26 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(task.reload.state).to eq('newed')
           expect(task.reload.started_at).to be nil
         end
+      end
+    end
+
+    context 'with websocket support' do
+      let(:project) { create :project, :newed, user: user }
+      let(:payload) { {
+        project: {
+          state: 'started',
+          due_at: DateTime.new(2017, 01, 27).to_i,
+        },
+      } }
+
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#projects',
+            id: project.id,
+            updatedAt: project.updated_at.to_i,
+          })
       end
     end
 

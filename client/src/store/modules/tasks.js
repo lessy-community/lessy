@@ -114,6 +114,12 @@ const actions = {
                    .then(getWhileNext((res) => commit('addList', res.data)))
   },
 
+  get ({ commit }, { id }) {
+    return tasksApi
+      .get(id)
+      .then((res) => commit('set', res.data))
+  },
+
   create ({ commit }, { label, plannedAt }) {
     return tasksApi
       .create(label, plannedAt)

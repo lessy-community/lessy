@@ -13,6 +13,13 @@ class Api::Users::TasksController < ApiController
     @task = current_user.tasks.new(create_task_params)
     @task.sync_state_with_project
     @task.save!
+
+    NotificationsChannel.broadcast_to(
+      current_user,
+      action: 'create#tasks',
+      id: @task.id,
+    )
+
     render status: :created
   end
 
