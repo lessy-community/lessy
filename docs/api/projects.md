@@ -188,9 +188,9 @@ Parameters:
 |---------------------|--------|--------------------------------|----------|
 | id                  | number | Project's id                   |          |
 | project             | object |                                |          |
-| project.name        | string | Project's name                 |    x     |
-| project.description | string | Project's description          |    x     |
-| project.due\_at     | number | Project's due date (timestamp) |    x     |
+| project.name        | string | Project's name                 | yes      |
+| project.description | string | Project's description          | yes      |
+| project.due\_at     | number | Project's due date (timestamp) | yes      |
 
 Note: same requirements apply to project's name as for creation. Also, `due_at`
 cannot be changed while project is `newed`.
@@ -277,8 +277,8 @@ Parameters:
 | id                   | number | Project's id          |          |
 | project              | object |                       |          |
 | project.state        | string | Project's state       |          |
-| project.due\_at      | number | Project's due date    |    x     |
-| project.finished\_at | number | Project's finish date |    x     |
+| project.due\_at      | number | Project's due date    | yes      |
+| project.finished\_at | number | Project's finish date | yes      |
 
 Note: possible values of `state` are `started`, `paused` and `finished`. A
 created project's state is `newed`. State follow this state's machine:

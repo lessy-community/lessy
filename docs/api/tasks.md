@@ -10,8 +10,8 @@ Parameters:
 |------------------|--------|-------------------------|----------|
 | task             | object |                         |          |
 | task.label       | string | Task's label            |          |
-| task.planned\_at | number | Task's due date         |    x     |
-| task.project\_id | number | Task's project relation |    x     |
+| task.planned\_at | number | Task's due date         | yes      |
+| task.project\_id | number | Task's project relation | yes      |
 
 Note: in Lessy, if `planned_at` is set for today, task appears in today list.
 Otherwise (either `nil` or another day), it appears in the backlog. If
@@ -39,7 +39,7 @@ Result format:
 | data.relationships.user.data.type               | string | Type of data (always `user`)             |          |
 | data.relationships.user.data.id                 | number | User's identifier                        |          |
 | data.relationships.project                      | object | Related project reference                |          |
-| data.relationships.project.data                 | object |                                          |    x     |
+| data.relationships.project.data                 | object |                                          | yes      |
 | data.relationships.project.data.type            | string | Type of data (always `project`)          |          |
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
@@ -120,7 +120,7 @@ Result format:
 | data[].relationships.user.data.type               | string | Type of data (always `user`)             |          |
 | data[].relationships.user.data.id                 | number | User's identifier                        |          |
 | data[].relationships.project                      | object | Related project reference                |          |
-| data[].relationships.project.data                 | object |                                          |    x     |
+| data[].relationships.project.data                 | object |                                          | yes      |
 | data[].relationships.project.data.type            | string | Type of data (always `project`)          |          |
 | data[].relationships.project.data.id              | number | Project's identifier                     |          |
 | data[].relationships.project.data.attributes      | object |                                          |          |
@@ -223,7 +223,7 @@ Result format:
 | data.relationships.user.data.type               | string | Type of data (always `user`)             |          |
 | data.relationships.user.data.id                 | number | User's identifier                        |          |
 | data.relationships.project                      | object | Related project reference                |          |
-| data.relationships.project.data                 | object |                                          |    x     |
+| data.relationships.project.data                 | object |                                          | yes      |
 | data.relationships.project.data.type            | string | Type of data (always `project`)          |          |
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
@@ -341,7 +341,7 @@ Result format:
 | data.relationships.user.data.type               | string | Type of data (always `user`)             |          |
 | data.relationships.user.data.id                 | number | User's identifier                        |          |
 | data.relationships.project                      | object | Related project reference                |          |
-| data.relationships.project.data                 | object |                                          |    x     |
+| data.relationships.project.data                 | object |                                          | yes      |
 | data.relationships.project.data.type            | string | Type of data (always `project`)          |          |
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
@@ -441,12 +441,12 @@ $ curl -H "Content-Type: application/json" \
     {
       "type": "task",
       "id": 19,
-      "attributes": { "order": 2 },
+      "attributes": { "order": 2 }
     },
     {
       "type": "task",
       "id": 23,
-      "attributes": { "order": 1 },
+      "attributes": { "order": 1 }
     }
   ]
 }

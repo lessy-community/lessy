@@ -14,7 +14,7 @@ Result format:
 | data.type                | string | Type of returned data (always `user`) |          |
 | data.id                  | number | User's identifier                     |          |
 | data.attributes          | object |                                       |          |
-| data.attributes.username | string | User's username                       |     x    |
+| data.attributes.username | string | User's username                       | yes      |
 | data.attributes.email    | string | User's email                          |          |
 
 Note: `username` can be `null` if user's account has not been activated yet.
@@ -43,7 +43,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
 Create a new user on Lessy. This action sends an email to the given address
 with a token required to activate the user.
 
-**This endpoint doesn't require a `Authorization` header.**
+**This endpoint doesn't require an `Authorization` header.**
 
 Parameters:
 
@@ -103,7 +103,7 @@ $ curl -H "Content-Type: application/json" \
 Activate an inactive user, using token from the activation email. It also sets
 user's username and password.
 
-**This endpoint doesn't require a `Authorization` header.**
+**This endpoint doesn't require an `Authorization` header.**
 
 Parameters:
 
@@ -171,7 +171,7 @@ $ curl -H "Content-Type: application/json" \
 
 Authenticate a user and get a token valid for 1 month.
 
-**This endpoint doesn't require a `Authorization` header.**
+**This endpoint doesn't require an `Authorization` header.**
 
 Parameters:
 
@@ -201,12 +201,14 @@ Specific errors:
 
 Example:
 
-```json
+```console
 $ curl -H "Content-Type: application/json" \
        -X POST \
        -d '{"username": "dalecooper", "password": "secret"}' \
        https://lessy.io/api/users/authorizations
+```
 
+```json
 {
   "data": {
     "type": "user",

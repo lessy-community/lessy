@@ -14,7 +14,7 @@ An error response always matches with the following format:
 | errors[].code           | string | A specific application code error                              |          |
 | errors[].title          | string | A human-readable summary of the error                          |          |
 | errors[].detail         | string | A human-readable explanation of the error                      |          |
-| errors[].source         | object | An object containing information about the source of the error |     x    |
+| errors[].source         | object | An object containing information about the source of the error | yes      |
 | errors[].source.pointer | string | A pointer indicating the specific resource of field in error   |          |
 
 Note: if several errors has different `status` code, the HTTP response will be
