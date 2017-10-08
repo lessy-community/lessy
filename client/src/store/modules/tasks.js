@@ -110,81 +110,103 @@ const getters = {
 const actions = {
   list ({ commit }) {
     return tasksApi.list()
-                   .then((data) => commit('addList', data))
+                   .then((res) => commit('addList', res.data))
   },
 
   create ({ commit }, { label, plannedAt }) {
     return tasksApi
       .create(label, plannedAt)
-      .then((data) => {
-        commit('addList', [data])
-        return data.id
+      .then((res) => {
+        commit('addList', [res.data])
+        return res.data.id
       })
   },
 
   createForProject ({ commit }, { label, plannedAt, projectId }) {
     return tasksApi
       .create(label, plannedAt, projectId)
-      .then((data) => {
-        commit('addList', [data])
+      .then((res) => {
+        commit('addList', [res.data])
         commit('projects/addTaskToProject',
-               { projectId, taskId: data.id },
+               { projectId, taskId: res.data.id },
                { root: true })
-        return data.id
+        return res.data.id
       })
   },
 
   update ({ commit }, { task, label }) {
     return tasksApi.update(task, label)
-                   .then((data) => commit('set', data))
+                   .then((res) => commit('set', res.data))
   },
 
   finish ({ commit }, { task }) {
     return tasksApi.finish(task)
-                   .then((data) => commit('set', data))
+                   .then((res) => commit('set', res.data))
   },
 
   restart ({ commit }, { task }) {
     return tasksApi.restart(task)
-                   .then((data) => commit('set', data))
+                   .then((res) => commit('set', res.data))
   },
 
   start ({ commit }, { task }) {
     return tasksApi.start(task)
-                   .then((data) => commit('set', data))
+                   .then((res) => commit('set', res.data))
   },
 
   abandon ({ commit }, { task }) {
     return tasksApi.abandon(task)
-                   .then((data) => commit('set', data))
+                   .then((res) => commit('set', res.data))
   },
 
   updateOrder ({ commit }, { task, order }) {
     return tasksApi.updateOrder(task, order)
-                   .then((data) => commit('setOrder', data))
+                   .then((res) => commit('setOrder', res.data))
   },
 }
 
 const mutations = {
-  addList (state, tasks) {
+  addList (state, data) {
+    let byIds = {}
+    data.forEach((element) => {
+      byIds[element.id] = {
+        id: element.id,
+        ...element.attributes,
+        userId: element.relationships.user.data.id,
+      }
+      if (element.relationships.project.data != null) {
+        byIds[element.id].projectId = element.relationships.project.data.id
+        byIds[element.id].projectName = element.relationships.project.data.attributes.name
+      }
+    })
+
     state.byIds = {
       ...state.byIds,
-      ...mapElementsById(tasks),
+      ...byIds,
     }
   },
 
-  set (state, task) {
-    state.byIds = {
+  set (state, data) {
+    let byIds = {
       ...state.byIds,
-      [task.id]: task,
+      [data.id]: {
+        id: data.id,
+        ...data.attributes,
+        userId: data.relationships.user.data.id,
+      },
     }
+    if (data.relationships.project.data != null) {
+      byIds[data.id].projectId = data.relationships.project.data.id
+      byIds[data.id].projectName = data.relationships.project.data.attributes.name
+    }
+    state.byIds = byIds
   },
 
-  setOrder (state, newOrderTasks) {
-    const impactedTasks = newOrderTasks.map(orderTask => {
+  setOrder (state, data) {
+    const impactedTasks = data.map(task => {
       return {
-        ...state.byIds[orderTask.id],
-        order: orderTask.order,
+        ...state.byIds[task.id],
+        order: task.attributes.order,
       }
     }).filter(task => task.id != null)
     state.byIds = {

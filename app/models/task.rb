@@ -19,25 +19,27 @@ class Task < ApplicationRecord
   }
 
   def order_incremental!(new_order)
-    impacted_tasks = user.tasks.where('? <= "order" AND "order" < ?', new_order, self.order)
+    tasks_to_change = user.tasks.where('? <= "order" AND "order" < ?', new_order, self.order)
+    impacted_tasks = tasks_to_change + [self]
 
     Task.transaction do
-      impacted_tasks.update_all('"order" = "order" + 1')
+      tasks_to_change.update_all('"order" = "order" + 1')
       self.update! order: new_order
     end
 
-    impacted_tasks + [self]
+    impacted_tasks
   end
 
   def order_decremental!(new_order)
-    impacted_tasks = user.tasks.where('? < "order" AND "order" <= ?', self.order, new_order)
+    tasks_to_change = user.tasks.where('? < "order" AND "order" <= ?', self.order, new_order)
+    impacted_tasks = tasks_to_change + [self]
 
     Task.transaction do
-      impacted_tasks.update_all('"order" = "order" - 1')
+      tasks_to_change.update_all('"order" = "order" - 1')
       self.update! order: new_order
     end
 
-    impacted_tasks + [self]
+    impacted_tasks
   end
 
 private

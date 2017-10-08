@@ -12,4 +12,5 @@ assume that users are not necessarily hosted on this server.
 - [Authentication](authentication.md)
 - [Users](users.md)
 - [Projects](projects.md)
+- [Tasks](tasks.md)
 - [Errors](errors.md)

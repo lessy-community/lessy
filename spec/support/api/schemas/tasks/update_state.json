@@ -2,10 +2,7 @@
   "type": "object",
   "required": ["data"],
   "properties": {
-    "data": {
-      "type": "array",
-      "items": { "ref": "./task.json" }
-    }
+    "data": { "$ref": "task.json" }
   },
   "additionalProperties": false
 }
