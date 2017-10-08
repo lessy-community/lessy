@@ -335,9 +335,15 @@ RSpec.describe Api::TasksController, type: :request do
       end
 
       it 'returns impacted tasks' do
-        impacted_tasks = JSON.parse(response.body)['data'].map { |task| task['id'] }
+        impacted_tasks = JSON.parse(response.body)['data'].map do |task|
+          [task['id'], task['attributes']['order']]
+        end
 
-        expect(impacted_tasks).to contain_exactly(task1.id, task2.id, task.id)
+        expect(impacted_tasks).to contain_exactly(
+          [task1.id, task1.reload.order],
+          [task2.id, task2.reload.order],
+          [task.id, task.reload.order]
+        )
       end
     end
 
@@ -370,9 +376,15 @@ RSpec.describe Api::TasksController, type: :request do
       end
 
       it 'returns impacted tasks' do
-        impacted_tasks = JSON.parse(response.body)['data'].map { |task| task['id'] }
+        impacted_tasks = JSON.parse(response.body)['data'].map do |task|
+          [task['id'], task['attributes']['order']]
+        end
 
-        expect(impacted_tasks).to contain_exactly(task.id, task4.id, task5.id)
+        expect(impacted_tasks).to contain_exactly(
+          [task.id, task.reload.order],
+          [task4.id, task4.reload.order],
+          [task5.id, task5.reload.order]
+        )
       end
     end
 
