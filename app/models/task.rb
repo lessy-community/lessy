@@ -18,6 +18,8 @@ class Task < ApplicationRecord
     where('? <= planned_at AND planned_at <= ?', today.beginning_of_day, today.end_of_day)
   }
 
+  paginates_per 50
+
   def order_incremental!(new_order)
     tasks_to_change = user.tasks.where('? <= "order" AND "order" < ?', new_order, self.order)
     impacted_tasks = tasks_to_change + [self]

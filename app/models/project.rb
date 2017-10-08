@@ -9,4 +9,6 @@ class Project < ApplicationRecord
                    format: { with: /\A[\w\-]{1,}\z/, message: 'must contain letters, numbers, underscores (_) and hiphens (-) only' },
                    length: { maximum: 100 }
 
+  paginates_per 25
+
 end

@@ -1,7 +1,7 @@
 class Api::Users::TasksController < ApiController
 
   def index
-    @tasks = current_user.tasks.not_abandoned
+    @tasks = current_user.tasks.not_abandoned.page(params[:page])
   end
 
   def create

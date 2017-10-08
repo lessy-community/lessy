@@ -14,25 +14,47 @@ RSpec.describe Api::Users::TasksController, type: :request do
   end
 
   describe 'GET #index' do
-    let!(:tasks) { create_list :task, 3, :started, user: user }
-    let!(:abandoned_task) { create :task, :abandoned, user: user }
-    let(:json_response) { JSON.parse(response.body)['data'] }
+    let(:json_response) { JSON.parse(response.body) }
 
     subject { get me_tasks_api_users_path, headers: { 'Authorization': user.token } }
 
-    before { subject }
+    context 'with less than 50 tasks' do
+      let!(:abandoned_task) { create :task, :abandoned, user: user }
 
-    it 'succeeds' do
-      expect(response).to have_http_status(:ok)
+      before do
+        create_list :task, 3, :started, user: user
+        subject
+      end
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/index schema' do
+        expect(response).to match_response_schema('tasks/index')
+      end
+
+      it 'returns the list of non abandoned tasks' do
+        expect(json_response['data'].length).to eq(3)
+        expect(json_response['data'].map { |t| t['id'] }).not_to include(abandoned_task.id)
+      end
     end
 
-    it 'matches the tasks/index schema' do
-      expect(response).to match_response_schema('tasks/index')
-    end
+    context 'with more than 50 tasks' do
+      before do
+        create_list :task, 55, :started, user: user
+        subject
+      end
 
-    it 'returns the list of non abandoned tasks' do
-      expect(json_response.length).to eq(3)
-      expect(json_response.map { |t| t['id'] }).not_to include(abandoned_task.id)
+      it 'succeeds and matches the tasks/index schema' do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema('tasks/index')
+      end
+
+      it 'returns no more than 50 tasks and sets links' do
+        expect(json_response['data'].length).to eq(50)
+        expect(json_response['links']['next']).to eq(me_tasks_api_users_path(page: 2))
+      end
     end
   end
 

@@ -52,6 +52,23 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         expect(task_ids).to contain_exactly(task.id)
       end
     end
+
+    context 'with more than 25 projects' do
+      before do
+        create_list :project, 30, user: user
+        subject
+      end
+
+      it 'succeeds matches the projects/index schema' do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema('projects/index')
+      end
+
+      it 'returns no more than 25 projects and sets links' do
+        expect(json_response['data'].length).to eq(25)
+        expect(json_response['links']['next']).to eq(me_projects_api_users_path(page: 2))
+      end
+    end
   end
 
   describe 'POST #create' do

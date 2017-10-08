@@ -34,6 +34,18 @@ function get (url, needAuthorization = true) {
                .then(handleErrors)
 }
 
+function getWhileNext (callback) {
+  function crawl (res) {
+    callback(res)
+    if (res.links.next != null) {
+      return get(res.links.next).then(crawl)
+    }
+    return res
+  }
+
+  return crawl
+}
+
 function post (url, payload, needAuthorization = true) {
   const options = {
     method: 'POST',
@@ -83,4 +95,5 @@ export {
   post,
   patch,
   put,
+  getWhileNext,
 }

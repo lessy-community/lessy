@@ -2,7 +2,7 @@ import { get, post, patch, put } from './http'
 
 export default {
   list () {
-    return get('/api/users/me/tasks')
+    return get('/api/users/me/tasks?page=1')
   },
 
   create (label, plannedAt, projectId) {

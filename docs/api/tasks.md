@@ -93,9 +93,14 @@ $ curl -H "Content-Type: application/json" \
 
 ## `GET /api/users/me/tasks`
 
-List tasks owned by current user.
+List tasks owned by current user. This endpoint is paginated and return a
+maximum of 50 items per page.
 
-Parameters: none.
+Parameters:
+
+| Name      | Type   | Description                       | Optional |
+|-----------|--------|-----------------------------------|----------|
+| page      | number | Tasks' page to fetch (default: 1) | yes      |
 
 Note: abandoned tasks are never returned.
 
@@ -125,6 +130,11 @@ Result format:
 | data[].relationships.project.data.id              | number | Project's identifier                     |          |
 | data[].relationships.project.data.attributes      | object |                                          |          |
 | data[].relationships.project.data.attributes.name | string | Project's name                           |          |
+| links                                             | object |                                          |          |
+| links.first                                       | string | Link to the first page of pagination     |          |
+| links.last                                        | string | Link to the last page of pagination      |          |
+| links.prev                                        | string | Link to the previous page of pagination  | yes      |
+| links.next                                        | string | Link to the next page of pagination      | yes      |
 
 **Important note :** this output may evolve quite soon!
 
@@ -187,7 +197,11 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         }
       }
     }
-  ]
+  ],
+  "links": {
+    "first": "https://lessy.io/api/users/me/tasks?page=1",
+    "last": "https://lessy.io/api/users/me/tasks?page=1"
+  }
 }
 ```
 

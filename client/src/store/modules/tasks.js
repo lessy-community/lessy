@@ -2,6 +2,8 @@ import moment from 'moment'
 import sanitizeHtml from 'sanitize-html'
 import anchorme from 'anchorme'
 
+import { getWhileNext } from '../../api/http'
+
 import { mapElementsById, formatDate } from '../../utils'
 
 import tasksApi from '../../api/tasks'
@@ -110,7 +112,7 @@ const getters = {
 const actions = {
   list ({ commit }) {
     return tasksApi.list()
-                   .then((res) => commit('addList', res.data))
+                   .then(getWhileNext((res) => commit('addList', res.data)))
   },
 
   create ({ commit }, { label, plannedAt }) {

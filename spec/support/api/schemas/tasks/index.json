@@ -1,10 +1,21 @@
 {
   "type": "object",
-  "required": ["data"],
+  "required": ["data", "links"],
   "properties": {
     "data": {
       "type": "array",
-      "items": { "ref": "./task.json" }
+      "items": { "$ref": "task.json" }
+    },
+    "links": {
+      "type": "object",
+      "required": ["first", "last"],
+      "properties": {
+        "first": { "type": "string" },
+        "last": { "type": "string" },
+        "prev": { "type": "string" },
+        "next": { "type": "string" }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

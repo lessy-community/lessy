@@ -1,5 +1,7 @@
 import marked from 'marked'
 
+import { getWhileNext } from '../../api/http'
+
 import { formatDate } from '../../utils'
 
 import projectsApi from '../../api/projects'
@@ -103,7 +105,7 @@ const getters = {
 const actions = {
   list ({ commit }) {
     return projectsApi.list()
-                      .then((res) => commit('addList', res.data))
+                      .then(getWhileNext((res) => commit('addList', res.data)))
   },
 
   create ({ commit }, { name }) {

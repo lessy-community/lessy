@@ -83,6 +83,18 @@ GEM
     json_matchers (0.7.1)
       json-schema (~> 2.7)
     jwt (1.5.6)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -245,6 +257,7 @@ DEPENDENCIES
   foreman (~> 0.84)
   jbuilder (~> 2.7)
   json_matchers
+  kaminari
   letter_opener (~> 1.4)
   listen (~> 3.1)
   pg
