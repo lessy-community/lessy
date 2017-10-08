@@ -33,8 +33,8 @@ RSpec.describe Api::TasksController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
+      it 'matches the tasks/update schema' do
+        expect(response).to match_response_schema('tasks/update')
       end
 
       it 'saves the new task' do
@@ -82,8 +82,8 @@ RSpec.describe Api::TasksController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'matches the tasks/task schema' do
-          expect(response).to match_response_schema('tasks/task')
+        it 'matches the tasks/update_state schema' do
+          expect(response).to match_response_schema('tasks/update_state')
         end
 
         it 'saves finished_at' do
@@ -91,8 +91,8 @@ RSpec.describe Api::TasksController, type: :request do
         end
 
         it 'returns the updated task' do
-          task = JSON.parse(response.body)
-          expect(task['finishedAt']).to eq(DateTime.new(2017).to_i)
+          task = JSON.parse(response.body)['data']
+          expect(task['attributes']['finishedAt']).to eq(DateTime.new(2017).to_i)
         end
       end
 
@@ -143,8 +143,8 @@ RSpec.describe Api::TasksController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
+      it 'matches the tasks/update_state schema' do
+        expect(response).to match_response_schema('tasks/update_state')
       end
 
       it 'resets finished_at' do
@@ -174,8 +174,8 @@ RSpec.describe Api::TasksController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
+      it 'matches the tasks/update_state schema' do
+        expect(response).to match_response_schema('tasks/update_state')
       end
 
       it 'sets planned_at to today' do
@@ -223,8 +223,8 @@ RSpec.describe Api::TasksController, type: :request do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'matches the tasks/task schema' do
-          expect(response).to match_response_schema('tasks/task')
+        it 'matches the tasks/update_state schema' do
+          expect(response).to match_response_schema('tasks/update_state')
         end
 
         it 'saves abandoned_at' do
@@ -232,8 +232,8 @@ RSpec.describe Api::TasksController, type: :request do
         end
 
         it 'returns the updated task' do
-          task = JSON.parse(response.body)
-          expect(task['abandonedAt']).to eq(DateTime.new(2017).to_i)
+          task = JSON.parse(response.body)['data']
+          expect(task['attributes']['abandonedAt']).to eq(DateTime.new(2017).to_i)
         end
       end
 
@@ -333,6 +333,12 @@ RSpec.describe Api::TasksController, type: :request do
         expect(task4.reload.order).to eq(43)
         expect(task5.reload.order).to eq(44)
       end
+
+      it 'returns impacted tasks' do
+        impacted_tasks = JSON.parse(response.body)['data'].map { |task| task['id'] }
+
+        expect(impacted_tasks).to contain_exactly(task1.id, task2.id, task.id)
+      end
     end
 
     context 'whith new order greater than current' do
@@ -361,6 +367,12 @@ RSpec.describe Api::TasksController, type: :request do
         expect(task2.reload.order).to eq(41)
         expect(task4.reload.order).to eq(42)
         expect(task5.reload.order).to eq(43)
+      end
+
+      it 'returns impacted tasks' do
+        impacted_tasks = JSON.parse(response.body)['data'].map { |task| task['id'] }
+
+        expect(impacted_tasks).to contain_exactly(task.id, task4.id, task5.id)
       end
     end
 

@@ -16,7 +16,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
   describe 'GET #index' do
     let!(:tasks) { create_list :task, 3, :started, user: user }
     let!(:abandoned_task) { create :task, :abandoned, user: user }
-    let(:json_response) { JSON.parse(response.body) }
+    let(:json_response) { JSON.parse(response.body)['data'] }
 
     subject { get me_tasks_api_users_path, headers: { 'Authorization': user.token } }
 
@@ -56,8 +56,8 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(response).to have_http_status(:created)
       end
 
-      it 'matches the tasks/task schema' do
-        expect(response).to match_response_schema('tasks/task')
+      it 'matches the tasks/create schema' do
+        expect(response).to match_response_schema('tasks/create')
       end
 
       it 'saves the new task' do
@@ -65,10 +65,10 @@ RSpec.describe Api::Users::TasksController, type: :request do
       end
 
       it 'returns the new project' do
-        task = JSON.parse(response.body)
+        task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['plannedAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['attributes']['label']).to eq('My task')
+        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
       end
     end
 
@@ -89,11 +89,11 @@ RSpec.describe Api::Users::TasksController, type: :request do
       end
 
       it 'returns the new task' do
-        task = JSON.parse(response.body)
+        task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['plannedAt']).to eq(DateTime.new(2017).to_i)
-        expect(task['projectId']).to eq(project.id)
+        expect(task['attributes']['label']).to eq('My task')
+        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['relationships']['project']['data']['id']).to eq(project.id)
       end
     end
 
@@ -111,10 +111,10 @@ RSpec.describe Api::Users::TasksController, type: :request do
       end
 
       it 'returns the new task' do
-        task = JSON.parse(response.body)
+        task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
-        expect(task['label']).to eq('My task')
-        expect(task['plannedAt']).to eq(0)
+        expect(task['attributes']['label']).to eq('My task')
+        expect(task['attributes']['plannedAt']).to eq(0)
       end
     end
 

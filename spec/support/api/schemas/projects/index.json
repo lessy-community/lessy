@@ -1,6 +1,11 @@
 {
-  "projects": {
-    "type": "array",
-    "items": { "ref": "./project.json" }
-  }
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": { "$ref": "project.json" }
+    }
+  },
+  "additionalProperties": false
 }

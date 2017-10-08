@@ -1,1 +1,1 @@
-json.partial! 'api/tasks/task', task: @task
+json.data @task, partial: 'api/tasks/task', as: :task

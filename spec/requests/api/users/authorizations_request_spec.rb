@@ -36,7 +36,7 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
       end
 
       it 'returns a token valid for 1 month' do
-        token = JSON.parse(response.body)['token']
+        token = JSON.parse(response.body)['meta']['token']
         decoded_token = JsonWebToken.decode(token)
         expect(decoded_token[:exp]).to eq(1.month.from_now.to_i)
       end

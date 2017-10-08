@@ -1,11 +1,27 @@
 {
-  "type": "array",
-  "items": {
-    "type": "object",
-    "required": ["id", "order"],
-    "properties": {
-      "id": { "type": "integer" },
-      "order": { "type": "integer" }
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "id", "attributes"],
+        "properties": {
+          "type": { "type": "string" },
+          "id": { "type": "integer" },
+          "attributes": {
+            "type": "object",
+            "required": ["order"],
+            "properties": {
+              "order": { "type": "integer" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
     }
-  }
+  },
+  "additionalProperties": false
 }

@@ -1,4 +1,11 @@
 {
-  "type": "array",
-  "items": { "ref": "./task.json" }
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": { "ref": "./task.json" }
+    }
+  },
+  "additionalProperties": false
 }

@@ -25,15 +25,16 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
       end
 
       it 'returns the list of projects' do
-        expect(json_response.length).to eq(3)
+        expect(json_response['data'].length).to eq(3)
       end
     end
 
     context 'with related task' do
       let(:task) { create :task, user: user }
+      let(:task_abandoned) { create :task, :abandoned, user: user }
 
       before do
-        create :project, user: user, tasks: [task]
+        create :project, user: user, tasks: [task, task_abandoned]
         subject
       end
 
@@ -45,9 +46,10 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         expect(response).to match_response_schema('projects/index')
       end
 
-      it 'returns id of related task' do
-        json_project = json_response[0]
-        expect(json_project['taskIds']).to contain_exactly(task.id)
+      it 'returns id of non-abandoned related task' do
+        tasks = json_response['data'][0]['relationships']['tasks']['data']
+        task_ids = tasks.map { |t| t['id'] }
+        expect(task_ids).to contain_exactly(task.id)
       end
     end
   end
@@ -71,8 +73,8 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         expect(response).to have_http_status(:created)
       end
 
-      it 'matches the projects/project schema' do
-        expect(response).to match_response_schema('projects/project')
+      it 'matches the projects/create schema' do
+        expect(response).to match_response_schema('projects/create')
       end
 
       it 'saves the new project' do
@@ -80,10 +82,10 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
       end
 
       it 'returns the new project' do
-        project = JSON.parse(response.body)
+        project = JSON.parse(response.body)['data']
         expect(project['id']).not_to be_nil
-        expect(project['name']).to eq('my-project')
-        expect(project['isInProgress']).to be false
+        expect(project['attributes']['name']).to eq('my-project')
+        expect(project['attributes']['isInProgress']).to be false
       end
     end
 

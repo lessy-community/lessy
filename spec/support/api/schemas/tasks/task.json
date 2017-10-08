@@ -1,18 +1,80 @@
 {
   "type": "object",
-  "required": ["id", "label", "projectId", "projectName", "order", "plannedCount", "userId", "createdAt"],
+  "required": ["id", "type", "attributes", "relationships"],
   "properties": {
+    "type": { "type": "string" },
     "id": { "type": "integer" },
-    "label": { "type": "string" },
-    "projectId": { "type": ["null", "integer"] },
-    "projectName": { "type": ["null", "string"] },
-    "order": { "type": "integer" },
-    "plannedCount": { "type": "integer" },
-    "userId": { "type": "integer" },
-    "createdAt": { "type": "integer" },
-    "plannedAt": { "type": "integer" },
-    "finishedAt": { "type": "integer" },
-    "abandonedAt": { "type": "integer" }
+    "attributes": {
+      "type": "object",
+      "required": ["label", "order", "plannedCount", "createdAt", "plannedAt",
+                   "finishedAt", "abandonedAt"],
+      "properties": {
+        "label": { "type": "string" },
+        "order": { "type": "integer" },
+        "plannedCount": { "type": "integer" },
+        "createdAt": { "type": "integer" },
+        "plannedAt": { "type": "integer" },
+        "finishedAt": { "type": "integer" },
+        "abandonedAt": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+
+    "relationships": {
+      "type": "object",
+      "required": ["user", "project"],
+      "properties": {
+
+        "user": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": ["type", "id"],
+              "properties": {
+                "type": { "type": "string" },
+                "id": { "type": "integer" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+
+        "project": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "oneOf": [
+                { "type": "null" },
+                {
+                  "type": "object",
+                  "required": ["type", "id", "attributes"],
+                  "properties": {
+                    "type": { "type": "string" },
+                    "id": { "type": "integer" },
+                    "attributes": {
+                      "type": "object",
+                      "required": ["name"],
+                      "properties": {
+                        "name": { "type": "string" }
+                      },
+                      "additionalProperties": false
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }

@@ -1,14 +1,22 @@
 {
   "type": "object",
-  "required": ["id", "email"],
+  "required": ["id", "type", "attributes"],
   "properties": {
     "id": { "type": "integer" },
-    "email": { "type": "string" },
-    "username": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "null" }
-      ]
+    "type": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "required": ["email"],
+      "properties": {
+        "email": { "type": "string" },
+        "username": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

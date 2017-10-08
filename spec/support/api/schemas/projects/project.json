@@ -1,20 +1,70 @@
 {
   "type": "object",
-  "required": ["id", "name", "userId", "taskIds", "isInProgress"],
+  "required": ["id", "type", "attributes", "relationships"],
   "properties": {
+    "type": { "type": "string" },
     "id": { "type": "integer" },
-    "name": { "type": "string" },
-    "userId": { "type": "integer" },
-    "taskIds": {
-      "type": "array",
-      "items": { "type": "integer" }
+    "attributes": {
+      "type": "object",
+      "required": ["name", "description", "startedAt", "dueAt", "stoppedAt",
+                   "finishedAt", "isInProgress"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "startedAt": { "type": "integer" },
+        "dueAt": { "type": "integer" },
+        "stoppedAt": { "type": "integer" },
+        "finishedAt": { "type": "integer" },
+        "isInProgress": { "type": "boolean" }
+      },
+      "additionalProperties": false
     },
-    "description": { "type": "string" },
-    "startedAt": { "type": "integer" },
-    "dueAt": { "type": "integer" },
-    "stoppedAt": { "type": "integer" },
-    "finishedAt": { "type": "integer" },
-    "isInProgress": { "type": "boolean" }
+
+    "relationships": {
+      "type": "object",
+      "required": ["user", "tasks"],
+      "properties": {
+
+        "user": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "type": "object",
+              "required": ["type", "id"],
+              "properties": {
+                "type": { "type": "string" },
+                "id": { "type": "integer" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+
+        "tasks": {
+          "type": "object",
+          "required": ["data"],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["type", "id"],
+                "properties": {
+                  "type": { "type": "string" },
+                  "id": { "type": "integer" }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }

@@ -36,13 +36,13 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the new user' do
-        contact = JSON.parse(response.body)['user']
+        contact = JSON.parse(response.body)['data']
         expect(contact['id']).not_to be_nil
-        expect(contact['email']).to eq('john@doe.com')
+        expect(contact['attributes']['email']).to eq('john@doe.com')
       end
 
       it 'returns a token valid for 1 day' do
-        token = JSON.parse(response.body)['token']
+        token = JSON.parse(response.body)['meta']['token']
         decoded_token = JsonWebToken.decode(token)
         expect(decoded_token[:exp]).to eq(1.day.from_now.to_i)
       end
@@ -100,7 +100,7 @@ RSpec.describe Api::UsersController, type: :request do
       end
 
       it 'returns the corresponding user' do
-        json_user = JSON.parse(response.body)['user']
+        json_user = JSON.parse(response.body)['data']
         expect(json_user['id']).to eq(user.id)
       end
     end

@@ -2,7 +2,7 @@
   "type": "object",
   "required": ["data"],
   "properties": {
-    "data": { "$ref": "user.json" }
+    "data": { "$ref": "task.json" }
   },
   "additionalProperties": false
 }
