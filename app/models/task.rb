@@ -18,6 +18,10 @@ class Task < ApplicationRecord
     where('? <= planned_at AND planned_at <= ?', today.beginning_of_day, today.end_of_day)
   }
 
+  scope :not_finished_before, -> (date) {
+    not_finished.or where.not('finished_at < ?', date.beginning_of_day)
+  }
+
   paginates_per 50
 
   def order_incremental!(new_order)

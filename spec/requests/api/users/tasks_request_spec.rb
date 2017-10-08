@@ -56,6 +56,24 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(json_response['links']['next']).to eq(me_tasks_api_users_path(page: 2))
       end
     end
+
+    context 'with task finished more than 2 weeks ago' do
+      let!(:task) { create :task, :finished, user: user, finished_at: 3.weeks.ago }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/index schema' do
+        expect(response).to match_response_schema('tasks/index')
+      end
+
+      it 'does not return the task' do
+        expect(json_response['data'].map { |t| t['id'] }).not_to include(task.id)
+      end
+    end
   end
 
   describe 'POST #create' do

@@ -102,7 +102,8 @@ Parameters:
 |-----------|--------|-----------------------------------|----------|
 | page      | number | Tasks' page to fetch (default: 1) | yes      |
 
-Note: abandoned tasks are never returned.
+Note: abandoned tasks are never returned. Also, it does not return tasks
+finished more than 2 weeks ago.
 
 Result format:
 

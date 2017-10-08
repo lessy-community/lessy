@@ -1,7 +1,11 @@
 class Api::Users::TasksController < ApiController
 
   def index
-    @tasks = current_user.tasks.not_abandoned.page(params[:page])
+    @tasks = current_user
+      .tasks
+      .not_abandoned
+      .not_finished_before(2.weeks.ago)
+      .page(params[:page])
   end
 
   def create
