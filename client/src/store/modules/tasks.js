@@ -16,6 +16,9 @@ const getters = {
   findById (state, getters) {
     return id => {
       const task = state.byIds[id]
+      if (task == null) {
+        return null
+      }
 
       const today = moment()
       const plannedAtDate = moment.unix(task.plannedAt)
@@ -78,7 +81,7 @@ const getters = {
     return project => {
       return project.taskIds
                     .map(getters.findById)
-                    .filter((task) => !task.isAbandoned)
+                    .filter((task) => task != null && !task.isAbandoned)
                     .sort((t1, t2) => t1.order - t2.order)
     }
   },
