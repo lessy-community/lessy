@@ -69,6 +69,17 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         expect(json_response['links']['next']).to eq(me_projects_api_users_path(page: 2))
       end
     end
+
+    context 'with no project' do
+      before do
+        Project.destroy_all
+        subject
+      end
+
+      it 'does not return next link' do
+        expect(json_response['links'].key? 'next').to be_falsey
+      end
+    end
   end
 
   describe 'POST #create' do

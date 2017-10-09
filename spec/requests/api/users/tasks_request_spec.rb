@@ -74,6 +74,17 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(json_response['data'].map { |t| t['id'] }).not_to include(task.id)
       end
     end
+
+    context 'with no task' do
+      before do
+        Task.destroy_all
+        subject
+      end
+
+      it 'does not return next link' do
+        expect(json_response['links'].key? 'next').to be_falsey
+      end
+    end
   end
 
   describe 'POST #create' do
