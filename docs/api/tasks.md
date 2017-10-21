@@ -447,7 +447,7 @@ $ curl -H "Content-Type: application/json" \
        -H "Authorization: <token>" \
        -X PUT \
        -d '{"task": {"order": 1}}' \
-       https://lessy.io/api/tasks/23/state
+       https://lessy.io/api/tasks/23/order
 ```
 
 ```json
