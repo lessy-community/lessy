@@ -1,22 +1,21 @@
 # Release process
 
-## Start a new release
+Our release process is based on iterations which are actually represented by
+[GitHub projects](https://github.com/marienfressinaud/lessy/projects). An
+iteration groups a set of related [issues](https://github.com/marienfressinaud/lessy/issues)
+and must be finishable within two or three weeks of effective work. Iterations
+are named after [constellations' name](https://en.wikipedia.org/wiki/88_modern_constellations).
 
-To start a new release, open a [new ticket on GitHub](https://github.com/marienfressinaud/lessy/issues/new)
-named "Release XXX", with the following content:
+Releasing a new version of Lessy must stay as simple as possible. It is done by
+updating the [changelog file](../CHANGELOG.md) once all issues of current
+iteration are closed:
 
-```
-- [ ] close all [XXX tickets](https://github.com/marienfressinaud/lessy/milestone/XXX)
-- [ ] write blog article
-- [ ] update changelog
-- [ ] tag last commit with XXX
-```
+1. set the current date
+2. complete "features", "improvements", "bug fixes" and "documentation"
+   sections
+3. make sure migration notes are complete
 
-## End a release
-
-Once you ended all the tickets related to the new release and you prepared the
-article for the blog, you'll have to update the changelog. You can help
-yourself with the following bash commands:
+You can generate sections with the following Git commands:
 
 ```bash
 $ git log --pretty=format:%s --first-parent --reverse [last tag]..HEAD | grep add:
@@ -25,8 +24,10 @@ $ git log --pretty=format:%s --first-parent --reverse [last tag]..HEAD | grep fi
 $ git log --pretty=format:%s --first-parent --reverse [last tag]..HEAD | grep doc:
 ```
 
-`tec` commits can be ommited but feel free to add relevant ones! Don't forget
-to create links to GitHub when a ticket is associated.
+Just make sure to generate links to corresponding GitHub issues.
 
-Commit your changes (e.g. `[release]: #release-ticket-id Version XXX`) and tag
-the last commit with `XXX`.
+Once the changelog is up-to-date, commit your changes (e.g. `[release]: Version XXX`)
+and tag the last commit with `XXX` (where `XXX` is the name of the iteration).
+
+To finish, announce the new release on social networks, write an article and
+celebrate with the community!

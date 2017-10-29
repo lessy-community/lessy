@@ -18,3 +18,6 @@ of `docker-compose-dev.yml`.
 Tests' suite is run against [TravisCI](https://travis-ci.org/marienfressinaud/lessy).
 Pull requests must pass tests to be merged so please make sure it's all green
 before asking for a review!
+
+If you want to know more about how to write tests, please have a look to [the
+dedicated document](backend/writing_tests.md).

@@ -1,7 +1,48 @@
-# Lessy documentation
+# Lessy's technical documentation
 
-- [development environment](development_environment.md)
-- [production environment](production_environment.md)
-- [running tests](tests.md)
-- [release process](release.md)
-- [API overview](api/index.md)
+Welcome on the technical documentation of Lessy. This documentation is aimed
+to help you if you're considering to help us on the code or if you want to
+install Lessy on your own server.
+
+## About technology stack(s)
+
+The first thing you should know is the technical stack. Lessy is based on two
+distinct stacks:
+
+- backend run over [**Ruby on Rails**](http://rubyonrails.org/) and provides a
+  documented API
+- frontend is based on [**VueJS**](https://vuejs.org/) and use this API as any
+  other client
+
+In order to simplify environment setups, we only provide documentation for
+**Docker-based systems**. It also helps us to keep documentation simple,
+up-to-date and avoid issues caused by specific system misconfiguration.
+
+## Install Lessy on your server
+
+If you just want to **run your own instance** instead of using [lessy.io](https://lessy.io),
+you'll simply want to read our documentation about [**how to install Lessy in
+production**](production_environment.md). This solution is only recommended if
+you have technical background and you want to keep your data on your own
+server.
+
+## Development documentation
+
+So you want to help us to build Lessy in order to be a better application?
+That's great!
+
+First, you'll need to **setup your [development environment](development_environment.md)**
+in order to run Lessy on your own computer.
+
+Then, you might be interested to know more about [**backend**](backend/index.md)
+or [**frontend**](frontend.md) (or even both of them!). If **you're interested
+by API** (for Lessy or for a third-party application), please have a look to
+[our specific documentation](api/index.md).
+
+You'll probably need to know about [**how we are running tests**](tests.md) so
+you'll be able to run them by yourself.
+
+And finally, it's time to learn [**how to open a pull request**](pull_request.md).
+
+For those of us who have administrative rights on Lessy's repository, you may
+need to know [**how to release a new version**](release.md).
