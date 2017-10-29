@@ -1,6 +1,27 @@
 # Changelog
 
-## 0.4 2017-xx-yy
+## Andromeda 2017-10-08
+
+**Project Zero becomes Lessy!**
+
+### Technical
+
+- Configure Pronto on CI
+- Improve seeds
+- Bump ruby to 2.4.2
+- Update gems to newest versions
+- Does not return oldest tasks
+- [#105](https://github.com/marienfressinaud/lessy/issues/105) Provide Docker configuration
+- [#136](https://github.com/marienfressinaud/lessy/issues/136) Improve API endpoints
+- [#137](https://github.com/marienfressinaud/lessy/issues/137) Consolidate state and order
+- [#144](https://github.com/marienfressinaud/lessy/issues/144) Extract a generic state machine
+- [#138](https://github.com/marienfressinaud/lessy/issues/138) Improve API errors handling
+- [#149](https://github.com/marienfressinaud/lessy/issues/149) Paginate index endpoints
+
+### Documentation
+
+- [#141](https://github.com/marienfressinaud/lessy/issues/141) Start API documentation
+- [#150](https://github.com/marienfressinaud/lessy/issues/150) Rework and document endpoints' output
 
 ### Migration notes
 
