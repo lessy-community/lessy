@@ -1,5 +1,21 @@
 # Changelog
 
+## Antlia 2017-10-29
+
+### Documentation
+
+- Provide a CONTRIBUTORS file
+- [#159](https://github.com/marienfressinaud/lessy/issues/159) Provide a CODE\_OF\_CONDUCT
+- [#158](https://github.com/marienfressinaud/lessy/issues/158) Improve CONTRIBUTING's content
+- [#157](https://github.com/marienfressinaud/lessy/issues/157) Improve README's content
+- [#161](https://github.com/marienfressinaud/lessy/issues/161) Provide a pull request template
+- [#160](https://github.com/marienfressinaud/lessy/issues/160) Improve technical documentation
+
+### Bug fixes
+
+- [#155](https://github.com/marienfressinaud/lessy/issues/155) Fix pagination when there is no item
+- [#162](https://github.com/marienfressinaud/lessy/issues/162) Fix typo in task order API example
+
 ## Andromeda 2017-10-08
 
 **Project Zero becomes Lessy!**
