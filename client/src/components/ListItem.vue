@@ -37,12 +37,6 @@
 
     transition: all .1s ease-in-out;
   }
-  a.list-item:hover {
-    color: #000;
-    text-decoration: none;
-
-    background-color: $color-primary-shadow;
-  }
 
   @media(max-width: $small-screen-width) {
     .list-item {

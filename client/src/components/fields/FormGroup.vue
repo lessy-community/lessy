@@ -121,4 +121,19 @@
     background-color: #fbf2f4;
   }
 
+  @media(max-width: $small-screen-width) {
+    .form-group {
+      flex-direction: column;
+
+      align-items: stretch;
+
+      > label {
+        padding-top: 0;
+      }
+    }
+
+    .form-group-actions {
+      margin-left: 0;
+    }
+  }
 </style>

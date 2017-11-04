@@ -1,15 +1,9 @@
 import Vue from 'vue'
 
-import App from './components/layout/App'
-
 import Badge from './components/Badge'
-import Btn from './components/Btn'
-import Card from './components/Card'
 import Container from './components/Container'
-import Icon from './components/Icon'
 import ListItem from './components/ListItem'
 import { Popover, PopoverItem } from './components/Popover'
-import Tabs from './components/Tabs'
 
 import DateField from './components/fields/DateField'
 import EmailField from './components/fields/EmailField'
@@ -18,7 +12,19 @@ import PasswordField from './components/fields/PasswordField'
 import StaticField from './components/fields/StaticField'
 import TextField from './components/fields/TextField'
 
-import AppContent from './components/layout/AppContent'
+import LyButton from './components/Ly/LyButton'
+import LyCard from './components/Ly/LyCard'
+import LyCardDeck from './components/Ly/LyCardDeck'
+import LyIcon from './components/Ly/LyIcon'
+import LyTextContainer from './components/Ly/LyTextContainer'
+
+import App from './components/App/App'
+import AppHeader from './components/App/AppHeader'
+import AppHeaderLink from './components/App/AppHeaderLink'
+import AppLayout from './components/App/AppLayout'
+import AppPage from './components/App/AppPage'
+import AppMenu from './components/App/AppMenu'
+import AppMenuLink from './components/App/AppMenuLink'
 
 import i18n from './locales'
 import router from './router'
@@ -30,14 +36,10 @@ Vue.use(Tooltip)
 
 // register global components
 Vue.component('badge', Badge)
-Vue.component('btn', Btn)
-Vue.component('card', Card)
 Vue.component('container', Container)
-Vue.component('icon', Icon)
 Vue.component('list-item', ListItem)
 Vue.component('popover', Popover)
 Vue.component('popover-item', PopoverItem)
-Vue.component('tabs', Tabs)
 
 Vue.component('date-field', DateField)
 Vue.component('email-field', EmailField)
@@ -46,7 +48,18 @@ Vue.component('password-field', PasswordField)
 Vue.component('static-field', StaticField)
 Vue.component('text-field', TextField)
 
-Vue.component('app-content', AppContent)
+Vue.component('app-header', AppHeader)
+Vue.component('app-header-link', AppHeaderLink)
+Vue.component('app-layout', AppLayout)
+Vue.component('app-page', AppPage)
+Vue.component('app-menu', AppMenu)
+Vue.component('app-menu-link', AppMenuLink)
+
+Vue.component('ly-button', LyButton)
+Vue.component('ly-card', LyCard)
+Vue.component('ly-card-deck', LyCardDeck)
+Vue.component('ly-icon', LyIcon)
+Vue.component('ly-text-container', LyTextContainer)
 
 /* eslint-disable no-new */
 new Vue({

@@ -7,22 +7,19 @@
       :required="required"
       @input="$emit('input', $event.target.value)"
     />
-    <btn
-      type="secondary"
-      :tip="$t('fields.password.tip')"
+    <ly-button
+      type="ghost"
+      icon="eye"
       @on="showPassword = true"
       @off="showPassword = false"
     >
-      <icon name="eye"></icon>
-    </btn>
+      <span class="no-mobile">{{ $t('fields.password.reveal') }}</span>
+    </ly-button>
   </div>
 </template>
 
 <script>
   export default {
-
-    name: 'password-default',
-
     props: {
       value: { type: String, required: true },
       id: { type: String },
@@ -40,14 +37,15 @@
         return this.showPassword ? 'text' : 'password'
       },
     },
-
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
   .password-field {
     display: flex;
-  }
 
+    > .ly-button {
+      flex-shrink: 0;
+    }
+  }
 </style>

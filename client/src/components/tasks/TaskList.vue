@@ -1,7 +1,7 @@
 <template>
   <div class="list task-list">
     <div v-if="sortableTasks.length === 0" class="list-placeholder">
-      {{ $t('tasks.emptyList') }}
+      {{ $t('tasks.list.empty') }}
     </div>
     <draggable
       v-model="sortableTasks"
@@ -24,7 +24,7 @@
 <script>
   import draggable from 'vuedraggable'
 
-  import TaskItem from '../tasks/TaskItem'
+  import TaskItem from './TaskItem'
 
   export default {
     props: {

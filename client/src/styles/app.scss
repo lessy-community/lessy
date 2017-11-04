@@ -3,6 +3,10 @@
 @import 'variables/colors';
 @import 'variables/dimensions';
 
+@import 'grid';
+@import 'typography';
+@import 'links';
+
 * {
   box-sizing: border-box;
 }
@@ -12,17 +16,7 @@ body {
   margin: 0;
   padding: 0;
 
-  font-family: 'Open Sans', sans-serif;
-
-  background-color: #fafafa;
-}
-
-a {
-  color: $color-primary;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
+  background-color: $ly-color-pine-60;
 }
 
 img {
@@ -30,6 +24,45 @@ img {
   max-width: 100%;
 }
 
-h1 {
-  margin-top: 0;
+code {
+  padding: .1rem .25rem;
+
+  font-size: .9em;
+
+  background-color: $ly-color-grey-30;
+  border-radius: .25rem;
+}
+.text-on-dark code {
+  background-color: $ly-color-grey-70;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  border-collapse: collapse;
+
+  th {
+    padding: .25rem .5rem;
+
+    font-size: .9rem;
+    text-align: left;
+    font-weight: bold;
+
+    background-color: $ly-color-grey-30;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $ly-color-grey-20;
+  }
+
+  td {
+    padding: .5rem;
+  }
+}
+
+@media(max-width: $small-screen-width) {
+  .no-mobile {
+    display: none;
+  }
 }

@@ -1,0 +1,91 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  line-height: 1.5rem;
+  color: $ly-color-grey-90;
+}
+
+@media(max-width: $small-screen-width) {
+  html {
+    font-size: 16px;
+  }
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+
+  word-wrap: break-word;
+}
+
+h1 {
+  margin-bottom: 1.75rem;
+}
+
+h1 { font-size: 2rem; line-height: 2.5rem; }
+h2 { font-size: 1.5rem; line-height: 2rem; }
+h3 { font-size: 1rem; line-height: 1.5rem; }
+
+* + h1,
+* + h2,
+* + h3 {
+  margin-top: 1.5rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+ul:last-child,
+ol:last-child,
+dl:last-child {
+  margin-bottom: 0;
+}
+p + ul,
+p + ol,
+p + dl,
+p + table {
+  margin-top: -.5rem;
+}
+
+small,
+.text-addition {
+  font-size: .8em;
+  line-height: 1em;
+}
+
+.text-secondary {
+  color: $ly-color-grey-50;
+}
+.text-primary {
+  color: $ly-color-pine-70;
+}
+.text-success {
+  color: $ly-color-green-70;
+}
+.text-warning {
+  color: $ly-color-gold-70;
+}
+.text-alert {
+  color: $ly-color-red-70;
+}
+
+.text-on-dark {
+  color: $ly-color-white;
+}
+.text-on-dark.text-secondary {
+  color: $ly-color-grey-30;
+}
+
+strong,
+.text-important {
+  font-weight: bold;
+}

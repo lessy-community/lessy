@@ -16,10 +16,6 @@ export default {
 
 <style lang="scss">
   .container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-
     overflow: hidden;
     text-overflow: ellipsis;
   }
