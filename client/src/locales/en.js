@@ -7,7 +7,7 @@ export default {
         already_stopped: 'This project has already been stopped',
         missing: 'Project is required. It may be an application’s problem, please contact developers.',
         not_found: 'Project does not exist',
-        reached_max_started: 'You cannot start more than 3 projects',
+        reached_max_started: 'You cannot start more than three projects',
       },
       dueAt: {
         before_started_at: 'The due date cannot be set before the started date',
@@ -220,11 +220,11 @@ export default {
 
   tasks: {
     abandon: 'Abandon',
-    confirmAbandon: 'Oh? The task will me marked as abandoned and will disappear from the list. Can you confirm?',
+    confirmAbandon: 'Oh? The task will be marked as abandoned and will disappear from the list. Can you confirm?',
     createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
     dueOn: 'due on {date}',
     edit: 'Edit',
-    emptyList: 'There is no task here…',
+    emptyList: 'There are no tasks here…',
     plan: 'Plan for today',
     replan: 'Replan for today',
     restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
