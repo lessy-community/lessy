@@ -6,17 +6,16 @@
       <ly-card v-for="project in inProgressProjects">
         <h3><router-link :to="project.urlShow">{{ project.name }}</router-link></h3>
         <div class="badge-container">
-          <badge
+          <ly-badge
             v-if="project.tasksCount === 0 || project.tasksCount === project.finishedTasksCount"
             v-tooltip.top="project.tasksCount === 0 ? $t('dashboard.page.shouldAddTasks') : $t('dashboard.page.shouldAddMoreTasks')"
-            :warn="project.tasksCount === project.finishedTasksCount"
-            :alert="project.tasksCount === 0"
+            :type="project.tasksCount === 0 ? 'alert' : 'warning'"
           >
             {{ $t('dashboard.page.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
-          </badge>
-          <badge v-else>
+          </ly-badge>
+          <ly-badge v-else>
             {{ $t('dashboard.page.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
-          </badge>
+          </ly-badge>
         </div>
 
         <span v-html="$t('dashboard.page.dueOn', { date: project.dueAtLabel })" ></span>
@@ -89,7 +88,6 @@
         this.createTaskEnabled = false
       },
     },
-
   }
 </script>
 
@@ -99,9 +97,5 @@
     margin-bottom: 10px;
 
     text-align: center;
-
-    > .badge {
-      font-size: 1rem;
-    }
   }
 </style>

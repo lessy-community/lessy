@@ -16,6 +16,26 @@
       you are not designing a new page, you should not have to worry about
       them.</p>
 
+      <h2>ly-badge</h2>
+
+      <p>Use badges to provide contextual information.</p>
+
+      <p>
+        <ly-badge>info</ly-badge>
+        <ly-badge type="primary">primary</ly-badge>
+        <ly-badge type="success">success</ly-badge>
+        <ly-badge type="warning">warning</ly-badge>
+        <ly-badge type="alert">alert</ly-badge>
+      </p>
+
+      <p>You can change size depending on the importance of the information.</p>
+
+      <p>
+        <ly-badge size="small">small</ly-badge>
+        <ly-badge>normal</ly-badge>
+        <ly-badge size="large">large</ly-badge>
+      </p>
+
       <h2>ly-button</h2>
 
       <p>Buttons execute an action or change state of application. For

@@ -19,27 +19,25 @@
       </a>
       <div class="label adapt">
         <span v-html="task.formattedLabel"></span>
-        <badge v-if="task.projectName && !hideProjectBadge">
+        <ly-badge v-if="task.projectName && !hideProjectBadge">
           <router-link :to="task.urlProjectShow">
             {{ task.projectName }}
           </router-link>
-        </badge>
-        <badge
+        </ly-badge>
+        <ly-badge
           v-if="task.createdSinceWeeks > 0"
           v-tooltip.top="$tc('tasks.item.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
-          :warn="task.createdSinceWeeks === 2"
-          :alert="task.createdSinceWeeks > 2"
+          :type="{ warning: task.createdSinceWeeks === 2, alert: task.createdSinceWeeks > 2 }"
         >
           <ly-icon name="calendar"></ly-icon> {{ task.createdSinceWeeks }}w
-        </badge>
-        <badge
+        </ly-badge>
+        <ly-badge
           v-if="task.restartedCount > 0"
           v-tooltip.top="$tc('tasks.item.restarted', task.restartedCount, { count: task.restartedCount })"
-          :warn="task.restartedCount === 2"
-          :alert="task.restartedCount > 2"
+          :type="{ warning: task.restartedCount === 2, alert: task.restartedCount > 2 }"
         >
           <ly-icon name="repeat"></ly-icon> {{ task.restartedCount }}
-        </badge>
+        </ly-badge>
       </div>
 
       <popover v-if="!task.isFinished">
@@ -160,7 +158,7 @@
     &.finished .label {
       color: $ly-color-grey-50;
     }
-    &.finished .badge {
+    &.finished .ly-badge {
       display: none;
     }
     &.finished .toggle {

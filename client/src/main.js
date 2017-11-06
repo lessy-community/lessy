@@ -1,6 +1,5 @@
 import Vue from 'vue'
 
-import Badge from './components/Badge'
 import Container from './components/Container'
 import ListItem from './components/ListItem'
 import { Popover, PopoverItem } from './components/Popover'
@@ -12,6 +11,7 @@ import PasswordField from './components/fields/PasswordField'
 import StaticField from './components/fields/StaticField'
 import TextField from './components/fields/TextField'
 
+import LyBadge from './components/Ly/LyBadge'
 import LyButton from './components/Ly/LyButton'
 import LyCard from './components/Ly/LyCard'
 import LyCardDeck from './components/Ly/LyCardDeck'
@@ -35,7 +35,6 @@ import Tooltip from 'vue-directive-tooltip'
 Vue.use(Tooltip)
 
 // register global components
-Vue.component('badge', Badge)
 Vue.component('container', Container)
 Vue.component('list-item', ListItem)
 Vue.component('popover', Popover)
@@ -55,6 +54,7 @@ Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)
 Vue.component('app-menu-link', AppMenuLink)
 
+Vue.component('ly-badge', LyBadge)
 Vue.component('ly-button', LyButton)
 Vue.component('ly-card', LyCard)
 Vue.component('ly-card-deck', LyCardDeck)
