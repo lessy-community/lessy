@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 import Container from './components/Container'
-import ListItem from './components/ListItem'
 import { Popover, PopoverItem } from './components/Popover'
 
 import DateField from './components/fields/DateField'
@@ -16,6 +15,7 @@ import LyButton from './components/Ly/LyButton'
 import LyCard from './components/Ly/LyCard'
 import LyCardDeck from './components/Ly/LyCardDeck'
 import LyIcon from './components/Ly/LyIcon'
+import { LyList, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
 import LyTextContainer from './components/Ly/LyTextContainer'
 
 import App from './components/App/App'
@@ -36,7 +36,6 @@ Vue.use(Tooltip)
 
 // register global components
 Vue.component('container', Container)
-Vue.component('list-item', ListItem)
 Vue.component('popover', Popover)
 Vue.component('popover-item', PopoverItem)
 
@@ -59,6 +58,9 @@ Vue.component('ly-button', LyButton)
 Vue.component('ly-card', LyCard)
 Vue.component('ly-card-deck', LyCardDeck)
 Vue.component('ly-icon', LyIcon)
+Vue.component('ly-list', LyList)
+Vue.component('ly-list-item', LyListItem)
+Vue.component('ly-list-item-adapt', LyListItemAdapt)
 Vue.component('ly-text-container', LyTextContainer)
 
 /* eslint-disable no-new */

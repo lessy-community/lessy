@@ -1,29 +1,21 @@
 <template>
-  <div class="list task-list">
-    <div v-if="sortableTasks.length === 0" class="list-placeholder">
-      {{ $t('tasks.list.empty') }}
-    </div>
-    <draggable
-      v-model="sortableTasks"
-      @change="changeOrder"
-      :options="{ handle: '.my-handle' }"
-    >
-      <transition-group>
-        <task-item
-          v-for="task in sortableTasks"
-          :key="task.id"
-          :task="task"
-          :notoggle="notoggle"
-          :hide-project-badge="hideProjectBadge"
-        ></task-item>
-      </transition-group>
-    </draggable>
-  </div>
+  <ly-list
+    :placeholder="$t('tasks.list.empty')"
+    draggable
+    :draggable-model="tasks"
+    @draggable-change="changeOrder"
+  >
+    <task-item
+      v-for="task in tasks"
+      :key="task.id"
+      :task="task"
+      :notoggle="notoggle"
+      :hide-project-badge="hideProjectBadge"
+    ></task-item>
+  </ly-list>
 </template>
 
 <script>
-  import draggable from 'vuedraggable'
-
   import TaskItem from './TaskItem'
 
   export default {
@@ -35,15 +27,6 @@
 
     components: {
       TaskItem,
-      draggable,
-    },
-
-    computed: {
-      sortableTasks: {
-        get () {
-          return this.tasks
-        },
-      },
     },
 
     methods: {
@@ -56,16 +39,3 @@
     },
   }
 </script>
-
-<style lang="scss">
-  .task-list {
-    margin-bottom: 10px;
-  }
-
-  .list-placeholder {
-    padding: 10px 15px;
-
-    color: #777;
-    font-style: italic;
-  }
-</style>

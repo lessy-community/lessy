@@ -167,6 +167,48 @@
         <ly-icon name="circle-o-notch" size="large" spin></ly-icon>
       </p>
 
+      <h2>ly-list and ly-list-item</h2>
+      <p>Lists and list items are used to show a set of related elements.</p>
+
+      <ly-list>
+        <ly-list-item>Element 1</ly-list-item>
+        <ly-list-item>Element 2</ly-list-item>
+        <ly-list-item>Element 3</ly-list-item>
+        <ly-list-item>Element 4</ly-list-item>
+      </ly-list>
+
+      <p>You should always provide a placeholder in case of the list is
+      empty.</p>
+
+      <ly-list placeholder="This list is empty">
+      </ly-list>
+
+      <p>You can make list' items draggable to reorganize elements.</p>
+
+      <ly-list draggable>
+        <ly-list-item key="1" with-handle>Element 1</ly-list-item>
+        <ly-list-item key="2" with-handle>Element 2</ly-list-item>
+        <ly-list-item key="3" with-handle>Element 3</ly-list-item>
+      </ly-list>
+
+      <p>Items can include different components such as buttons, badges or
+      icons.</p>
+
+      <ly-list>
+        <ly-list-item>
+          <ly-icon name="thumbs-up"></ly-icon>
+          <ly-list-item-adapt>thumbs-up</ly-list-item-adapt>
+          <ly-badge type="success">great</ly-badge>
+          <ly-button>do nothing</ly-button>
+        </ly-list-item>
+        <ly-list-item>
+          <ly-icon name="thumbs-down"></ly-icon>
+          <ly-list-item-adapt>thumbs-down</ly-list-item-adapt>
+          <ly-badge type="alert">not great</ly-badge>
+          <ly-button>do nothing</ly-button>
+        </ly-list-item>
+      </ly-list>
+
       <h2>ly-text-container</h2>
       <p>Text container is used to make sure width of text lines follows
       <router-link to="/design/typography">typography rules</router-link>. This
