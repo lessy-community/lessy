@@ -43,17 +43,10 @@
       {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
     </ly-button>
     <template v-else>
-      <ly-button
-        v-if="!task.plannedAt"
-        @click="start"
-      >
+      <ly-button v-if="!task.plannedAt" @click="start">
         {{ $t('tasks.item.plan') }}
       </ly-button>
-      <ly-button
-        v-else
-        @click="start"
-        v-tooltip.top="$t('tasks.item.dueOn', { date: task.plannedAtLabel })"
-      >
+      <ly-button v-else @click="start">
         {{ $t('tasks.item.replan') }}
       </ly-button>
     </template>
@@ -62,7 +55,6 @@
       <ly-button
         slot="toggle"
         :disabled="task.isFinished"
-        v-tooltip.left="task.isFinished ? $t('tasks.item.noMore') : $t('tasks.item.more')"
         type="ghost"
         icon="ellipsis-h"
       >
