@@ -20,7 +20,7 @@
   export default {
     props: {
       title: { type: String, required: true },
-      home: { type: String, default: '/' },
+      home: { type: String, default: '/dashboard' },
     },
 
     components: {

@@ -35,16 +35,16 @@ import auth from './auth'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: HomeLayout, meta: { restrictForUnauth: true } },
-  { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true } },
-  { path: '/users/:token/activate', component: UserActivateLayout },
-  { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true } },
+  { path: '/', component: HomeLayout, meta: { restrictForUnauth: true, title: 'Welcome' } },
+  { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
+  { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
+  { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
   { path: '/tasks',
     component: TasksLayout,
     children: [
       { path: '', redirect: 'backlog' },
-      { path: 'backlog', component: TasksBacklogPage, name: 'tasks/backlog' },
-      { path: 'statistics', component: TasksStatisticsPage, name: 'tasks/statistics' },
+      { path: 'backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { title: 'Backlog' } },
+      { path: 'statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { title: 'Statistics' } },
     ],
     meta: { restrictForAuth: true },
   },
@@ -52,14 +52,14 @@ const routes = [
     component: ProjectsLayout,
     children: [
       { path: '', redirect: 'inbox' },
-      { path: 'inbox', component: ProjectsInboxPage },
+      { path: 'inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
       { path: ':projectName',
         component: ProjectLayout,
         children: [
-          { path: '', component: ProjectShowPage, name: 'project/show' },
-          { path: 'edit', component: ProjectEditPage, name: 'project/edit' },
-          { path: 'start', component: ProjectStartPage, name: 'project/start' },
-          { path: 'finish', component: ProjectFinishPage, name: 'project/finish' },
+          { path: '', component: ProjectShowPage, name: 'project/show', meta: { title: 'Project' } },
+          { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { title: 'Project' } },
+          { path: 'start', component: ProjectStartPage, name: 'project/start', meta: { title: 'Project' } },
+          { path: 'finish', component: ProjectFinishPage, name: 'project/finish', meta: { title: 'Project' } },
         ],
       },
     ],
