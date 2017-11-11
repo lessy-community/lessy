@@ -9,4 +9,3 @@ before_script:
   - psql -c 'create database lessy_test;' -U postgres
 script:
   - bundle exec rspec spec
-  - PRONTO_PULL_REQUEST_ID=${TRAVIS_PULL_REQUEST} bundle exec pronto run -f github_status github_pr -c origin/${TRAVIS_BRANCH}
