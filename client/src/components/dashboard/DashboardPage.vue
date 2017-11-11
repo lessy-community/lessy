@@ -2,32 +2,7 @@
   <app-page name="dashboard">
     <p v-if="!user.activated" v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
 
-    <ly-card-deck v-if="inProgressProjects">
-      <ly-card v-for="project in inProgressProjects">
-        <h3><router-link :to="project.urlShow">{{ project.name }}</router-link></h3>
-        <div class="badge-container">
-          <ly-badge
-            v-if="project.tasksCount === 0 || project.tasksCount === project.finishedTasksCount"
-            v-tooltip.top="project.tasksCount === 0 ? $t('dashboard.page.shouldAddTasks') : $t('dashboard.page.shouldAddMoreTasks')"
-            :type="project.tasksCount === 0 ? 'alert' : 'warning'"
-          >
-            {{ $t('dashboard.page.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
-          </ly-badge>
-          <ly-badge v-else>
-            {{ $t('dashboard.page.tasksCount', { finishedCount: project.finishedTasksCount, totalCount: project.tasksCount }) }}
-          </ly-badge>
-        </div>
-
-        <span v-html="$t('dashboard.page.dueOn', { date: project.dueAtLabel })" ></span>
-        <project-date-indicator
-          :start="project.startedAt"
-          :end="project.dueAt"
-          :date="today"
-          v-tooltip.top="$t('dashboard.page.datesDescription', { start: project.startedAtLabel, due: project.dueAtLabel })"
-        ></project-date-indicator>
-      </ly-card>
-    </ly-card-deck>
-
+    <project-card-deck :projects="projects"></project-card-deck>
     <task-list :tasks="tasks"></task-list>
 
     <template v-if="!createTaskEnabled">
@@ -46,7 +21,7 @@
     <task-create-form
       v-else
       :plannedAt="plannedAt"
-      :onCancel="disableCreateTask"
+      :onCancel="() => { this.createTaskEnabled = false }"
       autoFocus
     ></task-create-form>
   </app-page>
@@ -58,44 +33,28 @@
   import { mapGetters } from 'vuex'
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
-  import ProjectDateIndicator from 'src/components/projects/ProjectDateIndicator'
+  import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
 
   export default {
     components: {
       TaskCreateForm,
       TaskList,
-      ProjectDateIndicator,
+      ProjectCardDeck,
     },
 
     data () {
       return {
         createTaskEnabled: false,
         plannedAt: moment().endOf('day'),
-        today: moment().unix(),
       }
     },
 
     computed: {
       ...mapGetters({
         user: 'users/current',
-        inProgressProjects: 'projects/listInProgress',
+        projects: 'projects/listInProgress',
         tasks: 'tasks/listForToday',
       }),
     },
-
-    methods: {
-      disableCreateTask () {
-        this.createTaskEnabled = false
-      },
-    },
   }
 </script>
-
-<style lang="scss" scoped>
-  .badge-container {
-    margin-top: -5px;
-    margin-bottom: 10px;
-
-    text-align: center;
-  }
-</style>

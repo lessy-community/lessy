@@ -82,7 +82,7 @@ const getters = {
 
   canStartProject (state, getters) {
     const nbStartedProjects = Object.values(state.byIds).reduce((nb, project) => {
-      return project.isInProgress ? nb + 1 : nb
+      return project.state === 'started' ? nb + 1 : nb
     }, 0)
     return nbStartedProjects < 3
   },

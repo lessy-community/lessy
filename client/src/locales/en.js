@@ -14,12 +14,7 @@ export default {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       backlog: 'pick some from backlog',
       createTask: 'add tasks for today',
-      datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
-      dueOn: 'Due on <b>{date}</b>',
       or: 'or',
-      shouldAddTasks: 'You should add tasks to this project to make sure it is progressing',
-      shouldAddMoreTasks: 'You should add more tasks to this project or close it if it’s finished',
-      tasksCount: 'Tasks: {finishedCount} / {totalCount}',
     },
   },
 
@@ -113,6 +108,17 @@ export default {
   },
 
   projects: {
+    card: {
+      datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
+      shouldAddTasks: 'Usually, a living project holds unfinished tasks.',
+      tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
+    },
+
+    cardDeck: {
+      empty: 'No project',
+      emptyLink: 'Start a project from your inbox',
+    },
+
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
@@ -156,17 +162,8 @@ export default {
 
     showPage: {
       askEdit: 'Edit?',
-      confirmStop: 'Oh? The project will be marked as stopped. Can you confirm?',
-      dueLabel: 'Due on',
-      finishedLabel: 'Finished on',
-      finishProject: 'Finish it',
       noDescription: 'There is no description for this project yet.',
-      reachedMaxInProgress: 'You already reached the maximum of started projects',
       settings: 'Settings',
-      startedLabel: 'Started on',
-      startProject: 'Start this project',
-      stoppedLabel: 'Stopped on',
-      stopProject: 'Stop it, now',
     },
 
     startForm: {
@@ -175,6 +172,19 @@ export default {
       dueTip: 'The due date have to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
+    },
+
+    timeline: {
+      confirmPause: 'The project will be marked as paused. Can you confirm?',
+      diff: '{days} day | {days} days',
+      dueOn: 'Due on {date}',
+      finishedOn: 'finished on {date}',
+      late: 'late',
+      notStarted: 'not started',
+      pausedOn: 'paused on {date}',
+      reachedMaxInProgress: 'You already reached the maximum of started projects.',
+      startedOn: 'Started on {date}',
+      untilDueDate: 'before due date',
     },
   },
 
