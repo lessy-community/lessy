@@ -61,6 +61,10 @@ table {
   }
 }
 
+form {
+  margin-bottom: 1rem;
+}
+
 @media(max-width: $small-screen-width) {
   .no-mobile {
     display: none;

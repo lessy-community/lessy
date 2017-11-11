@@ -201,6 +201,7 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
+      warningTooMany: 'It can be difficult to achieve all our tasks when we have too much to do.',
     },
 
     editForm: {

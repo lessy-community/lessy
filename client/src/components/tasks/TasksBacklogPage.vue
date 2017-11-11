@@ -1,8 +1,8 @@
 <template>
   <app-page name="tasks-backlog">
     <ly-section :title="$tc('tasks.backlogPage.tasksNumber', tasks.length, { count: tasks.length })">
+      <task-create-form :show-warning="tasks.length > 30"></task-create-form>
       <task-list :tasks="tasks"></task-list>
-      <task-create-form></task-create-form>
     </ly-section>
   </app-page>
 </template>

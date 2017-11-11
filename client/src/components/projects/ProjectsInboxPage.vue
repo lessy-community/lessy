@@ -1,17 +1,6 @@
 <template>
   <app-page name="projects-inbox">
     <ly-section :title="$t('projects.inboxPage.futureProjects')">
-      <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
-        <ly-list-item v-for="project in notStartedProjects">
-          <router-link :to="project.urlShow">
-            {{ project.name }}
-            <template v-if="project.isStopped">
-              {{ $t('projects.inboxPage.stoppedOn', { date: project.stoppedAtLabel }) }}
-            </template>
-          </router-link>
-        </ly-list-item>
-      </ly-list>
-
       <ly-button
         icon="plus"
         v-if="!createFormEnabled && notStartedProjects.length > 0"
@@ -24,6 +13,17 @@
         v-else
         :onCancel="notStartedProjects.length > 0 && disableCreateForm"
       ></project-create-form>
+
+      <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
+        <ly-list-item v-for="project in notStartedProjects">
+          <router-link :to="project.urlShow">
+            {{ project.name }}
+            <template v-if="project.isStopped">
+              {{ $t('projects.inboxPage.stoppedOn', { date: project.stoppedAtLabel }) }}
+            </template>
+          </router-link>
+        </ly-list-item>
+      </ly-list>
     </ly-section>
 
     <ly-section v-if="finishedProjects.length > 0" :title="$t('projects.inboxPage.finishedProjects')">

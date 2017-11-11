@@ -11,6 +11,9 @@
     <ly-button v-if="onCancel" @click="onCancel">
       {{ $t('tasks.createForm.cancel') }}
     </ly-button>
+    <small v-if="showWarning" class="text-secondary">
+      {{ $t('tasks.createForm.warningTooMany') }}
+    </small>
   </form>
 </template>
 
@@ -25,6 +28,7 @@
       'autoFocus': { type: Boolean },
       'plannedAt': { type: Object },
       'projectId': { type: Number },
+      'show-warning': { type: Boolean },
     },
 
     data () {

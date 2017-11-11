@@ -23,8 +23,8 @@
           <project-timeline :project="project"></project-timeline>
 
           <h3>{{ $t('projects.showPage.associatedTasks') }}</h3>
-          <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
           <task-create-form :project-id="project.id"></task-create-form>
+          <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
         </ly-column>
       </ly-columns>
     </ly-section>
