@@ -24,6 +24,7 @@ Result format:
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
 | data.attributes.description          | string | Project's description                    |          |
+| data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
@@ -67,6 +68,7 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "name": "damn-good-coffee",
       "description": "",
+      "state": "newed",
       "startedAt": 0,
       "dueAt": 0,
       "stoppedAt": 0,
@@ -106,6 +108,7 @@ Result format:
 | data[].attributes                      | object |                                          |          |
 | data[].attributes.name                 | string | Project's name                           |          |
 | data[].attributes.description          | string | Project's description                    |          |
+| data[].attributes.state                | string | Project's state                          |          |
 | data[].attributes.startedAt            | number | Date when project started                |          |
 | data[].attributes.dueAt                | number | Date when project should finished        |          |
 | data[].attributes.stoppedAt            | number | Date when project has been stopped       |          |
@@ -145,6 +148,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
       "attributes": {
         "name": "black-lodge",
         "description": "A mysterious dark place",
+        "state": "started",
         "startedAt": 639532800,
         "dueAt": 1504396800,
         "stoppedAt": 0,
@@ -169,6 +173,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
       "attributes": {
         "name": "damn-good-coffee",
         "description": "",
+        "state": "newed",
         "startedAt": 0,
         "dueAt": 0,
         "stoppedAt": 0,
@@ -219,6 +224,7 @@ Result format:
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
 | data.attributes.description          | string | Project's description                    |          |
+| data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
@@ -262,6 +268,7 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "name": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
+      "state": "newed",
       "startedAt": 0,
       "dueAt": 0,
       "stoppedAt": 0,
@@ -334,6 +341,7 @@ Result format:
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
 | data.attributes.description          | string | Project's description                    |          |
+| data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
@@ -380,6 +388,7 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "name": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
+      "state": "started",
       "startedAt": 1507449826,
       "dueAt": 1545696000,
       "stoppedAt": 0,

@@ -29,6 +29,7 @@ Result format:
 | data.attributes.label                           | string | Task's label                             |          |
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
+| data.attributes.state                           | string | Task's state                             |          |
 | data.attributes.createdAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
@@ -68,6 +69,7 @@ $ curl -H "Content-Type: application/json" \
       "label": "Buy good coffee",
       "order": 2,
       "plannedCount": 0,
+      "state": "started",
       "createdAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
@@ -116,6 +118,7 @@ Result format:
 | data[].attributes.label                           | string | Task's label                             |          |
 | data[].attributes.order                           | number | Task's order                             |          |
 | data[].attributes.plannedCount                    | number | Number of times task has been planned    |          |
+| data[].attributes.state                           | string | Task's state                             |          |
 | data[].attributes.createdAt                       | number | Date when task has been created          |          |
 | data[].attributes.plannedAt                       | number | Task's due date                          |          |
 | data[].attributes.finishedAt                      | number | Date when task has been finished         |          |
@@ -157,6 +160,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "label": "Ask Audrey to bring cherry pie",
         "order": 1,
         "plannedCount": 1,
+        "state": "planned",
         "createdAt": 1484870400,
         "plannedAt": 1507455286,
         "finishedAt": 0,
@@ -178,6 +182,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "label": "Buy good coffee",
         "order": 2,
         "plannedCount": 0,
+        "state": "started",
         "createdAt": 1507454795,
         "plannedAt": 0,
         "finishedAt": 0,
@@ -228,6 +233,7 @@ Result format:
 | data.attributes.label                           | string | Task's label                             |          |
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
+| data.attributes.state                           | string | Task's state                             |          |
 | data.attributes.createdAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
@@ -267,6 +273,7 @@ $ curl -H "Content-Type: application/json" \
       "label": "Buy DAMN FINE coffee",
       "order": 2,
       "plannedCount": 0,
+      "state": "started",
       "createdAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
@@ -346,6 +353,7 @@ Result format:
 | data.attributes.label                           | string | Task's label                             |          |
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
+| data.attributes.state                           | string | Task's state                             |          |
 | data.attributes.createdAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
@@ -391,6 +399,7 @@ $ curl -H "Content-Type: application/json" \
       "label": "Buy DAMN FINE coffee",
       "order": 2,
       "plannedCount": 1,
+      "state": "planned",
       "createdAt": 1507454795,
       "plannedAt": 1507457002,
       "finishedAt": 0,

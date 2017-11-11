@@ -7,10 +7,11 @@
     "attributes": {
       "type": "object",
       "required": ["name", "description", "startedAt", "dueAt", "stoppedAt",
-                   "finishedAt", "isInProgress"],
+                   "finishedAt", "isInProgress", "state"],
       "properties": {
         "name": { "type": "string" },
         "description": { "type": "string" },
+        "state": { "type": "string" },
         "startedAt": { "type": "integer" },
         "dueAt": { "type": "integer" },
         "stoppedAt": { "type": "integer" },

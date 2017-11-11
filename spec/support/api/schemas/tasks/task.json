@@ -7,11 +7,12 @@
     "attributes": {
       "type": "object",
       "required": ["label", "order", "plannedCount", "createdAt", "plannedAt",
-                   "finishedAt", "abandonedAt"],
+                   "finishedAt", "abandonedAt", "state"],
       "properties": {
         "label": { "type": "string" },
         "order": { "type": "integer" },
         "plannedCount": { "type": "integer" },
+        "state": { "type": "string" },
         "createdAt": { "type": "integer" },
         "plannedAt": { "type": "integer" },
         "finishedAt": { "type": "integer" },
