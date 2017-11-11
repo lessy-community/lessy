@@ -1,10 +1,12 @@
 <template>
   <app-page name="project-start">
-    <project-start-form
-      :project="project"
-      :onSuccess="redirectToShow"
-      :onCancel="redirectToShow"
-    ></project-start-form>
+    <ly-section :title="project.name">
+      <project-start-form
+        :project="project"
+        :onSuccess="redirectToShow"
+        :onCancel="redirectToShow"
+      ></project-start-form>
+    </ly-section>
   </app-page>
 </template>
 

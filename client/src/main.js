@@ -16,6 +16,7 @@ import LyCardDeck from './components/Ly/LyCardDeck'
 import { LyColumns, LyColumn } from './components/Ly/LyColumns'
 import LyIcon from './components/Ly/LyIcon'
 import { LyList, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
+import LySection from './components/Ly/LySection'
 import LyTextContainer from './components/Ly/LyTextContainer'
 
 import App from './components/App/App'
@@ -62,6 +63,7 @@ Vue.component('ly-icon', LyIcon)
 Vue.component('ly-list', LyList)
 Vue.component('ly-list-item', LyListItem)
 Vue.component('ly-list-item-adapt', LyListItemAdapt)
+Vue.component('ly-section', LySection)
 Vue.component('ly-text-container', LyTextContainer)
 
 /* eslint-disable no-new */

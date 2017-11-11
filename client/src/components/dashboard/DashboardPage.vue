@@ -2,28 +2,33 @@
   <app-page name="dashboard">
     <p v-if="!user.activated" v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
 
-    <project-card-deck :projects="projects"></project-card-deck>
-    <task-list :tasks="tasks"></task-list>
+    <ly-section :title="$t('dashboard.page.projectsInProgress')">
+      <project-card-deck :projects="projects"></project-card-deck>
+    </ly-section>
 
-    <template v-if="!createTaskEnabled">
-      <ly-button
-        icon="plus"
-        type="primary"
-        @click="createTaskEnabled = true"
-      >
-        {{ $t('dashboard.page.createTask') }}
-      </ly-button>
+    <ly-section :title="$tc('dashboard.page.tasksForToday', tasks.length, { count: tasks.length })">
+      <task-list :tasks="tasks"></task-list>
 
-      {{ $t('dashboard.page.or') }}
+      <template v-if="!createTaskEnabled">
+        <ly-button
+          icon="plus"
+          type="primary"
+          @click="createTaskEnabled = true"
+        >
+          {{ $t('dashboard.page.createTask') }}
+        </ly-button>
 
-      <router-link to="/tasks/backlog">{{ $t('dashboard.page.backlog') }}</router-link>
-    </template>
-    <task-create-form
-      v-else
-      :plannedAt="plannedAt"
-      :onCancel="() => { this.createTaskEnabled = false }"
-      autoFocus
-    ></task-create-form>
+        {{ $t('dashboard.page.or') }}
+
+        <router-link to="/tasks/backlog">{{ $t('dashboard.page.backlog') }}</router-link>
+      </template>
+      <task-create-form
+        v-else
+        :plannedAt="plannedAt"
+        :onCancel="() => { this.createTaskEnabled = false }"
+        autoFocus
+      ></task-create-form>
+    </ly-section>
   </app-page>
 </template>
 

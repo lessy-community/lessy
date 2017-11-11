@@ -209,6 +209,19 @@
         </ly-list-item>
       </ly-list>
 
+      <h2>ly-section</h2>
+      <p>Use sections to group components and to name sections.</p>
+
+      <ly-section title="5 fruits">
+        <ly-list>
+          <ly-list-item>Blueberry</ly-list-item>
+          <ly-list-item>Raspberry</ly-list-item>
+          <ly-list-item>Apple</ly-list-item>
+          <ly-list-item>Pear</ly-list-item>
+          <ly-list-item>Strawberry</ly-list-item>
+        </ly-list>
+      </ly-section>
+
       <h2>ly-text-container</h2>
       <p>Text container is used to make sure width of text lines follows
       <router-link to="/design/typography">typography rules</router-link>. This

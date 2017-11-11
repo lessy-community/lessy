@@ -1,7 +1,9 @@
 <template>
   <app-page name="tasks-backlog">
-    <task-list :tasks="tasks" notoggle></task-list>
-    <task-create-form></task-create-form>
+    <ly-section :title="$tc('tasks.backlogPage.tasksNumber', tasks.length, { count: tasks.length })">
+      <task-list :tasks="tasks"></task-list>
+      <task-create-form></task-create-form>
+    </ly-section>
   </app-page>
 </template>
 

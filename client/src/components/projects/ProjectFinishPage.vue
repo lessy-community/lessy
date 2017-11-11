@@ -1,12 +1,14 @@
 <template>
   <app-page name="project-finish">
-    <p v-html="$t('projects.finishPage.intro', { projectName: project.name })"></p>
+    <ly-section :title="project.name">
+      <p v-html="$t('projects.finishPage.intro', { projectName: project.name })"></p>
 
-    <project-finish-form
-      :project="project"
-      :onSuccess="redirectToShow"
-      :onCancel="redirectToShow"
-    ></project-finish-form>
+      <project-finish-form
+        :project="project"
+        :onSuccess="redirectToShow"
+        :onCancel="redirectToShow"
+      ></project-finish-form>
+    </ly-section>
   </app-page>
 </template>
 

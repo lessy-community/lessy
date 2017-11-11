@@ -13,8 +13,10 @@ export default {
     page: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       backlog: 'pick some from backlog',
-      createTask: 'add tasks for today',
+      createTask: 'Add tasks for today',
       or: 'or',
+      projectsInProgress: 'Projects in progress',
+      tasksForToday: '{count} task for today | {count} tasks for today',
     },
   },
 
@@ -146,8 +148,10 @@ export default {
     },
 
     inboxPage: {
-      createProject: 'create a project',
+      createProject: 'Create a project',
       finishedLabel: '(finished on {date})',
+      finishedProjects: 'Finished projects',
+      futureProjects: 'Future projects',
       hideFinishedProjects: 'Hide your project | Hide your projects',
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
       seeFinishedProjects: 'See your finished project | See your {count} finished projects',
@@ -190,6 +194,10 @@ export default {
   },
 
   tasks: {
+    backlogPage: {
+      tasksNumber: '{count} task in backlog | {count} tasks in backlog',
+    },
+
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
