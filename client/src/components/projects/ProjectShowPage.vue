@@ -2,25 +2,32 @@
   <app-page name="project-show">
     <h2>{{ project.name }}</h2>
 
-    <router-link :to="project.urlEdit">
-      {{ $t('projects.showPage.settings') }}
-    </router-link>
+    <ly-button
+      icon="pencil"
+      @click="editDescription"
+    >
+      {{ $t('projects.showPage.edit') }}
+    </ly-button>
 
-    <project-timeline :project="project"></project-timeline>
+    <ly-columns>
+      <ly-column>
+        <h3>Notes</h3>
 
-    <ly-text-container v-if="project.description" class="project-description text-container" v-html="project.mdDescription"></ly-text-container>
-    <p v-else>
-      <em>
-        {{ $t('projects.showPage.noDescription') }}
-        <router-link :to="project.urlEdit">
-          {{ $t('projects.showPage.askEdit') }}
-        </router-link>
-      </em>
-    </p>
+        <ly-text-container v-if="project.description" class="project-description text-container" v-html="project.mdDescription"></ly-text-container>
+        <p v-else class="text-secondary">
+          {{ $t('projects.showPage.noDescription') }}
+        </p>
+      </ly-column>
 
-    <h2>Associated tasks</h2>
-    <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
-    <task-create-form :project-id="project.id"></task-create-form>
+      <ly-column>
+        <h3>{{ $t('projects.showPage.timeline') }}</h3>
+        <project-timeline :project="project"></project-timeline>
+
+        <h3>{{ $t('projects.showPage.associatedTasks') }}</h3>
+        <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
+        <task-create-form :project-id="project.id"></task-create-form>
+      </ly-column>
+    </ly-columns>
   </app-page>
 </template>
 
@@ -46,6 +53,12 @@
       ...mapGetters({
         tasks: 'tasks/listForCurrentProject',
       }),
+    },
+
+    methods: {
+      editDescription () {
+        this.$router.push(this.project.urlEdit)
+      }
     },
   }
 </script>

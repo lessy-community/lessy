@@ -161,9 +161,10 @@ export default {
     },
 
     showPage: {
-      askEdit: 'Edit?',
+      associatedTasks: 'Associated tasks',
+      edit: 'Edit',
       noDescription: 'There is no description for this project yet.',
-      settings: 'Settings',
+      timeline: 'Timeline',
     },
 
     startForm: {
