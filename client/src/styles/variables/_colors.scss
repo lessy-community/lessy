@@ -1,25 +1,55 @@
-$color-primary: #0080b0;
+$ly-color-white: #fff;
+
+$ly-color-grey-10: #f9f9fa;
+$ly-color-grey-20: #ededf0;
+$ly-color-grey-30: #d7d7db;
+$ly-color-grey-40: #b1b1b3;
+$ly-color-grey-50: #737373;
+$ly-color-grey-60: #4a4a4f;
+$ly-color-grey-70: #38383d;
+$ly-color-grey-80: #2a2a2e;
+$ly-color-grey-90: #0c0c0d;
+
+$ly-color-pine-50: #00aba8;
+$ly-color-pine-60: darken($ly-color-pine-50, 6%);
+$ly-color-pine-70: #007876;
+$ly-color-pine-80: darken($ly-color-pine-70, 6%);
+$ly-color-pine-90: #004544;
+
+$ly-color-green-50: #00a86a;
+$ly-color-green-70: #00754a;
+$ly-color-green-90: #00422a;
+
+$ly-color-gold-50: #d1b200;
+$ly-color-gold-70: #857100;
+$ly-color-gold-90: #524500;
+
+$ly-color-red-50: #d40e00;
+$ly-color-red-70: #880900;
+$ly-color-red-90: #3b0400;
+
+$color-primary: $ly-color-pine-50;
 $color-primary-shadow: lighten($color-primary, 60%);
 $color-primary-lighter: lighten($color-primary, 15%);
 $color-primary-light: lighten($color-primary, 5%);
 $color-primary-dark: darken($color-primary, 5%);
 $color-primary-darker: darken($color-primary, 15%);
 
-$color-success: #4caf50;
+$color-success: $ly-color-green-50;
 $color-success-shadow: lighten($color-success, 60%);
 $color-success-lighter: lighten($color-success, 15%);
 $color-success-light: lighten($color-success, 5%);
 $color-success-dark: darken($color-success, 5%);
 $color-success-darker: darken($color-success, 15%);
 
-$color-warning: #ff9800;
+$color-warning: $ly-color-gold-50;
 $color-warning-shadow: lighten($color-warning, 60%);
 $color-warning-lighter: lighten($color-warning, 15%);
 $color-warning-light: lighten($color-warning, 5%);
 $color-warning-dark: darken($color-warning, 5%);
 $color-warning-darker: darken($color-warning, 15%);
 
-$color-danger: #ff2c00;
+$color-danger: $ly-color-red-50;
 $color-danger-shadow: lighten($color-danger, 60%);
 $color-danger-lighter: lighten($color-danger, 15%);
 $color-danger-light: lighten($color-danger, 5%);

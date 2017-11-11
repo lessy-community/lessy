@@ -1,0 +1,22 @@
+a {
+  color: $ly-color-pine-70;
+
+  &:hover {
+    color: $ly-color-pine-80;
+    text-decoration: none;
+  }
+  &:focus {
+    color: $ly-color-pine-90;
+  }
+}
+
+.text-on-dark a {
+  color: $ly-color-white;
+
+  &:hover {
+    color: $ly-color-grey-30;
+  }
+  &:focus {
+    color: $ly-color-grey-40;
+  }
+}

@@ -15,7 +15,7 @@ ideas. Here is a list of contributions you can make:
 
 - test Lessy, report bugs, make suggestions
 - help on the **user experience and interface** (UX/UI), especially if you have
-  professional skills
+  professional skills (you can start by having a look to [our design guide](https://lessy.io/design))
 - help on marketing, **build the external communication with us**
 - write articles, make conferences, organize events, invite other members to
   have a drink with you, spread the world and **be an animator of the

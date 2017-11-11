@@ -40,6 +40,7 @@
 
   .popover-toggle {
     display: inline-block;
+    cursor: default;
   }
 
   .popover-menu {
@@ -48,6 +49,7 @@
     min-width: 150px;
     max-width: 250px;
     margin-top: 5px;
+    margin-left: -95px;
     padding-top: 3px;
     padding-bottom: 3px;
 

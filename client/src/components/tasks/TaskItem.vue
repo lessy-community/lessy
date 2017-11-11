@@ -1,81 +1,85 @@
 <template>
-  <edit-task
+  <task-edit-form
     v-if="editMode"
     autoFocus
     :task="task"
-    :onSuccess="stopEditMode"
-    :onCancel="stopEditMode"
-  ></edit-task>
-  <list-item v-else :class="['task-item', { finished: task.isFinished }]">
-    <container row align="baseline">
-      <span class="my-handle">::</span>
+    :onSuccess="() => { this.editMode = false }"
+    :onCancel="() => { this.editMode = false }"
+  ></task-edit-form>
+  <ly-list-item v-else name="task" with-handle :class="[{ finished: task.isFinished }]">
+    <ly-list-item-adapt>
+      <span v-html="task.formattedLabel"></span>
+      <ly-badge v-if="task.projectName && !hideProjectBadge" size="small">
+        <router-link :to="task.urlProjectShow">
+          {{ task.projectName }}
+        </router-link>
+      </ly-badge>
+    </ly-list-item-adapt>
 
-      <a v-if="!notoggle" href="#" @click.prevent="toggleFinishTask" class="toggle">
-        <icon v-if="task.isFinished" name="check-square-o"></icon>
-        <icon v-else name="square-o"></icon>
-      </a>
-      <div class="label adapt">
-        <span v-html="task.formattedLabel"></span>
-        <badge v-if="task.projectName && !hideProjectBadge">
-          <router-link :to="task.urlProjectShow">
-            {{ task.projectName }}
-          </router-link>
-        </badge>
-        <badge
-          v-if="task.createdSinceWeeks > 0"
-          v-tooltip.top="$tc('tasks.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
-          :warn="task.createdSinceWeeks === 2"
-          :alert="task.createdSinceWeeks > 2"
-        >
-          <icon name="calendar"></icon> {{ task.createdSinceWeeks }}w
-        </badge>
-        <badge
-          v-if="task.restartedCount > 0"
-          v-tooltip.top="$tc('tasks.restarted', task.restartedCount, { count: task.restartedCount })"
-          :warn="task.restartedCount === 2"
-          :alert="task.restartedCount > 2"
-        >
-          <icon name="repeat"></icon> {{ task.restartedCount }}
-        </badge>
-      </div>
+    <ly-badge
+      name="indicators"
+      v-if="task.createdSinceWeeks > 0 || task.restartedCount > 0"
+      :type="{ alert: task.createdSinceWeeks > 2 || task.restartedCount > 2, warning: task.createdSinceWeeks === 2 || task.restartedCount === 2 }"
+    >
+      <span
+        v-if="task.createdSinceWeeks > 0"
+        v-tooltip.left="$tc('tasks.item.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
+      >
+        <ly-icon name="calendar"></ly-icon> {{ task.createdSinceWeeks }}w
+      </span>
+      <span
+        v-if="task.restartedCount > 0"
+        v-tooltip.left="$tc('tasks.item.restarted', task.restartedCount, { count: task.restartedCount })"
+      >
+        <ly-icon name="repeat"></ly-icon> {{ task.restartedCount }}
+      </span>
+    </ly-badge>
 
-      <popover v-if="!task.isFinished">
-        <icon slot="toggle" name="ellipsis-h"></icon>
+    <ly-button
+      v-if="!task.isBacklogged"
+      :type="task.isFinished ? 'ghost' : 'default'"
+      @click="toggleFinishTask"
+    >
+      {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
+    </ly-button>
+    <template v-else>
+      <ly-button
+        v-if="!task.plannedAt"
+        @click="start"
+      >
+        {{ $t('tasks.item.plan') }}
+      </ly-button>
+      <ly-button
+        v-else
+        @click="start"
+        v-tooltip.top="$t('tasks.item.dueOn', { date: task.plannedAtLabel })"
+      >
+        {{ $t('tasks.item.replan') }}
+      </ly-button>
+    </template>
 
-        <template slot="menu">
-          <popover-item :action="startEditMode">{{ $t('tasks.edit') }}</popover-item>
-          <popover-item :action="confirmAbandon">{{ $t('tasks.abandon') }}</popover-item>
-        </template>
-      </popover>
+    <popover>
+      <ly-button
+        slot="toggle"
+        :disabled="task.isFinished"
+        v-tooltip.left="task.isFinished ? $t('tasks.item.noMore') : $t('tasks.item.more')"
+        type="ghost"
+        icon="ellipsis-h"
+      >
+      </ly-button>
 
-      <template v-if="task.isBacklogged">
-        <btn
-          v-if="task.isBacklogged && !task.plannedAt"
-          type="primary"
-          @click="start"
-          class="plan-btn"
-        >
-          {{ $t('tasks.plan') }}
-        </btn>
-        <btn
-          v-else
-          type="primary"
-          @click="start"
-          class="plan-btn"
-          v-tooltip.top="$t('tasks.dueOn', { date: task.plannedAtLabel })"
-        >
-          {{ $t('tasks.replan') }}
-        </btn>
+      <template slot="menu">
+        <popover-item :action="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</popover-item>
+        <popover-item :action="confirmAbandon">{{ $t('tasks.item.abandon') }}</popover-item>
       </template>
-    </container>
-  </list-item>
+    </popover>
+  </ly-list-item>
 </template>
 
 <script>
-  import EditTask from '../forms/EditTask'
+  import TaskEditForm from './TaskEditForm'
 
   export default {
-
     props: {
       'task': { type: Object, required: true },
       'notoggle': { type: Boolean },
@@ -83,7 +87,7 @@
     },
 
     components: {
-      EditTask,
+      TaskEditForm,
     },
 
     data () {
@@ -107,90 +111,36 @@
         this.$store.dispatch('tasks/start', { task })
       },
 
-      startEditMode () {
-        this.editMode = true
-      },
-
-      stopEditMode () {
-        this.editMode = false
-      },
-
       confirmAbandon () {
         const { task } = this
-        if (window.confirm(this.$t('tasks.confirmAbandon'))) {
+        if (window.confirm(this.$t('tasks.item.confirmAbandon'))) {
           this.$store.dispatch('tasks/abandon', { task })
         }
       },
     },
-
   }
 </script>
 
 <style lang="scss">
+  .ly-list-item-task {
+    transition: color .2s ease-in-out;
 
-  .task-item {
-    .my-handle {
-      padding: 5px;
-      visibility: hidden;
-      cursor: move;
+    &.finished,
+    &.finished a,
+    &.finished .ly-button {
+      color: $ly-color-grey-50;
     }
-    &:hover .my-handle {
-      visibility: visible;
-    }
-
-    .toggle {
-      padding: 5px;
-    }
-
-    .label {
-      white-space: normal;
-    }
-
-    &:nth-child(even) {
-      background-color: #f4f4f4;
-    }
-
-    &.finished .label {
-      color: #999;
-      text-decoration: line-through;
-    }
-    &.finished .badge {
+    &.finished .ly-badge-indicators {
       display: none;
     }
-    &.finished .toggle {
-      color: #999;
-    }
 
-    .plan-btn {
-      margin: 2px 5px;
-    }
-
-    .popover-toggle {
-      padding: 2px;
-
-      background-color: $color-primary-shadow;
-      border: 1px solid darken($color-primary-shadow, 10%);
-      border-radius: 50%;
-
-      &:hover {
-        background-color: darken($color-primary-shadow, 10%);
-      }
-    }
     .popover { visibility: hidden; }
     &:hover .popover { visibility: visible; }
   }
 
   @media(max-width: $small-screen-width) {
-    .task-item {
-      .container.row {
-        flex-direction: row;
-      }
-
-      .my-handle,
-      .popover {
-        display: none;
-      }
+    .ly-list-item-task .popover {
+      display: none;
     }
   }
-
 </style>
