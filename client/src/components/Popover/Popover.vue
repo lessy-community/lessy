@@ -40,6 +40,7 @@
 
   .popover-toggle {
     display: inline-block;
+    cursor: default;
   }
 
   .popover-menu {

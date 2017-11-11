@@ -7,18 +7,6 @@
     :onCancel="() => { this.editMode = false }"
   ></task-edit-form>
   <ly-list-item v-else name="task" with-handle :class="[{ finished: task.isFinished }]">
-    <ly-button
-      v-if="!notoggle"
-      v-tooltip.right="$t('tasks.item.toggle')"
-      type="ghost-o"
-      @click="toggleFinishTask"
-    >
-      <ly-icon
-        :name="task.isFinished ? 'check-circle': 'circle-thin'"
-        size="large"
-      ></ly-icon>
-    </ly-button>
-
     <ly-list-item-adapt>
       <span v-html="task.formattedLabel"></span>
       <ly-badge v-if="task.projectName && !hideProjectBadge" size="small">
@@ -47,9 +35,16 @@
       </span>
     </ly-badge>
 
-    <template v-if="task.isBacklogged">
+    <ly-button
+      v-if="!task.isBacklogged"
+      :type="task.isFinished ? 'ghost' : 'default'"
+      @click="toggleFinishTask"
+    >
+      {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
+    </ly-button>
+    <template v-else>
       <ly-button
-        v-if="task.isBacklogged && !task.plannedAt"
+        v-if="!task.plannedAt"
         @click="start"
       >
         {{ $t('tasks.item.plan') }}
@@ -63,10 +58,11 @@
       </ly-button>
     </template>
 
-    <popover v-if="!task.isFinished">
+    <popover>
       <ly-button
         slot="toggle"
-        v-tooltip.left="$t('tasks.item.more')"
+        :disabled="task.isFinished"
+        v-tooltip.left="task.isFinished ? $t('tasks.item.noMore') : $t('tasks.item.more')"
         type="ghost"
         icon="ellipsis-h"
       >
@@ -130,7 +126,8 @@
     transition: color .2s ease-in-out;
 
     &.finished,
-    &.finished a {
+    &.finished a,
+    &.finished .ly-button {
       color: $ly-color-grey-50;
     }
     &.finished .ly-badge-indicators {
