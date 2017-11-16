@@ -4,7 +4,7 @@
       <span
         v-if="project.startedAt"
         class="project-timeline-labels-start"
-        v-tooltip.right="$t('projects.timeline.startedOn', { date: startLabel })"
+        v-tooltip.top="$t('projects.timeline.startedOn', { date: startLabel })"
       >
         {{ startShortLabel }}
       </span>
@@ -32,7 +32,7 @@
       <span
         v-if="project.dueAt"
         class="project-timeline-labels-end"
-        v-tooltip.left="$t('projects.timeline.dueOn', { date: endLabel })"
+        v-tooltip.top="$t('projects.timeline.dueOn', { date: endLabel })"
       >
         {{ endShortLabel }}
       </span>

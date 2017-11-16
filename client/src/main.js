@@ -31,9 +31,9 @@ import i18n from './locales'
 import router from './router'
 import store from './store'
 
-import Tooltip from 'vue-directive-tooltip'
+import VTooltip from 'v-tooltip'
 
-Vue.use(Tooltip)
+Vue.use(VTooltip)
 
 // register global components
 Vue.component('popover', Popover)

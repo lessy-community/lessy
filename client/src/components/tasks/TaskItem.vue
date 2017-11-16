@@ -23,13 +23,13 @@
     >
       <span
         v-if="task.createdSinceWeeks > 0"
-        v-tooltip.left="$tc('tasks.item.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
+        v-tooltip.top="$tc('tasks.item.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
       >
         <ly-icon name="calendar"></ly-icon> {{ task.createdSinceWeeks }}w
       </span>
       <span
         v-if="task.restartedCount > 0"
-        v-tooltip.left="$tc('tasks.item.restarted', task.restartedCount, { count: task.restartedCount })"
+        v-tooltip.top="$tc('tasks.item.restarted', task.restartedCount, { count: task.restartedCount })"
       >
         <ly-icon name="repeat"></ly-icon> {{ task.restartedCount }}
       </span>
@@ -62,7 +62,7 @@
       <ly-button
         slot="toggle"
         :disabled="task.isFinished"
-        v-tooltip.left="task.isFinished ? $t('tasks.item.noMore') : $t('tasks.item.more')"
+        v-tooltip.left="$t('tasks.item.more')"
         type="ghost"
         icon="ellipsis-h"
       >
@@ -135,7 +135,7 @@
     }
 
     .popover { visibility: hidden; }
-    &:hover .popover { visibility: visible; }
+    &:not(.finished):hover .popover { visibility: visible; }
   }
 
   @media(max-width: $small-screen-width) {
