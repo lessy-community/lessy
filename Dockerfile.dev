@@ -27,8 +27,9 @@ RUN gem install bundler \
   && apk del build-dependencies
 
 RUN cd /app/client \
+  && npm install npm@5 -g \
   && npm install \
-  && npm cache clean
+  && npm cache clean --force
 
 VOLUME /app
 

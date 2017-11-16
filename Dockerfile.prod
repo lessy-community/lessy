@@ -31,7 +31,9 @@ RUN apk add --no-cache \
 COPY . /app
 
 RUN cd /app/client \
+  && npm install npm@5 -g \
   && npm install \
+  && npm cache clean --force \
   && npm run build \
   && rm -rf /app/client/node_modules
 
