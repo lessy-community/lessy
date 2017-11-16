@@ -15,6 +15,7 @@ RUN apk add --no-cache \
       nodejs \
       postgresql-client \
       tzdata \
+  && npm install npm@5 -g \
   && apk --update add --virtual build-dependencies \
       build-base \
       ruby-dev \
@@ -31,7 +32,6 @@ RUN apk add --no-cache \
 COPY . /app
 
 RUN cd /app/client \
-  && npm install npm@5 -g \
   && npm install \
   && npm cache clean --force \
   && npm run build \
