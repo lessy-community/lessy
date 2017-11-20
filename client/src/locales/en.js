@@ -124,6 +124,7 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
+      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
     },
 
     editForm: {
@@ -132,7 +133,7 @@ export default {
       descriptionTip: 'Description supports Markdown',
       dueLabel: 'Due on',
       nameLabel: 'Name',
-      nameTip: 'Only lowercase letters, numbers, underscore and dash',
+      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
       submit: 'Validate',
     },
 

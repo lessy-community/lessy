@@ -2,7 +2,9 @@
   <form @submit.prevent="create">
     <div :class="['form-group-control', { invalid: isInError('Project', 'name') }]">
       <text-field id="name" v-model="name" pattern="[\w\-]{1,100}" required ref="nameInput" autocomplete="off" />
-      <div v-if="isInError('Project', 'name')" class="form-group-tip">{{ getErrors('Project', 'name') }}</div>
+      <div class="form-group-tip">
+        {{ getErrors('Project', 'name') || $t('projects.createForm.nameTip') }}
+      </div>
     </div>
 
     <ly-button type="primary" submit>{{ $t('projects.createForm.submit') }}</ly-button>
