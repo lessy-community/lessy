@@ -1,15 +1,28 @@
 <template>
-  <form @submit.prevent="create">
-    <div :class="['form-group-control', { invalid: isInError('Project', 'name') }]">
-      <text-field id="name" v-model="name" pattern="[\w\-]{1,100}" required ref="nameInput" autocomplete="off" />
-      <div class="form-group-tip">
-        {{ getErrors('Project', 'name') || $t('projects.createForm.nameTip') }}
-      </div>
-    </div>
+  <ly-form @submit="create">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="name"
+        v-model="name"
+        ref="nameInput"
+        :error="getErrors('Project', 'name')"
+        pattern="[\w\-]{1,100}"
+        :caption="$t('projects.createForm.nameCaption')"
+        autocomplete="off"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <ly-button type="primary" submit>{{ $t('projects.createForm.submit') }}</ly-button>
-    <ly-button v-if="onCancel" @click="onCancel">{{ $t('projects.createForm.cancel') }}</ly-button>
-  </form>
+    <ly-form-group>
+      <ly-button type="primary" submit>
+        {{ $t('projects.createForm.submit') }}
+      </ly-button>
+      <ly-button v-if="onCancel" @click="onCancel">
+        {{ $t('projects.createForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -39,20 +52,20 @@
             const { nameInput } = this.$refs
             this.name = ''
             this.cleanErrors()
-            nameInput && nameInput.$el.focus()
+            nameInput && nameInput.focus()
             if (typeof this.onSuccess === 'function') {
               this.onSuccess(projectId)
             }
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
-            this.$refs.nameInput.$el.focus()
+            this.$refs.nameInput.focus()
           })
       },
     },
 
     mounted () {
-      this.$refs.nameInput.$el.focus()
+      this.$refs.nameInput.focus()
     },
   }
 </script>

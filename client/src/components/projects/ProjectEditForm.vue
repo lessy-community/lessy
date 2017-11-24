@@ -1,44 +1,49 @@
 <template>
-  <form @submit.prevent="update">
-    <div v-if="isInError('Project')" class="form-errors">
-      {{ getErrors('Project') }}
-    </div>
+  <ly-form @submit="update" :error="getErrors('Project')">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="name"
+        v-model="name"
+        :label="$t('projects.editForm.nameLabel')"
+        :error="getErrors('Project', 'name')"
+        pattern="[\w\-]{1,100}"
+        :caption="$t('projects.editForm.nameCaption')"
+        autocomplete="off"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('projects.editForm.nameLabel')"
-      target="name"
-      required
-      :tip="getErrors('Project', 'name') || $t('projects.editForm.nameTip')"
-      :invalid="isInError('Project', 'name')"
-    >
-      <text-field id="name" v-model="name" pattern="[\w\-]{1,100}" required autocomplete="off" />
-    </form-group>
+    <ly-form-group v-if="project.isStarted">
+      <ly-form-input
+        type="date"
+        name="due-at"
+        v-model="dueAt"
+        :label="$t('projects.editForm.dueLabel')"
+        :error="getErrors('Project', 'dueAt')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      v-if="project.isStarted"
-      :label="$t('projects.editForm.dueLabel')"
-      target="due-at"
-      required
-      :tip="getErrors('Project', 'dueAt')"
-      :invalid="isInError('Project', 'dueAt')"
-    >
-      <date-field id="due-at" v-model="dueAt" required />
-    </form-group>
+    <ly-form-group>
+      <ly-form-textarea
+        name="description"
+        v-model="description"
+        :label="$t('projects.editForm.descriptionLabel')"
+        :error="getErrors('Project', 'description')"
+        :caption="$t('projects.editForm.descriptionCaption')"
+      ></ly-form-textarea>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('projects.editForm.descriptionLabel')"
-      target="description"
-      :tip="getErrors('Project', 'description') || $t('projects.editForm.descriptionTip')"
-      :invalid="isInError('Project', 'description')"
-    >
-      <text-field id="description" v-model="description" multiplelines />
-    </form-group>
-
-    <form-group actions>
-      <ly-button type="primary" submit>{{ $t('projects.editForm.submit') }}</ly-button>
-      <ly-button @click="onCancel">{{ $t('projects.editForm.cancel') }}</ly-button>
-    </form-group>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" submit>
+        {{ $t('projects.editForm.submit') }}
+      </ly-button>
+      <ly-button @click="onCancel">
+        {{ $t('projects.editForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -77,13 +82,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .form-errors {
-    margin-bottom: 20px;
-
-    text-align: center;
-
-    color: $color-danger;
-  }
-</style>

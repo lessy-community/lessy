@@ -1,17 +1,26 @@
 <template>
-  <form @submit.prevent="update">
-    <div :class="['form-group-control', { invalid: isInError('Task', 'label') }]">
-      <text-field id="label" v-model="label" ref="labelInput" autocomplete="off" />
-      <div v-if="isInError('Task', 'label')" class="form-group-tip">
-        {{ getErrors('Task', 'label') }}
-      </div>
-    </div>
+  <ly-form @submit="update">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="label"
+        v-model="label"
+        ref="labelInput"
+        :error="getErrors('Task', 'label')"
+        autocomplete="off"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <ly-button type="primary" submit>{{ $t('tasks.editForm.submit') }}</ly-button>
-    <ly-button v-if="onCancel" @click="onCancel">
-      {{ $t('tasks.editForm.cancel') }}
-    </ly-button>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" submit>
+        {{ $t('tasks.editForm.submit') }}
+      </ly-button>
+      <ly-button v-if="onCancel" @click="onCancel">
+        {{ $t('tasks.editForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -46,14 +55,14 @@
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
-            this.$refs.labelInput.$el.focus()
+            this.$refs.labelInput.focus()
           })
       },
     },
 
     mounted () {
       if (this.autoFocus) {
-        this.$refs.labelInput.$el.focus()
+        this.$refs.labelInput.focus()
       }
     },
   }

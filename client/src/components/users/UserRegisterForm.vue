@@ -1,21 +1,26 @@
 <template>
-  <form @submit.prevent="register">
-    <form-group
-      :label="$t('users.registerForm.emailLabel')"
-      target="email"
-      required
-      :tip="getErrors('User', 'email')"
-      :invalid="isInError('User', 'email')"
-    >
-      <email-field id="email" v-model="email" required />
-    </form-group>
+  <ly-form @submit="register">
+    <ly-form-group>
+      <ly-form-input
+        type="email"
+        v-model="email"
+        name="email"
+        :placeholder="$t('users.registerForm.emailPlaceholder')"
+        :label="$t('users.registerForm.emailLabel')"
+        :error="getErrors('User', 'email')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group actions>
-      <ly-button type="primary" submit>{{ $t('users.registerForm.submit') }}</ly-button>
-      {{ $t('users.registerForm.or') }}
-      <router-link to="/login">{{ $t('users.registerForm.login') }}</router-link>
-    </form-group>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" size="large" submit>
+        {{ $t('users.registerForm.submit') }}
+      </ly-button>
+      <router-link to="/login">
+        {{ $t('users.registerForm.login') }}
+      </router-link>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>

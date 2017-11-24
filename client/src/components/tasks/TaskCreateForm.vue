@@ -1,20 +1,27 @@
 <template>
-  <form @submit.prevent="create">
-    <div :class="['form-group-control', { invalid: isInError('Task', 'label') }]">
-      <text-field id="label" v-model="label" ref="labelInput" autocomplete="off" />
-      <div v-if="isInError('Task', 'label')" class="form-group-tip">
-        {{ getErrors('Task', 'label') }}
-      </div>
-    </div>
+  <ly-form @submit="create">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="label"
+        v-model="label"
+        ref="labelInput"
+        :caption="showWarning ? $t('tasks.createForm.warningTooMany') : ''"
+        :error="getErrors('Task', 'label')"
+        autocomplete="off"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <ly-button type="primary" submit>{{ $t('tasks.createForm.submit') }}</ly-button>
-    <ly-button v-if="onCancel" @click="onCancel">
-      {{ $t('tasks.createForm.cancel') }}
-    </ly-button>
-    <small v-if="showWarning" class="text-secondary">
-      {{ $t('tasks.createForm.warningTooMany') }}
-    </small>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" submit>
+        {{ $t('tasks.createForm.submit') }}
+      </ly-button>
+      <ly-button v-if="onCancel" @click="onCancel">
+        {{ $t('tasks.createForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -51,18 +58,18 @@
             const { labelInput } = this.$refs
             this.label = ''
             this.cleanErrors()
-            labelInput && labelInput.$el.focus()
+            labelInput && labelInput.focus()
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
-            this.$refs.labelInput.$el.focus()
+            this.$refs.labelInput.focus()
           })
       },
     },
 
     mounted () {
       if (this.autoFocus) {
-        this.$refs.labelInput.$el.focus()
+        this.$refs.labelInput.focus()
       }
     },
   }

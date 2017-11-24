@@ -2,18 +2,12 @@ import Vue from 'vue'
 
 import { Popover, PopoverItem } from './components/Popover'
 
-import DateField from './components/fields/DateField'
-import EmailField from './components/fields/EmailField'
-import FormGroup from './components/fields/FormGroup'
-import PasswordField from './components/fields/PasswordField'
-import StaticField from './components/fields/StaticField'
-import TextField from './components/fields/TextField'
-
 import LyBadge from './components/Ly/LyBadge'
 import LyButton from './components/Ly/LyButton'
 import LyCard from './components/Ly/LyCard'
 import LyCardDeck from './components/Ly/LyCardDeck'
 import { LyColumns, LyColumn } from './components/Ly/LyColumns'
+import { LyForm, LyFormGroup, LyFormInput, LyFormTextarea } from './components/Ly/LyForm'
 import LyIcon from './components/Ly/LyIcon'
 import { LyList, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
 import LySection from './components/Ly/LySection'
@@ -39,13 +33,6 @@ Vue.use(VTooltip)
 Vue.component('popover', Popover)
 Vue.component('popover-item', PopoverItem)
 
-Vue.component('date-field', DateField)
-Vue.component('email-field', EmailField)
-Vue.component('form-group', FormGroup)
-Vue.component('password-field', PasswordField)
-Vue.component('static-field', StaticField)
-Vue.component('text-field', TextField)
-
 Vue.component('app-header', AppHeader)
 Vue.component('app-header-link', AppHeaderLink)
 Vue.component('app-layout', AppLayout)
@@ -59,6 +46,10 @@ Vue.component('ly-card', LyCard)
 Vue.component('ly-card-deck', LyCardDeck)
 Vue.component('ly-columns', LyColumns)
 Vue.component('ly-column', LyColumn)
+Vue.component('ly-form', LyForm)
+Vue.component('ly-form-group', LyFormGroup)
+Vue.component('ly-form-input', LyFormInput)
+Vue.component('ly-form-textarea', LyFormTextarea)
 Vue.component('ly-icon', LyIcon)
 Vue.component('ly-list', LyList)
 Vue.component('ly-list-item', LyListItem)

@@ -76,12 +76,6 @@ export default {
     },
   },
 
-  fields: {
-    password: {
-      reveal: 'Reveal',
-    },
-  },
-
   general: {
     defaultMenu: {
       dashboard: 'Dashboard',
@@ -109,6 +103,15 @@ export default {
     },
   },
 
+  ly: {
+    form: {
+      input: {
+        optional: 'optional',
+        revealPassword: 'Reveal',
+      },
+    },
+  },
+
   projects: {
     card: {
       datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
@@ -124,23 +127,23 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
-      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
     },
 
     editForm: {
       cancel: 'Cancel',
       descriptionLabel: 'Description',
-      descriptionTip: 'Description supports Markdown',
+      descriptionCaption: 'Description supports Markdown',
       dueLabel: 'Due on',
       nameLabel: 'Name',
-      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
       submit: 'Validate',
     },
 
     finishForm: {
       cancel: 'No, I did not yet',
       finishedLabel: 'Finished on',
-      finishedTip: 'It cannot be after today',
+      finishedCaption: 'It cannot be after today',
       submit: 'I did it!',
     },
 
@@ -175,7 +178,7 @@ export default {
     startForm: {
       cancel: 'Cancel',
       dueLabel: 'Due on',
-      dueTip: 'The due date have to be after today',
+      dueCaption: 'The due date have to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
     },
@@ -202,7 +205,7 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
-      warningTooMany: 'It can be difficult to achieve all our tasks when we have too much to do.',
+      warningTooMany: 'You might face difficulties to achieve all your tasks if you try to do too much.',
     },
 
     editForm: {
@@ -245,7 +248,7 @@ export default {
       passwordLabel: 'Password',
       submit: 'Activate your account',
       usernameLabel: 'Username',
-      usernameTip: 'Only lowercase letters, underscore and dash',
+      usernameCaption: 'Only lowercase letters, underscore and dash',
     },
 
     activateLayout: {
@@ -265,8 +268,8 @@ export default {
 
     registerForm: {
       emailLabel: 'Email',
+      emailPlaceholder: 'john@doe.com',
       login: 'login',
-      or: 'or',
       submit: 'Create your account',
     },
   },

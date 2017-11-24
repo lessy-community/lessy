@@ -1,41 +1,39 @@
 <template>
-  <form @submit.prevent="activate">
-    <div v-if="isInError('User')" class="form-errors">
-      {{ getErrors('User') }}
-    </div>
+  <ly-form @submit="activate" :error="getErrors('User')">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="username"
+        v-model="username"
+        pattern="[a-z_\-]{1,25}"
+        :label="$t('users.activateForm.usernameLabel')"
+        :caption="$t('users.activateForm.usernameCaption')"
+        :error="getErrors('User', 'username')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('users.activateForm.usernameLabel')"
-      target="username"
-      required
-      :tip="getErrors('User', 'username') || $t('users.activateForm.usernameTip')"
-      :invalid="isInError('User', 'username')"
-    >
-      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,25}" required />
-    </form-group>
+    <ly-form-group>
+      <ly-form-input
+        type="password"
+        name="password"
+        v-model="password"
+        :label="$t('users.activateForm.passwordLabel')"
+        :error="getErrors('User', 'password')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('users.activateForm.passwordLabel')"
-      target="password"
-      required
-      :tip="getErrors('User', 'password')"
-      :invalid="isInError('User', 'password')"
-    >
-      <password-field id="password" v-model="password" required />
-    </form-group>
-
-    <form-group actions>
-      <ly-button type="primary" submit>{{ $t('users.activateForm.submit') }}</ly-button>
-    </form-group>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" size="large" submit>{{ $t('users.activateForm.submit') }}</ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
   import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
 
   export default {
-    name: 'activate-user-form',
-
     mixins: [ErrorsHandler],
 
     props: {
@@ -64,13 +62,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .form-errors {
-    margin-bottom: 20px;
-
-    text-align: center;
-
-    color: $color-danger;
-  }
-</style>

@@ -145,6 +145,129 @@
         </ly-card>
       </ly-card-deck>
 
+      <h2>ly-form-input</h2>
+      <p>Use inputs to interact with user. An input should always be inside a
+      <code>form-group</code>.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="text"
+          name="example-1"
+          value=""
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Label</h3>
+      <p>You should provide a label most of the time unless the purpose of
+      input is obvious.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="text"
+          name="username-1"
+          value=""
+          label="Username"
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Required</h3>
+      <p>An input not required is marked as optional. You should try to avoid
+      optional inputs: filling forms is not fun, we should keep them as light
+      as possible.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="text"
+          name="username-2"
+          value=""
+          label="Username"
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Pattern</h3>
+      <p>Provide a pattern to force a given format.</p>
+
+      <h3>Caption</h3>
+      <p>Provide additional information or advices on how to fill the input
+      with a caption.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="text"
+          name="username-3"
+          value=""
+          label="Username"
+          pattern="[a-z_\-]{1,25}"
+          caption="Only lowercase letters, underscores and hiphens. Max 25 characters."
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Placeholder</h3>
+      <p>Placeholder gives an example to user to guide him to fill an input.
+      Please note <strong>placeholders must never be used as labels</strong>.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="email"
+          name="email-1"
+          value=""
+          placeholder="dale@cooper.com"
+          label="Email"
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Error</h3>
+      <p>Always show errors concerning a specific input next to it with the
+      <code>error</code> attribute.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="text"
+          name="username-4"
+          value="john"
+          label="Username"
+          pattern="[a-z_\-]{1,25}"
+          caption="Only lowercase letters, underscores and hiphens. Max 25 characters."
+          error="This username already exists."
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <h3>Type</h3>
+      <p>Always choose the most appropriate type for your input since specific
+      design or interactions may apply.</p>
+
+      <ly-form-group>
+        <ly-form-input
+          type="date"
+          name="date-1"
+          value=""
+          label="Date of birth"
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <ly-form-group>
+        <ly-form-input
+          type="password"
+          name="password-1"
+          v-model="password"
+          label="Password"
+          required
+        ></ly-form-input>
+      </ly-form-group>
+
+      <ly-form-group>
+        <ly-form-textarea
+          name="description-1"
+          value=""
+          label="Description"
+        ></ly-form-textarea>
+      </ly-form-group>
+
       <h2>ly-icon</h2>
       <p>Use icons to add visual help to user. Icons must be used carefully and
       always be accompanied by a text alternative.</p>
@@ -231,3 +354,13 @@
     </ly-text-container>
   </app-page>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        password: 'secret',
+      }
+    },
+  }
+</script>

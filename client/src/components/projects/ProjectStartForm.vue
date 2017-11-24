@@ -1,30 +1,26 @@
 <template>
-  <form @submit.prevent="start">
-    <div v-if="isInError('Project')" class="form-errors">
-      {{ getErrors('Project') }}
-    </div>
+  <ly-form @submit="start" :error="getErrors('Project')">
+    <ly-form-group>
+      <ly-form-input
+        type="date"
+        name="due-at"
+        v-model="dueAt"
+        :label="$t('projects.startForm.dueLabel')"
+        :error="getErrors('Project', 'dueAt')"
+        :caption="$t('projects.startForm.dueCaption')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('projects.startForm.nameLabel')"
-    >
-      <static-field :value="project.name" />
-    </form-group>
-
-    <form-group
-      :label="$t('projects.startForm.dueLabel')"
-      target="due-at"
-      required
-      :tip="getErrors('Project', 'dueAt') || $t('projects.startForm.dueTip')"
-      :invalid="isInError('Project', 'dueAt')"
-    >
-      <date-field id="due-at" v-model="dueAt" required />
-    </form-group>
-
-    <form-group actions>
-      <ly-button type="primary" submit>{{ $t('projects.startForm.submit') }}</ly-button>
-      <ly-button @click="onCancel">{{ $t('projects.startForm.cancel') }}</ly-button>
-    </form-group>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" submit>
+        {{ $t('projects.startForm.submit') }}
+      </ly-button>
+      <ly-button @click="onCancel">
+        {{ $t('projects.startForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -59,13 +55,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .form-errors {
-    margin-bottom: 20px;
-
-    text-align: center;
-
-    color: $color-danger;
-  }
-</style>

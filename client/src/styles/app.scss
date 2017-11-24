@@ -3,9 +3,10 @@
 @import 'variables/colors';
 @import 'variables/dimensions';
 
+@import 'forms';
 @import 'grid';
-@import 'typography';
 @import 'links';
+@import 'typography';
 
 * {
   box-sizing: border-box;
@@ -59,10 +60,6 @@ table {
   td {
     padding: .5rem;
   }
-}
-
-form {
-  margin-bottom: 1rem;
 }
 
 @media(max-width: $small-screen-width) {

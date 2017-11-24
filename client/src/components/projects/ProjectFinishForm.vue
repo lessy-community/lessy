@@ -1,24 +1,26 @@
 <template>
-  <form @submit.prevent="stop">
-    <div v-if="isInError('Project')" class="form-errors">
-      {{ getErrors('Project') }}
-    </div>
+  <ly-form @submit="stop" :error="getErrors('Project')">
+    <ly-form-group>
+      <ly-form-input
+        type="date"
+        name="finished-at"
+        v-model="finishedAt"
+        :label="$t('projects.finishForm.finishedLabel')"
+        :caption="$t('projects.finishForm.finishedCaption')"
+        :error="getErrors('Project', 'finishedAt')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('projects.finishForm.finishedLabel')"
-      target="finished-at"
-      required
-      :tip="getErrors('Project', 'finishedAt') || $t('projects.finishForm.finishedTip')"
-      :invalid="isInError('Project', 'finishedAt')"
-    >
-      <date-field id="finished-at" v-model="finishedAt" required />
-    </form-group>
-
-    <form-group actions vertical>
-      <ly-button type="primary" submit>{{ $t('projects.finishForm.submit') }}</ly-button>
-      <ly-button @click="onCancel">{{ $t('projects.finishForm.cancel') }}</ly-button>
-    </form-group>
-  </form>
+    <ly-form-group type="actions">
+      <ly-button type="primary" submit>
+        {{ $t('projects.finishForm.submit') }}
+      </ly-button>
+      <ly-button @click="onCancel">
+        {{ $t('projects.finishForm.cancel') }}
+      </ly-button>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -53,13 +55,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .form-errors {
-    margin-bottom: 20px;
-
-    text-align: center;
-
-    color: $color-danger;
-  }
-</style>
