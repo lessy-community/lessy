@@ -3,7 +3,7 @@
     <header v-if="$slots.header" class="ly-card-header">
       <slot name="header"></slot>
     </header>
-    <div class="ly-card-body" :style="`background-image: url(${image});`">
+    <div class="ly-card-body" :style="style">
       <slot></slot>
     </div>
     <footer v-if="$slots.footer" class="ly-card-footer">
@@ -17,6 +17,17 @@
     props: {
       type: { type: String, default: 'normal' },
       image: { type: String },
+    },
+
+    computed: {
+      style () {
+        if (!this.image) {
+          return {}
+        }
+        return {
+          backgroundImage: `url(${this.image})`,
+        }
+      },
     },
   }
 </script>
