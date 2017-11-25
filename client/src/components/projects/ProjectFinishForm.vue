@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="stop" :error="getErrors('Project')">
+  <ly-form @submit="stop" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="date"
@@ -7,7 +7,7 @@
         v-model="finishedAt"
         :label="$t('projects.finishForm.finishedLabel')"
         :caption="$t('projects.finishForm.finishedCaption')"
-        :error="getErrors('Project', 'finishedAt')"
+        :error="getErrors('/project/finished_at')"
         required
       ></ly-form-input>
     </ly-form-group>

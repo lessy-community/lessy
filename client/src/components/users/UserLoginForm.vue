@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="login" :error="getErrors('User')">
+  <ly-form @submit="login" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
@@ -7,7 +7,7 @@
         v-model="username"
         pattern="[a-z_\-]{1,25}"
         :label="$t('users.loginForm.usernameLabel')"
-        :error="getErrors('User', 'username')"
+        :error="getErrors('/user/username')"
         required
       ></ly-form-input>
     </ly-form-group>
@@ -18,7 +18,7 @@
         name="password"
         v-model="password"
         :label="$t('users.loginForm.passwordLabel')"
-        :error="getErrors('User', 'password')"
+        :error="getErrors('/user/password')"
         required
       ></ly-form-input>
     </ly-form-group>

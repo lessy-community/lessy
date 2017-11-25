@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="register">
+  <ly-form @submit="register" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="email"
@@ -7,7 +7,7 @@
         name="email"
         :placeholder="$t('users.registerForm.emailPlaceholder')"
         :label="$t('users.registerForm.emailLabel')"
-        :error="getErrors('User', 'email')"
+        :error="getErrors('/user/email')"
         required
       ></ly-form-input>
     </ly-form-group>

@@ -1,12 +1,12 @@
 <template>
-  <ly-form @submit="start" :error="getErrors('Project')">
+  <ly-form @submit="start" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="date"
         name="due-at"
         v-model="dueAt"
         :label="$t('projects.startForm.dueLabel')"
-        :error="getErrors('Project', 'dueAt')"
+        :error="getErrors('/project/due_at')"
         :caption="$t('projects.startForm.dueCaption')"
         required
       ></ly-form-input>

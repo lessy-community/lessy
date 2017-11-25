@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="create">
+  <ly-form @submit="create" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
@@ -7,7 +7,7 @@
         v-model="label"
         ref="labelInput"
         :caption="showWarning ? $t('tasks.createForm.warningTooMany') : ''"
-        :error="getErrors('Task', 'label')"
+        :error="getErrors('/task/label')"
         autocomplete="off"
         required
       ></ly-form-input>

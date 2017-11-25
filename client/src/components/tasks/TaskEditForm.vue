@@ -1,12 +1,12 @@
 <template>
-  <ly-form @submit="update">
+  <ly-form @submit="update" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
         name="label"
         v-model="label"
         ref="labelInput"
-        :error="getErrors('Task', 'label')"
+        :error="getErrors('/task/label')"
         autocomplete="off"
         required
       ></ly-form-input>

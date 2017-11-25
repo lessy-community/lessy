@@ -1,12 +1,12 @@
 <template>
-  <ly-form @submit="create">
+  <ly-form @submit="create" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
         name="name"
         v-model="name"
         ref="nameInput"
-        :error="getErrors('Project', 'name')"
+        :error="getErrors('/project/name')"
         pattern="[\w\-]{1,100}"
         :caption="$t('projects.createForm.nameCaption')"
         autocomplete="off"

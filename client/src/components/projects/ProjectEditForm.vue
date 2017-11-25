@@ -1,12 +1,12 @@
 <template>
-  <ly-form @submit="update" :error="getErrors('Project')">
+  <ly-form @submit="update" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
         name="name"
         v-model="name"
         :label="$t('projects.editForm.nameLabel')"
-        :error="getErrors('Project', 'name')"
+        :error="getErrors('/project/name')"
         pattern="[\w\-]{1,100}"
         :caption="$t('projects.editForm.nameCaption')"
         autocomplete="off"
@@ -20,7 +20,7 @@
         name="due-at"
         v-model="dueAt"
         :label="$t('projects.editForm.dueLabel')"
-        :error="getErrors('Project', 'dueAt')"
+        :error="getErrors('/project/due_at')"
         required
       ></ly-form-input>
     </ly-form-group>
@@ -30,7 +30,7 @@
         name="description"
         v-model="description"
         :label="$t('projects.editForm.descriptionLabel')"
-        :error="getErrors('Project', 'description')"
+        :error="getErrors('/project/description')"
         :caption="$t('projects.editForm.descriptionCaption')"
       ></ly-form-textarea>
     </ly-form-group>
