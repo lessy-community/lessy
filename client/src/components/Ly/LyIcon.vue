@@ -18,6 +18,9 @@
 <style lang="scss">
   .ly-icon {
     width: 1.5em;
+
+    vertical-align: middle;
+
     line-height: 1.5em;
 
     &.ly-icon-large {

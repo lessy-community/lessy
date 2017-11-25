@@ -2,14 +2,14 @@
   <app-layout name="user-activate">
     <welcome-header slot="header"></welcome-header>
     <app-page name="user-activate">
-      <ly-text-container margined>
+      <div class="app-page-user-activate-container">
         <h1>{{ $t('users.activateLayout.title') }}</h1>
-        <p>{{ $t('users.activateLayout.intro') }}</p>
+        <p class="activate-info">{{ $t('users.activateLayout.intro') }}</p>
         <user-activate-form
           :token="token"
           :on-success="onActivationSuccess"
         ></user-activate-form>
-      </ly-text-container>
+      </div>
     </app-page>
   </app-layout>
 </template>
@@ -46,5 +46,15 @@
                                         $ly-color-grey-10 81%,
                                         $ly-color-grey-10 83%,
                                         $ly-color-grey-20 83%);
+
+    h1, .activate-info {
+      text-align: center;
+    }
+  }
+
+  .app-page-user-activate-container {
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

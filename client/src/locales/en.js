@@ -104,8 +104,27 @@ export default {
     },
 
     homeLayout: {
-      intro: 'A new era begins for the project managers.',
-      title: 'Welcome on Lessy!',
+      title: 'Recover your power to manage time',
+      intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
+
+      detailsTitle: 'A respectful and ethical time manager',
+      timeTitle: 'Time is a precious resource',
+      timeDetails: 'Time is a one-way road and never can be recovered but it’s never too late to start to use it consciously. If you feel it’s time to change a little something in your habits, Lessy will help you to explore the path thoroughly.',
+      lessTitle: 'Less cognitive load, less stress',
+      lessDetails: 'Lessy supports you in your daily routine by presenting what you most likely want to do first.<br />Do you feel exhausted of your day already? Don’t worry, we all follow our own pace and Lessy knows that.',
+      communityTitle: 'Built by an open community',
+      communityDetails: 'Time is too important to be handed over to private companies. Lessy is a free software built by a welcoming community of users with same concerns as yours.<br /><a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTING.md"> You can participate to make it better too!</a>',
+
+      moreTitle: 'Go further',
+      exploreTitle: 'Explore source code',
+      exploreDetails: 'Because Lessy is <a href="https://github.com/marienfressinaud/lessy/blob/master/LICENSE">free</a> and always will be.',
+      hostTitle: 'Host it',
+      hostDetails: 'Data are yours and we don’t want to be a centralized service.',
+      donateTitle: 'Donate',
+      donateDetails: 'It helps us to maintain the service opened to everyone.',
+
+      madeWithLove: 'Made with <ly-icon name="heart-o"></ly-icon> <span class="sr-only">love</span> by <a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTORS.md">amazing contributors</a>.',
+      greetings: 'Have a great day!',
     },
 
     loadingLayout: {

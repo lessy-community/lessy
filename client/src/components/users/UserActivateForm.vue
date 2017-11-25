@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="activate" :error="getErrors()">
+  <ly-form @submit="activate" :error="getErrors()" margined>
     <ly-form-group>
       <ly-form-input
         type="text"

@@ -8,7 +8,7 @@
         {{ $t('projects.showPage.edit') }}
       </ly-button>
 
-      <ly-columns>
+      <ly-columns bordered>
         <ly-column>
           <h3>Notes</h3>
 

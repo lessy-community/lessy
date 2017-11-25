@@ -2,10 +2,10 @@
   <app-layout name="user-login">
     <welcome-header slot="header"></welcome-header>
     <app-page name="user-login">
-      <ly-text-container margined>
+      <div class="app-page-user-login-container">
         <h1>{{ $t('users.loginLayout.title') }}</h1>
         <user-login-form :on-success="onLoginSuccess"></user-login-form>
-      </ly-text-container>
+      </div>
     </app-page>
   </app-layout>
 </template>
@@ -36,5 +36,15 @@
                                         $ly-color-grey-10 81%,
                                         $ly-color-grey-10 83%,
                                         $ly-color-grey-20 83%);
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  .app-page-user-login-container {
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

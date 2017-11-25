@@ -1,8 +1,8 @@
 <template>
   <header class="welcome-header">
-    <ly-text-container margined>
+    <div class="welcome-header-container">
       <router-link class="welcome-header-brand" to="/">{{ $t('general.welcomeHeader.lessy') }}</router-link>
-    </ly-text-container>
+    </div>
   </header>
 </template>
 
@@ -17,6 +17,12 @@
                                        $ly-color-grey-20 calc(100% - 10.5rem),
                                        $ly-color-grey-20 calc(100% - 10rem),
                                        $ly-color-pine-60 calc(100% - 10rem));
+  }
+
+  .welcome-header-container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .welcome-header-brand {

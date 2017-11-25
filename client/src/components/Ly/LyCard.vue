@@ -1,5 +1,7 @@
 <template>
-  <section :class="['ly-card', `ly-card-${type}`]">
+  <section :class="['ly-card', `ly-card-${type}`, {
+    [`ly-card-${name}`]: name,
+  }]">
     <header v-if="$slots.header" class="ly-card-header">
       <slot name="header"></slot>
     </header>
@@ -16,6 +18,7 @@
   export default {
     props: {
       type: { type: String, default: 'normal' },
+      name: { type: String },
       image: { type: String },
     },
 
@@ -42,6 +45,7 @@
 
     word-wrap: break-word;
 
+    background-color: $ly-color-grey-10;
     box-shadow: 0 0 1px $ly-color-grey-50,
                 1px 2px 3px $ly-color-grey-40;
     border-radius: .25rem;
