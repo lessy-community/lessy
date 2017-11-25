@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="register" :error="getErrors()">
+  <ly-form @submit="register" size="small" margined :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="email"
@@ -12,7 +12,7 @@
       ></ly-form-input>
     </ly-form-group>
 
-    <ly-form-group type="actions">
+    <ly-form-group type="actions-block">
       <ly-button type="primary" size="large" submit>
         {{ $t('users.registerForm.submit') }}
       </ly-button>

@@ -1,7 +1,7 @@
 export default {
   app: {
     appHeader: {
-      logout: 'Logout',
+      logout: 'Log out',
     },
   },
 
@@ -278,18 +278,19 @@ export default {
 
     loginForm: {
       passwordLabel: 'Password',
-      submit: 'Login',
+      submit: 'Log in',
+      register: 'Create an account',
       usernameLabel: 'Username',
     },
 
     loginLayout: {
-      title: 'Login',
+      title: 'Log in',
     },
 
     registerForm: {
       emailLabel: 'Email',
       emailPlaceholder: 'john@doe.com',
-      login: 'login',
+      login: 'Have an account? Log in',
       submit: 'Create your account',
     },
   },

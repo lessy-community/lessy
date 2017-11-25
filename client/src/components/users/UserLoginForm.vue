@@ -23,10 +23,11 @@
       ></ly-form-input>
     </ly-form-group>
 
-    <ly-form-group type="actions">
+    <ly-form-group type="actions-block">
       <ly-button type="primary" size="large" submit>
         {{ $t('users.loginForm.submit') }}
       </ly-button>
+      <router-link to="/">{{ $t('users.loginForm.register') }}</router-link>
     </ly-form-group>
   </ly-form>
 </template>

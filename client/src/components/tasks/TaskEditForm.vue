@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="update" :error="getErrors()">
+  <ly-form @submit="update" size="fluid" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="text"
