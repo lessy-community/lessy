@@ -18,8 +18,11 @@
       <span v-else-if="project.state === 'finished'" class="project-timeline-labels-diff">
         {{ $t('projects.timeline.finishedOn', { date: project.finishedAtLabel }) }}
       </span>
-      <span v-else-if="status === 'alert'" class="project-timeline-labels-diff">
+      <span v-else-if="status === 'late'" class="project-timeline-labels-diff">
         {{ $t('projects.timeline.late') }}
+      </span>
+      <span v-else-if="status === 'due-today'" class="project-timeline-labels-diff">
+        {{ $t('projects.timeline.dueToday') }}
       </span>
       <span
         v-else
@@ -134,25 +137,34 @@
         return moment.unix(this.project.dueAt).diff(moment.unix(this.today).startOf('day'), 'days')
       },
 
-      progression () {
-        if (this.project.state === 'newed') {
+      rawProgression () {
+        const { state, dueAt, stoppedAt, finishedAt, startedAt } = this.project
+        if (state === 'newed') {
           return 100
         }
-        let rawProgression = 0
-        if (this.project.state === 'paused') {
-          rawProgression = (this.project.dueAt - this.project.stoppedAt) / (this.project.dueAt - this.project.startedAt) * 100
-        } else if (this.project.state === 'finished') {
-          rawProgression = (this.project.dueAt - this.project.finishedAt) / (this.project.dueAt - this.project.startedAt) * 100
-        } else {
-          rawProgression = (this.project.dueAt - this.today) / (this.project.dueAt - this.project.startedAt) * 100
+
+        const dueDate = moment.unix(dueAt).startOf('day')
+        const startedDate = moment.unix(startedAt).startOf('day')
+        let referenceDate = moment().startOf('day')
+        if (state === 'paused') {
+          referenceDate = moment.unix(stoppedAt).startOf('day')
         }
-        return Math.min(100, Math.max(0, rawProgression))
+        if (state === 'finished') {
+          referenceDate = moment.unix(finishedAt).startOf('day')
+        }
+
+        return dueDate.diff(referenceDate, 'days') / dueDate.diff(startedDate, 'days') * 100
+      },
+
+      progression () {
+        return Math.min(100, Math.max(0, this.rawProgression))
       },
 
       status () {
-        if (this.project.state === 'finished') { return 'success' }
-        if (this.progression <= 0) { return 'alert' }
-        if (this.progression < 20) { return 'warning' }
+        if (this.project.state === 'finished') { return 'finished' }
+        if (this.rawProgression === 0) { return 'due-today' }
+        if (this.rawProgression < 0) { return 'late' }
+        if (this.rawProgression < 20) { return 'due-soon' }
         return 'normal'
       },
 
@@ -253,7 +265,7 @@
     }
   }
 
-  .project-timeline-success {
+  .project-timeline-finished {
     .project-timeline-labels-diff {
       color: $ly-color-green-70;
       font-weight: bold;
@@ -267,7 +279,8 @@
     }
   }
 
-  .project-timeline-warning {
+  .project-timeline-due-soon,
+  .project-timeline-due-today {
     .project-timeline-labels-diff {
       color: $ly-color-gold-70;
       font-weight: bold;
@@ -282,7 +295,7 @@
     }
   }
 
-  .project-timeline-alert {
+  .project-timeline-late {
     .project-timeline-labels-diff {
       color: $ly-color-red-70;
       font-weight: bold;

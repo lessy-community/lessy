@@ -207,6 +207,7 @@ export default {
       confirmPause: 'The project will be marked as paused. Can you confirm?',
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
+      dueToday: 'due today',
       finishedOn: 'finished on {date}',
       late: 'late',
       notStarted: 'not started',
