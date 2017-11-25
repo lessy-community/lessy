@@ -123,7 +123,7 @@ export default {
       donateTitle: 'Donate',
       donateDetails: 'It helps us to maintain the service opened to everyone.',
 
-      madeWithLove: 'Made with <ly-icon name="heart-o"></ly-icon> <span class="sr-only">love</span> by <a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTORS.md">amazing contributors</a>.',
+      madeWithLove: 'Made with ♥ by <a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTORS.md">amazing contributors</a>.',
       greetings: 'Have a great day!',
     },
 
