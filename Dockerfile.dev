@@ -8,8 +8,8 @@ WORKDIR /app/
 RUN apk add --no-cache \
       nodejs \
       postgresql-client \
-      tzdata
-  && npm install npm@5 -g \
+      tzdata \
+  && npm install npm@5 -g
 RUN apk --update add --virtual build-dependencies \
       build-base \
       ruby-dev \
