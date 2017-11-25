@@ -1,6 +1,5 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-var PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 module.exports = {
   build: {
@@ -15,15 +14,7 @@ module.exports = {
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
     productionGzip: false,
-    productionGzipExtensions: ['js', 'css'],
-    plugins: [
-      new PrerenderSpaPlugin(
-        // Absolute path to compiled SPA
-        path.resolve(__dirname, '../../public'),
-        // List of routes to prerender
-        [ '/' ]
-      )
-    ]
+    productionGzipExtensions: ['js', 'css']
   },
   dev: {
     env: require('./dev.env'),
