@@ -30,28 +30,4 @@ $ly-color-red-90: #3b0400;
 
 $color-primary: $ly-color-pine-50;
 $color-primary-shadow: lighten($color-primary, 60%);
-$color-primary-lighter: lighten($color-primary, 15%);
-$color-primary-light: lighten($color-primary, 5%);
-$color-primary-dark: darken($color-primary, 5%);
 $color-primary-darker: darken($color-primary, 15%);
-
-$color-success: $ly-color-green-50;
-$color-success-shadow: lighten($color-success, 60%);
-$color-success-lighter: lighten($color-success, 15%);
-$color-success-light: lighten($color-success, 5%);
-$color-success-dark: darken($color-success, 5%);
-$color-success-darker: darken($color-success, 15%);
-
-$color-warning: $ly-color-gold-50;
-$color-warning-shadow: lighten($color-warning, 60%);
-$color-warning-lighter: lighten($color-warning, 15%);
-$color-warning-light: lighten($color-warning, 5%);
-$color-warning-dark: darken($color-warning, 5%);
-$color-warning-darker: darken($color-warning, 15%);
-
-$color-danger: $ly-color-red-50;
-$color-danger-shadow: lighten($color-danger, 60%);
-$color-danger-lighter: lighten($color-danger, 15%);
-$color-danger-light: lighten($color-danger, 5%);
-$color-danger-dark: darken($color-danger, 5%);
-$color-danger-darker: darken($color-danger, 15%);

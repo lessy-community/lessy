@@ -1,33 +1,35 @@
 <template>
-  <form @submit.prevent="login">
-    <div v-if="isInError('User')" class="form-errors">
-      {{ getErrors('User') }}
-    </div>
+  <ly-form @submit="login" :error="getErrors()">
+    <ly-form-group>
+      <ly-form-input
+        type="text"
+        name="username"
+        v-model="username"
+        pattern="[a-z_\-]{1,25}"
+        :label="$t('users.loginForm.usernameLabel')"
+        :error="getErrors('/user/username')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('users.loginForm.usernameLabel')"
-      target="username"
-      required
-      :tip="getErrors('User', 'username')"
-      :invalid="isInError('User', 'username')"
-    >
-      <text-field id="username" v-model="username" pattern="[a-z_\-]{1,}" required />
-    </form-group>
+    <ly-form-group>
+      <ly-form-input
+        type="password"
+        name="password"
+        v-model="password"
+        :label="$t('users.loginForm.passwordLabel')"
+        :error="getErrors('/user/password')"
+        required
+      ></ly-form-input>
+    </ly-form-group>
 
-    <form-group
-      :label="$t('users.loginForm.passwordLabel')"
-      target="password"
-      required
-      :tip="getErrors('User', 'password')"
-      :invalid="isInError('User', 'password')"
-    >
-      <password-field id="password" v-model="password" required />
-    </form-group>
-
-    <form-group actions>
-      <ly-button type="primary" submit>{{ $t('users.loginForm.submit') }}</ly-button>
-    </form-group>
-  </form>
+    <ly-form-group type="actions-block">
+      <ly-button type="primary" size="large" submit>
+        {{ $t('users.loginForm.submit') }}
+      </ly-button>
+      <router-link to="/">{{ $t('users.loginForm.register') }}</router-link>
+    </ly-form-group>
+  </ly-form>
 </template>
 
 <script>
@@ -60,13 +62,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  .form-errors {
-    margin-bottom: 20px;
-
-    text-align: center;
-
-    color: $color-danger;
-  }
-</style>

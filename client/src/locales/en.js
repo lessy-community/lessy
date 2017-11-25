@@ -1,7 +1,7 @@
 export default {
   app: {
     appHeader: {
-      logout: 'Logout',
+      logout: 'Log out',
     },
   },
 
@@ -21,64 +21,78 @@ export default {
   },
 
   errors: {
-    Project: {
-      base: {
-        already_finished: 'This project has already been finished',
-        already_started: 'This project has already been started',
-        already_stopped: 'This project has already been stopped',
-        missing: 'Project is required. It may be an application’s problem, please contact developers.',
-        not_found: 'Project does not exist',
-        reached_max_started: 'You cannot start more than three projects',
+    _: {
+      login_failed: 'Oops we failed to log you, it seems your credentials are wrong.',
+      missing_endpoint: 'It seems you try to access an unknown resource. It’s probably not your fault and we are sorry about that. We’ll try to fix it quickly!',
+      unauthorized: 'You’re not authorize to perform this action, please refresh the page and re-login.',
+    },
+
+    project: {
+      parameter_missing: 'Project is required.',
+      record_not_found: 'Project does not exist.',
+
+      due_at: {
+        cannot_be_before_started_at: 'Due date cannot be set before today.',
+        cannot_be_set: 'Due date cannot be set yet.',
+        must_be_set: 'Due date is required.',
+        parameter_missing: 'Due date is required.',
       },
-      dueAt: {
-        before_started_at: 'The due date cannot be set before the started date',
-        missing: 'Due date is required',
+
+      finished_at: {
+        cannot_be_after_today: 'Finished date cannot be set after today.',
+        cannot_be_before_started_at: 'Due date cannot be set before started date.',
+        cannot_be_set: 'Finished date cannot be set yet.',
+        must_be_set: 'Finished date is required.',
+        parameter_missing: 'Finished date is required.',
       },
-      finishedAt: {
-        missing: 'Finished date is required',
-        outside_started_at_and_today: 'Finished date must be between started date and today',
-      },
+
       name: {
-        blank: 'Name is required',
-        invalid: 'Name does not match required pattern (only letters, numbers, underscores and hiphens are accepted)',
-        missing: 'Name is required',
-        taken: 'This name is not available',
-        too_long: 'Name is too long (max 100 caracters)',
+        blank: 'Name is required.',
+        invalid: 'Name does not match required pattern (only letters, numbers, underscores and hiphens are accepted).',
+        parameter_missing: 'Name is required.',
+        taken: 'You already have a project with the same name.',
+        too_long: 'Name is too long (max 100 characters).',
+      },
+
+      state: {
+        invalid_transition: 'You try to perform an action which should not be possible normally, we are sorry about that!',
+        reached_max_started: 'You cannot start more than three projects.',
       },
     },
 
-    Task: {
+    task: {
+      parameter_missing: 'Task is required.',
+      record_not_found: 'Task does not exist.',
+
       label: {
-        missing: 'Label is missing',
+        parameter_missing: 'Label is required.',
+      },
+
+      state: {
+        invalid_transition: 'You try to perform an action which should not be possible normally, we are sorry about that!',
       },
     },
 
-    User: {
-      base: {
-        login_failed: 'Oops we failed to log you, it seems your credentials were wrong…',
-        missing: 'User is required. It may be an application’s problem, please contact developers.',
-        not_found: 'User does not exist',
-      },
+    user: {
+      parameter_missing: 'User is required.',
+      record_not_found: 'User does not exist.',
+
       email: {
-        missing: 'Email is required',
-        taken: 'This email address is not available',
+        parameter_missing: 'Username is required.',
+        taken: 'This email address is not available.',
       },
-      password: {
-        missing: 'Password is required',
-      },
-      username: {
-        exclusion: 'Username is a reserved word',
-        invalid: 'Username does not match required pattern (only lowercase letters, underscore and hiphen are accepted)',
-        missing: 'Username is required',
-        taken: 'This username is not available',
-        too_long: 'Username is too long (max 25 caracters)',
-      },
-    },
-  },
 
-  fields: {
-    password: {
-      reveal: 'Reveal',
+      password: {
+        parameter_missing: 'Username is required.',
+      },
+
+      username: {
+        exclusion: 'Username is a reserved word.',
+        invalid: 'Username does not match the required pattern.',
+        parameter_missing: 'Username is required.',
+        taken: 'This username is not available.',
+        too_long: 'Username is too long (max 25 characters).',
+      },
     },
   },
 
@@ -109,6 +123,15 @@ export default {
     },
   },
 
+  ly: {
+    form: {
+      input: {
+        optional: 'optional',
+        revealPassword: 'Reveal',
+      },
+    },
+  },
+
   projects: {
     card: {
       datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
@@ -124,23 +147,23 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
-      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
     },
 
     editForm: {
       cancel: 'Cancel',
       descriptionLabel: 'Description',
-      descriptionTip: 'Description supports Markdown',
+      descriptionCaption: 'Description supports Markdown',
       dueLabel: 'Due on',
       nameLabel: 'Name',
-      nameTip: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
       submit: 'Validate',
     },
 
     finishForm: {
       cancel: 'No, I did not yet',
       finishedLabel: 'Finished on',
-      finishedTip: 'It cannot be after today',
+      finishedCaption: 'It cannot be after today',
       submit: 'I did it!',
     },
 
@@ -175,7 +198,7 @@ export default {
     startForm: {
       cancel: 'Cancel',
       dueLabel: 'Due on',
-      dueTip: 'The due date have to be after today',
+      dueCaption: 'The due date have to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
     },
@@ -202,7 +225,7 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
-      warningTooMany: 'It can be difficult to achieve all our tasks when we have too much to do.',
+      warningTooMany: 'You might face difficulties to achieve all your tasks if you try to do too much.',
     },
 
     editForm: {
@@ -245,7 +268,7 @@ export default {
       passwordLabel: 'Password',
       submit: 'Activate your account',
       usernameLabel: 'Username',
-      usernameTip: 'Only lowercase letters, underscore and dash',
+      usernameCaption: 'Only lowercase letters, underscore and dash (max 25 characters).',
     },
 
     activateLayout: {
@@ -255,18 +278,19 @@ export default {
 
     loginForm: {
       passwordLabel: 'Password',
-      submit: 'Login',
+      submit: 'Log in',
+      register: 'Create an account',
       usernameLabel: 'Username',
     },
 
     loginLayout: {
-      title: 'Login',
+      title: 'Log in',
     },
 
     registerForm: {
       emailLabel: 'Email',
-      login: 'login',
-      or: 'or',
+      emailPlaceholder: 'john@doe.com',
+      login: 'Have an account? Log in',
       submit: 'Create your account',
     },
   },
