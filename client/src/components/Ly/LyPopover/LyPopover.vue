@@ -1,5 +1,5 @@
 <template>
-  <v-popover popoverBaseClass="ly-popover tooltip" placement="bottom-end">
+  <v-popover placement="bottom-end">
     <slot name="toggle"></slot>
 
     <template slot="popover">
@@ -21,7 +21,7 @@
 <style lang="scss">
   $popover-arrow-color: $ly-color-grey-60;
 
-  .ly-popover.tooltip {
+  .popover.tooltip {
     .tooltip-inner {
       min-width: 10rem;
 
