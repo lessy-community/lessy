@@ -1,4 +1,4 @@
-# Writing tests
+# Writing tests (backend)
 
 We use [RSpec](http://rspec.info/) for our backend tests. It is a great BDD
 tool and make the tests easy and enjoyable to write.
