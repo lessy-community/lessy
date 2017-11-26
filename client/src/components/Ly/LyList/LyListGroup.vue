@@ -35,4 +35,10 @@
 
     color: $ly-color-grey-50;
   }
+
+  @media(max-width: $small-screen-width) {
+    .ly-list-group-header {
+      padding: 1rem .5rem;
+    }
+  }
 </style>
