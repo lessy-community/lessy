@@ -2,10 +2,25 @@ language: ruby
 rvm:
   - 2.4.2
   - 2.3.4
-cache: bundler
+
+notifications:
+  email: false
+
+cache:
+  bundler: true
+  npm: true
+
 services:
   - postgresql
+
+install:
+  - bundle install
+  - nvm install 6
+  - cd client && npm install && cd -
+
 before_script:
   - psql -c 'create database lessy_test;' -U postgres
+
 script:
   - bundle exec rspec spec
+  - cd client && npm run test

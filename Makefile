@@ -15,10 +15,15 @@ stop:  ## Stop development environment
 clean:  ## Clean development environment
 	docker-compose -f docker-compose-dev.yml down
 
-test:  ## Run tests
+test-back:  ## Run tests (backend)
 	docker-compose -f docker-compose-test.yml run --rm lessy bundle exec rspec
+
+test-front:  ## Run tests (frontend)
+	docker-compose -f docker-compose-test.yml run --rm -w /app/client lessy npm run test
+
+test: test-back test-front
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: run build db-setup stop clean test help
+.PHONY: run build db-setup stop clean test test-back test-front help

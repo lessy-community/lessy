@@ -35,9 +35,9 @@ First, you'll need to **setup your [development environment](development_environ
 in order to run Lessy on your own computer.
 
 Then, you might be interested to know more about [**backend**](backend/index.md)
-or [**frontend**](frontend.md) (or even both of them!). If **you're interested
-by API** (for Lessy or for a third-party application), please have a look to
-[our specific documentation](api/index.md).
+or [**frontend**](frontend/index.md) (or even both of them!). If **you're
+interested by API** (for Lessy or for a third-party application), please have a
+look to [our specific documentation](api/index.md).
 
 You'll probably need to know about [**how we are running tests**](tests.md) so
 you'll be able to run them by yourself.
