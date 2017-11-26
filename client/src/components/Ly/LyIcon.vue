@@ -19,11 +19,11 @@
   .ly-icon {
     width: 1.5em;
 
-    vertical-align: middle;
-
     line-height: 1.5em;
 
     &.ly-icon-large {
+      vertical-align: middle;
+
       font-size: 1.75em;
     }
   }
