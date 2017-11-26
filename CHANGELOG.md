@@ -1,5 +1,21 @@
 # Changelog
 
+## Apus 2017-11-26
+
+### Improvements
+
+- [#23](https://github.com/marienfressinaud/lessy/issues/23) Redesign the frontend
+- [#198](https://github.com/marienfressinaud/lessy/issues/198) Add a tip for project names
+- [#203](https://github.com/marienfressinaud/lessy/issues/203) Improve welcome page
+
+### Technical
+
+- Disable Pronto
+- Update Dockerfile images to use npm 5
+- Remove useless npm modules
+- Replace vue-directive-tooltip by vue-tooltip
+- [#204](https://github.com/marienfressinaud/lessy/issues/204) Add tests configuration for frontend
+
 ## Antlia 2017-10-29
 
 ### Documentation
