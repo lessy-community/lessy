@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import { Popover, PopoverItem } from './components/Popover'
-
 import LyBadge from './components/Ly/LyBadge'
 import LyButton from './components/Ly/LyButton'
 import LyCard from './components/Ly/LyCard'
@@ -10,6 +8,7 @@ import { LyColumns, LyColumn } from './components/Ly/LyColumns'
 import { LyForm, LyFormGroup, LyFormInput, LyFormTextarea } from './components/Ly/LyForm'
 import LyIcon from './components/Ly/LyIcon'
 import { LyList, LyListGroup, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
+import { LyPopover, LyPopoverItem } from './components/Ly/LyPopover'
 import LySection from './components/Ly/LySection'
 import LyTextContainer from './components/Ly/LyTextContainer'
 
@@ -30,9 +29,6 @@ import VTooltip from 'v-tooltip'
 Vue.use(VTooltip)
 
 // register global components
-Vue.component('popover', Popover)
-Vue.component('popover-item', PopoverItem)
-
 Vue.component('app-header', AppHeader)
 Vue.component('app-header-link', AppHeaderLink)
 Vue.component('app-layout', AppLayout)
@@ -55,6 +51,8 @@ Vue.component('ly-list', LyList)
 Vue.component('ly-list-group', LyListGroup)
 Vue.component('ly-list-item', LyListItem)
 Vue.component('ly-list-item-adapt', LyListItemAdapt)
+Vue.component('ly-popover', LyPopover)
+Vue.component('ly-popover-item', LyPopoverItem)
 Vue.component('ly-section', LySection)
 Vue.component('ly-text-container', LyTextContainer)
 

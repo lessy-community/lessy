@@ -367,6 +367,20 @@
         </ly-list-group>
       </ly-list>
 
+      <h2>ly-popover and ly-popover-item</h2>
+      <p>Popovers can be used to hide additional actions.</p>
+
+      <ly-popover>
+        <ly-button slot="toggle">
+          Open popover
+        </ly-button>
+
+        <template slot="menu">
+          <ly-popover-item>Show</ly-popover-item>
+          <ly-popover-item>Edit</ly-popover-item>
+        </template>
+      </ly-popover>
+
       <h2>ly-section</h2>
       <p>Use sections to group components and to name sections.</p>
 

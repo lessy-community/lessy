@@ -261,7 +261,6 @@ export default {
       edit: 'Edit',
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
-      more: 'Additional actions',
       plan: 'Plan for today',
       replan: 'Replan for today',
       restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',

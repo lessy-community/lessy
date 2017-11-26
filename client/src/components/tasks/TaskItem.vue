@@ -58,21 +58,20 @@
       </ly-button>
     </template>
 
-    <popover>
+    <ly-popover>
       <ly-button
         slot="toggle"
         :disabled="task.isFinished"
-        v-tooltip.left="$t('tasks.item.more')"
         type="ghost"
         icon="ellipsis-h"
       >
       </ly-button>
 
       <template slot="menu">
-        <popover-item :action="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</popover-item>
-        <popover-item :action="confirmAbandon">{{ $t('tasks.item.abandon') }}</popover-item>
+        <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
+        <ly-popover-item @click="confirmAbandon">{{ $t('tasks.item.abandon') }}</ly-popover-item>
       </template>
-    </popover>
+    </ly-popover>
   </ly-list-item>
 </template>
 
@@ -133,13 +132,13 @@
     &.finished .ly-badge-indicators {
       display: none;
     }
-
-    .popover { visibility: hidden; }
-    &:not(.finished):hover .popover { visibility: visible; }
+    &.finished .v-popover {
+      visibility: hidden;
+    }
   }
 
   @media(max-width: $small-screen-width) {
-    .ly-list-item-task .popover {
+    .ly-list-item-task .v-popover {
       display: none;
     }
   }

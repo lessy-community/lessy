@@ -19,52 +19,52 @@ $popper-background-color: rgba(#000, .9);
     height: 0;
     border-style: solid;
     position: absolute;
-    margin: 5px;
+    margin: .25rem;
   }
 
   &[x-placement^="top"] {
-    margin-bottom: 5px;
+    margin-bottom: .25rem;
 
     .tooltip-arrow {
-      border-width: 5px 5px 0 5px;
+      border-width: .25rem .25rem 0 .25rem;
       border-color: $popper-background-color transparent transparent transparent;
-      bottom: -5px;
+      bottom: -.25rem;
       margin-top: 0;
       margin-bottom: 0;
     }
   }
 
   &[x-placement^="bottom"] {
-    margin-top: 5px;
+    margin-top: .25rem;
 
     .tooltip-arrow {
-      border-width: 0 5px 5px 5px;
+      border-width: 0 .25rem .25rem .25rem;
       border-color: transparent transparent $popper-background-color transparent;
-      top: -5px;
+      top: -.25rem;
       margin-top: 0;
       margin-bottom: 0;
     }
   }
 
   &[x-placement^="right"] {
-    margin-left: 5px;
+    margin-left: .25rem;
 
     .tooltip-arrow {
-      border-width: 5px 5px 5px 0;
+      border-width: .25rem .25rem .25rem 0;
       border-color: transparent $popper-background-color transparent transparent;
-      left: -5px;
+      left: -.25rem;
       margin-left: 0;
       margin-right: 0;
     }
   }
 
   &[x-placement^="left"] {
-    margin-right: 5px;
+    margin-right: .25rem;
 
     .tooltip-arrow {
-      border-width: 5px 0 5px 5px;
+      border-width: .25rem 0 .25rem .25rem;
       border-color: transparent transparent transparent $popper-background-color;
-      right: -5px;
+      right: -.25rem;
       margin-left: 0;
       margin-right: 0;
     }
