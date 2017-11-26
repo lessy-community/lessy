@@ -11,7 +11,7 @@ updating the [changelog file](../CHANGELOG.md) once all issues of current
 iteration are closed:
 
 1. set the current date
-2. complete "features", "improvements", "bug fixes" and "documentation"
+2. complete "Features", "Improvements", "Bug fixes" and "Documentation"
    sections
 3. make sure migration notes are complete
 
@@ -26,7 +26,7 @@ $ git log --pretty=format:%s --first-parent --reverse [last tag]..HEAD | grep do
 
 Just make sure to generate links to corresponding GitHub issues.
 
-Once the changelog is up-to-date, commit your changes (e.g. `[release]: Version XXX`)
+Once the changelog is up-to-date, commit your changes (e.g. `release: Version XXX`)
 and tag the last commit with `XXX` (where `XXX` is the name of the iteration).
 
 To finish, announce the new release on social networks, write an article and
