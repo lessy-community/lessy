@@ -11,10 +11,6 @@ support this vision.
 
 ![Lessy screenshot](./docs/screenshots/dashboard.png)
 
-*Note: interface will change quite soon, follow the work of [the corresponding
-iteration](https://github.com/marienfressinaud/lessy/projects/3) if you're
-interested.*
-
 We want Lessy to be very different of other "project managers" or "todo-list
 applications".
 
