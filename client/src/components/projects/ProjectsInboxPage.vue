@@ -3,7 +3,7 @@
     <ly-section :title="$t('projects.inboxPage.futureProjects')">
       <ly-button
         icon="plus"
-        v-if="!createFormEnabled && notStartedProjects.length > 0"
+        v-if="!createFormEnabled"
         type="primary"
         @click="createFormEnabled = true"
       >
@@ -11,28 +11,39 @@
       </ly-button>
       <project-create-form
         v-else
-        :onCancel="notStartedProjects.length > 0 && disableCreateForm"
+        :onCancel="disableCreateForm"
       ></project-create-form>
 
       <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
-        <ly-list-item v-for="project in notStartedProjects">
-          <router-link :to="project.urlShow">
-            {{ project.name }}
-            <template v-if="project.isStopped">
-              {{ $t('projects.inboxPage.stoppedOn', { date: project.stoppedAtLabel }) }}
-            </template>
-          </router-link>
-        </ly-list-item>
+        <ly-list-group
+          v-for="(projects, firstCharacter) in notStartedProjects"
+          :name="firstCharacter"
+        >
+          <ly-list-item v-for="project in projects">
+            <ly-list-item-adapt>
+              <router-link :to="project.urlShow">
+                {{ project.name }}
+              </router-link>
+            </ly-list-item-adapt>
+            <ly-badge v-if="project.isStopped" size="small">
+              {{ $t('projects.inboxPage.pausedOn', { date: project.stoppedAtLabel }) }}
+            </ly-badge>
+          </ly-list-item>
+        </ly-list-group>
       </ly-list>
     </ly-section>
 
     <ly-section v-if="finishedProjects.length > 0" :title="$t('projects.inboxPage.finishedProjects')">
       <ly-list stripped>
         <ly-list-item v-for="project in finishedProjects">
-          <router-link :to="project.urlShow">
-            {{ project.name }}
-            {{ $t('projects.inboxPage.finishedLabel', { date: project.finishedAtLabel }) }}
-          </router-link>
+            <ly-list-item-adapt>
+              <router-link :to="project.urlShow">
+                {{ project.name }}
+              </router-link>
+            </ly-list-item-adapt>
+            <ly-badge size="small">
+              {{ $t('projects.inboxPage.finishedLabel', { date: project.finishedAtLabel }) }}
+            </ly-badge>
         </ly-list-item>
       </ly-list>
     </ly-section>
@@ -56,7 +67,7 @@
 
     computed: {
       ...mapGetters({
-        notStartedProjects: 'projects/listNotStarted',
+        notStartedProjects: 'projects/listNotStartedByFirstCharacter',
         finishedProjects: 'projects/listFinished',
       }),
     },

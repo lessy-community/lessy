@@ -2,7 +2,7 @@ import marked from 'marked'
 
 import { getWhileNext } from '../../api/http'
 
-import { formatDate } from '../../utils'
+import { formatDate, groupByFirstCharacter } from '../../utils'
 
 import projectsApi from '../../api/projects'
 
@@ -52,12 +52,11 @@ const getters = {
     return getters
       .list
       .filter((project) => !project.isStarted)
-      .sort((p1, p2) => {
-        if (p1.isStopped === p2.isStopped) {
-          return p1.name.localeCompare(p2.name)
-        }
-        return p1.isStopped < p2.isStopped
-      })
+      .sort((p1, p2) => p1.name.localeCompare(p2.name))
+  },
+
+  listNotStartedByFirstCharacter (state, getters) {
+    return groupByFirstCharacter(getters.listNotStarted, 'name')
   },
 
   listInProgress (state, getters) {
