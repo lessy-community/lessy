@@ -1,6 +1,7 @@
 <template>
   <div :class="['ly-list', {
     [`ly-list-${name}`]: name,
+    'ly-list-stripped': stripped,
     'ly-list-draggable': draggable,
   }]">
     <div v-if="!$slots.default && placeholder" class="ly-list-placeholder">
@@ -29,6 +30,7 @@
     props: {
       name: { type: String },
       placeholder: { type: String },
+      stripped: { type: Boolean },
       draggable: { type: Boolean },
       'draggable-model': { type: Array },
     },
@@ -64,6 +66,10 @@
       padding: .5rem;
 
       color: $ly-color-grey-50;
+    }
+
+    &.ly-list-stripped .ly-list-item:nth-child(even) {
+      background-color: $ly-color-grey-20;
     }
   }
 </style>

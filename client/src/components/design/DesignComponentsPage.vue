@@ -300,24 +300,38 @@
         <ly-list-item>Element 4</ly-list-item>
       </ly-list>
 
+      <h3>Stripped</h3>
+      <p>Stripped lists are generally easier to read when there is a lot of
+      items.</p>
+
+      <ly-list stripped>
+        <ly-list-item>Element 1</ly-list-item>
+        <ly-list-item>Element 2</ly-list-item>
+        <ly-list-item>Element 3</ly-list-item>
+        <ly-list-item>Element 4</ly-list-item>
+      </ly-list>
+
+      <h3>Placeholder</h3>
       <p>You should always provide a placeholder in case of the list is
       empty.</p>
 
       <ly-list placeholder="This list is empty">
       </ly-list>
 
+      <h3>Draggable</h3>
       <p>You can make list' items draggable to reorganize elements.</p>
 
-      <ly-list draggable>
+      <ly-list stripped draggable>
         <ly-list-item key="1" with-handle>Element 1</ly-list-item>
         <ly-list-item key="2" with-handle>Element 2</ly-list-item>
         <ly-list-item key="3" with-handle>Element 3</ly-list-item>
       </ly-list>
 
+      <h3>Generic</h3>
       <p>Items can include different components such as buttons, badges or
       icons.</p>
 
-      <ly-list>
+      <ly-list stripped>
         <ly-list-item>
           <ly-icon name="thumbs-up"></ly-icon>
           <ly-list-item-adapt>thumbs-up</ly-list-item-adapt>
@@ -332,11 +346,32 @@
         </ly-list-item>
       </ly-list>
 
+      <h3>Groups</h3>
+      <p>Organize items per alphabetical group when text and interactions are
+      very limited.</p>
+
+      <ly-list>
+        <ly-list-group name="A">
+          <ly-list-item>Andromeda</ly-list-item>
+          <ly-list-item>Antlia</ly-list-item>
+          <ly-list-item>Apus</ly-list-item>
+        </ly-list-group>
+        <ly-list-group name="C">
+          <ly-list-item>Caelum</ly-list-item>
+          <ly-list-item>Cassiopeiae</ly-list-item>
+        </ly-list-group>
+        <ly-list-group name="M">
+          <ly-list-item>Mensa</ly-list-item>
+          <ly-list-item>Monoceros</ly-list-item>
+          <ly-list-item>Musca</ly-list-item>
+        </ly-list-group>
+      </ly-list>
+
       <h2>ly-section</h2>
       <p>Use sections to group components and to name sections.</p>
 
       <ly-section title="5 fruits">
-        <ly-list>
+        <ly-list stripped>
           <ly-list-item>Blueberry</ly-list-item>
           <ly-list-item>Raspberry</ly-list-item>
           <ly-list-item>Apple</ly-list-item>

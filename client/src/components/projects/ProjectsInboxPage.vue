@@ -27,7 +27,7 @@
     </ly-section>
 
     <ly-section v-if="finishedProjects.length > 0" :title="$t('projects.inboxPage.finishedProjects')">
-      <ly-list>
+      <ly-list stripped>
         <ly-list-item v-for="project in finishedProjects">
           <router-link :to="project.urlShow">
             {{ project.name }}

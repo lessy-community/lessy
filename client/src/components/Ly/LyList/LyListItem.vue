@@ -34,10 +34,6 @@
       visibility: visible;
     }
 
-    &:nth-child(even) {
-      background-color: $ly-color-grey-20;
-    }
-
     > * {
       flex-shrink: 0;
     }

@@ -1,6 +1,7 @@
 <template>
   <ly-list
     :placeholder="$t('tasks.list.empty')"
+    stripped
     draggable
     :draggable-model="tasks"
     @draggable-change="changeOrder"
