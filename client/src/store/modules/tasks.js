@@ -28,7 +28,7 @@ const getters = {
 
       const isForToday = !isAbandoned && plannedAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
       const isBacklogged = !isFinished && !isAbandoned && !isForToday
-      const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
+      const createdSinceWeeks = task.createdAt > 0 ? moment.utc().diff(moment.unix(task.createdAt), 'weeks') : 0
 
       const allowedTags = ['b', 'i', 'em', 'strong']
       const anchorOptions = {

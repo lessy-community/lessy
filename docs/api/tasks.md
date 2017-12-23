@@ -13,10 +13,14 @@ Parameters:
 | task.planned\_at | number | Task's due date         | yes      |
 | task.project\_id | number | Task's project relation | yes      |
 
-Note: in Lessy, if `planned_at` is set for today, task appears in today list.
-Otherwise (either `nil` or another day), it appears in the backlog. If
-`planned_at` is set, task's `state` is set to `planned` and `planned_count` to
-1, otherwise `state` is set to `started` and `planned_count` to 0.
+Notes:
+
+- if `planned_at` is provided, `state` is always set to `planned` and
+  `planned_count` to 1
+- otherwise, if `project_id` matches with a not started project, `state` is set
+  to `newed`
+- in other situations (project is started or no `project_id` is provided),
+  task's state is set to `started`
 
 Result format:
 
@@ -309,8 +313,9 @@ Parameters:
 | task.state       | string | Task's state            |          |
 
 Note: possible values of `state` are `newed`, `started`, `planned`, `finished`
-or `abandoned`. A created task's state is `started` or `planned` depending on
-if `planned_at` has been given. Lessy doesn't make use of `newed` state yet.
+or `abandoned`. Please refer to [task creation notes](#post-apiusersmetasks) to
+know more about initial state.
+
 State follow this state's machine:
 
 ```ascii
