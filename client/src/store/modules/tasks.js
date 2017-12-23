@@ -70,7 +70,7 @@ const getters = {
   listBacklog (state, getters) {
     return getters
       .list
-      .filter((task) => task.isBacklogged)
+      .filter((task) => task.isBacklogged && task.state !== 'newed')
   },
 
   listFinished (state, getters) {

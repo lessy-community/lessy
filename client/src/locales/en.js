@@ -199,6 +199,7 @@ export default {
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
       seeFinishedProjects: 'See your finished project | See your {count} finished projects',
       pausedOn: 'paused on {date}',
+      tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
 
     layout: {
