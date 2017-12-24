@@ -256,7 +256,7 @@ export default {
     item: {
       abandon: 'Abandon',
       confirmAbandon: 'Oh? The task will be marked as abandoned and will disappear from the list. Can you confirm?',
-      createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
+      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       dueOn: 'due on {date}',
       edit: 'Edit',
       markAsDone: 'Mark as done',

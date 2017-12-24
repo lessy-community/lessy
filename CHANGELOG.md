@@ -1,5 +1,11 @@
 # Changelog
 
+## Aquarius XXXX-YY-ZZ
+
+### Breaking changes
+
+- API now exposes `task.startedAt` instead of `task.createdAt`
+
 ## Apus 2017-11-26
 
 ### Improvements

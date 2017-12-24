@@ -2,7 +2,7 @@ json.type 'task'
 json.id task.id
 json.attributes do
   json.extract! task, :label, :order, :planned_count, :state
-  json.created_at task.started_at.to_i
+  json.started_at task.started_at.to_i
   json.planned_at task.planned_at.to_i
   json.finished_at task.finished_at.to_i
   json.abandoned_at task.abandoned_at.to_i
