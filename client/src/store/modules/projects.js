@@ -122,13 +122,17 @@ const actions = {
   },
 
   start ({ commit }, { project, dueAt }) {
-    return projectsApi.start(project, dueAt)
-                      .then((res) => commit('set', res.data))
+    return projectsApi
+      .start(project, dueAt)
+      .then((res) => commit('set', res.data))
+      .then((res) => commit('tasks/startTasksForProject', project.id, { root: true }))
   },
 
   stop ({ commit }, { project }) {
-    return projectsApi.stop(project)
-                      .then((res) => commit('set', res.data))
+    return projectsApi
+      .stop(project)
+      .then((res) => commit('set', res.data))
+      .then((res) => commit('tasks/cancelTasksForProject', project.id, { root: true }))
   },
 
   finish ({ commit, state }, { project, finishedAt }) {

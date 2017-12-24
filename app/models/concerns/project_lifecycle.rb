@@ -25,17 +25,20 @@ module ProjectLifecycle
 
     def on_start(params)
       check_transition_no_limit_started_projects
+      self.tasks.newed.update_all state: 'started', started_at: DateTime.now
       params[:started_at] = DateTime.now
       params
     end
 
     def on_pause(params)
       params[:paused_at] = DateTime.now
+      self.tasks.started.update_all state: 'newed', started_at: nil
       params
     end
 
     def on_restart(params)
       check_transition_no_limit_started_projects
+      self.tasks.newed.update_all state: 'started', started_at: DateTime.now
       params[:paused_at] = nil
       params
     end

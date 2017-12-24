@@ -220,6 +220,34 @@ const mutations = {
     }
   },
 
+  startTasksForProject (state, projectId) {
+    const tasks = Object.entries(state.byIds).map(([id, task]) => {
+      if (task.projectId !== projectId || task.state !== 'newed') {
+        return task
+      }
+      return {
+        ...task,
+        state: 'started',
+        startedAt: +moment(),
+      }
+    })
+    state.byIds = mapElementsById(tasks)
+  },
+
+  cancelTasksForProject (state, projectId) {
+    const tasks = Object.entries(state.byIds).map(([id, task]) => {
+      if (task.projectId !== projectId || task.state !== 'started') {
+        return task
+      }
+      return {
+        ...task,
+        state: 'newed',
+        startedAt: null,
+      }
+    })
+    state.byIds = mapElementsById(tasks)
+  },
+
   reset (state) {
     state.current = null
     state.byIds = {}
