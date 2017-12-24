@@ -225,6 +225,29 @@ RSpec.describe Task, type: :model do
       end
     end
 
+    context 'when planning a newed task' do
+      let(:task) { create :task, :newed, planned_count: 0 }
+      let(:params) { {
+        state: 'planned',
+      } }
+
+      it 'sets task state to planned' do
+        expect(subject.reload.state).to eq('planned')
+      end
+
+      it 'sets planned_at attribute to today' do
+        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+      end
+
+      it 'sets started_at attribute to today' do
+        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+      end
+
+      it 'increments planned_count by 1' do
+        expect(subject.reload.planned_count).to eq(1)
+      end
+    end
+
     context 'when planning a started task' do
       let(:task) { create :task, :started, planned_count: 0 }
       let(:params) { {
@@ -283,18 +306,6 @@ RSpec.describe Task, type: :model do
 
       it 'increments planned_count by 1' do
         expect(subject.reload.planned_count).to eq(2)
-      end
-    end
-
-    context 'when trying to plan a newed task' do
-      let(:task) { create :task, :newed }
-      let(:params) { {
-        state: 'planned',
-      } }
-
-      it 'fails' do
-        expect { subject }
-          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'newed' to 'planned'/)
       end
     end
 
