@@ -25,8 +25,8 @@
                 {{ project.name }}
               </router-link>
             </ly-list-item-adapt>
-            <ly-badge v-if="project.isStopped" size="small">
-              {{ $t('projects.inboxPage.pausedOn', { date: project.stoppedAtLabel }) }}
+            <ly-badge v-if="project.isPaused" size="small">
+              {{ $t('projects.inboxPage.pausedOn', { date: project.pausedAtLabel }) }}
             </ly-badge>
           </ly-list-item>
         </ly-list-group>

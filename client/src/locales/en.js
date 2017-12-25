@@ -223,7 +223,6 @@ export default {
     },
 
     timeline: {
-      confirmPause: 'The project will be marked as paused. Can you confirm?',
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
       dueToday: 'due today',

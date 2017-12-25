@@ -31,7 +31,7 @@ export default {
     })
   },
 
-  stop (project) {
+  pause (project) {
     return put(`/api/projects/${project.id}/state`, {
       project: {
         state: 'paused',

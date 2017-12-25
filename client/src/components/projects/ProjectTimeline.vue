@@ -13,7 +13,7 @@
         {{ $t('projects.timeline.notStarted') }}
       </span>
       <span v-else-if="project.state === 'paused'" class="project-timeline-labels-diff">
-        {{ $t('projects.timeline.pausedOn', { date: project.stoppedAtLabel }) }}
+        {{ $t('projects.timeline.pausedOn', { date: project.pausedAtLabel }) }}
       </span>
       <span v-else-if="project.state === 'finished'" class="project-timeline-labels-diff">
         {{ $t('projects.timeline.finishedOn', { date: project.finishedAtLabel }) }}
@@ -138,7 +138,7 @@
       },
 
       rawProgression () {
-        const { state, dueAt, stoppedAt, finishedAt, startedAt } = this.project
+        const { state, dueAt, pausedAt, finishedAt, startedAt } = this.project
         if (state === 'newed') {
           return 100
         }
@@ -147,7 +147,7 @@
         const startedDate = moment.unix(startedAt).startOf('day')
         let referenceDate = moment().startOf('day')
         if (state === 'paused') {
-          referenceDate = moment.unix(stoppedAt).startOf('day')
+          referenceDate = moment.unix(pausedAt).startOf('day')
         }
         if (state === 'finished') {
           referenceDate = moment.unix(finishedAt).startOf('day')
@@ -191,9 +191,7 @@
       },
 
       pauseProject () {
-        if (window.confirm(this.$t('projects.timeline.confirmPause'))) {
-          this.$store.dispatch('projects/stop', { project: this.project })
-        }
+        this.$store.dispatch('projects/pause', { project: this.project })
       },
 
       restartProject () {

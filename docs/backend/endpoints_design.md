@@ -64,7 +64,7 @@ have `attributes` and `relationships`:
       "description": "",
       "startedAt": 0,
       "dueAt": 0,
-      "stoppedAt": 0,
+      "pausedAt": 0,
       "finishedAt": 0,
       "isInProgress": false
     },

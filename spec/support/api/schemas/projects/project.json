@@ -6,7 +6,7 @@
     "id": { "type": "integer" },
     "attributes": {
       "type": "object",
-      "required": ["name", "description", "startedAt", "dueAt", "stoppedAt",
+      "required": ["name", "description", "startedAt", "dueAt", "pausedAt",
                    "finishedAt", "isInProgress", "state"],
       "properties": {
         "name": { "type": "string" },
@@ -14,7 +14,7 @@
         "state": { "type": "string" },
         "startedAt": { "type": "integer" },
         "dueAt": { "type": "integer" },
-        "stoppedAt": { "type": "integer" },
+        "pausedAt": { "type": "integer" },
         "finishedAt": { "type": "integer" },
         "isInProgress": { "type": "boolean" }
       },

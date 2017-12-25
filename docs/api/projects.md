@@ -27,7 +27,7 @@ Result format:
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
+| data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
 | data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
@@ -71,7 +71,7 @@ $ curl -H "Content-Type: application/json" \
       "state": "newed",
       "startedAt": 0,
       "dueAt": 0,
-      "stoppedAt": 0,
+      "pausedAt": 0,
       "finishedAt": 0,
       "isInProgress": false
     },
@@ -111,7 +111,7 @@ Result format:
 | data[].attributes.state                | string | Project's state                          |          |
 | data[].attributes.startedAt            | number | Date when project started                |          |
 | data[].attributes.dueAt                | number | Date when project should finished        |          |
-| data[].attributes.stoppedAt            | number | Date when project has been stopped       |          |
+| data[].attributes.pausedAt             | number | Date when project has been paused        |          |
 | data[].attributes.finishedAt           | number | Date when project finished               |          |
 | data[].attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data[].relationships                   | object |                                          |          |
@@ -151,7 +151,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "state": "started",
         "startedAt": 639532800,
         "dueAt": 1504396800,
-        "stoppedAt": 0,
+        "pausedAt": 0,
         "finishedAt": 0,
         "isInProgress": true
       },
@@ -176,7 +176,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "state": "newed",
         "startedAt": 0,
         "dueAt": 0,
-        "stoppedAt": 0,
+        "pausedAt": 0,
         "finishedAt": 0,
         "isInProgress": false
       },
@@ -227,7 +227,7 @@ Result format:
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
+| data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
 | data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
@@ -271,7 +271,7 @@ $ curl -H "Content-Type: application/json" \
       "state": "newed",
       "startedAt": 0,
       "dueAt": 0,
-      "stoppedAt": 0,
+      "pausedAt": 0,
       "finishedAt": 0,
       "isInProgress": false
     },
@@ -344,7 +344,7 @@ Result format:
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
 | data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.stoppedAt            | number | Date when project has been stopped       |          |
+| data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
 | data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
@@ -391,7 +391,7 @@ $ curl -H "Content-Type: application/json" \
       "state": "started",
       "startedAt": 1507449826,
       "dueAt": 1545696000,
-      "stoppedAt": 0,
+      "pausedAt": 0,
       "finishedAt": 0,
       "isInProgress": true
     },
