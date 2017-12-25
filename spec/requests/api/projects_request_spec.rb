@@ -167,6 +167,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
     context 'when starting a project' do
       let(:project) { create :project, :newed, user: user }
+      let!(:task) { create :task, :newed, project: project }
       let(:payload) { {
         project: {
           state: 'started',
@@ -192,6 +193,11 @@ RSpec.describe Api::ProjectsController, type: :request do
         it 'sets started_at to now' do
           expect(project.reload.started_at).to eq(DateTime.new(2017, 1, 20))
         end
+
+        it 'starts newed task' do
+          expect(task.reload.state).to eq('started')
+          expect(task.reload.started_at).to eq(DateTime.now)
+        end
       end
 
       context 'with a paused project' do
@@ -205,6 +211,11 @@ RSpec.describe Api::ProjectsController, type: :request do
 
         it 'sets paused_at to nil' do
           expect(project.reload.paused_at).to be_nil
+        end
+
+        it 'starts newed task' do
+          expect(task.reload.state).to eq('started')
+          expect(task.reload.started_at).to eq(DateTime.now)
         end
       end
 
@@ -335,8 +346,9 @@ RSpec.describe Api::ProjectsController, type: :request do
       end
     end
 
-    context 'when stopping a project' do
+    context 'when pausing a project' do
       let(:project) { create :project, :started, user: user, started_at: DateTime.new(2017, 1, 1) }
+      let!(:task) { create :task, :started, project: project }
       let(:payload) { {
         project: {
           state: 'paused',
@@ -356,6 +368,11 @@ RSpec.describe Api::ProjectsController, type: :request do
 
         it 'saves paused_at' do
           expect(project.reload.paused_at).to eq(DateTime.new(2017, 1, 20))
+        end
+
+        it 'cancels started task' do
+          expect(task.reload.state).to eq('newed')
+          expect(task.reload.started_at).to be nil
         end
       end
     end

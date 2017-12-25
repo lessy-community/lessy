@@ -20,18 +20,18 @@ const getters = {
       const params = {
         projectName: project.name,
       }
-      const isStopped = !!project.stoppedAt
+      const isPaused = !!project.pausedAt
       const isFinished = !!project.finishedAt
-      const isStarted = !!project.startedAt && !isStopped
+      const isStarted = !!project.startedAt && !isPaused
       return {
         ...project,
         isStarted,
-        isStopped,
+        isPaused,
         isFinished,
         mdDescription: marked(project.description, { sanitize: true, breaks: true, smartypants: true }),
         startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
-        stoppedAtLabel: isStopped ? formatDate(project.stoppedAt) : '',
+        pausedAtLabel: isPaused ? formatDate(project.pausedAt) : '',
         finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
         finishedTasksCount,
         tasksCount: tasks.length,
@@ -122,13 +122,17 @@ const actions = {
   },
 
   start ({ commit }, { project, dueAt }) {
-    return projectsApi.start(project, dueAt)
-                      .then((res) => commit('set', res.data))
+    return projectsApi
+      .start(project, dueAt)
+      .then((res) => commit('set', res.data))
+      .then((res) => commit('tasks/startTasksForProject', project.id, { root: true }))
   },
 
-  stop ({ commit }, { project }) {
-    return projectsApi.stop(project)
-                      .then((res) => commit('set', res.data))
+  pause ({ commit }, { project }) {
+    return projectsApi
+      .pause(project)
+      .then((res) => commit('set', res.data))
+      .then((res) => commit('tasks/cancelTasksForProject', project.id, { root: true }))
   },
 
   finish ({ commit, state }, { project, finishedAt }) {

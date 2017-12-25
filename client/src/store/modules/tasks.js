@@ -28,7 +28,7 @@ const getters = {
 
       const isForToday = !isAbandoned && plannedAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
       const isBacklogged = !isFinished && !isAbandoned && !isForToday
-      const createdSinceWeeks = moment.utc().diff(moment.unix(task.createdAt), 'weeks')
+      const startedSinceWeeks = task.startedAt > 0 ? moment.utc().diff(moment.unix(task.startedAt), 'weeks') : 0
 
       const allowedTags = ['b', 'i', 'em', 'strong']
       const anchorOptions = {
@@ -45,7 +45,7 @@ const getters = {
         isBacklogged,
         isFinished,
         isAbandoned,
-        createdSinceWeeks,
+        startedSinceWeeks,
         restartedCount: task.plannedCount - 1,
         plannedAtLabel: formatDate(task.plannedAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
@@ -70,7 +70,7 @@ const getters = {
   listBacklog (state, getters) {
     return getters
       .list
-      .filter((task) => task.isBacklogged)
+      .filter((task) => task.isBacklogged && task.state !== 'newed')
   },
 
   listFinished (state, getters) {
@@ -104,8 +104,8 @@ const getters = {
   countCreatedByDays (state, getters) {
     const byDays = {}
     getters.list.forEach((task) => {
-      const createdAt = moment.unix(task.createdAt)
-      const key = createdAt.format('YYYY-MM-DD')
+      const startedAt = moment.unix(task.startedAt)
+      const key = startedAt.format('YYYY-MM-DD')
       byDays[key] = (byDays[key] || 0) + 1
     })
     return byDays
@@ -218,6 +218,34 @@ const mutations = {
       ...state.byIds,
       ...mapElementsById(impactedTasks),
     }
+  },
+
+  startTasksForProject (state, projectId) {
+    const tasks = Object.entries(state.byIds).map(([id, task]) => {
+      if (task.projectId !== projectId || task.state !== 'newed') {
+        return task
+      }
+      return {
+        ...task,
+        state: 'started',
+        startedAt: +moment(),
+      }
+    })
+    state.byIds = mapElementsById(tasks)
+  },
+
+  cancelTasksForProject (state, projectId) {
+    const tasks = Object.entries(state.byIds).map(([id, task]) => {
+      if (task.projectId !== projectId || task.state !== 'started') {
+        return task
+      }
+      return {
+        ...task,
+        state: 'newed',
+        startedAt: null,
+      }
+    })
+    state.byIds = mapElementsById(tasks)
   },
 
   reset (state) {

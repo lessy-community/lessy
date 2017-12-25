@@ -91,7 +91,6 @@ RSpec.describe Api::Users::TasksController, type: :request do
     let(:payload) { {
       task: {
         label: 'My task',
-        planned_at: DateTime.new(2017).to_i,
       },
     } }
     let(:token) { user.token }
@@ -100,7 +99,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
                                             headers: { 'Authorization': token },
                                             as: :json }
 
-    context 'with valid attributes' do
+    context 'with minimum attributes' do
       before { subject }
 
       it 'succeeds' do
@@ -119,16 +118,40 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
-        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['attributes']['state']).to eq('started')
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
       end
     end
 
-    context 'with project_id' do
-      let(:project) { create :project }
+    context 'with planned date' do
       let(:payload) { {
         task: {
           label: 'My task',
           planned_at: DateTime.new(2017).to_i,
+        },
+      } }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns the new task' do
+        task = JSON.parse(response.body)['data']
+        expect(task['id']).not_to be_nil
+        expect(task['attributes']['label']).to eq('My task')
+        expect(task['attributes']['state']).to eq('planned')
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
+        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
+    context 'with not started project' do
+      let(:project) { create :project, :newed }
+      let(:payload) { {
+        task: {
+          label: 'My task',
           project_id: project.id,
         },
       } }
@@ -143,15 +166,17 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
-        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['attributes']['state']).to eq('newed')
         expect(task['relationships']['project']['data']['id']).to eq(project.id)
       end
     end
 
-    context 'with no planned date' do
+    context 'with started project' do
+      let(:project) { create :project, :started }
       let(:payload) { {
         task: {
           label: 'My task',
+          project_id: project.id,
         },
       } }
 
@@ -165,7 +190,9 @@ RSpec.describe Api::Users::TasksController, type: :request do
         task = JSON.parse(response.body)['data']
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
-        expect(task['attributes']['plannedAt']).to eq(0)
+        expect(task['attributes']['state']).to eq('started')
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
+        expect(task['relationships']['project']['data']['id']).to eq(project.id)
       end
     end
 

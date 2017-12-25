@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="stop" :error="getErrors()">
+  <ly-form @submit="finish" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="date"
@@ -43,7 +43,7 @@
     },
 
     methods: {
-      stop () {
+      finish () {
         this.$store
           .dispatch('projects/finish', {
             project: this.project,

@@ -13,10 +13,14 @@ Parameters:
 | task.planned\_at | number | Task's due date         | yes      |
 | task.project\_id | number | Task's project relation | yes      |
 
-Note: in Lessy, if `planned_at` is set for today, task appears in today list.
-Otherwise (either `nil` or another day), it appears in the backlog. If
-`planned_at` is set, task's `state` is set to `planned` and `planned_count` to
-1, otherwise `state` is set to `started` and `planned_count` to 0.
+Notes:
+
+- if `planned_at` is provided, `state` is always set to `planned` and
+  `planned_count` to 1
+- otherwise, if `project_id` matches with a not started project, `state` is set
+  to `newed`
+- in other situations (project is started or no `project_id` is provided),
+  task's state is set to `started`
 
 Result format:
 
@@ -30,7 +34,7 @@ Result format:
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
 | data.attributes.state                           | string | Task's state                             |          |
-| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.startedAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
@@ -70,7 +74,7 @@ $ curl -H "Content-Type: application/json" \
       "order": 2,
       "plannedCount": 0,
       "state": "started",
-      "createdAt": 1507454795,
+      "startedAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
       "abandonedAt": 0
@@ -119,7 +123,7 @@ Result format:
 | data[].attributes.order                           | number | Task's order                             |          |
 | data[].attributes.plannedCount                    | number | Number of times task has been planned    |          |
 | data[].attributes.state                           | string | Task's state                             |          |
-| data[].attributes.createdAt                       | number | Date when task has been created          |          |
+| data[].attributes.startedAt                       | number | Date when task has been created          |          |
 | data[].attributes.plannedAt                       | number | Task's due date                          |          |
 | data[].attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data[].attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
@@ -161,7 +165,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "order": 1,
         "plannedCount": 1,
         "state": "planned",
-        "createdAt": 1484870400,
+        "startedAt": 1484870400,
         "plannedAt": 1507455286,
         "finishedAt": 0,
         "abandonedAt": 0
@@ -183,7 +187,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "order": 2,
         "plannedCount": 0,
         "state": "started",
-        "createdAt": 1507454795,
+        "startedAt": 1507454795,
         "plannedAt": 0,
         "finishedAt": 0,
         "abandonedAt": 0
@@ -234,7 +238,7 @@ Result format:
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
 | data.attributes.state                           | string | Task's state                             |          |
-| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.startedAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
@@ -274,7 +278,7 @@ $ curl -H "Content-Type: application/json" \
       "order": 2,
       "plannedCount": 0,
       "state": "started",
-      "createdAt": 1507454795,
+      "startedAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
       "abandonedAt": 0
@@ -309,16 +313,17 @@ Parameters:
 | task.state       | string | Task's state            |          |
 
 Note: possible values of `state` are `newed`, `started`, `planned`, `finished`
-or `abandoned`. A created task's state is `started` or `planned` depending on
-if `planned_at` has been given. Lessy doesn't make use of `newed` state yet.
+or `abandoned`. Please refer to [task creation notes](#post-apiusersmetasks) to
+know more about initial state.
+
 State follow this state's machine:
 
 ```ascii
 +------------------------------------------------------------------------------+
-|                                                          replan              |
-|                                                         +-----+              |
-|                                                         |     |              |
-|  +------------+    start    +------------+   plan    +--+-----v---+          |
+|                                              plan          replan            |
+|           +--------------------------------------------+  +-----+            |
+|           |                                            |  |     |            |
+|  +--------+---+    start    +------------+   plan    +-v--+-----v-+          |
 |  | newed      +-------------> started    +-----------> planned    +-+        |
 |  +--------^---+             +-----+------+           +----+----^--+ |        |
 |           |                       |                       |    |    |        |
@@ -335,7 +340,7 @@ State follow this state's machine:
 
 Also, following rules apply:
 
-- `started_at` is set to now on `start` action
+- `started_at` is set to now on `start` and `plan` actions if not already set
 - `planned_at` is set to now and `planned_count` is incremented by one on
   `plan` and `replan` actions
 - `finished_at` is set to nil on `replan` and to now on `finish`
@@ -354,7 +359,7 @@ Result format:
 | data.attributes.order                           | number | Task's order                             |          |
 | data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
 | data.attributes.state                           | string | Task's state                             |          |
-| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.startedAt                       | number | Date when task has been created          |          |
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
@@ -400,7 +405,7 @@ $ curl -H "Content-Type: application/json" \
       "order": 2,
       "plannedCount": 1,
       "state": "planned",
-      "createdAt": 1507454795,
+      "startedAt": 1507454795,
       "plannedAt": 1507457002,
       "finishedAt": 0,
       "abandonedAt": 0

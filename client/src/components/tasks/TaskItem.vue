@@ -18,14 +18,14 @@
 
     <ly-badge
       name="indicators"
-      v-if="task.createdSinceWeeks > 0 || task.restartedCount > 0"
-      :type="{ alert: task.createdSinceWeeks > 2 || task.restartedCount > 2, warning: task.createdSinceWeeks === 2 || task.restartedCount === 2 }"
+      v-if="task.startedSinceWeeks > 0 || task.restartedCount > 0"
+      :type="{ alert: task.startedSinceWeeks > 2 || task.restartedCount > 2, warning: task.startedSinceWeeks === 2 || task.restartedCount === 2 }"
     >
       <span
-        v-if="task.createdSinceWeeks > 0"
-        v-tooltip.top="$tc('tasks.item.createdSinceWeeks', task.createdSinceWeeks, { count: task.createdSinceWeeks })"
+        v-if="task.startedSinceWeeks > 0"
+        v-tooltip.top="$tc('tasks.item.startedSinceWeeks', task.startedSinceWeeks, { count: task.startedSinceWeeks })"
       >
-        <ly-icon name="calendar"></ly-icon> {{ task.createdSinceWeeks }}w
+        <ly-icon name="calendar"></ly-icon> {{ task.startedSinceWeeks }}w
       </span>
       <span
         v-if="task.restartedCount > 0"

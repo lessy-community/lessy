@@ -1,5 +1,12 @@
 # Changelog
 
+## Aquarius XXXX-YY-ZZ
+
+### Breaking changes
+
+- API now exposes `task.startedAt` instead of `task.createdAt`
+- API now exposes `task.pausedAt` instead of `task.stoppedAt`
+
 ## Apus 2017-11-26
 
 ### Improvements

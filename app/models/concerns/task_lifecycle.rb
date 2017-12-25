@@ -19,7 +19,7 @@ module TaskLifecycle
 
       # main workflow
       transition :start, from: :newed, to: :started
-      transition :plan, from: :started, to: :planned
+      transition :plan, from: [:newed, :started], to: :planned
       transition :replan, from: :planned, to: :planned
       transition :finish, from: :planned, to: :finished
 
@@ -40,6 +40,7 @@ module TaskLifecycle
 
     def on_plan(params)
       params[:planned_at] = DateTime.now
+      params[:started_at] = DateTime.now if self.started_at.nil?
       params[:planned_count] = self.planned_count + 1
       params
     end

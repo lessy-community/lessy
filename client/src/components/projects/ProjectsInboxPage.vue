@@ -25,8 +25,14 @@
                 {{ project.name }}
               </router-link>
             </ly-list-item-adapt>
-            <ly-badge v-if="project.isStopped" size="small">
-              {{ $t('projects.inboxPage.pausedOn', { date: project.stoppedAtLabel }) }}
+            <ly-badge v-if="project.isPaused" size="small">
+              {{ $t('projects.inboxPage.pausedOn', { date: project.pausedAtLabel }) }}
+            </ly-badge>
+            <ly-badge v-if="project.tasksCount > 0" size="small">
+              {{ $tc('projects.inboxPage.tasksCount', project.tasksCount, {
+                finishedCount: project.finishedTasksCount,
+                totalCount: project.tasksCount,
+              }) }}
             </ly-badge>
           </ly-list-item>
         </ly-list-group>
@@ -43,6 +49,12 @@
             </ly-list-item-adapt>
             <ly-badge size="small">
               {{ $t('projects.inboxPage.finishedLabel', { date: project.finishedAtLabel }) }}
+            </ly-badge>
+            <ly-badge v-if="project.tasksCount > 0" size="small">
+              {{ $tc('projects.inboxPage.tasksCount', project.tasksCount, {
+                finishedCount: project.finishedTasksCount,
+                totalCount: project.tasksCount,
+              }) }}
             </ly-badge>
         </ly-list-item>
       </ly-list>

@@ -6,14 +6,14 @@
     "id": { "type": "integer" },
     "attributes": {
       "type": "object",
-      "required": ["label", "order", "plannedCount", "createdAt", "plannedAt",
+      "required": ["label", "order", "plannedCount", "startedAt", "plannedAt",
                    "finishedAt", "abandonedAt", "state"],
       "properties": {
         "label": { "type": "string" },
         "order": { "type": "integer" },
         "plannedCount": { "type": "integer" },
         "state": { "type": "string" },
-        "createdAt": { "type": "integer" },
+        "startedAt": { "type": "integer" },
         "plannedAt": { "type": "integer" },
         "finishedAt": { "type": "integer" },
         "abandonedAt": { "type": "integer" }

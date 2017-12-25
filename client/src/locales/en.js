@@ -199,6 +199,7 @@ export default {
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
       seeFinishedProjects: 'See your finished project | See your {count} finished projects',
       pausedOn: 'paused on {date}',
+      tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
 
     layout: {
@@ -223,7 +224,6 @@ export default {
     },
 
     timeline: {
-      confirmPause: 'The project will be marked as paused. Can you confirm?',
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
       dueToday: 'due today',
@@ -256,7 +256,7 @@ export default {
     item: {
       abandon: 'Abandon',
       confirmAbandon: 'Oh? The task will be marked as abandoned and will disappear from the list. Can you confirm?',
-      createdSinceWeeks: 'You’ve created this task 1 week ago | You’ve created this task {count} weeks ago, it may be time to abandon it, don’t you think?',
+      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       dueOn: 'due on {date}',
       edit: 'Edit',
       markAsDone: 'Mark as done',
