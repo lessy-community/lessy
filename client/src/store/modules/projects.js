@@ -134,10 +134,7 @@ const actions = {
   finish ({ commit, state }, { project, finishedAt }) {
     return projectsApi
       .finish(project, finishedAt)
-      .then((res) => {
-        commit('set', res.data)
-        commit('setNumberFinished', state.numberFinished + 1)
-      })
+      .then((res) => commit('set', res.data))
   },
 }
 
