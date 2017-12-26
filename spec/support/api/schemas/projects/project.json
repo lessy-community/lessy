@@ -6,10 +6,11 @@
     "id": { "type": "integer" },
     "attributes": {
       "type": "object",
-      "required": ["name", "description", "startedAt", "dueAt", "pausedAt",
-                   "finishedAt", "isInProgress", "state"],
+      "required": ["name", "slug", "description", "startedAt", "dueAt",
+                   "pausedAt", "finishedAt", "isInProgress", "state"],
       "properties": {
         "name": { "type": "string" },
+        "slug": { "type": "string" },
         "description": { "type": "string" },
         "state": { "type": "string" },
         "startedAt": { "type": "integer" },

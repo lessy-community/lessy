@@ -4,11 +4,14 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :tasks, dependent: :nullify
 
-  validates :user, :name, presence: true
-  validates :name, uniqueness: { scope: :user, message: 'must be unique per user' },
-                   format: { with: /\A[\w\-]{1,}\z/, message: 'must contain letters, numbers, underscores (_) and hiphens (-) only' },
-                   length: { maximum: 100 }
+  validates :user, :name, :slug, presence: true
+  validates :slug, uniqueness: { scope: :user, message: 'must be unique per user' },
+                   format: { with: /\A[\w\-]{1,}\z/, message: 'must contain letters, numbers, underscores (_) and hiphens (-) only' }
+  validates :name, length: { maximum: 100 }
 
   paginates_per 25
 
+  before_validation do
+    self.slug = self.name.parameterize
+  end
 end

@@ -15,11 +15,11 @@ RSpec.describe Api::ProjectsController, type: :request do
 
   describe 'PATCH #update' do
     let(:project) { create :project, :started, user: user,
-                                               name: 'my-project',
+                                               name: 'My project',
                                                description: 'Old description' }
     let(:payload) { {
       project: {
-        name: 'new-name-for-a-project',
+        name: 'New name for a project',
         description: 'New description',
         due_at: DateTime.new(2018, 1, 20).to_i,
       },
@@ -43,7 +43,8 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'saves the new project' do
         project.reload
-        expect(project.name).to eq('new-name-for-a-project')
+        expect(project.name).to eq('New name for a project')
+        expect(project.slug).to eq('new-name-for-a-project')
         expect(project.description).to eq('New description')
         expect(project.due_at).to eq(DateTime.new(2018, 1, 20))
       end
@@ -51,32 +52,11 @@ RSpec.describe Api::ProjectsController, type: :request do
       it 'returns the new project' do
         api_project = JSON.parse(response.body)['data']
         expect(api_project['id']).to eq(project.id)
-        expect(api_project['attributes']['name']).to eq('new-name-for-a-project')
+        expect(api_project['attributes']['name']).to eq('New name for a project')
+        expect(api_project['attributes']['slug']).to eq('new-name-for-a-project')
         expect(api_project['attributes']['description']).to eq('New description')
         expect(api_project['attributes']['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
       end
-    end
-
-    context 'with invalid name' do
-      let(:payload) { {
-        project: {
-          name: 'an invalid name',
-          description: 'New description',
-          due_at: DateTime.new(2018, 1, 20).to_i,
-        },
-      } }
-
-      before { subject }
-
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'invalid',
-          title: 'Resource validation failed',
-          detail: 'Resource cannot be saved because of validation constraints.',
-          source: { pointer: '/project/name' },
-        }],
-      }
     end
 
     context 'with newed project' do

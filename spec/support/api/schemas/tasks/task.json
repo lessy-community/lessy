@@ -58,9 +58,10 @@
                     "id": { "type": "integer" },
                     "attributes": {
                       "type": "object",
-                      "required": ["name"],
+                      "required": ["name", "slug"],
                       "properties": {
-                        "name": { "type": "string" }
+                        "name": { "type": "string" },
+                        "slug": { "type": "string" }
                       },
                       "additionalProperties": false
                     }

@@ -135,26 +135,6 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe '#name' do
-    it 'does not accept names with spaces inside' do
-      project = build :project, name: 'invalid name'
-      expect(project).to be_invalid
-    end
-
-    it 'accepts different names' do
-      project = build :project
-      names = [
-        'name', 'a-name', 'a_name', '-name-', '_name_', '1name42', '---', '42',
-        '_____', 'THE-NAME',
-      ]
-
-      names.each do |name|
-        project.name = name
-        expect(project).to be_valid, "#{ name } should be a valid name for a project"
-      end
-    end
-  end
-
   describe '#update_with_transition!' do
     subject { project.update_with_transition! params }
 

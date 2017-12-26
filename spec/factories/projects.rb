@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project, traits: [:newed] do
-    sequence(:name, 'a') { |n| "my-project-#{ n }" }
+    sequence(:name, 'a') { |n| "My project #{n}" }
     user
 
     trait :newed do
