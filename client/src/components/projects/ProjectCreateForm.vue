@@ -6,8 +6,8 @@
         name="name"
         v-model="name"
         ref="nameInput"
-        :error="getErrors('/project/name')"
-        pattern="[\w\-]{1,100}"
+        :error="getErrors('/project/name') || getErrors('/project/slug')"
+        pattern=".{1,100}"
         :caption="$t('projects.createForm.nameCaption')"
         autocomplete="off"
         required

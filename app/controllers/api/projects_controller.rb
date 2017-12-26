@@ -21,7 +21,6 @@ private
     permitted_params << :due_at if current_project.started?
     update_params = params.require(:project).permit(*permitted_params)
     update_params[:due_at] = update_params[:due_at].to_datetime if update_params.has_key? :due_at
-    update_params[:slug] = update_params[:name]
     update_params
   end
 

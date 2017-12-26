@@ -86,7 +86,7 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
     let(:token) { user.token }
     let(:payload) { {
       project: {
-        name: 'my-project',
+        name: 'My project',
       },
     } }
 
@@ -106,13 +106,14 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
       end
 
       it 'saves the new project' do
-        expect(Project.find_by(name: 'my-project')).to be_present
+        expect(Project.find_by(name: 'My project')).to be_present
       end
 
       it 'returns the new project' do
         project = JSON.parse(response.body)['data']
         expect(project['id']).not_to be_nil
-        expect(project['attributes']['name']).to eq('my-project')
+        expect(project['attributes']['name']).to eq('My project')
+        expect(project['attributes']['slug']).to eq('my-project')
         expect(project['attributes']['isInProgress']).to be false
       end
     end
@@ -133,30 +134,10 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
       }
     end
 
-    context 'with invalid name' do
-      let(:payload) { {
-        project: {
-          name: 'An invalid name',
-        },
-      } }
-
-      before { subject }
-
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'invalid',
-          title: 'Resource validation failed',
-          detail: 'Resource cannot be saved because of validation constraints.',
-          source: { pointer: '/project/name' },
-        }],
-      }
-    end
-
     context 'with too long name' do
       let(:payload) { {
         project: {
-          name: 'my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project-my-project',
+          name: 'my project my project my project my project my project my project my project my project my project my project',
         },
       } }
 
@@ -185,7 +166,7 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
           code: 'taken',
           title: 'Resource validation failed',
           detail: 'Resource cannot be saved because of validation constraints.',
-          source: { pointer: '/project/name' },
+          source: { pointer: '/project/slug' },
         }],
       }
     end

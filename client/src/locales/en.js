@@ -48,10 +48,13 @@ export default {
 
       name: {
         blank: 'Name is required.',
-        invalid: 'Name does not match required pattern (only letters, numbers, underscores and hiphens are accepted).',
         parameter_missing: 'Name is required.',
-        taken: 'You already have a project with the same name.',
         too_long: 'Name is too long (max 100 characters).',
+      },
+
+      slug: {
+        invalid: 'Something went wrong when saving the project (does its name contain any special character?). Please choose another name.',
+        taken: 'This name is close to another of your project names, please try to change it.',
       },
 
       state: {
@@ -166,7 +169,7 @@ export default {
     createForm: {
       cancel: 'Cancel',
       submit: 'Create',
-      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Maximum 100 characters.',
     },
 
     editForm: {
