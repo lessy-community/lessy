@@ -44,6 +44,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       it 'saves the new project' do
         project.reload
         expect(project.name).to eq('new-name-for-a-project')
+        expect(project.slug).to eq('new-name-for-a-project')
         expect(project.description).to eq('New description')
         expect(project.due_at).to eq(DateTime.new(2018, 1, 20))
       end
@@ -52,6 +53,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         api_project = JSON.parse(response.body)['data']
         expect(api_project['id']).to eq(project.id)
         expect(api_project['attributes']['name']).to eq('new-name-for-a-project')
+        expect(api_project['attributes']['slug']).to eq('new-name-for-a-project')
         expect(api_project['attributes']['description']).to eq('New description')
         expect(api_project['attributes']['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
       end

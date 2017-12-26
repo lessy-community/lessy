@@ -23,6 +23,7 @@ Result format:
 | data.id                              | number | Project's identifier                     |          |
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
+| data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
@@ -67,6 +68,7 @@ $ curl -H "Content-Type: application/json" \
     "id": 42,
     "attributes": {
       "name": "damn-good-coffee",
+      "slug": "damn-good-coffee",
       "description": "",
       "state": "newed",
       "startedAt": 0,
@@ -107,6 +109,7 @@ Result format:
 | data[].id                              | number | Project's identifier                     |          |
 | data[].attributes                      | object |                                          |          |
 | data[].attributes.name                 | string | Project's name                           |          |
+| data[].attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data[].attributes.description          | string | Project's description                    |          |
 | data[].attributes.state                | string | Project's state                          |          |
 | data[].attributes.startedAt            | number | Date when project started                |          |
@@ -147,6 +150,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
       "id": 24,
       "attributes": {
         "name": "black-lodge",
+        "slug": "black-lodge",
         "description": "A mysterious dark place",
         "state": "started",
         "startedAt": 639532800,
@@ -172,6 +176,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
       "id": 42,
       "attributes": {
         "name": "damn-good-coffee",
+        "slug": "damn-good-coffee",
         "description": "",
         "state": "newed",
         "startedAt": 0,
@@ -223,6 +228,7 @@ Result format:
 | data.id                              | number | Project's identifier                     |          |
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
+| data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
@@ -267,6 +273,7 @@ $ curl -H "Content-Type: application/json" \
     "id": 42,
     "attributes": {
       "name": "damn-good-coffee",
+      "slug": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
       "state": "newed",
       "startedAt": 0,
@@ -340,6 +347,7 @@ Result format:
 | data.id                              | number | Project's identifier                     |          |
 | data.attributes                      | object |                                          |          |
 | data.attributes.name                 | string | Project's name                           |          |
+| data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
 | data.attributes.startedAt            | number | Date when project started                |          |
@@ -387,6 +395,7 @@ $ curl -H "Content-Type: application/json" \
     "id": 42,
     "attributes": {
       "name": "damn-good-coffee",
+      "slug": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
       "state": "started",
       "startedAt": 1507449826,

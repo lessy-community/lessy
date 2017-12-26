@@ -23,6 +23,7 @@ json.relationships do
         json.id task.project_id
         json.attributes do
           json.name task.project.name
+          json.slug task.project.slug
         end
       end
     end

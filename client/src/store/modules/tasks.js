@@ -49,7 +49,7 @@ const getters = {
         restartedCount: task.plannedCount - 1,
         plannedAtLabel: formatDate(task.plannedAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
-        urlProjectShow: task.projectName && { name: 'project/show', params: { projectName: task.projectName } },
+        urlProjectShow: task.projectSlug && { name: 'project/show', params: { projectSlug: task.projectSlug } },
       }
     }
   },
@@ -182,6 +182,7 @@ const mutations = {
       if (element.relationships.project.data != null) {
         byIds[element.id].projectId = element.relationships.project.data.id
         byIds[element.id].projectName = element.relationships.project.data.attributes.name
+        byIds[element.id].projectSlug = element.relationships.project.data.attributes.slug
       }
     })
 
@@ -203,6 +204,7 @@ const mutations = {
     if (data.relationships.project.data != null) {
       byIds[data.id].projectId = data.relationships.project.data.id
       byIds[data.id].projectName = data.relationships.project.data.attributes.name
+      byIds[data.id].projectSlug = data.relationships.project.data.attributes.slug
     }
     state.byIds = byIds
   },

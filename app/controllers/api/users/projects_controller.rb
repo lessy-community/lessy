@@ -12,7 +12,9 @@ class Api::Users::ProjectsController < ApiController
 private
 
   def create_project_params
-    fetch_resource_params(:project, [:name]).merge(user: current_user)
+    parameters = fetch_resource_params(:project, [:name]).merge(user: current_user)
+    parameters[:slug] = parameters[:name]
+    parameters
   end
 
 end

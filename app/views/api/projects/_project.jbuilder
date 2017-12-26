@@ -1,7 +1,7 @@
 json.type 'project'
 json.id project.id
 json.attributes do
-  json.extract! project, :name, :description, :state
+  json.extract! project, :name, :slug, :description, :state
   json.started_at project.started_at.to_i
   json.due_at project.due_at.to_i
   json.paused_at project.paused_at.to_i

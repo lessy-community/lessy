@@ -18,7 +18,7 @@ const getters = {
       const tasks = rootGetters['tasks/listForProject'](project)
       const finishedTasksCount = tasks.filter(task => task.isFinished).length
       const params = {
-        projectName: project.name,
+        projectSlug: project.slug,
       }
       const isPaused = !!project.pausedAt
       const isFinished = !!project.finishedAt
@@ -158,9 +158,9 @@ const mutations = {
     }
   },
 
-  setCurrent (state, projectName) {
+  setCurrent (state, projectSlug) {
     state.current = Object.keys(state.byIds)
-                          .find((id) => state.byIds[id].name === projectName)
+                          .find((id) => state.byIds[id].slug === projectSlug)
   },
 
   addTaskToProject (state, { projectId, taskId }) {

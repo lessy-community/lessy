@@ -2,10 +2,11 @@
 
 ## Aquarius XXXX-YY-ZZ
 
-### Breaking changes
+### API changes
 
-- API now exposes `task.startedAt` instead of `task.createdAt`
-- API now exposes `task.pausedAt` instead of `task.stoppedAt`
+- `task.createdAt` becomes `task.startedAt`
+- `project.stoppedAt` becomes `project.pausedAt`
+- `project.slug` is added
 
 ## Apus 2017-11-26
 

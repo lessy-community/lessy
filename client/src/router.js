@@ -53,7 +53,7 @@ const routes = [
     children: [
       { path: '', redirect: 'inbox' },
       { path: 'inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
-      { path: ':projectName',
+      { path: ':projectSlug',
         component: ProjectLayout,
         children: [
           { path: '', component: ProjectShowPage, name: 'project/show', meta: { title: 'Project' } },

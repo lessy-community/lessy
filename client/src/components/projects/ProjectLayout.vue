@@ -13,8 +13,8 @@
     },
 
     mounted () {
-      const { projectName } = this.$route.params
-      this.$store.commit('projects/setCurrent', projectName)
+      const { projectSlug } = this.$route.params
+      this.$store.commit('projects/setCurrent', projectSlug)
     },
 
     destroyed () {

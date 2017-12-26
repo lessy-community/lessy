@@ -3,6 +3,10 @@ FactoryGirl.define do
     sequence(:name, 'a') { |n| "my-project-#{ n }" }
     user
 
+    after(:build) do |project|
+      project.slug = project.name
+    end
+
     trait :newed do
       state 'newed'
       started_at nil

@@ -49,6 +49,7 @@ Result format:
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
 | data.relationships.project.data.attributes.name | string | Project's name                           |          |
+| data.relationships.project.data.attributes.slug | string | Project's slug (URL fragment)            |          |
 
 **Important note :** this output may evolve quite soon!
 
@@ -88,7 +89,8 @@ $ curl -H "Content-Type: application/json" \
           "type": "project",
           "id": 42,
           "attributes": {
-            "name": "damn-good-coffee"
+            "name": "damn-good-coffee",
+            "slug": "damn-good-coffee"
           }
         }
       }
@@ -138,6 +140,7 @@ Result format:
 | data[].relationships.project.data.id              | number | Project's identifier                     |          |
 | data[].relationships.project.data.attributes      | object |                                          |          |
 | data[].relationships.project.data.attributes.name | string | Project's name                           |          |
+| data[].relationships.project.data.attributes.slug | string | Project's slug (URL fragment)            |          |
 | links                                             | object |                                          |          |
 | links.first                                       | string | Link to the first page of pagination     |          |
 | links.last                                        | string | Link to the last page of pagination      |          |
@@ -201,7 +204,8 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
             "type": "project",
             "id": 42,
             "attributes": {
-              "name": "damn-good-coffee"
+              "name": "damn-good-coffee",
+              "slug": "damn-good-coffee"
             }
           }
         }
@@ -253,6 +257,7 @@ Result format:
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
 | data.relationships.project.data.attributes.name | string | Project's name                           |          |
+| data.relationships.project.data.attributes.slug | string | Project's slug (URL fragment)            |          |
 
 **Important note :** this output may evolve quite soon!
 
@@ -292,7 +297,8 @@ $ curl -H "Content-Type: application/json" \
           "type": "project",
           "id": 42,
           "attributes": {
-            "name": "damn-good-coffee"
+            "name": "damn-good-coffee",
+            "slug": "damn-good-coffee"
           }
         }
       }
@@ -374,6 +380,7 @@ Result format:
 | data.relationships.project.data.id              | number | Project's identifier                     |          |
 | data.relationships.project.data.attributes      | object |                                          |          |
 | data.relationships.project.data.attributes.name | string | Project's name                           |          |
+| data.relationships.project.data.attributes.slug | string | Project's slug (URL fragment)            |          |
 
 **Important note :** this output may evolve quite soon!
 
@@ -419,7 +426,8 @@ $ curl -H "Content-Type: application/json" \
           "type": "project",
           "id": 42,
           "attributes": {
-            "name": "damn-good-coffee"
+            "name": "damn-good-coffee",
+            "slug": "damn-good-coffee"
           }
         }
       }
