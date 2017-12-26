@@ -85,20 +85,6 @@ const getters = {
     }, 0)
     return nbStartedProjects < 3
   },
-
-  numberCurrent (state, getters) {
-    return Object.keys(state.byIds)
-      .map(getters.findById)
-      .filter((project) => !project.isFinished)
-      .length
-  },
-
-  numberFinished (state, getters) {
-    return Object.keys(state.byIds)
-      .map(getters.findById)
-      .filter((project) => project.isFinished)
-      .length
-  },
 }
 
 const actions = {
