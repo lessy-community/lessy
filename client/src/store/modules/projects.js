@@ -56,7 +56,7 @@ const getters = {
   },
 
   listNotStartedByFirstCharacter (state, getters) {
-    return groupByFirstCharacter(getters.listNotStarted, 'name')
+    return groupByFirstCharacter(getters.listNotStarted, 'slug')
   },
 
   listInProgress (state, getters) {

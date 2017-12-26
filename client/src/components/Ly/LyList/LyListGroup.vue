@@ -31,6 +31,7 @@
     }
   }
   .ly-list-group-header {
+    width: 2rem;
     padding: .5rem;
 
     color: $ly-color-grey-50;
