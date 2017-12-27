@@ -178,7 +178,7 @@ export default {
       descriptionCaption: 'Description supports Markdown',
       dueLabel: 'Due on',
       nameLabel: 'Name',
-      nameCaption: 'Only letters, numbers, underscores (_) and hiphens (-)',
+      nameCaption: 'Max 100 characters.',
       submit: 'Validate',
     },
 

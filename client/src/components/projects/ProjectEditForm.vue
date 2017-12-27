@@ -7,7 +7,7 @@
         v-model="name"
         :label="$t('projects.editForm.nameLabel')"
         :error="getErrors('/project/name')"
-        pattern="[\w\-]{1,100}"
+        pattern=".{1,100}"
         :caption="$t('projects.editForm.nameCaption')"
         autocomplete="off"
         required
