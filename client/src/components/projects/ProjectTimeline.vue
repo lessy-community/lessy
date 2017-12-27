@@ -57,7 +57,7 @@
         size="small"
         icon="play"
       >
-        Start
+        {{ $t('projects.timeline.start') }}
       </ly-button>
       <ly-button
         v-else-if="project.state === 'newed'"
@@ -66,7 +66,7 @@
         icon="play"
         @click="startProject"
       >
-        Start
+        {{ $t('projects.timeline.start') }}
       </ly-button>
       <ly-button
         v-else-if="project.state === 'started'"
@@ -75,7 +75,7 @@
         icon="pause"
         @click="pauseProject"
       >
-        Pause
+        {{ $t('projects.timeline.pause') }}
       </ly-button>
       <ly-button
         v-else-if="project.state === 'paused' && !canStartProject"
@@ -85,7 +85,7 @@
         size="small"
         icon="play"
       >
-        Restart
+        {{ $t('projects.timeline.restart') }}
       </ly-button>
       <ly-button
         v-else-if="project.state === 'paused'"
@@ -94,7 +94,7 @@
         icon="play"
         @click="restartProject"
       >
-        Restart
+        {{ $t('projects.timeline.restart') }}
       </ly-button>
 
       <div class="project-timeline-actions-separator"></div>
@@ -106,7 +106,7 @@
         icon="check"
         @click="finishProject"
       >
-        Finish
+        {{ $t('projects.timeline.finish') }}
       </ly-button>
     </div>
   </div>

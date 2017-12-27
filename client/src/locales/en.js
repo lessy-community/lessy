@@ -156,7 +156,6 @@ export default {
 
   projects: {
     card: {
-      datesDescription: 'Started on <b>{start}</b><br />Due on <b>{due}</b>',
       shouldAddTasks: 'Usually, a living project holds unfinished tasks.',
       tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
@@ -230,11 +229,15 @@ export default {
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
       dueToday: 'due today',
+      finish: 'Finish',
       finishedOn: 'finished on {date}',
       late: 'late',
       notStarted: 'not started',
+      pause: 'Pause',
       pausedOn: 'paused on {date}',
       reachedMaxInProgress: 'You already reached the maximum of started projects.',
+      restart: 'Restart',
+      start: 'Start',
       startedOn: 'Started on {date}',
       untilDueDate: 'before due date',
     },
@@ -267,7 +270,6 @@ export default {
       plan: 'Plan for today',
       replan: 'Replan for today',
       restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
-      toggle: 'Toggle done',
     },
 
     list: {
