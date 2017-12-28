@@ -25,6 +25,8 @@
     .tooltip-inner {
       min-width: 10rem;
 
+      font-size: 1rem;
+
       background-color: $ly-color-grey-10;
       box-shadow: 0 0 1px $ly-color-grey-90,
                   0 0 3px $ly-color-grey-40,
