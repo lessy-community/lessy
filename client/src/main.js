@@ -5,7 +5,7 @@ import LyButton from './components/Ly/LyButton'
 import LyCard from './components/Ly/LyCard'
 import LyCardDeck from './components/Ly/LyCardDeck'
 import { LyColumns, LyColumn } from './components/Ly/LyColumns'
-import { LyForm, LyFormGroup, LyFormInput, LyFormTextarea } from './components/Ly/LyForm'
+import { LyForm, LyFormGroup, LyFormInput, LyFormSelect, LyFormTextarea } from './components/Ly/LyForm'
 import LyIcon from './components/Ly/LyIcon'
 import { LyList, LyListGroup, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
 import LyModal from './components/Ly/LyModal'
@@ -46,6 +46,7 @@ Vue.component('ly-column', LyColumn)
 Vue.component('ly-form', LyForm)
 Vue.component('ly-form-group', LyFormGroup)
 Vue.component('ly-form-input', LyFormInput)
+Vue.component('ly-form-select', LyFormSelect)
 Vue.component('ly-form-textarea', LyFormTextarea)
 Vue.component('ly-icon', LyIcon)
 Vue.component('ly-list', LyList)

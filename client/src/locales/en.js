@@ -151,6 +151,11 @@ export default {
         optional: 'optional',
         revealPassword: 'Reveal',
       },
+
+      select: {
+        moreOptions: '+1 additional option | +{number} additional options',
+        unselect: 'Unselect',
+      },
     },
   },
 

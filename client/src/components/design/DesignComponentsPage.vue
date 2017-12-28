@@ -268,6 +268,15 @@
         ></ly-form-textarea>
       </ly-form-group>
 
+      <ly-form-group>
+        <ly-form-select
+          name="select-1"
+          v-model="city"
+          label="Capital city"
+          :options="cityOptions"
+        ></ly-form-select>
+      </ly-form-group>
+
       <h2>ly-icon</h2>
       <p>Use icons to add visual help to user. Icons must be used carefully and
       always be accompanied by a text alternative.</p>
@@ -437,7 +446,51 @@
     data () {
       return {
         password: 'secret',
+
         showModal1: false,
+
+        city: null,
+        cityOptions: [
+          { value: 2, label: 'Accra' },
+          { value: 3, label: 'Amsterdam' },
+          { value: 6, label: 'Athens' },
+          { value: 7, label: 'Caracas' },
+          { value: 8, label: 'Cayenne' },
+          { value: 9, label: 'Conakry' },
+          { value: 10, label: 'Edinburgh of the Seven Seas' },
+          { value: 11, label: 'Fort-de-France' },
+          { value: 12, label: 'Flying Fish Cove' },
+          { value: 13, label: 'Hamilton' },
+          { value: 14, label: 'Hanga Roa' },
+          { value: 15, label: 'Helsinki' },
+          { value: 16, label: 'Kabul' },
+          { value: 17, label: 'Kiev' },
+          { value: 18, label: 'Kingstown' },
+          { value: 19, label: 'Madrid' },
+          { value: 20, label: 'Malé' },
+          { value: 21, label: 'Manila' },
+          { value: 22, label: 'Oslo' },
+          { value: 23, label: 'Paris' },
+          { value: 24, label: 'Paramaribo' },
+          { value: 25, label: 'Paris' },
+          { value: 26, label: 'Phnom Penh' },
+          { value: 27, label: 'Rabat' },
+          { value: 28, label: 'Rome' },
+          { value: 29, label: 'Roseau' },
+          { value: 30, label: 'Stanley' },
+          { value: 31, label: 'Suva' },
+          { value: 32, label: 'Tallinn' },
+          { value: 33, label: 'Tórshavn' },
+          { value: 34, label: 'The Valley' },
+          { value: 35, label: 'Vienna' },
+          { value: 36, label: 'Vilnius' },
+          { value: 37, label: 'Warsaw' },
+          { value: 38, label: 'Windhoek' },
+          { value: 39, label: 'Yaoundé' },
+          { value: 40, label: 'Yaren' },
+          { value: 41, label: 'Yerevan' },
+          { value: 42, label: 'Zagreb' },
+        ],
       }
     },
   }

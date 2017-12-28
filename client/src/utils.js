@@ -9,6 +9,15 @@ function mapElementsById (elements, fk = 'id') {
   return byIds
 }
 
+function objectsToOptions (objects, valueKey, labelKey) {
+  return objects.map(obj => {
+    return {
+      value: obj[valueKey],
+      label: obj[labelKey],
+    }
+  })
+}
+
 function groupByFirstCharacter (array, attribute = null) {
   let groups = {}
 
@@ -30,6 +39,7 @@ function formatDate (timestamp) {
 
 export {
   mapElementsById,
+  objectsToOptions,
   groupByFirstCharacter,
   formatDate,
 }
