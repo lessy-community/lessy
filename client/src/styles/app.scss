@@ -1,5 +1,3 @@
-@import 'components/vue_tooltip';
-
 @import 'variables/colors';
 @import 'variables/dimensions';
 
@@ -7,6 +5,8 @@
 @import 'grid';
 @import 'links';
 @import 'typography';
+
+@import 'components/vue_tooltip';
 
 * {
   box-sizing: border-box;

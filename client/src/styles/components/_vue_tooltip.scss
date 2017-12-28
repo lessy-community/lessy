@@ -1,4 +1,4 @@
-$popper-background-color: rgba(#000, .9);
+$popper-background-color: rgba($ly-color-grey-90, .9);
 
 .tooltip {
   .tooltip-inner {
@@ -10,7 +10,7 @@ $popper-background-color: rgba(#000, .9);
     padding: 6px 10px;
     border-radius: 3px;
     z-index: 100;
-    box-shadow: 2px 2px 3px rgba(#000, 0.4);
+    box-shadow: 2px 2px 3px rgba($ly-color-grey-50, 0.9);
   }
 
   .tooltip-arrow {
