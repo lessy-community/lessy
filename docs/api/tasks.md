@@ -228,7 +228,8 @@ Parameters:
 | Name             | Type   | Description             | Optional |
 |------------------|--------|-------------------------|----------|
 | task             | object |                         |          |
-| task.label       | string | Task's label            |          |
+| task.label       | string | Task's label            | yes      |
+| task.project\_id | number | Task's project relation | yes      |
 
 Result format:
 

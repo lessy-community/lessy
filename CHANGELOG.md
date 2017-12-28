@@ -7,6 +7,7 @@
 - `task.createdAt` becomes `task.startedAt`
 - `project.stoppedAt` becomes `project.pausedAt`
 - `project.slug` is added
+- `task.projectId` can now be patched
 
 ## Apus 2017-11-26
 
