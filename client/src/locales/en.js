@@ -273,7 +273,6 @@ export default {
     item: {
       abandon: 'Abandon',
       attachToProject: 'Attach to a project',
-      confirmAbandon: 'Oh? The task will be marked as abandoned and will disappear from the list. Can you confirm?',
       startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       dueOn: 'due on {date}',
       edit: 'Edit',
@@ -297,6 +296,10 @@ export default {
 
     modals: {
       attachProjectTitle: 'Attach task to a project',
+      cancel: 'Cancel',
+      confirmAbandon: 'The task « {label} » will be marked as abandoned and will disappear from the list. Can you confirm?',
+      confirmAbandonTitle: 'Abandon task',
+      submitAbandon: 'Confirm abandon',
       transformInProjectTitle: 'Transform task in a project',
     },
 

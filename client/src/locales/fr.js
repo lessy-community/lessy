@@ -273,7 +273,6 @@ export default {
     item: {
       abandon: 'Abandonner',
       attachToProject: 'Attacher à un projet',
-      confirmAbandon: 'Vraiment ? La tâche sera marquée comme abandonnée et disparaîtra de la liste. Vous confirmez ?',
       startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       dueOn: 'date d’échéance {date}',
       edit: 'Modifier',
@@ -297,6 +296,10 @@ export default {
 
     modals: {
       attachProjectTitle: 'Attacher la tâche à un projet',
+      cancel: 'Annuler',
+      confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
+      confirmAbandonTitle: 'Abandonner la tâche',
+      submitAbandon: 'Confirmer l’abandon',
       transformInProjectTitle: 'Transformer la tâche en projet',
     },
 

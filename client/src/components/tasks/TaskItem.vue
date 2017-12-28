@@ -69,7 +69,7 @@
 
       <template slot="menu">
         <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
-        <ly-popover-item @click="confirmAbandon">{{ $t('tasks.item.abandon') }}</ly-popover-item>
+        <ly-popover-item @click="showConfirmAbandonModal = true">{{ $t('tasks.item.abandon') }}</ly-popover-item>
         <ly-popover-separator></ly-popover-separator>
         <ly-popover-item @click="showAttachProjectModal = true">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
         <ly-popover-item @click="showTransformInProjectModal = true">{{ $t('tasks.item.transformInProject') }}</ly-popover-item>
@@ -77,6 +77,12 @@
     </ly-popover>
 
     <div>
+      <task-confirm-abandon-modal
+        v-if="showConfirmAbandonModal"
+        :task="task"
+        @close="showConfirmAbandonModal = false"
+      ></task-confirm-abandon-modal>
+
       <task-attach-project-modal
         v-if="showAttachProjectModal"
         :task="task"
@@ -94,6 +100,7 @@
 
 <script>
   import TaskEditForm from './TaskEditForm'
+  import TaskConfirmAbandonModal from './TaskConfirmAbandonModal'
   import TaskAttachProjectModal from './TaskAttachProjectModal'
   import TaskTransformInProjectModal from './TaskTransformInProjectModal'
 
@@ -106,6 +113,7 @@
 
     components: {
       TaskEditForm,
+      TaskConfirmAbandonModal,
       TaskAttachProjectModal,
       TaskTransformInProjectModal,
     },
@@ -113,6 +121,7 @@
     data () {
       return {
         editMode: false,
+        showConfirmAbandonModal: false,
         showAttachProjectModal: false,
         showTransformInProjectModal: false,
       }
@@ -131,13 +140,6 @@
       start () {
         const { task } = this
         this.$store.dispatch('tasks/start', { task })
-      },
-
-      confirmAbandon () {
-        const { task } = this
-        if (window.confirm(this.$t('tasks.item.confirmAbandon'))) {
-          this.$store.dispatch('tasks/abandon', { task })
-        }
       },
     },
   }
