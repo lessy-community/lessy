@@ -77,34 +77,25 @@
     </ly-popover>
 
     <div>
-      <ly-modal v-if="showAttachProjectModal" :title="$t('tasks.modals.attachProjectTitle')">
-        <p class="text-secondary">«&nbsp;{{ task.label }}&nbsp;»</p>
+      <task-attach-project-modal
+        v-if="showAttachProjectModal"
+        :task="task"
+        @close="showAttachProjectModal = false"
+      ></task-attach-project-modal>
 
-        <task-attach-project-form
-          :task="task"
-          @success="showAttachProjectModal = false"
-          @cancel="showAttachProjectModal = false"
-          autofocus
-        ></task-attach-project-form>
-      </ly-modal>
-
-      <ly-modal v-if="showTransformInProjectModal" :title="$t('tasks.modals.transformInProjectTitle')">
-        <project-create-form
-          :initialName="task.label"
-          @success="onTaskTransformSuccess"
-          @cancel="showTransformInProjectModal = false"
-          autofocus
-        ></project-create-form>
-      </ly-modal>
+      <task-transform-in-project-modal
+        v-if="showTransformInProjectModal"
+        :task="task"
+        @close="showTransformInProjectModal = false"
+      ></task-transform-in-project-modal>
     </div>
   </ly-list-item>
 </template>
 
 <script>
   import TaskEditForm from './TaskEditForm'
-  import TaskAttachProjectForm from './TaskAttachProjectForm'
-
-  import ProjectCreateForm from 'src/components/projects/ProjectCreateForm'
+  import TaskAttachProjectModal from './TaskAttachProjectModal'
+  import TaskTransformInProjectModal from './TaskTransformInProjectModal'
 
   export default {
     props: {
@@ -115,8 +106,8 @@
 
     components: {
       TaskEditForm,
-      TaskAttachProjectForm,
-      ProjectCreateForm,
+      TaskAttachProjectModal,
+      TaskTransformInProjectModal,
     },
 
     data () {
@@ -146,17 +137,6 @@
         const { task } = this
         if (window.confirm(this.$t('tasks.item.confirmAbandon'))) {
           this.$store.dispatch('tasks/abandon', { task })
-        }
-      },
-
-      onTaskTransformSuccess (projectId) {
-        const { task } = this
-        const project = this.$store.getters['projects/findById'](projectId)
-
-        this.showTransformInProjectModal = false
-        this.$store.dispatch('tasks/abandon', { task })
-        if (project) {
-          this.$router.push(project.urlShow)
         }
       },
     },
