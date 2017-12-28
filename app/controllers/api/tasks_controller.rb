@@ -25,7 +25,7 @@ private
   end
 
   def update_task_params
-    fetch_resource_params(:task, [], [:label])
+    fetch_resource_params(:task, [], [:label, :project_id])
   end
 
   def update_task_order_params

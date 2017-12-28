@@ -9,8 +9,8 @@ export default {
     return post('/api/users/me/tasks', { label, plannedAt, projectId })
   },
 
-  update (task, label) {
-    return patch(`/api/tasks/${task.id}`, { label })
+  update (task, payload) {
+    return patch(`/api/tasks/${task.id}`, payload)
   },
 
   finish (task) {

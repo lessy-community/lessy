@@ -249,6 +249,12 @@ export default {
   },
 
   tasks: {
+    attachProjectForm: {
+      cancel: 'Cancel',
+      projectLabel: 'Project',
+      submit: 'Attach',
+    },
+
     backlogPage: {
       tasksNumber: '{count} task in backlog | {count} tasks in backlog',
     },
@@ -266,6 +272,7 @@ export default {
 
     item: {
       abandon: 'Abandon',
+      attachToProject: 'Attach to a project',
       confirmAbandon: 'Oh? The task will be marked as abandoned and will disappear from the list. Can you confirm?',
       startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       dueOn: 'due on {date}',
@@ -285,6 +292,10 @@ export default {
       backlog: 'Backlog',
       statistics: 'Statistics',
       title: 'Tasks',
+    },
+
+    modal: {
+      title: 'Attach task to a project',
     },
 
     statisticsPage: {
