@@ -404,7 +404,7 @@
         </ly-form>
       </ly-modal>
 
-      <h2>ly-popover and ly-popover-item</h2>
+      <h2>ly-popover, ly-popover-item and ly-popover-separator</h2>
       <p>Popovers can be used to hide additional actions.</p>
 
       <ly-popover>
@@ -415,6 +415,8 @@
         <template slot="menu">
           <ly-popover-item>Show</ly-popover-item>
           <ly-popover-item>Edit</ly-popover-item>
+          <ly-popover-separator></ly-popover-separator>
+          <ly-popover-item>More actions</ly-popover-item>
         </template>
       </ly-popover>
 

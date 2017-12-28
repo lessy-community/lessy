@@ -9,7 +9,7 @@ import { LyForm, LyFormGroup, LyFormInput, LyFormSelect, LyFormTextarea } from '
 import LyIcon from './components/Ly/LyIcon'
 import { LyList, LyListGroup, LyListItem, LyListItemAdapt } from './components/Ly/LyList'
 import LyModal from './components/Ly/LyModal'
-import { LyPopover, LyPopoverItem } from './components/Ly/LyPopover'
+import { LyPopover, LyPopoverItem, LyPopoverSeparator } from './components/Ly/LyPopover'
 import LySection from './components/Ly/LySection'
 import LyTextContainer from './components/Ly/LyTextContainer'
 
@@ -56,6 +56,7 @@ Vue.component('ly-list-item-adapt', LyListItemAdapt)
 Vue.component('ly-modal', LyModal)
 Vue.component('ly-popover', LyPopover)
 Vue.component('ly-popover-item', LyPopoverItem)
+Vue.component('ly-popover-separator', LyPopoverSeparator)
 Vue.component('ly-section', LySection)
 Vue.component('ly-text-container', LyTextContainer)
 

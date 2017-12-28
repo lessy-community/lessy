@@ -70,6 +70,7 @@
       <template slot="menu">
         <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
         <ly-popover-item @click="confirmAbandon">{{ $t('tasks.item.abandon') }}</ly-popover-item>
+        <ly-popover-separator></ly-popover-separator>
         <ly-popover-item @click="showAttachProjectModal = true">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
       </template>
     </ly-popover>
