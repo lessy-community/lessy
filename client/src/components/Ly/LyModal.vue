@@ -19,6 +19,14 @@
     props: {
       title: { type: String },
     },
+
+    beforeCreate () {
+      document.body.classList.add('modal-opened')
+    },
+
+    destroyed () {
+      document.body.classList.remove('modal-opened')
+    },
   }
 </script>
 
@@ -31,15 +39,16 @@
     left: 0;
     z-index: 999;
 
+    overflow-x: hidden;
+    overflow-y: auto;
+
     background-color: rgba($ly-color-grey-90, .5);
     transition: opacity .2s ease-in-out;
   }
 
   .ly-modal-container {
     max-width: 30rem;
-    margin-top: 10rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5rem auto;
 
     background-color: $ly-color-grey-10;
     border-radius: .25rem;

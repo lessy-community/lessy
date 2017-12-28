@@ -20,6 +20,10 @@ body {
   background-color: $ly-color-pine-60;
 }
 
+body.modal-opened {
+  overflow: hidden;
+}
+
 img {
   height: auto;
   max-width: 100%;
