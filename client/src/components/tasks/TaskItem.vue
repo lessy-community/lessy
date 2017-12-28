@@ -70,13 +70,28 @@
       <template slot="menu">
         <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
         <ly-popover-item @click="confirmAbandon">{{ $t('tasks.item.abandon') }}</ly-popover-item>
+        <ly-popover-item @click="showAttachProjectModal = true">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
       </template>
     </ly-popover>
+
+    <div>
+      <ly-modal v-if="showAttachProjectModal" :title="$t('tasks.modal.title')">
+        <p class="text-secondary">«&nbsp;{{ task.label }}&nbsp;»</p>
+
+        <task-attach-project-form
+          :task="task"
+          @success="showAttachProjectModal = false"
+          @cancel="showAttachProjectModal = false"
+          autofocus
+        ></task-attach-project-form>
+      </ly-modal>
+    </div>
   </ly-list-item>
 </template>
 
 <script>
   import TaskEditForm from './TaskEditForm'
+  import TaskAttachProjectForm from './TaskAttachProjectForm'
 
   export default {
     props: {
@@ -87,11 +102,13 @@
 
     components: {
       TaskEditForm,
+      TaskAttachProjectForm,
     },
 
     data () {
       return {
         editMode: false,
+        showAttachProjectModal: false,
       }
     },
 

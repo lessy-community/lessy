@@ -249,6 +249,12 @@ export default {
   },
 
   tasks: {
+    attachProjectForm: {
+      cancel: 'Annuler',
+      projectLabel: 'Projet',
+      submit: 'Attacher',
+    },
+
     backlogPage: {
       tasksNumber: '{count} tâche en file d’attente | {count} tâches en file d’attente',
     },
@@ -266,6 +272,7 @@ export default {
 
     item: {
       abandon: 'Abandonner',
+      attachToProject: 'Attacher à un projet',
       confirmAbandon: 'Vraiment ? La tâche sera marquée comme abandonnée et disparaîtra de la liste. Vous confirmez ?',
       startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       dueOn: 'date d’échéance {date}',
@@ -285,6 +292,10 @@ export default {
       backlog: 'Liste d’attente',
       statistics: 'Statistiques',
       title: 'Tâches',
+    },
+
+    modal: {
+      title: 'Attacher la tâche à un projet',
     },
 
     statisticsPage: {
