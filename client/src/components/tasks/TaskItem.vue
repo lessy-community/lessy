@@ -69,30 +69,30 @@
 
       <template slot="menu">
         <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
-        <ly-popover-item @click="showConfirmAbandonModal = true">{{ $t('tasks.item.abandon') }}</ly-popover-item>
+        <ly-popover-item @click="activeModal = 'abandon'">{{ $t('tasks.item.abandon') }}</ly-popover-item>
         <ly-popover-separator></ly-popover-separator>
-        <ly-popover-item @click="showAttachProjectModal = true">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
-        <ly-popover-item @click="showTransformInProjectModal = true">{{ $t('tasks.item.transformInProject') }}</ly-popover-item>
+        <ly-popover-item @click="activeModal = 'attach'">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
+        <ly-popover-item @click="activeModal = 'transform'">{{ $t('tasks.item.transformInProject') }}</ly-popover-item>
       </template>
     </ly-popover>
 
     <div>
       <task-confirm-abandon-modal
-        v-if="showConfirmAbandonModal"
+        v-if="activeModal === 'abandon'"
         :task="task"
-        @close="showConfirmAbandonModal = false"
+        @close="activeModal = null"
       ></task-confirm-abandon-modal>
 
       <task-attach-project-modal
-        v-if="showAttachProjectModal"
+        v-if="activeModal === 'attach'"
         :task="task"
-        @close="showAttachProjectModal = false"
+        @close="activeModal = null"
       ></task-attach-project-modal>
 
       <task-transform-in-project-modal
-        v-if="showTransformInProjectModal"
+        v-if="activeModal === 'transform'"
         :task="task"
-        @close="showTransformInProjectModal = false"
+        @close="activeModal = null"
       ></task-transform-in-project-modal>
     </div>
   </ly-list-item>
@@ -106,9 +106,9 @@
 
   export default {
     props: {
-      'task': { type: Object, required: true },
-      'notoggle': { type: Boolean },
-      'hideProjectBadge': { type: Boolean },
+      task: { type: Object, required: true },
+      notoggle: { type: Boolean },
+      hideProjectBadge: { type: Boolean },
     },
 
     components: {
@@ -121,9 +121,7 @@
     data () {
       return {
         editMode: false,
-        showConfirmAbandonModal: false,
-        showAttachProjectModal: false,
-        showTransformInProjectModal: false,
+        activeModal: null,
       }
     },
 
