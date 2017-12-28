@@ -6,15 +6,24 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    props: {
+      projectSlug: { type: String, required: true },
+    },
+
     computed: {
       ...mapGetters({
         project: 'projects/current',
       }),
     },
 
+    watch: {
+      projectSlug: function (projectSlug) {
+        this.$store.commit('projects/setCurrent', projectSlug)
+      },
+    },
+
     mounted () {
-      const { projectSlug } = this.$route.params
-      this.$store.commit('projects/setCurrent', projectSlug)
+      this.$store.commit('projects/setCurrent', this.projectSlug)
     },
 
     destroyed () {

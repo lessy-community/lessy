@@ -282,6 +282,7 @@ export default {
       plan: 'Planifier pour aujourd’hui',
       replan: 'Planifier à nouveau pour aujourd’hui',
       restarted: 'Vous avez relancé cette tâche une fois | Vous avez relancé cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
+      transformInProject: 'Transformer en projet',
     },
 
     list: {
@@ -294,8 +295,9 @@ export default {
       title: 'Tâches',
     },
 
-    modal: {
-      title: 'Attacher la tâche à un projet',
+    modals: {
+      attachProjectTitle: 'Attacher la tâche à un projet',
+      transformInProjectTitle: 'Transformer la tâche en projet',
     },
 
     statisticsPage: {

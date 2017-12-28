@@ -282,6 +282,7 @@ export default {
       plan: 'Plan for today',
       replan: 'Replan for today',
       restarted: 'You’ve restarted this task once | You’ve restarted this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
+      transformInProject: 'Transform in project',
     },
 
     list: {
@@ -294,8 +295,9 @@ export default {
       title: 'Tasks',
     },
 
-    modal: {
-      title: 'Attach task to a project',
+    modals: {
+      attachProjectTitle: 'Attach task to a project',
+      transformInProjectTitle: 'Transform task in a project',
     },
 
     statisticsPage: {

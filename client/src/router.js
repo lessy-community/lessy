@@ -61,6 +61,7 @@ const routes = [
           { path: 'start', component: ProjectStartPage, name: 'project/start', meta: { title: 'Project' } },
           { path: 'finish', component: ProjectFinishPage, name: 'project/finish', meta: { title: 'Project' } },
         ],
+        props: true,
       },
     ],
     meta: { restrictForAuth: true },
