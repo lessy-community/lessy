@@ -367,6 +367,34 @@
         </ly-list-group>
       </ly-list>
 
+      <h2>ly-modal</h2>
+      <p>Modals can handle complex interactions but with the need to keep
+      current context (i.e. user should stay on the same page).<p>
+
+      <ly-button @click="showModal1 = true">Click to open modal</ly-button>
+      <ly-modal v-if="showModal1" title="Some complex form">
+        <ly-form @submit="showModal1 = false">
+          <ly-form-group>
+            <ly-form-input
+              type="text"
+              name="modal-1"
+              label="A complex field"
+              value=""
+              required
+            ></ly-form-input>
+          </ly-form-group>
+
+          <ly-form-group type="actions">
+            <ly-button type="primary" submit>
+              Submit
+            </ly-button>
+            <ly-button @click="showModal1 = false">
+              Cancel
+            </ly-button>
+          </ly-form-group>
+        </ly-form>
+      </ly-modal>
+
       <h2>ly-popover and ly-popover-item</h2>
       <p>Popovers can be used to hide additional actions.</p>
 
@@ -409,6 +437,7 @@
     data () {
       return {
         password: 'secret',
+        showModal1: false,
       }
     },
   }
