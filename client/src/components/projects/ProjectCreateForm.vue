@@ -18,7 +18,7 @@
       <ly-button type="primary" submit>
         {{ $t('projects.createForm.submit') }}
       </ly-button>
-      <ly-button v-if="onCancel" @click="onCancel">
+      <ly-button @click="$emit('cancel')">
         {{ $t('projects.createForm.cancel') }}
       </ly-button>
     </ly-form-group>
@@ -32,13 +32,13 @@
     mixins: [ErrorsHandler],
 
     props: {
-      'onSuccess': { type: Function },
-      'onCancel': { type: Function },
+      initialName: { type: String },
+      autofocus: { type: Boolean },
     },
 
     data () {
       return {
-        name: '',
+        name: this.initialName || '',
       }
     },
 
@@ -53,9 +53,7 @@
             this.name = ''
             this.cleanErrors()
             nameInput && nameInput.focus()
-            if (typeof this.onSuccess === 'function') {
-              this.onSuccess(projectId)
-            }
+            this.$emit('success', projectId)
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
@@ -65,7 +63,9 @@
     },
 
     mounted () {
-      this.$refs.nameInput.focus()
+      if (this.autofocus) {
+        this.$refs.nameInput.focus()
+      }
     },
   }
 </script>

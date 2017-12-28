@@ -11,7 +11,8 @@
       </ly-button>
       <project-create-form
         v-else
-        :onCancel="disableCreateForm"
+        @cancel="disableCreateForm"
+        autofocus
       ></project-create-form>
 
       <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
