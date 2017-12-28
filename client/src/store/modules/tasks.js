@@ -79,10 +79,7 @@ const getters = {
 
   listForProject (state, getters, rootState, rootGetters) {
     return project => {
-      return project.taskIds
-                    .map(getters.findById)
-                    .filter((task) => task != null && !task.isAbandoned)
-                    .sort((t1, t2) => t1.order - t2.order)
+      return getters.list.filter((task) => task.projectId === project.id)
     }
   },
 
@@ -132,9 +129,6 @@ const actions = {
       .create(label, plannedAt, projectId)
       .then((res) => {
         commit('addList', [res.data])
-        commit('projects/addTaskToProject',
-               { projectId, taskId: res.data.id },
-               { root: true })
         return res.data.id
       })
   },

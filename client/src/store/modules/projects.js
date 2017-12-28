@@ -136,7 +136,6 @@ const mutations = {
         id: element.id,
         ...element.attributes,
         userId: element.relationships.user.data.id,
-        taskIds: element.relationships.tasks.data.map(task => task.id),
       }
     })
 
@@ -153,7 +152,6 @@ const mutations = {
         id: data.id,
         ...data.attributes,
         userId: data.relationships.user.data.id,
-        taskIds: data.relationships.tasks.data.map(task => task.id),
       },
     }
   },
@@ -161,24 +159,6 @@ const mutations = {
   setCurrent (state, projectSlug) {
     state.current = Object.keys(state.byIds)
                           .find((id) => state.byIds[id].slug === projectSlug)
-  },
-
-  addTaskToProject (state, { projectId, taskId }) {
-    const project = state.byIds[projectId]
-    if (project != null) {
-      const newProject = {
-        ...project,
-        taskIds: [
-          ...project.taskIds,
-          taskId,
-        ],
-      }
-
-      state.byIds = {
-        ...state.byIds,
-        [project.id]: newProject,
-      }
-    }
   },
 
   reset (state) {
