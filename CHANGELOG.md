@@ -1,6 +1,36 @@
 # Changelog
 
-## Aquarius XXXX-YY-ZZ
+## Aquarius 2017-12-29
+
+### Features
+
+- [#182](https://github.com/marienfressinaud/lessy/issues/182) Don't list tasks in backlog for unrunning projects
+- [#214](https://github.com/marienfressinaud/lessy/issues/214) Attach existing tasks to project
+- [#179](https://github.com/marienfressinaud/lessy/issues/179) Enable transformation of task in project
+
+### Improvements
+
+- [#168](https://github.com/marienfressinaud/lessy/issues/168) Relax requirements for project names
+- Improve ordering of project list
+- [#234](https://github.com/marienfressinaud/lessy/issues/234) Handle task abandon through a modal
+
+### Documentation
+
+- Improve PR template for API changes
+- Improve release process
+
+### Internationalisation
+
+- Improve English translation file
+- [#171](https://github.com/marienfressinaud/lessy/issues/171) Provide French locale
+
+Note that we still can't change lang so English is still the only one we can
+use!
+
+### Technical
+
+- Provide a ly-modal component
+- Provide a ly-form-select component
 
 ### API changes
 
