@@ -46,6 +46,7 @@ Where type is:
 - `fix`: bug fix
 - `doc`: documentation addition
 - `tec`: technical commit
+- `i18n`: internationalisation addition or improvement
 - `release`: release commit (don't worry about this one!)
 
 Ticket id is optional if there is no related ticket.
