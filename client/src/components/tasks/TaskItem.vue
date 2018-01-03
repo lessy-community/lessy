@@ -18,8 +18,8 @@
 
     <ly-badge
       name="indicators"
-      v-if="task.startedSinceWeeks > 0 || task.restartedCount > 0"
-      :type="{ alert: task.startedSinceWeeks > 2 || task.restartedCount > 2, warning: task.startedSinceWeeks === 2 || task.restartedCount === 2 }"
+      v-if="task.startedSinceWeeks > 0 || task.replannedCount > 0"
+      :type="{ alert: task.startedSinceWeeks > 2 || task.replannedCount > 2, warning: task.startedSinceWeeks === 2 || task.replannedCount === 2 }"
     >
       <span
         v-if="task.startedSinceWeeks > 0"
@@ -28,10 +28,10 @@
         <ly-icon name="calendar"></ly-icon> {{ task.startedSinceWeeks }}w
       </span>
       <span
-        v-if="task.restartedCount > 0"
-        v-tooltip.top="$tc('tasks.item.restarted', task.restartedCount, { count: task.restartedCount })"
+        v-if="task.replannedCount > 0"
+        v-tooltip.top="$tc('tasks.item.replanned', task.replannedCount, { count: task.replannedCount })"
       >
-        <ly-icon name="repeat"></ly-icon> {{ task.restartedCount }}
+        <ly-icon name="repeat"></ly-icon> {{ task.replannedCount }}
       </span>
     </ly-badge>
 
@@ -52,7 +52,7 @@
       <ly-button
         v-else
         @click="start"
-        v-tooltip.top="$t('tasks.item.dueOn', { date: task.plannedAtLabel })"
+        v-tooltip.top="$t('tasks.item.plannedOn', { date: task.plannedAtLabel })"
       >
         {{ $t('tasks.item.replan') }}
       </ly-button>

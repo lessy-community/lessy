@@ -280,14 +280,14 @@ export default {
     item: {
       abandon: 'Abandonner',
       attachToProject: 'Attacher à un projet',
-      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
-      dueOn: 'date d’échéance {date}',
+      planned: 'planifié le {date}',
       edit: 'Modifier',
       markAsDone: 'Marquer comme effectuée',
       markAsUndone: 'Marquer comme à faire',
       plan: 'Planifier pour aujourd’hui',
       replan: 'Planifier à nouveau pour aujourd’hui',
-      restarted: 'Vous avez relancé cette tâche une fois | Vous avez relancé cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
+      replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
+      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       transformInProject: 'Transformer en projet',
     },
 

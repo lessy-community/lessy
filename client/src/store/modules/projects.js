@@ -22,9 +22,9 @@ const getters = {
       const params = {
         projectSlug: project.slug,
       }
-      const isPaused = !!project.pausedAt
-      const isFinished = !!project.finishedAt
-      const isStarted = !!project.startedAt && !isPaused
+      const isStarted = project.state === 'started'
+      const isPaused = project.state === 'paused'
+      const isFinished = project.state === 'finished'
       return {
         ...project,
         isStarted,

@@ -23,8 +23,8 @@ const getters = {
       const today = moment()
       const plannedAtDate = moment.unix(task.plannedAt)
 
-      const isFinished = !!task.finishedAt
-      const isAbandoned = !!task.abandonedAt
+      const isFinished = task.state === 'finished'
+      const isAbandoned = task.state === 'abandoned'
 
       const isForToday = !isAbandoned && plannedAtDate.isBetween(today.startOf('day'), today.endOf('day'), 'day', '[]')
       const isBacklogged = !isFinished && !isAbandoned && !isForToday
@@ -46,7 +46,7 @@ const getters = {
         isFinished,
         isAbandoned,
         startedSinceWeeks,
-        restartedCount: task.plannedCount - 1,
+        replannedCount: task.plannedCount - 1,
         plannedAtLabel: formatDate(task.plannedAt),
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
       }
