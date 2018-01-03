@@ -45,4 +45,4 @@ you'll be able to run them by yourself.
 And finally, it's time to learn [**how to open a pull request**](pull_request.md).
 
 For those of us who have administrative rights on Lessy's repository, you may
-need to know [**how to release a new version**](release.md).
+need to know more about [**our release system**](release.md).
