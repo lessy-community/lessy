@@ -199,13 +199,20 @@ export default {
 
     inboxPage: {
       createProject: 'Créer un projet',
-      finishedLabel: 'terminé le {date}',
       finishedProjects: 'Projets terminés',
       futureProjects: 'Projets à venir',
       hideFinishedProjects: 'Masquer votre projet | Masquer vos projets',
       projectsPlaceholder: 'Vous n’avez encore aucun projet, sur quoi travaillez-vous ?',
       seeFinishedProjects: 'Afficher votre projet achevé | Afficher vos {count} projets achevés',
+    },
+
+    item: {
       pausedOn: 'mis en pause le {date}',
+      tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
+    },
+
+    itemFinished: {
+      finishedLabel: 'terminé le {date}',
       tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
     },
 

@@ -8,14 +8,14 @@
 
     <template slot="footer">
       <span :class="{
-          'text-alert': project.tasksCount === 0,
-          'text-warning': project.tasksCount === project.finishedTasksCount,
+          'text-alert': tasks.length === 0,
+          'text-warning': tasks.length === finishedTasks.length,
       }">
-        {{ $tc('projects.card.tasksCount', project.tasksCount, {
-          finishedCount: project.finishedTasksCount,
-          totalCount: project.tasksCount,
+        {{ $tc('projects.card.tasksCount', tasks.length, {
+          finishedCount: finishedTasks.length,
+          totalCount: tasks.length,
         }) }}
-        <small v-if="project.tasksCount === 0 || project.tasksCount === project.finishedTasksCount">
+        <small v-if="tasks.length === 0 || tasks.length === finishedTasks.length">
           <br />
           <ly-icon name="exclamation-circle"></ly-icon>
           {{ $t('projects.card.shouldAddTasks') }}
@@ -42,6 +42,16 @@
       return {
         today: moment().unix(),
       }
+    },
+
+    computed: {
+      tasks: function () {
+        return this.$store.getters['tasks/listForProject'](this.project)
+      },
+
+      finishedTasks: function () {
+        return this.tasks.filter((task) => task.isFinished)
+      },
     },
   }
 </script>

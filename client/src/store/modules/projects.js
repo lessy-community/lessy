@@ -19,9 +19,6 @@ const getters = {
         return null
       }
 
-      const tasks = rootGetters['tasks/listForProject'](project)
-      const finishedTasksCount = tasks.filter(task => task.isFinished).length
-
       const params = {
         projectSlug: project.slug,
       }
@@ -38,8 +35,6 @@ const getters = {
         dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
         pausedAtLabel: isPaused ? formatDate(project.pausedAt) : '',
         finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
-        finishedTasksCount,
-        tasksCount: tasks.length,
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
         urlStart: { name: 'project/start', params },

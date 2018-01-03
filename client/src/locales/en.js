@@ -199,13 +199,20 @@ export default {
 
     inboxPage: {
       createProject: 'Create a project',
-      finishedLabel: 'finished on {date}',
       finishedProjects: 'Finished projects',
       futureProjects: 'Future projects',
       hideFinishedProjects: 'Hide your project | Hide your projects',
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
       seeFinishedProjects: 'See your finished project | See your {count} finished projects',
+    },
+
+    item: {
       pausedOn: 'paused on {date}',
+      tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
+    },
+
+    itemFinished: {
+      finishedLabel: 'finished on {date}',
       tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
 
