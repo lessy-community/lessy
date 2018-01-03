@@ -52,19 +52,10 @@
                 { "type": "null" },
                 {
                   "type": "object",
-                  "required": ["type", "id", "attributes"],
+                  "required": ["type", "id"],
                   "properties": {
                     "type": { "type": "string" },
-                    "id": { "type": "integer" },
-                    "attributes": {
-                      "type": "object",
-                      "required": ["name", "slug"],
-                      "properties": {
-                        "name": { "type": "string" },
-                        "slug": { "type": "string" }
-                      },
-                      "additionalProperties": false
-                    }
+                    "id": { "type": "integer" }
                   },
                   "additionalProperties": false
                 }

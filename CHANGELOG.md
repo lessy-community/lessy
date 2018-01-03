@@ -1,5 +1,11 @@
 # Changelog
 
+## Aquila 2018-xx-yy
+
+### API changes
+
+- Remove project attributes on task relationships
+
 ## Aquarius 2017-12-29
 
 ### Features
