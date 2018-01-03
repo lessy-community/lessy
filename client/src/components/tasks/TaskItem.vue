@@ -9,9 +9,9 @@
   <ly-list-item v-else name="task" with-handle :class="[{ finished: task.isFinished }]">
     <ly-list-item-adapt>
       <span v-html="task.formattedLabel"></span>
-      <ly-badge v-if="task.projectName && !hideProjectBadge" size="small">
-        <router-link :to="task.urlProjectShow">
-          {{ task.projectName }}
+      <ly-badge v-if="project && !hideProjectBadge" size="small">
+        <router-link :to="project.urlShow">
+          {{ project.name }}
         </router-link>
       </ly-badge>
     </ly-list-item-adapt>
@@ -123,6 +123,13 @@
         editMode: false,
         activeModal: null,
       }
+    },
+
+    computed: {
+      project: function () {
+        const { projectId } = this.task
+        return this.$store.getters['projects/findById'](projectId)
+      },
     },
 
     methods: {

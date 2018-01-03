@@ -15,8 +15,13 @@ const getters = {
   findById (state, getters, rootState, rootGetters) {
     return id => {
       const project = state.byIds[id]
+      if (project == null) {
+        return null
+      }
+
       const tasks = rootGetters['tasks/listForProject'](project)
       const finishedTasksCount = tasks.filter(task => task.isFinished).length
+
       const params = {
         projectSlug: project.slug,
       }
