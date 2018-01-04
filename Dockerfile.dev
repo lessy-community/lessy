@@ -21,12 +21,11 @@ RUN apk --update add --virtual build-dependencies \
       gmp-dev
 
 COPY Gemfile Gemfile.lock /app/
-COPY client/package.json /app/client/
-
 RUN gem install bundler \
   && bundle install \
   && apk del build-dependencies
 
+COPY client/package.json client/package-lock.json /app/client/
 RUN cd /app/client \
   && npm install \
   && npm cache clean --force
