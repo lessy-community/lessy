@@ -43,14 +43,14 @@
 
     computed: {
       ...mapGetters({
-        startedProjects: 'projects/listInProgress',
-        notStartedProjects: 'projects/listNotStarted',
+        inProgressProjects: 'projects/listInProgress',
+        futureProjects: 'projects/listFuture',
       }),
 
       options () {
         return [
-          ...objectsToOptions(this.startedProjects, 'id', 'name'),
-          ...objectsToOptions(this.notStartedProjects, 'id', 'name'),
+          ...objectsToOptions(this.inProgressProjects, 'id', 'name'),
+          ...objectsToOptions(this.futureProjects, 'id', 'name'),
         ]
       },
     },

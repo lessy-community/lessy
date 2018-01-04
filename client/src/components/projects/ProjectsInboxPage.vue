@@ -17,7 +17,7 @@
 
       <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
         <ly-list-group
-          v-for="(projects, firstCharacter) in notStartedProjects"
+          v-for="(projects, firstCharacter) in futureProjects"
           :name="firstCharacter"
         >
           <project-item
@@ -62,7 +62,7 @@
 
     computed: {
       ...mapGetters({
-        notStartedProjects: 'projects/listNotStartedByFirstCharacter',
+        futureProjects: 'projects/listFutureByFirstCharacter',
         finishedProjects: 'projects/listFinished',
       }),
     },

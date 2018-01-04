@@ -22,11 +22,13 @@ const getters = {
       const params = {
         projectSlug: project.slug,
       }
+      const isNewed = project.state === 'newed'
       const isStarted = project.state === 'started'
       const isPaused = project.state === 'paused'
       const isFinished = project.state === 'finished'
       return {
         ...project,
+        isNewed,
         isStarted,
         isPaused,
         isFinished,
@@ -48,15 +50,15 @@ const getters = {
                  .map(getters.findById)
   },
 
-  listNotStarted (state, getters) {
+  listFuture (state, getters) {
     return getters
       .list
-      .filter((project) => !project.isStarted)
+      .filter((project) => project.isPaused || project.isNewed)
       .sort((p1, p2) => p1.name.localeCompare(p2.name))
   },
 
-  listNotStartedByFirstCharacter (state, getters) {
-    return groupByFirstCharacter(getters.listNotStarted, 'slug')
+  listFutureByFirstCharacter (state, getters) {
+    return groupByFirstCharacter(getters.listFuture, 'slug')
   },
 
   listInProgress (state, getters) {
