@@ -7,7 +7,7 @@ describe('LyButton', () => {
     test('is set to default by default', () => {
       const wrapper = mount(LyButton)
 
-      expect(wrapper.hasClass('ly-button-default')).toBeTruthy()
+      expect(wrapper.classes()).toContain('ly-button-default')
     })
 
     test('is set to the given type prop', () => {
@@ -15,7 +15,7 @@ describe('LyButton', () => {
 
       wrapper.setProps({ type: 'primary' })
 
-      expect(wrapper.hasClass('ly-button-primary')).toBeTruthy()
+      expect(wrapper.classes()).toContain('ly-button-primary')
     })
   })
 
@@ -23,7 +23,7 @@ describe('LyButton', () => {
     test('is set to normal by default', () => {
       const wrapper = mount(LyButton)
 
-      expect(wrapper.hasClass('ly-button-normal')).toBeTruthy()
+      expect(wrapper.classes()).toContain('ly-button-normal')
     })
 
     test('is set to the given size prop', () => {
@@ -31,7 +31,7 @@ describe('LyButton', () => {
 
       wrapper.setProps({ size: 'small' })
 
-      expect(wrapper.hasClass('ly-button-small')).toBeTruthy()
+      expect(wrapper.classes()).toContain('ly-button-small')
     })
   })
 
@@ -41,7 +41,7 @@ describe('LyButton', () => {
 
       wrapper.setProps({ submit: true })
 
-      expect(wrapper.hasAttribute('type', 'submit')).toBeTruthy()
+      expect(wrapper.attributes().type).toBe('submit')
     })
   })
 
@@ -51,7 +51,7 @@ describe('LyButton', () => {
 
       wrapper.setProps({ disabled: true })
 
-      expect(wrapper.hasClass('disabled')).toBeTruthy()
+      expect(wrapper.classes()).toContain('disabled')
     })
 
     test('disabled attribute is set', () => {
@@ -59,7 +59,7 @@ describe('LyButton', () => {
 
       wrapper.setProps({ disabled: true })
 
-      expect(wrapper.hasAttribute('disabled', 'disabled')).toBeTruthy()
+      expect(wrapper.attributes().disabled).toBe('disabled')
     })
   })
 

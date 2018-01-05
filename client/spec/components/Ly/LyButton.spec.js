@@ -8,7 +8,7 @@ describe('LyCard', () => {
 
       wrapper.setProps({ name: 'hello' })
 
-      expect(wrapper.hasClass('ly-card-hello')).toBeTruthy()
+      expect(wrapper.classes()).toContain('ly-card-hello')
     })
   })
 
