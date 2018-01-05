@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :project, traits: [:newed] do
     sequence(:name, 'a') { |n| "My project #{n}" }
     user

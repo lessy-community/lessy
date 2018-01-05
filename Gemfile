@@ -31,7 +31,7 @@ group :development, :test do
   # Call 'ap' anywhere in the code to pretty print your Ruby objects with style
   gem 'awesome_print', require: 'ap'
   gem 'rspec-rails', '~> 3.6'
-  gem 'factory_girl_rails', '~> 4.8'
+  gem 'factory_bot_rails', '~> 4.8'
   gem 'timecop', '~> 0.8'
   gem 'json_matchers'
   gem 'faker'

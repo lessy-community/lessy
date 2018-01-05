@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :task, traits: [:newed] do
     label "My task"
     user

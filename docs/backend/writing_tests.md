@@ -63,7 +63,7 @@ tests under `spec/mailers` as well for mails but it's very basic.
 
 ## Generate data for tests
 
-We use [Factory Girl](https://github.com/thoughtbot/factory_girl) to generate
+We use [factory_bot](https://github.com/thoughtbot/factory_bot) to generate
 complex data. For example, if you want to create a finished project, you can
 write:
 
