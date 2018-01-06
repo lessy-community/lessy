@@ -65,8 +65,7 @@ have `attributes` and `relationships`:
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0,
-      "isInProgress": false
+      "finishedAt": 0
     },
     "relationships": {
       "user": {

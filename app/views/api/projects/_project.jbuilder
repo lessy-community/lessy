@@ -6,7 +6,6 @@ json.attributes do
   json.due_at project.due_at.to_i
   json.paused_at project.paused_at.to_i
   json.finished_at project.finished_at.to_i
-  json.is_in_progress project.started?
 end
 json.relationships do
   json.user do

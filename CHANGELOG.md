@@ -7,6 +7,7 @@
 - Remove project attributes on task relationships
 - Task's state is synced with its related project on `PATCH /api/tasks/:id`
   (please refer to tasks API documentation to know more about it)
+- Remove `project.isInProgress` (equivalent to `project.state === 'started'`)
 
 ### Migration notes
 

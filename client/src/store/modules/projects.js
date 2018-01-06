@@ -63,7 +63,7 @@ const getters = {
 
   listInProgress (state, getters) {
     return getters.list
-                  .filter((project) => project.isInProgress)
+                  .filter((project) => project.isStarted)
                   .sort((p1, p2) => p1.dueAt > p2.dueAt)
   },
 

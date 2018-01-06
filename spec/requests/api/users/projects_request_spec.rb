@@ -114,7 +114,6 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         expect(project['id']).not_to be_nil
         expect(project['attributes']['name']).to eq('My project')
         expect(project['attributes']['slug']).to eq('my-project')
-        expect(project['attributes']['isInProgress']).to be false
       end
     end
 

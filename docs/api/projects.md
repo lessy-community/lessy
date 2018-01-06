@@ -30,7 +30,6 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -74,8 +73,7 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0,
-      "isInProgress": false
+      "finishedAt": 0
     },
     "relationships": {
       "user": {
@@ -116,7 +114,6 @@ Result format:
 | data[].attributes.dueAt                | number | Date when project should finished        |          |
 | data[].attributes.pausedAt             | number | Date when project has been paused        |          |
 | data[].attributes.finishedAt           | number | Date when project finished               |          |
-| data[].attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data[].relationships                   | object |                                          |          |
 | data[].relationships.user              | object | Related user reference                   |          |
 | data[].relationships.user.data         | object |                                          |          |
@@ -156,8 +153,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "startedAt": 639532800,
         "dueAt": 1504396800,
         "pausedAt": 0,
-        "finishedAt": 0,
-        "isInProgress": true
+        "finishedAt": 0
       },
       "relationships": {
         "user": {
@@ -182,8 +178,7 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "startedAt": 0,
         "dueAt": 0,
         "pausedAt": 0,
-        "finishedAt": 0,
-        "isInProgress": false
+        "finishedAt": 0
       },
       "relationships": {
         "user": {
@@ -235,7 +230,6 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -279,8 +273,7 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0,
-      "isInProgress": false
+      "finishedAt": 0
     },
     "relationships": {
       "user": {
@@ -354,7 +347,6 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.isInProgress         | bool   | `true` if project is started             |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -401,8 +393,7 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 1507449826,
       "dueAt": 1545696000,
       "pausedAt": 0,
-      "finishedAt": 0,
-      "isInProgress": true
+      "finishedAt": 0
     },
     "relationships": {
       "user": {
