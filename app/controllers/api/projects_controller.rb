@@ -1,5 +1,9 @@
 class Api::ProjectsController < ApiController
 
+  def show
+    @project = current_project
+  end
+
   def update
     @project = current_project
     @project.update! update_project_params

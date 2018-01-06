@@ -197,6 +197,75 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
 }
 ```
 
+## `GET /api/projects/:id`
+
+Return a given project.
+
+Parameters: none.
+
+Result format:
+
+| Name                                 | Type   | Description                              | Optional |
+|--------------------------------------|--------|------------------------------------------|----------|
+| data                                 | object |                                          |          |
+| data.type                            | string | Type of returned data (always `project`) |          |
+| data.id                              | number | Project's identifier                     |          |
+| data.attributes                      | object |                                          |          |
+| data.attributes.name                 | string | Project's name                           |          |
+| data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
+| data.attributes.description          | string | Project's description                    |          |
+| data.attributes.state                | string | Project's state                          |          |
+| data.attributes.startedAt            | number | Date when project started                |          |
+| data.attributes.dueAt                | number | Date when project should finished        |          |
+| data.attributes.pausedAt             | number | Date when project has been paused        |          |
+| data.attributes.finishedAt           | number | Date when project finished               |          |
+| data.relationships                   | object |                                          |          |
+| data.relationships.user              | object | Related user reference                   |          |
+| data.relationships.user.data         | object |                                          |          |
+| data.relationships.user.data.type    | string | Type of data (always `user`)             |          |
+| data.relationships.user.data.id      | number | User's identifier                        |          |
+| data.relationships.tasks             | object | A list of tasks related to this project  |          |
+| data.relationships.tasks.data        | array  |                                          |          |
+| data.relationships.tasks.data[].type | string | Type of data (always `task`)             |          |
+| data.relationships.tasks.data[].id   | number | Task's identifier                        |          |
+
+**Important note :** this output may evolve quite soon!
+
+Specific errors: none.
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" https://lessy.io/api/projects/42
+```
+
+```json
+{
+  "data": {
+    "type": "project",
+    "id": 42,
+    "attributes": {
+      "name": "damn-good-coffee",
+      "slug": "damn-good-coffee",
+      "description": "",
+      "state": "newed",
+      "startedAt": 0,
+      "dueAt": 0,
+      "pausedAt": 0,
+      "finishedAt": 0
+    },
+    "relationships": {
+      "user": {
+        "data": { "type": "user", "id": 1 }
+      },
+      "tasks": {
+        "data": []
+      }
+    }
+  }
+}
+```
+
 ## `PATCH /api/projects/:id`
 
 Update a given project.

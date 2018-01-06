@@ -8,6 +8,8 @@
 - Task's state is synced with its related project on `PATCH /api/tasks/:id`
   (please refer to tasks API documentation to know more about it)
 - Remove `project.isInProgress` (equivalent to `project.state === 'started'`)
+- Provide `GET /api/projects/:id` endpoint
+- Provide `GET /api/tasks/:id` endpoint
 
 ### Migration notes
 

@@ -13,6 +13,45 @@ RSpec.describe Api::TasksController, type: :request do
     Timecop.return
   end
 
+  describe 'GET #show' do
+    let(:token) { user.token }
+    let(:task) { create :task, user: user }
+
+    subject { get api_task_path(task.id), headers: { 'Authorization': token } }
+
+    context 'with valid token' do
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/show schema' do
+        expect(response).to match_response_schema('tasks/show')
+      end
+
+      it 'returns the corresponding task' do
+        json_task = JSON.parse(response.body)['data']
+        expect(json_task['id']).to eq(task.id)
+      end
+    end
+
+    context 'with invalid authentication' do
+      let(:token) { 'not a token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
+      }
+    end
+  end
+
   describe 'PATCH #update' do
     let(:token) { user.token }
     let(:project) { create :project, :started }

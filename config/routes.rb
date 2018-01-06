@@ -17,14 +17,14 @@ Rails.application.routes.draw do
     end
 
     patch '/projects/:id', to: 'projects#update', as: 'project'
-    resources :projects, only: [] do
+    resources :projects, only: [:show] do
       member do
         put 'state', action: :update_state
       end
     end
 
     patch '/tasks/:id', to: 'tasks#update', as: 'task'
-    resources :tasks, only: [] do
+    resources :tasks, only: [:show] do
       member do
         put 'state', action: :update_state
         put 'order', action: :update_order
