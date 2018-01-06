@@ -11,6 +11,7 @@
 - Provide `GET /api/projects/:id` endpoint
 - Provide `GET /api/tasks/:id` endpoint
 - `project.createdAt` and `project.updatedAt` are added
+- `task.createdAt` and `task.updatedAt` are added
 
 ### Migration notes
 

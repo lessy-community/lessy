@@ -6,6 +6,8 @@ json.attributes do
   json.planned_at task.planned_at.to_i
   json.finished_at task.finished_at.to_i
   json.abandoned_at task.abandoned_at.to_i
+  json.created_at task.created_at.to_i
+  json.updated_at task.updated_at.to_i
 end
 json.relationships do
   json.user do
