@@ -30,6 +30,8 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
+| data.attributes.createdAt            | number | Date when project has been created       |          |
+| data.attributes.updatedAt            | number | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -73,7 +75,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0
+      "finishedAt": 0,
+      "createdAt": 1507446226,
+      "updatedAt": 1507446226
     },
     "relationships": {
       "user": {
@@ -114,6 +118,8 @@ Result format:
 | data[].attributes.dueAt                | number | Date when project should finished        |          |
 | data[].attributes.pausedAt             | number | Date when project has been paused        |          |
 | data[].attributes.finishedAt           | number | Date when project finished               |          |
+| data[].attributes.createdAt            | number | Date when project has been created       |          |
+| data[].attributes.updatedAt            | number | Date when project has been updated       |          |
 | data[].relationships                   | object |                                          |          |
 | data[].relationships.user              | object | Related user reference                   |          |
 | data[].relationships.user.data         | object |                                          |          |
@@ -153,7 +159,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "startedAt": 639532800,
         "dueAt": 1504396800,
         "pausedAt": 0,
-        "finishedAt": 0
+        "finishedAt": 0,
+        "createdAt": 639529200,
+        "updatedAt": 639536400
       },
       "relationships": {
         "user": {
@@ -178,7 +186,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "startedAt": 0,
         "dueAt": 0,
         "pausedAt": 0,
-        "finishedAt": 0
+        "finishedAt": 0,
+        "createdAt": 1507446226,
+        "updatedAt": 1507446226
       },
       "relationships": {
         "user": {
@@ -219,6 +229,8 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
+| data.attributes.createdAt            | number | Date when project has been created       |          |
+| data.attributes.updatedAt            | number | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -252,7 +264,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/projects/42
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0
+      "finishedAt": 0,
+      "createdAt": 1507446226,
+      "updatedAt": 1507446226
     },
     "relationships": {
       "user": {
@@ -299,6 +313,8 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
+| data.attributes.createdAt            | number | Date when project has been created       |          |
+| data.attributes.updatedAt            | number | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -342,7 +358,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 0,
       "dueAt": 0,
       "pausedAt": 0,
-      "finishedAt": 0
+      "finishedAt": 0,
+      "createdAt": 1507446226,
+      "updatedAt": 1507448026
     },
     "relationships": {
       "user": {
@@ -416,6 +434,8 @@ Result format:
 | data.attributes.dueAt                | number | Date when project should finished        |          |
 | data.attributes.pausedAt             | number | Date when project has been paused        |          |
 | data.attributes.finishedAt           | number | Date when project finished               |          |
+| data.attributes.createdAt            | number | Date when project has been created       |          |
+| data.attributes.updatedAt            | number | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -462,7 +482,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 1507449826,
       "dueAt": 1545696000,
       "pausedAt": 0,
-      "finishedAt": 0
+      "finishedAt": 0,
+      "createdAt": 1507446226,
+      "updatedAt": 1507449826
     },
     "relationships": {
       "user": {

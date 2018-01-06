@@ -10,6 +10,7 @@
 - Remove `project.isInProgress` (equivalent to `project.state === 'started'`)
 - Provide `GET /api/projects/:id` endpoint
 - Provide `GET /api/tasks/:id` endpoint
+- `project.createdAt` and `project.updatedAt` are added
 
 ### Migration notes
 
