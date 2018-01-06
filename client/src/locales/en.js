@@ -82,7 +82,7 @@ export default {
 
       email: {
         parameter_missing: 'Username is required.',
-        taken: 'This email address is not available.',
+        taken: 'An account already exists with this email address.',
       },
 
       password: {
