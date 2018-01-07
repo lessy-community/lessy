@@ -174,6 +174,7 @@ export default {
       cancel: 'Cancel',
       submit: 'Create',
       nameCaption: 'Maximum 100 characters.',
+      placeholder: 'Holidays in Paris',
     },
 
     editForm: {
@@ -270,6 +271,7 @@ export default {
       cancel: 'Cancel',
       submit: 'Create',
       warningTooMany: 'You might face difficulties to achieve all your tasks if you try to do too much.',
+      placeholder: 'Walk the dog',
     },
 
     editForm: {
