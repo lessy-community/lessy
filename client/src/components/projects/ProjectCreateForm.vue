@@ -11,6 +11,7 @@
         :caption="$t('projects.createForm.nameCaption')"
         autocomplete="off"
         required
+        :placeholder="$t('projects.createForm.placeholder')"
       ></ly-form-input>
     </ly-form-group>
 

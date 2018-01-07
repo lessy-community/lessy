@@ -10,6 +10,7 @@
         :error="getErrors('/task/label')"
         autocomplete="off"
         required
+        :placeholder="$t('tasks.createForm.placeholder')"
       ></ly-form-input>
     </ly-form-group>
 
