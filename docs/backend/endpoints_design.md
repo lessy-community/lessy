@@ -19,7 +19,7 @@ instance, project's state needs `finished_at` to be set when state is set to
 
 Note in the previous example `state` is still a noun, not a verb. We could have
 decided to have a `POST /projects/:id/update_state` but in this case we would
-habe two verbs (`POST` and `update`) and it is more complicated to understand.
+have two verbs (`POST` and `update`) and it is more complicated to understand.
 
 Sometimes, we need to manipulate sub-resources. For example, if you want to get
 projects of current user, you can use `GET /me/projects`. Or if you need a
