@@ -6,6 +6,10 @@
 
 - Remove project attributes on task relationships
 
+### Migration notes
+
+- `Dockerfile.prod` is renamed in `Dockerfile`
+
 ## Aquarius 2017-12-29
 
 ### Features

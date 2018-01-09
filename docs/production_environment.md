@@ -18,7 +18,7 @@ do for the moment is to explain global stack:
 - emails must be sent through a SMTP server (that's the main difference with
   development environment!)
 
-For the rest, we let you find information in `Dockerfile.prod` and in the next
+For the rest, we let you find information in `Dockerfile` and in the next
 sections of this document.
 
 ## Configure Docker and docker-compose
@@ -142,7 +142,7 @@ services:
     image: lessy:prod
     build:
       context: code
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     external_links:
       - postgresql_db_1:db
     ports:
