@@ -9,6 +9,7 @@
 ### Migration notes
 
 - `Dockerfile.prod` is renamed in `Dockerfile`
+- Remove unofficial support of Ruby 2.3 (for test suite)
 
 ## Aquarius 2017-12-29
 
