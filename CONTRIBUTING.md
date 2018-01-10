@@ -58,7 +58,7 @@ mentioned.
 ## Getting started
 
 So you're convinced and you want to help? First you should know that all
-community discussions are happening in [GitHub tickets](https://github.com/marienfressinaud/lessy/issues/)
+community discussions are happening in [GitHub tickets](https://github.com/lessy-community/lessy/issues/)
 for the moment. The advantages are to make most of the discussions transparent
 and to centralize all information about the project. Also, we never found any
 good tool to support community interactions.
@@ -71,7 +71,7 @@ If you're not sure where to look first, or you experience some difficulties,
 
 ### Report a bug
 
-Open an issue [on GitHub](https://github.com/marienfressinaud/lessy/issues) and
+Open an issue [on GitHub](https://github.com/lessy-community/lessy/issues) and
 please be as specific as possible:
 
 - what was expected
@@ -88,7 +88,7 @@ If you're self-hosted, please include:
 
 ### Submit an idea or give feedback
 
-Open a ticket [on GitHub](https://github.com/marienfressinaud/lessy/issues) and
+Open a ticket [on GitHub](https://github.com/lessy-community/lessy/issues) and
 expose your idea by explaining the problem you're experiencing and how you aim
 to solve it. Note we might try to challenge you on pertinence of your idea
 and/or on UX aspect. Remember a new feature means more code and so more
@@ -99,7 +99,7 @@ more carefully.
 ### Contribute to code
 
 To start contributing to code, you might be interested by the ["good first
-issue" label](https://github.com/marienfressinaud/lessy/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+issue" label](https://github.com/lessy-community/lessy/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 on GitHub. It lists all issues we identified as easy for new contributors.
 
 Also, you should have a look to [technical documentation](docs/index.md) to get

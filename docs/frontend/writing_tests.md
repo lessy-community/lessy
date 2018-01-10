@@ -21,4 +21,4 @@ Later, we would like to test container components wrapping these components
 since they handle more business logic. Store might be tested as well.
 
 However, we lack of examples for the moment. If you have any question or
-suggestion, don't hesitate to [open a ticket on GitHub](https://github.com/marienfressinaud/lessy/issues).
+suggestion, don't hesitate to [open a ticket on GitHub](https://github.com/lessy-community/lessy/issues).

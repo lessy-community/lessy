@@ -1,7 +1,7 @@
 # Opening a pull request
 
-So you took an [issue](https://github.com/marienfressinaud/lessy/issues) by
-yourself and your patch is ready? It's time to open your [pull request](https://github.com/marienfressinaud/lessy/pulls)!
+So you took an [issue](https://github.com/lessy-community/lessy/issues) by
+yourself and your patch is ready? It's time to open your [pull request](https://github.com/lessy-community/lessy/pulls)!
 
 When you'll open it, your message will be prefilled with a message based on [a
 template](pull_request_template.md). It contains a checklist to make sure you

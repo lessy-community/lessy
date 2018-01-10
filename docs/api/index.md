@@ -2,7 +2,7 @@
 
 This document describes ressources accessible through Lessy API. It is still
 under heavy development, so if you have questions, please open a ticket on [our
-bugtracker](https://github.com/marienfressinaud/lessy/issues/).
+bugtracker](https://github.com/lessy-community/lessy/issues/).
 
 This API only works with JSON and requests SHOULD use HTTPS only.
 

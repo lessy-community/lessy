@@ -116,17 +116,17 @@ export default {
       lessTitle: 'Moins de charge cognitive, moins de stress',
       lessDetails: 'Lessy vous aide dans vos habitudes quotidiennes en vous présentant ce que vous pouvez probablement faire en premier.<br />Vous êtes déjà exténué·e de votre journée ? Ne vous en faites pas, chacun va à son rythme et Lessy le prend en compte.',
       communityTitle: 'Créé par une communauté ouverte',
-      communityDetails: 'Votre temps est trop précieux pour être confié à des entreprises privées. Lessy est un logiciel libre créé par une communauté accueillante d’utilisateurs et utilisatrices qui partagent vos préoccupations.<br /><a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTING.md"> Vous aussi, participez au projet Lessy pour le rendre encore meilleur !</a>',
+      communityDetails: 'Votre temps est trop précieux pour être confié à des entreprises privées. Lessy est un logiciel libre créé par une communauté accueillante d’utilisateurs et utilisatrices qui partagent vos préoccupations.<br /><a href="https://github.com/lessy-community/lessy/blob/master/CONTRIBUTING.md"> Vous aussi, participez au projet Lessy pour le rendre encore meilleur !</a>',
 
       moreTitle: 'Aller plus loin',
       exploreTitle: 'Explorer le code source',
-      exploreDetails: 'parce que Lessy est <a href="https://github.com/marienfressinaud/lessy/blob/master/LICENSE">un logiciel libre</a> et le sera toujours.',
+      exploreDetails: 'parce que Lessy est <a href="https://github.com/lessy-community/lessy/blob/master/LICENSE">un logiciel libre</a> et le sera toujours.',
       hostTitle: 'Hébergez-le',
       hostDetails: 'Vos données vous appartiennent et nous ne souhaitons pas qu’elles soient stockées dans un service centralisé.',
       donateTitle: 'Faire un don',
       donateDetails: 'Cela nous aidera à maintenir le service ouvert pour tout le monde.',
 
-      madeWithLove: 'Créé avec ♥ par de supers <a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTORS.md">contributeurs et contributrices</a>.',
+      madeWithLove: 'Créé avec ♥ par de supers <a href="https://github.com/lessy-community/lessy/blob/master/CONTRIBUTORS.md">contributeurs et contributrices</a>.',
       greetings: 'Passez une bonne journée !',
     },
 

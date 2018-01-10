@@ -48,7 +48,7 @@
           <ly-column>
             <h3>
               <ly-icon name="git"></ly-icon>
-              <a href="https://github.com/marienfressinaud/lessy">
+              <a href="https://github.com/lessy-community/lessy">
                 {{ $t('general.homeLayout.exploreTitle') }}
               </a>
             </h3>
@@ -58,7 +58,7 @@
           <ly-column>
             <h3>
               <ly-icon name="globe"></ly-icon>
-              <a href="https://github.com/marienfressinaud/lessy/blob/master/docs/production_environment.md">
+              <a href="https://github.com/lessy-community/lessy/blob/master/docs/production_environment.md">
                 {{ $t('general.homeLayout.hostTitle') }}
               </a>
             </h3>

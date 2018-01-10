@@ -26,7 +26,7 @@
       of Lessy. In short, these tools are an essential part of what Lessy is
       (or could be).</p>
 
-      <p>If you have any illustration skill, we would love <a href="https://github.com/marienfressinaud/lessy/blob/master/CONTRIBUTING.md">
+      <p>If you have any illustration skill, we would love <a href="https://github.com/lessy-community/lessy/blob/master/CONTRIBUTING.md">
       to hear about you</a>!</p>
     </ly-text-container>
   </app-page>

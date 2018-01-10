@@ -8,7 +8,7 @@
       carefully and always be supportive and inclusive.</p>
 
       <p>Our voice must be authentic: we do not sell a product but we build it
-      to help people. It must support our <a href="https://github.com/marienfressinaud/lessy/blob/master/README.md">values</a>.
+      to help people. It must support our <a href="https://github.com/lessy-community/lessy/blob/master/README.md">values</a>.
 
       <p>We must adapt our tone to context and user's mood. For instance, there
       are situations where user can be stressed and we have to be caring.</p>

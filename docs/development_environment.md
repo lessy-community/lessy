@@ -124,5 +124,5 @@ code quickly.
 
 This Docker environment is quite new on Lessy and configuration might need to
 evolve. If you feel that it's painful to use as it is, please [open a ticket on
-GitHub](https://github.com/marienfressinaud/lessy/issues) so we can figure out
+GitHub](https://github.com/lessy-community/lessy/issues) so we can figure out
 how we can help you!

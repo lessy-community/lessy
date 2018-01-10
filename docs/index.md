@@ -42,7 +42,7 @@ look to [our specific documentation](api/index.md).
 You'll probably need to know about [**how we are running tests**](tests.md) so
 you'll be able to run them by yourself.
 
-You might want to look at the [`good first issue` label](https://github.com/marienfressinaud/lessy/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+)
+You might want to look at the [`good first issue` label](https://github.com/lessy-community/lessy/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+)
 on GitHub to get started quickly. Those issues are considered as easy-enough
 for newcomers and you should be able to finish them on your own. It doesn't
 mean you'll have no questions: other developers will be pleased to help you!

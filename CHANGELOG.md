@@ -10,20 +10,21 @@
 
 - `Dockerfile.prod` is renamed in `Dockerfile`
 - Remove unofficial support of Ruby 2.3 (for test suite)
+- Repository moves from https://github.com/marienfressinaud/lessy to https://github.com/lessy-community/lessy
 
 ## Aquarius 2017-12-29
 
 ### Features
 
-- [#182](https://github.com/marienfressinaud/lessy/issues/182) Don't list tasks in backlog for unrunning projects
-- [#214](https://github.com/marienfressinaud/lessy/issues/214) Attach existing tasks to project
-- [#179](https://github.com/marienfressinaud/lessy/issues/179) Enable transformation of task in project
+- [#182](https://github.com/lessy-community/lessy/issues/182) Don't list tasks in backlog for unrunning projects
+- [#214](https://github.com/lessy-community/lessy/issues/214) Attach existing tasks to project
+- [#179](https://github.com/lessy-community/lessy/issues/179) Enable transformation of task in project
 
 ### Improvements
 
-- [#168](https://github.com/marienfressinaud/lessy/issues/168) Relax requirements for project names
+- [#168](https://github.com/lessy-community/lessy/issues/168) Relax requirements for project names
 - Improve ordering of project list
-- [#234](https://github.com/marienfressinaud/lessy/issues/234) Handle task abandon through a modal
+- [#234](https://github.com/lessy-community/lessy/issues/234) Handle task abandon through a modal
 
 ### Documentation
 
@@ -33,7 +34,7 @@
 ### Internationalisation
 
 - Improve English translation file
-- [#171](https://github.com/marienfressinaud/lessy/issues/171) Provide French locale
+- [#171](https://github.com/lessy-community/lessy/issues/171) Provide French locale
 
 Note that we still can't change lang so English is still the only one we can
 use!
@@ -54,9 +55,9 @@ use!
 
 ### Improvements
 
-- [#23](https://github.com/marienfressinaud/lessy/issues/23) Redesign the frontend
-- [#198](https://github.com/marienfressinaud/lessy/issues/198) Add a tip for project names
-- [#203](https://github.com/marienfressinaud/lessy/issues/203) Improve welcome page
+- [#23](https://github.com/lessy-community/lessy/issues/23) Redesign the frontend
+- [#198](https://github.com/lessy-community/lessy/issues/198) Add a tip for project names
+- [#203](https://github.com/lessy-community/lessy/issues/203) Improve welcome page
 
 ### Technical
 
@@ -64,23 +65,23 @@ use!
 - Update Dockerfile images to use npm 5
 - Remove useless npm modules
 - Replace vue-directive-tooltip by vue-tooltip
-- [#204](https://github.com/marienfressinaud/lessy/issues/204) Add tests configuration for frontend
+- [#204](https://github.com/lessy-community/lessy/issues/204) Add tests configuration for frontend
 
 ## Antlia 2017-10-29
 
 ### Documentation
 
 - Provide a CONTRIBUTORS file
-- [#159](https://github.com/marienfressinaud/lessy/issues/159) Provide a CODE\_OF\_CONDUCT
-- [#158](https://github.com/marienfressinaud/lessy/issues/158) Improve CONTRIBUTING's content
-- [#157](https://github.com/marienfressinaud/lessy/issues/157) Improve README's content
-- [#161](https://github.com/marienfressinaud/lessy/issues/161) Provide a pull request template
-- [#160](https://github.com/marienfressinaud/lessy/issues/160) Improve technical documentation
+- [#159](https://github.com/lessy-community/lessy/issues/159) Provide a CODE\_OF\_CONDUCT
+- [#158](https://github.com/lessy-community/lessy/issues/158) Improve CONTRIBUTING's content
+- [#157](https://github.com/lessy-community/lessy/issues/157) Improve README's content
+- [#161](https://github.com/lessy-community/lessy/issues/161) Provide a pull request template
+- [#160](https://github.com/lessy-community/lessy/issues/160) Improve technical documentation
 
 ### Bug fixes
 
-- [#155](https://github.com/marienfressinaud/lessy/issues/155) Fix pagination when there is no item
-- [#162](https://github.com/marienfressinaud/lessy/issues/162) Fix typo in task order API example
+- [#155](https://github.com/lessy-community/lessy/issues/155) Fix pagination when there is no item
+- [#162](https://github.com/lessy-community/lessy/issues/162) Fix typo in task order API example
 
 ## Andromeda 2017-10-08
 
@@ -93,17 +94,17 @@ use!
 - Bump ruby to 2.4.2
 - Update gems to newest versions
 - Does not return oldest tasks
-- [#105](https://github.com/marienfressinaud/lessy/issues/105) Provide Docker configuration
-- [#136](https://github.com/marienfressinaud/lessy/issues/136) Improve API endpoints
-- [#137](https://github.com/marienfressinaud/lessy/issues/137) Consolidate state and order
-- [#144](https://github.com/marienfressinaud/lessy/issues/144) Extract a generic state machine
-- [#138](https://github.com/marienfressinaud/lessy/issues/138) Improve API errors handling
-- [#149](https://github.com/marienfressinaud/lessy/issues/149) Paginate index endpoints
+- [#105](https://github.com/lessy-community/lessy/issues/105) Provide Docker configuration
+- [#136](https://github.com/lessy-community/lessy/issues/136) Improve API endpoints
+- [#137](https://github.com/lessy-community/lessy/issues/137) Consolidate state and order
+- [#144](https://github.com/lessy-community/lessy/issues/144) Extract a generic state machine
+- [#138](https://github.com/lessy-community/lessy/issues/138) Improve API errors handling
+- [#149](https://github.com/lessy-community/lessy/issues/149) Paginate index endpoints
 
 ### Documentation
 
-- [#141](https://github.com/marienfressinaud/lessy/issues/141) Start API documentation
-- [#150](https://github.com/marienfressinaud/lessy/issues/150) Rework and document endpoints' output
+- [#141](https://github.com/lessy-community/lessy/issues/141) Start API documentation
+- [#150](https://github.com/lessy-community/lessy/issues/150) Rework and document endpoints' output
 
 ### Migration notes
 
@@ -114,40 +115,40 @@ use!
 
 ### Features
 
-- [#96](https://github.com/marienfressinaud/lessy/issues/96) Add a project's deadline visualisation
-- [#104](https://github.com/marienfressinaud/lessy/issues/104) Provide a statistics page
-- [#95](https://github.com/marienfressinaud/lessy/issues/95) Associate tasks to project
+- [#96](https://github.com/lessy-community/lessy/issues/96) Add a project's deadline visualisation
+- [#104](https://github.com/lessy-community/lessy/issues/104) Provide a statistics page
+- [#95](https://github.com/lessy-community/lessy/issues/95) Associate tasks to project
 
 ### Improvements
 
-- [#97](https://github.com/marienfressinaud/lessy/issues/97) Improve design on small devices
-- [#114](https://github.com/marienfressinaud/lessy/issues/114) Hide indicators on finished tasks
-- [#111](https://github.com/marienfressinaud/lessy/issues/111) Add autofocus on edit task form
-- [#112](https://github.com/marienfressinaud/lessy/issues/112) Remove planning page
-- [#122](https://github.com/marienfressinaud/lessy/issues/122) Disable actions popover on ended tasks
+- [#97](https://github.com/lessy-community/lessy/issues/97) Improve design on small devices
+- [#114](https://github.com/lessy-community/lessy/issues/114) Hide indicators on finished tasks
+- [#111](https://github.com/lessy-community/lessy/issues/111) Add autofocus on edit task form
+- [#112](https://github.com/lessy-community/lessy/issues/112) Remove planning page
+- [#122](https://github.com/lessy-community/lessy/issues/122) Disable actions popover on ended tasks
 
 ### Bug fixes
 
-- [#91](https://github.com/marienfressinaud/lessy/issues/91) Hide abandoned tasks when listing
+- [#91](https://github.com/lessy-community/lessy/issues/91) Hide abandoned tasks when listing
 
 ### Documentation
 
-- [#90](https://github.com/marienfressinaud/lessy/issues/90) Document release process
+- [#90](https://github.com/lessy-community/lessy/issues/90) Document release process
 
 ## 0.2 2017-06-05
 
 ### Features
 
-- [#64](https://github.com/marienfressinaud/lessy/issues/64) Provide basic task support
+- [#64](https://github.com/lessy-community/lessy/issues/64) Provide basic task support
 - Restart finished tasks
-- [#65](https://github.com/marienfressinaud/lessy/issues/65) Add today's planning
-- [#69](https://github.com/marienfressinaud/lessy/issues/69) Provide tasks backlog
-- [#30](https://github.com/marienfressinaud/lessy/issues/30) Set max length on some attributes
-- [#61](https://github.com/marienfressinaud/lessy/issues/61) Autosize textarea according to content
-- [#66](https://github.com/marienfressinaud/lessy/issues/66) Add more actions on tasks
-- [#68](https://github.com/marienfressinaud/lessy/issues/68) Add help on repeated tasks
-- [#67](https://github.com/marienfressinaud/lessy/issues/67) Order tasks
-- [#88](https://github.com/marienfressinaud/lessy/issues/88) Add a badge about task's creation date
+- [#65](https://github.com/lessy-community/lessy/issues/65) Add today's planning
+- [#69](https://github.com/lessy-community/lessy/issues/69) Provide tasks backlog
+- [#30](https://github.com/lessy-community/lessy/issues/30) Set max length on some attributes
+- [#61](https://github.com/lessy-community/lessy/issues/61) Autosize textarea according to content
+- [#66](https://github.com/lessy-community/lessy/issues/66) Add more actions on tasks
+- [#68](https://github.com/lessy-community/lessy/issues/68) Add help on repeated tasks
+- [#67](https://github.com/lessy-community/lessy/issues/67) Order tasks
+- [#88](https://github.com/lessy-community/lessy/issues/88) Add a badge about task's creation date
 - Transform link in tasks' label
 
 ### Bug fixes
@@ -157,7 +158,7 @@ use!
 
 ### Documentation
 
-- [#74](https://github.com/marienfressinaud/lessy/issues/74) Add a section about application's updates
+- [#74](https://github.com/lessy-community/lessy/issues/74) Add a section about application's updates
 - Update backend's installation instructions
 
 ### Migration notes
@@ -169,12 +170,12 @@ use!
 
 ### Features
 
-- [#2](https://github.com/marienfressinaud/lessy/issues/2) Provide account creation
-- [#3](https://github.com/marienfressinaud/lessy/issues/3) List and create projects
-- [#4](https://github.com/marienfressinaud/lessy/issues/4) Show and edit projects
-- [#5](https://github.com/marienfressinaud/lessy/issues/5) Start projects
-- [#6](https://github.com/marienfressinaud/lessy/issues/6) Finish projects
-- [#7](https://github.com/marienfressinaud/lessy/issues/7) Stop projects
-- [#8](https://github.com/marienfressinaud/lessy/issues/8) Add placeholder to ask first project
-- [#19](https://github.com/marienfressinaud/lessy/issues/19) Manage user session
-- [#38](https://github.com/marienfressinaud/lessy/issues/38) Support Markdown in project' description
+- [#2](https://github.com/lessy-community/lessy/issues/2) Provide account creation
+- [#3](https://github.com/lessy-community/lessy/issues/3) List and create projects
+- [#4](https://github.com/lessy-community/lessy/issues/4) Show and edit projects
+- [#5](https://github.com/lessy-community/lessy/issues/5) Start projects
+- [#6](https://github.com/lessy-community/lessy/issues/6) Finish projects
+- [#7](https://github.com/lessy-community/lessy/issues/7) Stop projects
+- [#8](https://github.com/lessy-community/lessy/issues/8) Add placeholder to ask first project
+- [#19](https://github.com/lessy-community/lessy/issues/19) Manage user session
+- [#38](https://github.com/lessy-community/lessy/issues/38) Support Markdown in project' description

@@ -40,7 +40,7 @@ and create an account.
 
 If you want to **report a bug or suggest a feature**, you'll have to create an
 account on [GitHub](https://github.com/) first. Then, you'll be able to create
-an "issue" on our [bugtracker](https://github.com/marienfressinaud/lessy/issues/).
+an "issue" on our [bugtracker](https://github.com/lessy-community/lessy/issues/).
 Bugtrackers are usually used to report bugs only, but since we never found a
 satisfying tool to support community's discussions, we use it for every kind of
 discussion.
@@ -49,13 +49,13 @@ You might be interested to know **what will be next big features** of Lessy. We
 do not maintain any official roadmap. However, we are using small iterations to
 plan future work. An iteration is represented by a GitHub project and it groups
 a set of related features or technical issues. [Have a look to current
-iterations](https://github.com/marienfressinaud/lessy/projects)! Note that
+iterations](https://github.com/lessy-community/lessy/projects)! Note that
 iterations are named after [constellations' name](https://en.wikipedia.org/wiki/88_modern_constellations)
 to remind us to look at the stars sometimes.
 
 If you're an advanced user, you may prefer to **host Lessy on your own server**.
 That's the prefered option if you care about your data and we're totally OK
-with it. That's the reason we try to maintain [documentation to install Lessy](https://github.com/marienfressinaud/lessy/blob/master/docs/production_environment.md)
+with it. That's the reason we try to maintain [documentation to install Lessy](https://github.com/lessy-community/lessy/blob/master/docs/production_environment.md)
 in production up-to-date.
 
 ## Community

@@ -19,7 +19,7 @@ This command calls `rspec` and `jest` commands with docker-compose and it
 passes `docker-compose-test.yml` in argument which is an adapted and simpler
 version of `docker-compose-dev.yml`.
 
-Tests' suite is run against [TravisCI](https://travis-ci.org/marienfressinaud/lessy).
+Tests' suite is run against [TravisCI](https://travis-ci.org/lessy-community/lessy).
 Pull requests must pass tests to be merged so please make sure it's all green
 before asking for a review (but you still can ask for help!)
 

@@ -132,7 +132,7 @@ explanations to adapt it to your situation.
 
 ```console
 # mkdir -p /opt/lessy && cd /opt/lessy
-# git clone git@github.com:marienfressinaud/lessy.git code
+# git clone git@github.com:lessy-community/lessy.git code
 # vim docker-compose.yml
 
 version: '3'
@@ -166,7 +166,7 @@ services:
 PostgreSQL. Both services are connected through the `external_links`
 instruction. If you need PostgreSQL for Lessy only, you can put both services
 in the same file and the connection would be done through a `links` instruction
-(see `docker-compose-dev.yml` file at the [root of Lessy repository](https://github.com/marienfressinaud/lessy)).
+(see `docker-compose-dev.yml` file at the [root of Lessy repository](https://github.com/lessy-community/lessy)).
 
 If you don't have a SSL certificate, just remove `LESSY_HTTPS` variable (but
 you really should!)
@@ -257,7 +257,7 @@ Start or reload Nginx:
 
 You should now be able to access Lessy. If it's working, well done, that was
 not so easy! :) If you encounter any problem, please [meet us on our bug
-tracker](https://github.com/marienfressinaud/lessy/issues) and open an issue,
+tracker](https://github.com/lessy-community/lessy/issues) and open an issue,
 we'll try to help you and improve this documentation as well.
 
 ## Configuring HTTPS
@@ -278,7 +278,7 @@ You'll need to agree to terms of service and say if you want to force HTTPS
 For each version of Lessy, you may have to perform a certain number of steps.
 We'll try to be as exhaustive as possible!
 
-First of all, always check for "Migration notes" [in the CHANGELOG](https://github.com/marienfressinaud/lessy/blob/master/CHANGELOG.md).
+First of all, always check for "Migration notes" [in the CHANGELOG](https://github.com/lessy-community/lessy/blob/master/CHANGELOG.md).
 We try to automate most of the steps, but you might need to add/rename
 environment variables or install new service.
 
@@ -299,7 +299,7 @@ $ git pull
 $ git stash pop
 ```
 
-If you are in this case, please [open an issue](https://github.com/marienfressinaud/lessy/issues)
+If you are in this case, please [open an issue](https://github.com/lessy-community/lessy/issues)
 so we can figure out how to make it simpler for you.
 
 Then, we'll rebuild our image:

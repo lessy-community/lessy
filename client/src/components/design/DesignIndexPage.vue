@@ -8,7 +8,7 @@
       presents guidelines, UI components and various resources.</p>
 
       <p>This design guide should evolve while we are facing new challenges
-      with UI. Feel free to <a href="https://github.com/marienfressinaud/lessy/issues/">open
+      with UI. Feel free to <a href="https://github.com/lessy-community/lessy/issues/">open
         a ticket</a> if you get stuck with a new problem.</p>
 
       <p>All credits go to the <a href="http://design.firefox.com/photon/welcome.html">Photon
