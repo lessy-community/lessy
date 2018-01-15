@@ -474,7 +474,7 @@
           { value: 22, label: 'Oslo' },
           { value: 23, label: 'Paris' },
           { value: 24, label: 'Paramaribo' },
-          { value: 25, label: 'Paris' },
+          { value: 25, label: 'Prague' },
           { value: 26, label: 'Phnom Penh' },
           { value: 27, label: 'Rabat' },
           { value: 28, label: 'Rome' },
