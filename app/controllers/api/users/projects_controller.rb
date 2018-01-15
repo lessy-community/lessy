@@ -1,7 +1,10 @@
 class Api::Users::ProjectsController < ApiController
 
   def index
-    @projects = current_user.projects.page(params[:page])
+    @projects = current_user
+      .projects
+      .order(:id)
+      .page(params[:page])
   end
 
   def create

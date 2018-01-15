@@ -5,6 +5,7 @@ class Api::Users::TasksController < ApiController
       .tasks
       .not_abandoned
       .not_finished_before(2.weeks.ago)
+      .order(:id)
       .page(params[:page])
   end
 
