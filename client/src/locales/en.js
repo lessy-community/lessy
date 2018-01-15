@@ -29,7 +29,7 @@ export default {
 
     project: {
       parameter_missing: 'Project is required.',
-      record_not_found: 'Project does not exist.',
+      record_not_found: 'Project cannot be found.',
 
       due_at: {
         cannot_be_before_started_at: 'Due date cannot be set before today.',
@@ -65,7 +65,7 @@ export default {
 
     task: {
       parameter_missing: 'Task is required.',
-      record_not_found: 'Task does not exist.',
+      record_not_found: 'Task cannot be found.',
 
       label: {
         parameter_missing: 'Label is required.',
@@ -78,7 +78,7 @@ export default {
 
     user: {
       parameter_missing: 'User is required.',
-      record_not_found: 'User does not exist.',
+      record_not_found: 'User cannot be found.',
 
       email: {
         parameter_missing: 'Username is required.',

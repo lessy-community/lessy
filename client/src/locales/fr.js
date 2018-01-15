@@ -29,7 +29,7 @@ export default {
 
     project: {
       parameter_missing: 'Un projet est nécessaire.',
-      record_not_found: 'Ce projet ne semble pas exister.',
+      record_not_found: 'Le projet n’a pas été trouvé.',
 
       due_at: {
         cannot_be_before_started_at: 'La date d’échéance ne peut précéder la date d’aujourd’hui.',
@@ -65,7 +65,7 @@ export default {
 
     task: {
       parameter_missing: 'Une tâche est nécessaire.',
-      record_not_found: 'Cette tâche n’existe pas.',
+      record_not_found: 'La tâche n’a pas été trouvée.',
 
       label: {
         parameter_missing: 'Le libellé est nécessaire.',
@@ -78,7 +78,7 @@ export default {
 
     user: {
       parameter_missing: 'Un utilisateur/une utilisatrice est nécessaire.',
-      record_not_found: 'L’utilisateur/utilisatrice n’existe pas.',
+      record_not_found: 'L’utilisateur/utilisatrice n’a pas été trouvé·e.',
 
       email: {
         parameter_missing: 'Le nom d’utilisateur/utilisatrice est nécessaire.',
