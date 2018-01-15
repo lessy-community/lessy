@@ -213,6 +213,12 @@ Lessy will take a bit of time to start because docker-compose needs to build
 the image first (install dependencies and compile frontend). After few minutes,
 you should have a running `lessy_lessy_1` container listening on port 3000.
 
+Now, you must initialize your database schema:
+
+```console
+$ docker-compose run --rm lessy bundle exec rails db:schema:load
+```
+
 ## Configuring Nginx
 
 The final step is to configure Nginx so it redirects requests from port 80 to
