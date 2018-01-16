@@ -48,6 +48,16 @@ class Task < ApplicationRecord
     impacted_tasks
   end
 
+  def sync_state_with_project
+    if self.newed? && (self.project.nil? || self.project.started?)
+      self.state = :started
+      self.started_at = DateTime.now
+    elsif self.started? && self.project.present? && !self.project.started?
+      self.state = :newed
+      self.started_at = nil
+    end
+  end
+
 private
 
   def set_order_attribute

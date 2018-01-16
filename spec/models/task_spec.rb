@@ -487,4 +487,118 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe '#sync_state_with_project' do
+    before do
+      Timecop.freeze DateTime.new(2017)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'when task is newed' do
+      let(:task) { build :task, :newed }
+
+      context 'when there are no attached projects' do
+        it 'sets task state to started' do
+          task.project = nil
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('started')
+          expect(task.started_at).to eq(DateTime.now)
+        end
+      end
+
+      context 'when attached project is started' do
+        it 'sets task state to started' do
+          task.project = build(:project, :started)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('started')
+          expect(task.started_at).to eq(DateTime.now)
+        end
+      end
+
+      context 'when attached project is NOT started' do
+        it 'does not change task state' do
+          task.project = build(:project, :newed)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('newed')
+        end
+      end
+    end
+
+    context 'when task is started' do
+      let(:task) { build :task, :started }
+
+      context 'when there are no attached projects' do
+        it 'does not change task state' do
+          task.project = nil
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('started')
+        end
+      end
+
+      context 'when attached project is started' do
+        it 'does not change task state' do
+          task.project = build(:project, :started)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('started')
+        end
+      end
+
+      context 'when attached project is NOT started' do
+        it 'sets task state to newed' do
+          task.project = build(:project, :newed)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('newed')
+        end
+      end
+    end
+
+    context 'when task is in another state' do
+      let(:task) { build :task, :planned }
+
+      context 'when there are no attached projects' do
+        it 'does not change task state' do
+          task.project = nil
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('planned')
+        end
+      end
+
+      context 'when attached project is started' do
+        it 'does not change task state' do
+          task.project = build(:project, :started)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('planned')
+        end
+      end
+
+      context 'when attached project is NOT started' do
+        it 'does not change task state' do
+          task.project = build(:project, :newed)
+
+          task.sync_state_with_project
+
+          expect(task.state).to eq('planned')
+        end
+      end
+    end
+  end
 end

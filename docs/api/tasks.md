@@ -211,6 +211,14 @@ Parameters:
 | task.label       | string | Task's label            | yes      |
 | task.project\_id | number | Task's project relation | yes      |
 
+Note: depending on the given project, task's state can change:
+
+- if task's state was `newed`, it is changed to `started` if no project is
+  given or if project is `started`
+- if task's state was `started`, it is changed to `newed` if given project is
+  NOT `started`
+- state doesn't change in any other configuration
+
 Result format:
 
 | Name                                            | Type   | Description                              | Optional |

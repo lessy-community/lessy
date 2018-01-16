@@ -15,14 +15,14 @@ RSpec.describe Api::TasksController, type: :request do
 
   describe 'PATCH #update' do
     let(:token) { user.token }
-    let(:project) { create :project }
+    let(:project) { create :project, :started }
     let(:payload) { {
       task: {
         label: 'A new label for a task',
         project_id: project.id,
       },
     } }
-    let(:task) { create :task, label: 'My task', project: nil, user: user }
+    let(:task) { create :task, :newed, label: 'My task', project: nil, user: user }
 
     subject { patch api_task_path(task.id), params: payload,
                                             headers: { 'Authorization': token },
@@ -42,6 +42,11 @@ RSpec.describe Api::TasksController, type: :request do
       it 'saves the new task' do
         expect(task.reload.label).to eq('A new label for a task')
         expect(task.reload.project).to eq(project)
+      end
+
+      it 'changes task state to started' do
+        # To know more about state syncing, please have a look at Task#sync_state_with_project
+        expect(task.reload.state).to eq('started')
       end
     end
 

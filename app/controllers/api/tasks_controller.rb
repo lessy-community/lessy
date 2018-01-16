@@ -2,7 +2,9 @@ class Api::TasksController < ApiController
 
   def update
     @task = current_task
-    @task.update! update_task_params
+    @task.assign_attributes update_task_params
+    @task.sync_state_with_project
+    @task.save!
   end
 
   def update_state
