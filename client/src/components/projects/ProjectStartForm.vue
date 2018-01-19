@@ -38,7 +38,7 @@
 
     data () {
       return {
-        dueAt: moment().add(1, 'month').unix(),
+        dueAt: moment().add(2, 'week').unix(),
       }
     },
 
