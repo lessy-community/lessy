@@ -38,12 +38,13 @@ More specifically, Lessy will help you:
 If you simply want to start to use Lessy, just **go to [lessy.io](https://lessy.io)**
 and create an account.
 
-If you want to **report a bug or suggest a feature**, you'll have to create an
-account on [GitHub](https://github.com/) first. Then, you'll be able to create
-an "issue" on our [bugtracker](https://github.com/lessy-community/lessy/issues/).
-Bugtrackers are usually used to report bugs only, but since we never found a
-satisfying tool to support community's discussions, we use it for every kind of
-discussion.
+If you want to give feedback or report a bug and you are not at ease with
+GitHub, you can start by [joining us on Framateam](https://framateam.org/lessy).
+The chat is not very active yet but feel free to leave a message and we'll try
+to welcome you as well as possible.
+
+If you already have a GitHub account, you can directly create an "issue" on our
+[bugtracker](https://github.com/lessy-community/lessy/issues/).
 
 You might be interested to know **what will be next big features** of Lessy. We
 do not maintain any official roadmap. However, we are using small iterations to
@@ -60,7 +61,7 @@ in production up-to-date.
 
 ## Community
 
-Community is so important to us that it appears in our vision (detailled in
+Community is so important to us that it appears in our vision (detailed in
 introduction of this document). Community is part of Lessy. We cannot make a
 useful and used application without the implication of people that are
 different from us. We want to work as a **diverse and inclusive community**.

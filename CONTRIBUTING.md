@@ -57,11 +57,14 @@ mentioned.
 
 ## Getting started
 
-So you're convinced and you want to help? First you should know that all
-community discussions are happening in [GitHub tickets](https://github.com/lessy-community/lessy/issues/)
-for the moment. The advantages are to make most of the discussions transparent
-and to centralize all information about the project. Also, we never found any
-good tool to support community interactions.
+So you're convinced and you want to help? First, you should know that we are
+mainly using two tools to handle community discussions:
+
+- [Framateam](https://framateam.org/lessy) where everyday discussions happen
+  and general help
+- [GitHub tickets](https://github.com/lessy-community/lessy/issues/) when
+  discussions need to stay on the long term and they are generally more
+  technical
 
 Side note: if you want to contact a specific member for **any reason**, you may
 find how to contact her or him in the [contributors file](CONTRIBUTORS.md).
