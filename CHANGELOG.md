@@ -19,6 +19,14 @@
 
 - [#239](https://github.com/lessy-community/lessy/issues/239) Change error message for existing emails
 
+### Bug fixes
+
+- [#220](https://github.com/lessy-community/lessy/issues/220) Improve front sync between task and project
+- [#243](https://github.com/lessy-community/lessy/issues/243) Remove finished projects of future list
+- [#261](https://github.com/lessy-community/lessy/issues/261) Force order on paginated endpoints
+- [#260](https://github.com/lessy-community/lessy/issues/260) Force colors to prevent system overrides
+- [#267](https://github.com/lessy-community/lessy/issues/267) Sync task's state on project change
+
 ### Technical
 
 - Update npm dependencies
