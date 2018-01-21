@@ -15,8 +15,8 @@ do for the moment is to explain global stack:
 - backend is run on top of Ruby on Rails
 - frontend is built with VueJS and you'll need Node and NPM to compile it
 - database must be PostgreSQL
-- emails must be sent through a SMTP server (that's the main difference with
-  development environment!)
+- Redis is used as message broker to keep backend in sync with frontend
+- emails must be sent through a SMTP server
 
 For the rest, we let you find information in `Dockerfile` and in the next
 sections of this document.
@@ -27,8 +27,9 @@ You must have Docker running on your computer. To learn how to install Docker,
 please refer to [the official documentation](https://docs.docker.com/engine/installation/).
 
 Then, make sure you have docker-compose installed. It will orchestrate required
-services (i.e. database and application for the moment). Have a look to [their
-documentation](https://docs.docker.com/compose/install/) to install it.
+services (i.e. database, message broker and application for the moment). Have a
+look to [their documentation](https://docs.docker.com/compose/install/) to
+install it.
 
 ## Install SMTP server
 
@@ -90,7 +91,7 @@ volumes:
 
 `network_mode: bridge` connects our container to the default Docker network so
 it is accessible by other services but you don't necessarily need to do it this
-way (it is just a bit easier to document ;)). Also please not you absolutly
+way (it is just a bit easier to document ;)). Also please note you absolutly
 need to create a named volume for data if you don't want to loose them at the
 next restart!
 
@@ -124,6 +125,58 @@ Now, you can start your database:
 You should now see a running container named `postgresql_db_1` when typing
 `docker ps`.
 
+## Install Redis server
+
+We now need to deploy Redis which is used to send async messages from backend
+to frontend.
+
+Let's create a `docker-compose` file:
+
+```console
+# mkdir -p /opt/redis && cd /opt/redis
+# vim docker-compose.yml
+
+version: '3'
+
+services:
+  redis:
+    image: redis:4.0-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    network_mode: bridge
+```
+
+Then, create a systemd unit file:
+
+```console
+# vim /etc/systemd/system/redis.service
+
+[Unit]
+Description=Redis service
+After=network.target docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/redis
+ExecStart=/usr/local/bin/docker-compose -f /opt/redis/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -f /opt/redis/docker-compose.yml down
+TimeOutSec=300
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Now, you can start Redis:
+
+```
+# systemctl start redis
+# systemctl enable redis
+```
+
+You should now see a running container named `redis_redis_1` when typing
+`docker ps`.
+
 ## Install Lessy service
 
 Since it doesn't exist one configuration for production, we do not provide a
@@ -153,6 +206,8 @@ services:
       DATABASE_PASSWORD: <postgres_password>
       DATABASE_PORT: 5432
       DATABASE_HOST: db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       LESSY_HOST: <server_name>
       LESSY_HTTPS: "true"
       SECRET_KEY_BASE: <secret_key_base>
