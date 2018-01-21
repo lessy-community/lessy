@@ -38,6 +38,12 @@ Rails.application.routes.draw do
     delete '*path', to: 'welcome#not_found'
   end
 
+  namespace :admin do
+    resources :users
+
+    root to: 'users#index'
+  end
+
   root 'application#client'
   get '*path', to: 'application#client'
 end
