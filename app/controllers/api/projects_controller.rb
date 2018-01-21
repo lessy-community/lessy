@@ -1,13 +1,31 @@
 class Api::ProjectsController < ApiController
 
+  def show
+    @project = current_project
+  end
+
   def update
     @project = current_project
     @project.update! update_project_params
+
+    NotificationsChannel.broadcast_to(
+      current_user,
+      action: 'update#projects',
+      id: @project.id,
+      updatedAt: @project.updated_at.to_i,
+    )
   end
 
   def update_state
     @project = current_project
     @project.update_with_transition! update_project_state_params
+
+    NotificationsChannel.broadcast_to(
+      current_user,
+      action: 'update#projects',
+      id: @project.id,
+      updatedAt: @project.updated_at.to_i,
+    )
   end
 
 private

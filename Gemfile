@@ -35,6 +35,7 @@ group :development, :test do
   gem 'timecop', '~> 0.8'
   gem 'json_matchers'
   gem 'faker'
+  gem 'action-cable-testing'
 
   # Linters
   gem 'pronto', require: false

@@ -9,6 +9,13 @@ class Api::Users::ProjectsController < ApiController
 
   def create
     @project = Project.create!(create_project_params)
+
+    NotificationsChannel.broadcast_to(
+      current_user,
+      action: 'create#projects',
+      id: @project.id,
+    )
+
     render status: :created
   end
 

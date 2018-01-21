@@ -5,6 +5,10 @@ export default {
     return get('/api/users/me/tasks?page=1')
   },
 
+  get (id) {
+    return get(`/api/tasks/${id}`)
+  },
+
   create (label, plannedAt, projectId) {
     return post('/api/users/me/tasks', { label, plannedAt, projectId })
   },

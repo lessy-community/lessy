@@ -13,6 +13,45 @@ RSpec.describe Api::TasksController, type: :request do
     Timecop.return
   end
 
+  describe 'GET #show' do
+    let(:token) { user.token }
+    let(:task) { create :task, user: user }
+
+    subject { get api_task_path(task.id), headers: { 'Authorization': token } }
+
+    context 'with valid token' do
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the tasks/show schema' do
+        expect(response).to match_response_schema('tasks/show')
+      end
+
+      it 'returns the corresponding task' do
+        json_task = JSON.parse(response.body)['data']
+        expect(json_task['id']).to eq(task.id)
+      end
+    end
+
+    context 'with invalid authentication' do
+      let(:token) { 'not a token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
+      }
+    end
+  end
+
   describe 'PATCH #update' do
     let(:token) { user.token }
     let(:project) { create :project, :started }
@@ -47,6 +86,18 @@ RSpec.describe Api::TasksController, type: :request do
       it 'changes task state to started' do
         # To know more about state syncing, please have a look at Task#sync_state_with_project
         expect(task.reload.state).to eq('started')
+      end
+    end
+
+    context 'with websocket support' do
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#tasks',
+            id: task.id,
+            updatedAt: task.updated_at.to_i,
+          })
       end
     end
 
@@ -275,6 +326,25 @@ RSpec.describe Api::TasksController, type: :request do
             source: { pointer: '/task/state' }
           }]
         }
+      end
+    end
+
+    context 'with websocket support' do
+      let(:task) { create :task, :started, user: user }
+      let(:payload) { {
+        task: {
+          state: 'planned',
+        },
+      } }
+
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#tasks',
+            id: task.id,
+            updatedAt: task.updated_at.to_i,
+          })
       end
     end
 

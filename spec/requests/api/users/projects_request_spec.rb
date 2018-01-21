@@ -117,6 +117,16 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
       end
     end
 
+    context 'with websocket support' do
+      it 'sends notification to user' do
+        # TODO test notification content as well
+        # Problem is we cannot access project created in the controller at the
+        # matcher level since subject has not been called yet… so how should we
+        # know its id?
+        expect { subject }.to have_broadcasted_to(user).from_channel(NotificationsChannel)
+      end
+    end
+
     context 'with missing attribute' do
       let(:payload) { { } }
 

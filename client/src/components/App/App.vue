@@ -8,8 +8,8 @@
 <script>
   import LoadingLayout from 'src/components/general/LoadingLayout'
 
+  import { mapGetters } from 'vuex'
   import auth from 'src/auth'
-  import { isRestrictedForAuth, isRestrictedForUnauth } from 'src/router'
 
   export default {
     components: {
@@ -22,8 +22,26 @@
       }
     },
 
+    computed: {
+      ...mapGetters({
+        user: 'users/current',
+      }),
+    },
+
+    watch: {
+      user: function (user) {
+        if (user == null) {
+          // `user` can become null at logout.
+          // To avoid access to a null value, we force ready to false so it
+          // shows the loading page (redirection to home page happens on the
+          // next tick)
+          this.ready = false
+        }
+      },
+    },
+
     mounted () {
-      const shouldFetchUser = isRestrictedForAuth(this.$route) || (!isRestrictedForUnauth(this.$route) && auth.isLoggedIn())
+      const shouldFetchUser = auth.isLoggedIn()
       if (!shouldFetchUser) {
         this.ready = true
         return
@@ -31,7 +49,7 @@
 
       this.$store
           .dispatch('users/getCurrent')
-          .then((user) => {
+          .then(() => {
             return Promise.all([
               this.$store.dispatch('tasks/list'),
               this.$store.dispatch('projects/list'),

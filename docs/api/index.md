@@ -14,3 +14,7 @@ assume that users are not necessarily hosted on this server.
 - [Projects](projects.md)
 - [Tasks](tasks.md)
 - [Errors](errors.md)
+
+Also, a websocket is accessible to be notified of users' task and project
+changes. Please refer to [the dedicated documentation](websocket.md) to know
+more.

@@ -11,6 +11,7 @@
     "lint": "eslint --ext .js,.vue src spec"
   },
   "dependencies": {
+    "actioncable": "^5.1.4",
     "anchorme": "^1.1.2",
     "autosize": "^3.0.21",
     "chart.js": "^2.7.1",

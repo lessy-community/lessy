@@ -7,7 +7,7 @@
     "attributes": {
       "type": "object",
       "required": ["name", "slug", "description", "startedAt", "dueAt",
-                   "pausedAt", "finishedAt", "state"],
+                   "pausedAt", "finishedAt", "state", "createdAt", "updatedAt"],
       "properties": {
         "name": { "type": "string" },
         "slug": { "type": "string" },
@@ -16,7 +16,9 @@
         "startedAt": { "type": "integer" },
         "dueAt": { "type": "integer" },
         "pausedAt": { "type": "integer" },
-        "finishedAt": { "type": "integer" }
+        "finishedAt": { "type": "integer" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
       },
       "additionalProperties": false
     },

@@ -7,7 +7,7 @@
     "attributes": {
       "type": "object",
       "required": ["label", "order", "plannedCount", "startedAt", "plannedAt",
-                   "finishedAt", "abandonedAt", "state"],
+                   "finishedAt", "abandonedAt", "state", "createdAt", "updatedAt"],
       "properties": {
         "label": { "type": "string" },
         "order": { "type": "integer" },
@@ -16,7 +16,9 @@
         "startedAt": { "type": "integer" },
         "plannedAt": { "type": "integer" },
         "finishedAt": { "type": "integer" },
-        "abandonedAt": { "type": "integer" }
+        "abandonedAt": { "type": "integer" },
+        "createdAt": { "type": "integer" },
+        "updatedAt": { "type": "integer" }
       },
       "additionalProperties": false
     },

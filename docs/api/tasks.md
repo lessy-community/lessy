@@ -38,6 +38,8 @@ Result format:
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
+| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.updatedAt                       | number | Date when task has been updated          |          |
 | data.relationships                              | object |                                          |          |
 | data.relationships.user                         | object | Related user reference                   |          |
 | data.relationships.user.data                    | object |                                          |          |
@@ -75,7 +77,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
-      "abandonedAt": 0
+      "abandonedAt": 0,
+      "createdAt": 1507454795,
+      "updatedAt": 1507454795
     },
     "relationships": {
       "user": {
@@ -119,6 +123,8 @@ Result format:
 | data[].attributes.plannedAt                       | number | Task's due date                          |          |
 | data[].attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data[].attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
+| data[].attributes.createdAt                       | number | Date when task has been created          |          |
+| data[].attributes.updatedAt                       | number | Date when task has been updated          |          |
 | data[].relationships                              | object |                                          |          |
 | data[].relationships.user                         | object | Related user reference                   |          |
 | data[].relationships.user.data                    | object |                                          |          |
@@ -158,7 +164,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "startedAt": 1484870400,
         "plannedAt": 1507455286,
         "finishedAt": 0,
-        "abandonedAt": 0
+        "abandonedAt": 0,
+        "createdAt": 1484870400,
+        "updatedAt": 1507455286
       },
       "relationships": {
         "user": {
@@ -180,7 +188,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
         "startedAt": 1507454795,
         "plannedAt": 0,
         "finishedAt": 0,
-        "abandonedAt": 0
+        "abandonedAt": 0,
+        "createdAt": 1507454795,
+        "updatedAt": 1507454795
       },
       "relationships": {
         "user": {
@@ -195,6 +205,79 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/tasks
   "links": {
     "first": "https://lessy.io/api/users/me/tasks?page=1",
     "last": "https://lessy.io/api/users/me/tasks?page=1"
+  }
+}
+```
+
+## `GET /api/tasks/:id`
+
+Return a given task.
+
+Parameters: none.
+
+Result format:
+
+| Name                                            | Type   | Description                              | Optional |
+|-------------------------------------------------|--------|------------------------------------------|----------|
+| data                                            | object |                                          |          |
+| data.type                                       | string | Type of returned data (always `task`)    |          |
+| data.id                                         | number | Task's identifier                        |          |
+| data.attributes                                 | object |                                          |          |
+| data.attributes.label                           | string | Task's label                             |          |
+| data.attributes.order                           | number | Task's order                             |          |
+| data.attributes.plannedCount                    | number | Number of times task has been planned    |          |
+| data.attributes.state                           | string | Task's state                             |          |
+| data.attributes.startedAt                       | number | Date when task has been created          |          |
+| data.attributes.plannedAt                       | number | Task's due date                          |          |
+| data.attributes.finishedAt                      | number | Date when task has been finished         |          |
+| data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
+| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.updatedAt                       | number | Date when task has been updated          |          |
+| data.relationships                              | object |                                          |          |
+| data.relationships.user                         | object | Related user reference                   |          |
+| data.relationships.user.data                    | object |                                          |          |
+| data.relationships.user.data.type               | string | Type of data (always `user`)             |          |
+| data.relationships.user.data.id                 | number | User's identifier                        |          |
+| data.relationships.project                      | object | Related project reference                |          |
+| data.relationships.project.data                 | object |                                          | yes      |
+| data.relationships.project.data.type            | string | Type of data (always `project`)          |          |
+| data.relationships.project.data.id              | number | Project's identifier                     |          |
+
+**Important note :** this output may evolve quite soon!
+
+Specific errors: none.
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" https://lessy.io/api/tasks/23
+```
+
+```json
+{
+  "data": {
+    "type": "task",
+    "id": 23,
+    "attributes": {
+      "label": "Buy DAMN FINE coffee",
+      "order": 2,
+      "plannedCount": 0,
+      "state": "started",
+      "startedAt": 1507454795,
+      "plannedAt": 0,
+      "finishedAt": 0,
+      "abandonedAt": 0,
+      "createdAt": 1507454795,
+      "updatedAt": 1507454795
+    },
+    "relationships": {
+      "user": {
+        "data": { "type": "user", "id": 1 }
+      },
+      "project": {
+        "data": { "type": "project", "id": 42 }
+      }
+    }
   }
 }
 ```
@@ -235,6 +318,8 @@ Result format:
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
+| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.updatedAt                       | number | Date when task has been updated          |          |
 | data.relationships                              | object |                                          |          |
 | data.relationships.user                         | object | Related user reference                   |          |
 | data.relationships.user.data                    | object |                                          |          |
@@ -272,7 +357,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 1507454795,
       "plannedAt": 0,
       "finishedAt": 0,
-      "abandonedAt": 0
+      "abandonedAt": 0,
+      "createdAt": 1507454795,
+      "updatedAt": 1507456595
     },
     "relationships": {
       "user": {
@@ -348,6 +435,8 @@ Result format:
 | data.attributes.plannedAt                       | number | Task's due date                          |          |
 | data.attributes.finishedAt                      | number | Date when task has been finished         |          |
 | data.attributes.abandonedAt                     | number | Date when task has been abandoned        |          |
+| data.attributes.createdAt                       | number | Date when task has been created          |          |
+| data.attributes.updatedAt                       | number | Date when task has been updated          |          |
 | data.relationships                              | object |                                          |          |
 | data.relationships.user                         | object | Related user reference                   |          |
 | data.relationships.user.data                    | object |                                          |          |
@@ -391,7 +480,9 @@ $ curl -H "Content-Type: application/json" \
       "startedAt": 1507454795,
       "plannedAt": 1507457002,
       "finishedAt": 0,
-      "abandonedAt": 0
+      "abandonedAt": 0,
+      "createdAt": 1507454795,
+      "updatedAt": 1507458395
     },
     "relationships": {
       "user": {

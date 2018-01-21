@@ -33,7 +33,7 @@
     methods: {
       logout () {
         this.$store.dispatch('users/logout')
-        this.$router.push('/')
+        window.location = '/'
       },
     },
   }

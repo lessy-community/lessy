@@ -13,6 +13,45 @@ RSpec.describe Api::ProjectsController, type: :request do
     Timecop.return
   end
 
+  describe 'GET #show' do
+    let(:token) { user.token }
+    let(:project) { create :project, user: user }
+
+    subject { get api_project_path(project.id), headers: { 'Authorization': token } }
+
+    context 'with valid token' do
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the projects/show schema' do
+        expect(response).to match_response_schema('projects/show')
+      end
+
+      it 'returns the corresponding project' do
+        json_project = JSON.parse(response.body)['data']
+        expect(json_project['id']).to eq(project.id)
+      end
+    end
+
+    context 'with invalid authentication' do
+      let(:token) { 'not a token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, {
+        errors: [{
+          status: '401 Unauthorized',
+          code: 'unauthorized',
+          title: 'Authentication is required',
+          detail: 'Resource you try to reach requires a valid Authentication token.',
+        }],
+      }
+    end
+  end
+
   describe 'PATCH #update' do
     let(:project) { create :project, :started, user: user,
                                                name: 'My project',
@@ -70,6 +109,18 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       it 'does not change due_at' do
         expect(project.reload.due_at).to be_nil
+      end
+    end
+
+    context 'with websocket support' do
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#projects',
+            id: project.id,
+            updatedAt: project.updated_at.to_i,
+          })
       end
     end
 
@@ -354,6 +405,26 @@ RSpec.describe Api::ProjectsController, type: :request do
           expect(task.reload.state).to eq('newed')
           expect(task.reload.started_at).to be nil
         end
+      end
+    end
+
+    context 'with websocket support' do
+      let(:project) { create :project, :newed, user: user }
+      let(:payload) { {
+        project: {
+          state: 'started',
+          due_at: DateTime.new(2017, 01, 27).to_i,
+        },
+      } }
+
+      it 'sends notification to user' do
+        expect { subject }.to have_broadcasted_to(user)
+          .from_channel(NotificationsChannel)
+          .with({
+            action: 'update#projects',
+            id: project.id,
+            updatedAt: project.updated_at.to_i,
+          })
       end
     end
 
