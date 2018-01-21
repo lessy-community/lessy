@@ -1,6 +1,30 @@
 # Changelog
 
-## Aquila 2018-xx-yy
+## Aquila 2018-01-21
+
+### Improvements
+
+- [#224](https://github.com/lessy-community/lessy/issues/224) Add placeholder on create forms of project and task
+- [#130](https://github.com/lessy-community/lessy/issues/130) Set default duration for project to 2 weeks
+- [#263](https://github.com/lessy-community/lessy/issues/263) Display user errors on activation form
+
+### Documentation
+
+- Document how to create new iterations
+- [#246](https://github.com/lessy-community/lessy/issues/246) Update links to lessy-community repo
+- [#263](https://github.com/lessy-community/lessy/issues/263) Document db schema load for production
+- [#245](https://github.com/lessy-community/lessy/issues/245) Add link to Framateam
+
+### Internationalisation
+
+- [#239](https://github.com/lessy-community/lessy/issues/239) Change error message for existing emails
+
+### Technical
+
+- Update npm dependencies
+- Update gem dependencies
+- Rename Dockerfile.prod in Dockerfile
+- [#140](https://github.com/lessy-community/lessy/issues/140) Provide live syncing system
 
 ### API changes
 
