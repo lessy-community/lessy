@@ -18,7 +18,7 @@
 - `Dockerfile.prod` is renamed in `Dockerfile`
 - Remove unofficial support of Ruby 2.3 (for test suite)
 - Repository moves from https://github.com/marienfressinaud/lessy to https://github.com/lessy-community/lessy
-- Redis is now required, please read specific section in production documentation to know more about it
+- Redis is now required, please read specific section in production documentation to know more about it and adapt Nginx configuration
 
 ## Aquarius 2017-12-29
 

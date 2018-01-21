@@ -298,6 +298,20 @@ server {
     proxy_pass http://127.0.0.1:3000;
   }
 
+  location /cable {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+
+    # Uncomment if you use https
+    # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    # proxy_set_header Host $http_host;
+    # proxy_set_header X-Real-IP $remote_addr;
+    # proxy_set_header X-Forwarded-Proto https;
+    # proxy_redirect off;
+  }
+
   error_log /var/log/nginx/<server_name>_error.log;
   access_log /var/log/nginx/<server_name>_access.log;
 }
