@@ -104,11 +104,17 @@
         type="ghost"
         size="small"
         icon="check"
-        @click="finishProject"
+        @click="activeModal = 'finish'"
       >
         {{ $t('projects.timeline.finish') }}
       </ly-button>
     </div>
+
+    <project-finish-modal
+      v-if="activeModal === 'finish'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-finish-modal>
   </div>
 </template>
 
@@ -116,15 +122,22 @@
   import { mapGetters } from 'vuex'
   import moment from 'moment'
 
+  import ProjectFinishModal from './ProjectFinishModal'
+
   export default {
     props: {
       project: { type: Object, required: true },
       'disable-actions': { type: Boolean },
     },
 
+    components: {
+      ProjectFinishModal,
+    },
+
     data () {
       return {
         today: moment().unix(),
+        activeModal: null,
       }
     },
 
@@ -196,10 +209,6 @@
 
       restartProject () {
         this.$router.push(this.project.urlStart)
-      },
-
-      finishProject () {
-        this.$router.push(this.project.urlFinish)
       },
     },
   }

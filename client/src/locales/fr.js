@@ -188,14 +188,10 @@ export default {
     },
 
     finishForm: {
-      cancel: 'Non, pas encore',
+      cancel: 'Annuler',
       finishedLabel: 'Terminé le',
       finishedCaption: 'Cette date ne peut pas être après la date d’aujourd’hui',
-      submit: 'J’ai fini !',
-    },
-
-    finishPage: {
-      intro: 'Vraiment ? Vous avez achevé le projet <b>{projectName}</b> ? C’est génial !<br />Dites-nous quand vous l’avez terminé :',
+      submit: 'Terminer le projet',
     },
 
     inboxPage: {
@@ -221,6 +217,11 @@ export default {
       inbox: 'Boîte d’entrée',
       project: 'Projet',
       title: 'Projets',
+    },
+
+    modals: {
+      finishTitle: 'Terminer le projet',
+      finishIntro: 'Vous avez achevé le projet « {projectName} » ? Cool ! Dites-nous quand vous l’avez terminé :',
     },
 
     showPage: {

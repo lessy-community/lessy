@@ -15,7 +15,6 @@ import ProjectLayout from './components/projects/ProjectLayout'
 import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 import ProjectStartPage from './components/projects/ProjectStartPage'
-import ProjectFinishPage from './components/projects/ProjectFinishPage'
 
 import TasksLayout from './components/tasks/TasksLayout'
 import TasksBacklogPage from './components/tasks/TasksBacklogPage'
@@ -59,7 +58,6 @@ const routes = [
           { path: '', component: ProjectShowPage, name: 'project/show', meta: { title: 'Project' } },
           { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { title: 'Project' } },
           { path: 'start', component: ProjectStartPage, name: 'project/start', meta: { title: 'Project' } },
-          { path: 'finish', component: ProjectFinishPage, name: 'project/finish', meta: { title: 'Project' } },
         ],
         props: true,
       },

@@ -188,14 +188,10 @@ export default {
     },
 
     finishForm: {
-      cancel: 'No, I did not yet',
+      cancel: 'Cancel',
       finishedLabel: 'Finished on',
       finishedCaption: 'It cannot be after today',
-      submit: 'I did it!',
-    },
-
-    finishPage: {
-      intro: "Really? You've finished <b>{projectName}</b>? That's great!<br />Let us know when you finished it:",
+      submit: 'Finish project',
     },
 
     inboxPage: {
@@ -221,6 +217,11 @@ export default {
       inbox: 'Inbox',
       project: 'Project',
       title: 'Projects',
+    },
+
+    modals: {
+      finishTitle: 'Finish project',
+      finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
     },
 
     showPage: {
