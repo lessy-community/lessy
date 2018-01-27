@@ -222,6 +222,7 @@ export default {
     modals: {
       finishTitle: 'Finish project',
       finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
+      startTitle: 'Start project',
     },
 
     showPage: {

@@ -64,7 +64,7 @@
         type="ghost"
         size="small"
         icon="play"
-        @click="startProject"
+        @click="activeModal = 'start'"
       >
         {{ $t('projects.timeline.start') }}
       </ly-button>
@@ -92,7 +92,7 @@
         type="ghost"
         size="small"
         icon="play"
-        @click="restartProject"
+        @click="activeModal = 'start'"
       >
         {{ $t('projects.timeline.restart') }}
       </ly-button>
@@ -110,6 +110,12 @@
       </ly-button>
     </div>
 
+    <project-start-modal
+      v-if="activeModal === 'start'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-start-modal>
+
     <project-finish-modal
       v-if="activeModal === 'finish'"
       :project="project"
@@ -123,6 +129,7 @@
   import moment from 'moment'
 
   import ProjectFinishModal from './ProjectFinishModal'
+  import ProjectStartModal from './ProjectStartModal'
 
   export default {
     props: {
@@ -132,6 +139,7 @@
 
     components: {
       ProjectFinishModal,
+      ProjectStartModal,
     },
 
     data () {
@@ -199,16 +207,8 @@
     },
 
     methods: {
-      startProject () {
-        this.$router.push(this.project.urlStart)
-      },
-
       pauseProject () {
         this.$store.dispatch('projects/pause', { project: this.project })
-      },
-
-      restartProject () {
-        this.$router.push(this.project.urlStart)
       },
     },
   }
