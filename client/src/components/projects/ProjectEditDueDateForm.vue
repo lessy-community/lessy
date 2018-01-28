@@ -1,30 +1,28 @@
 <template>
-  <ly-form @submit="start" :error="getErrors()">
+  <ly-form @submit="update" :error="getErrors()">
     <ly-form-group>
       <ly-form-input
         type="date"
         name="due-at"
         v-model="dueAt"
-        :label="$t('projects.startForm.dueLabel')"
+        :label="$t('projects.editForm.dueLabel')"
         :error="getErrors('/project/due_at')"
-        :caption="$t('projects.startForm.dueCaption')"
         required
       ></ly-form-input>
     </ly-form-group>
 
     <ly-form-group type="actions">
       <ly-button type="primary" submit>
-        {{ $t('projects.startForm.submit') }}
+        {{ $t('projects.editForm.submit') }}
       </ly-button>
       <ly-button @click="$emit('cancel')">
-        {{ $t('projects.startForm.cancel') }}
+        {{ $t('projects.editForm.cancel') }}
       </ly-button>
     </ly-form-group>
   </ly-form>
 </template>
 
 <script>
-  import moment from 'moment'
   import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
 
   export default {
@@ -36,14 +34,14 @@
 
     data () {
       return {
-        dueAt: moment().add(2, 'week').unix(),
+        dueAt: this.project.dueAt,
       }
     },
 
     methods: {
-      start () {
+      update () {
         this.$store
-          .dispatch('projects/start', {
+          .dispatch('projects/update', {
             project: this.project,
             dueAt: this.dueAt,
           })

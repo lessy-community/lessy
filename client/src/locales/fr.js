@@ -188,14 +188,10 @@ export default {
     },
 
     finishForm: {
-      cancel: 'Non, pas encore',
+      cancel: 'Annuler',
       finishedLabel: 'Terminé le',
       finishedCaption: 'Cette date ne peut pas être après la date d’aujourd’hui',
-      submit: 'J’ai fini !',
-    },
-
-    finishPage: {
-      intro: 'Vraiment ? Vous avez achevé le projet <b>{projectName}</b> ? C’est génial !<br />Dites-nous quand vous l’avez terminé :',
+      submit: 'Terminer le projet',
     },
 
     inboxPage: {
@@ -223,6 +219,14 @@ export default {
       title: 'Projets',
     },
 
+    modals: {
+      editDueDateTitle: 'Modifier la date d’échéance',
+      finishTitle: 'Terminer le projet',
+      finishIntro: 'Vous avez achevé le projet « {projectName} » ? Cool ! Dites-nous quand vous l’avez terminé :',
+      startNewTitle: 'Démarrer un projet',
+      startTitle: 'Démarrer le projet',
+    },
+
     showPage: {
       associatedTasks: 'Tâches associées',
       edit: 'Modifier',
@@ -238,9 +242,19 @@ export default {
       submit: 'Démarrer maintenant',
     },
 
+    startNewForm: {
+      cancel: 'Annuler',
+      dueLabel: 'Date d’échéance',
+      dueCaption: 'La date d’échéance doit être postérieure à la date d’aujourd’hui',
+      noProjects: 'Vous n’avez aucun projet dans votre boîte de réception, commençons par en créer un !',
+      projectLabel: 'Projet',
+      submit: 'Démarrer le projet',
+    },
+
     timeline: {
       diff: '{days} jour | {days} jours',
       dueOn: 'date d’échéance : {date}',
+      dueOnEdit: 'Modifier la date d’échéance',
       dueToday: 'date d’échéance : aujourd’hui',
       finish: 'Terminer',
       finishedOn: 'terminé le {date}',

@@ -14,17 +14,6 @@
       ></ly-form-input>
     </ly-form-group>
 
-    <ly-form-group v-if="project.isStarted">
-      <ly-form-input
-        type="date"
-        name="due-at"
-        v-model="dueAt"
-        :label="$t('projects.editForm.dueLabel')"
-        :error="getErrors('/project/due_at')"
-        required
-      ></ly-form-input>
-    </ly-form-group>
-
     <ly-form-group>
       <ly-form-textarea
         name="description"
@@ -39,7 +28,7 @@
       <ly-button type="primary" submit>
         {{ $t('projects.editForm.submit') }}
       </ly-button>
-      <ly-button @click="onCancel">
+      <ly-button @click="$emit('cancel')">
         {{ $t('projects.editForm.cancel') }}
       </ly-button>
     </ly-form-group>
@@ -53,17 +42,13 @@
     mixins: [ErrorsHandler],
 
     props: {
-      'project': { type: Object, required: true },
-      'onSuccess': { type: Function, required: true },
-      'onCancel': { type: Function, required: true },
+      project: { type: Object, required: true },
     },
 
     data () {
       return {
         name: this.project.name,
         description: this.project.description,
-        dueAt: this.project.dueAt,
-        error: '',
       }
     },
 
@@ -74,9 +59,8 @@
             project: this.project,
             name: this.name,
             description: this.description,
-            dueAt: this.dueAt,
           })
-          .then(this.onSuccess)
+          .then(() => this.$emit('success'))
           .catch(this.setFailureErrors)
       },
     },

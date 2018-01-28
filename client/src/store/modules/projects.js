@@ -39,8 +39,6 @@ const getters = {
         finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
-        urlStart: { name: 'project/start', params },
-        urlFinish: { name: 'project/finish', params },
       }
     }
   },

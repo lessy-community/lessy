@@ -16,7 +16,7 @@
       <ly-button type="primary" submit>
         {{ $t('projects.finishForm.submit') }}
       </ly-button>
-      <ly-button @click="onCancel">
+      <ly-button @click="$emit('cancel')">
         {{ $t('projects.finishForm.cancel') }}
       </ly-button>
     </ly-form-group>
@@ -32,8 +32,6 @@
 
     props: {
       'project': { type: Object, required: true },
-      'onSuccess': { type: Function, required: true },
-      'onCancel': { type: Function, required: true },
     },
 
     data () {
@@ -49,7 +47,7 @@
             project: this.project,
             finishedAt: this.finishedAt,
           })
-          .then(this.onSuccess)
+          .then(() => this.$emit('success'))
           .catch(this.setFailureErrors)
       },
     },

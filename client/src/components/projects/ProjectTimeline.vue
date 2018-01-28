@@ -32,6 +32,15 @@
         <small>{{ $t('projects.timeline.untilDueDate') }}</small>
       </span>
 
+      <ly-button
+        v-if="!disableActions && project.isStarted"
+        type="ghost"
+        icon="pencil"
+        size="small"
+        v-tooltip.top="$t('projects.timeline.dueOnEdit')"
+        @click="activeModal = 'editDueDate'"
+      >
+      </ly-button>
       <span
         v-if="project.dueAt"
         class="project-timeline-labels-end"
@@ -64,7 +73,7 @@
         type="ghost"
         size="small"
         icon="play"
-        @click="startProject"
+        @click="activeModal = 'start'"
       >
         {{ $t('projects.timeline.start') }}
       </ly-button>
@@ -92,7 +101,7 @@
         type="ghost"
         size="small"
         icon="play"
-        @click="restartProject"
+        @click="activeModal = 'start'"
       >
         {{ $t('projects.timeline.restart') }}
       </ly-button>
@@ -104,11 +113,29 @@
         type="ghost"
         size="small"
         icon="check"
-        @click="finishProject"
+        @click="activeModal = 'finish'"
       >
         {{ $t('projects.timeline.finish') }}
       </ly-button>
     </div>
+
+    <project-edit-due-date-modal
+      v-if="activeModal === 'editDueDate'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-edit-due-date-modal>
+
+    <project-start-modal
+      v-if="activeModal === 'start'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-start-modal>
+
+    <project-finish-modal
+      v-if="activeModal === 'finish'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-finish-modal>
   </div>
 </template>
 
@@ -116,15 +143,26 @@
   import { mapGetters } from 'vuex'
   import moment from 'moment'
 
+  import ProjectEditDueDateModal from './ProjectEditDueDateModal'
+  import ProjectFinishModal from './ProjectFinishModal'
+  import ProjectStartModal from './ProjectStartModal'
+
   export default {
     props: {
       project: { type: Object, required: true },
       'disable-actions': { type: Boolean },
     },
 
+    components: {
+      ProjectEditDueDateModal,
+      ProjectFinishModal,
+      ProjectStartModal,
+    },
+
     data () {
       return {
         today: moment().unix(),
+        activeModal: null,
       }
     },
 
@@ -186,20 +224,8 @@
     },
 
     methods: {
-      startProject () {
-        this.$router.push(this.project.urlStart)
-      },
-
       pauseProject () {
         this.$store.dispatch('projects/pause', { project: this.project })
-      },
-
-      restartProject () {
-        this.$router.push(this.project.urlStart)
-      },
-
-      finishProject () {
-        this.$router.push(this.project.urlFinish)
       },
     },
   }

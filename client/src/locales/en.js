@@ -188,14 +188,10 @@ export default {
     },
 
     finishForm: {
-      cancel: 'No, I did not yet',
+      cancel: 'Cancel',
       finishedLabel: 'Finished on',
       finishedCaption: 'It cannot be after today',
-      submit: 'I did it!',
-    },
-
-    finishPage: {
-      intro: "Really? You've finished <b>{projectName}</b>? That's great!<br />Let us know when you finished it:",
+      submit: 'Finish project',
     },
 
     inboxPage: {
@@ -223,6 +219,14 @@ export default {
       title: 'Projects',
     },
 
+    modals: {
+      editDueDateTitle: 'Edit project’s due date',
+      finishTitle: 'Finish project',
+      finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
+      startNewTitle: 'Start a project',
+      startTitle: 'Start project',
+    },
+
     showPage: {
       associatedTasks: 'Associated tasks',
       edit: 'Edit',
@@ -238,9 +242,19 @@ export default {
       submit: 'Start it now',
     },
 
+    startNewForm: {
+      cancel: 'Cancel',
+      dueLabel: 'Due on',
+      dueCaption: 'The due date have to be after today',
+      noProjects: 'You have no projects in your inbox so let’s create one!',
+      projectLabel: 'Project',
+      submit: 'Start the project',
+    },
+
     timeline: {
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
+      dueOnEdit: 'Edit due date',
       dueToday: 'due today',
       finish: 'Finish',
       finishedOn: 'finished on {date}',
