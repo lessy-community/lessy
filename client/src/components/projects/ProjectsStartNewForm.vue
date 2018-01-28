@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="start" :error="getErrors()">
+  <ly-form v-if="options.length > 0" @submit="start" :error="getErrors()">
     <ly-form-group>
       <ly-form-select
         name="projectId"
@@ -32,6 +32,16 @@
       </ly-button>
     </ly-form-group>
   </ly-form>
+
+  <div v-else>
+    <p>
+      {{ $t('projects.startNewForm.noProjects') }}
+    </p>
+    <project-create-form
+      @cancel="$emit('cancel')"
+      autofocus
+    ></project-create-form>
+  </div>
 </template>
 
 <script>
@@ -40,11 +50,17 @@
   import moment from 'moment'
   import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
 
+  import ProjectCreateForm from './ProjectCreateForm'
+
   export default {
     mixins: [ErrorsHandler],
 
     props: {
       autofocus: { type: Boolean },
+    },
+
+    components: {
+      ProjectCreateForm,
     },
 
     data () {
@@ -81,8 +97,16 @@
       },
     },
 
+    watch: {
+      options: function (newOptions, oldOptions) {
+        if (oldOptions.length === 0 && newOptions.length === 1) {
+          this.projectId = newOptions[0].value
+        }
+      },
+    },
+
     mounted () {
-      if (this.autofocus) {
+      if (this.autofocus && this.$refs.projectIdInput) {
         this.$refs.projectIdInput.focus()
       }
     },

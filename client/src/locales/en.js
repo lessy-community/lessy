@@ -246,6 +246,7 @@ export default {
       cancel: 'Cancel',
       dueLabel: 'Due on',
       dueCaption: 'The due date have to be after today',
+      noProjects: 'You have no projects in your inbox so let’s create one!',
       projectLabel: 'Project',
       submit: 'Start the project',
     },

@@ -246,6 +246,7 @@ export default {
       cancel: 'Annuler',
       dueLabel: 'Date d’échéance',
       dueCaption: 'La date d’échéance doit être postérieure à la date d’aujourd’hui',
+      noProjects: 'Vous n’avez aucun projet dans votre boîte de réception, commençons par en créer un !',
       projectLabel: 'Projet',
       submit: 'Démarrer le projet',
     },
