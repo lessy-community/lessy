@@ -348,6 +348,20 @@ manipulating personal data. Let's configure it with [Let's Encrypt](https://lets
 You'll need to agree to terms of service and say if you want to force HTTPS
 (highly recommended!)
 
+## Make your user admin
+
+Once you'll have created your first account, you might be interested to give it
+admin permissions:
+
+```console
+$ docker-compose run --rm lessy bundle exec rails console
+> user = User.first
+> # Make sure it is your user!
+> user.update admin: true
+```
+
+You should now be able to login at `https://your.lessy.server/admin`.
+
 ## Updating Lessy
 
 For each version of Lessy, you may have to perform a certain number of steps.

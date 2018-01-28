@@ -1,0 +1,36 @@
+<% content_for(:title) do %>
+  Admin login
+<% end %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title">
+    Admin login
+  </h1>
+</header>
+
+<section class="main-content__body">
+  <%= form_tag admin_user_sessions_path, method: :post, class: 'form' do %>
+    <div class="field-unit field-unit--string">
+      <div class="field-unit__label">
+        <%= label_tag :username %>
+      </div>
+      <div class="field-unit__field">
+        <%= text_field_tag :username %>
+      </div>
+    </div>
+
+    <div class="field-unit field-unit--string">
+      <div class="field-unit__label">
+        <%= label_tag :password %>
+      </div>
+      <div class="field-unit__field">
+        <%= password_field_tag :password %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_tag 'Login' %>
+      <%= link_to 'Back to Lessy', root_path %>
+    </div>
+  <% end %>
+</section>

@@ -39,6 +39,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :user_sessions, only: [:create]
+    get :login, to: 'user_sessions#new', as: :login
+    post :logout, to: 'user_sessions#destroy', as: :logout
+
     resources :users
 
     root to: 'users#index'
