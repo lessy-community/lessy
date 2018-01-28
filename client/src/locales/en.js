@@ -223,6 +223,7 @@ export default {
       editDueDateTitle: 'Edit project’s due date',
       finishTitle: 'Finish project',
       finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
+      startNewTitle: 'Start a project',
       startTitle: 'Start project',
     },
 
@@ -239,6 +240,14 @@ export default {
       dueCaption: 'The due date have to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
+    },
+
+    startNewForm: {
+      cancel: 'Cancel',
+      dueLabel: 'Due on',
+      dueCaption: 'The due date have to be after today',
+      projectLabel: 'Project',
+      submit: 'Start the project',
     },
 
     timeline: {

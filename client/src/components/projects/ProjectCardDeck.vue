@@ -6,18 +6,25 @@
       :project="project"
     ></project-card>
     <ly-card v-for="i in (3 - projects.length)" type="placeholder">
-      {{ $t('projects.cardDeck.empty') }}<br />
-      <small>
-        <router-link to="/projects/inbox">
-          {{ $t('projects.cardDeck.emptyLink') }}
-        </router-link>
-      </small>
+      <p>{{ $t('projects.cardDeck.empty') }}</p>
+      <ly-button
+        size="small"
+        @click="activeModal = 'start'"
+      >
+        {{ $t('projects.cardDeck.emptyLink') }}
+      </ly-button>
     </ly-card>
+
+    <projects-start-new-modal
+      v-if="activeModal === 'start'"
+      @close="activeModal = null"
+    ></projects-start-new-modal>
   </ly-card-deck>
 </template>
 
 <script>
   import ProjectCard from './ProjectCard'
+  import ProjectsStartNewModal from './ProjectsStartNewModal'
 
   export default {
     props: {
@@ -26,6 +33,13 @@
 
     components: {
       ProjectCard,
+      ProjectsStartNewModal,
+    },
+
+    data () {
+      return {
+        activeModal: null,
+      }
     },
   }
 </script>

@@ -223,6 +223,7 @@ export default {
       editDueDateTitle: 'Modifier la date d’échéance',
       finishTitle: 'Terminer le projet',
       finishIntro: 'Vous avez achevé le projet « {projectName} » ? Cool ! Dites-nous quand vous l’avez terminé :',
+      startNewTitle: 'Démarrer un projet',
       startTitle: 'Démarrer le projet',
     },
 
@@ -239,6 +240,14 @@ export default {
       dueCaption: 'La date d’échéance doit être postérieure à la date d’aujourd’hui',
       nameLabel: 'Nom',
       submit: 'Démarrer maintenant',
+    },
+
+    startNewForm: {
+      cancel: 'Annuler',
+      dueLabel: 'Date d’échéance',
+      dueCaption: 'La date d’échéance doit être postérieure à la date d’aujourd’hui',
+      projectLabel: 'Projet',
+      submit: 'Démarrer le projet',
     },
 
     timeline: {
