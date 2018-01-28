@@ -14,7 +14,8 @@
             { "type": "string" },
             { "type": "null" }
           ]
-        }
+        },
+        "admin": { "type": "boolean" }
       },
       "additionalProperties": false
     }

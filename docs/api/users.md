@@ -16,6 +16,7 @@ Result format:
 | data.attributes          | object |                                       |          |
 | data.attributes.username | string | User's username                       | yes      |
 | data.attributes.email    | string | User's email                          |          |
+| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
 
 Note: `username` can be `null` if user's account has not been activated yet.
 
@@ -32,7 +33,8 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
     "id": 1,
     "attributes": {
       "username": "dalecooper",
-      "email": "dale.cooper@lessy.io"}
+      "email": "dale.cooper@lessy.io",
+      "admin": false
     }
   }
 }
@@ -61,6 +63,7 @@ Result format:
 | data.id                  | number | User's identifier                     |          |
 | data.attributes          | object |                                       |          |
 | data.attributes.email    | string | User's email                          |          |
+| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
 | meta                     | object |                                       |          |
 | meta.token               | string | A temporary token (24 hours)          |          |
 
@@ -89,7 +92,8 @@ $ curl -H "Content-Type: application/json" \
     "id": 1,
     "attributes": {
       "username": null,
-      "email": "dale.cooper@lessy.io"
+      "email": "dale.cooper@lessy.io",
+      "admin": false
     }
   },
   "meta": {
@@ -130,6 +134,7 @@ Result format:
 | data.attributes          | object |                                       |          |
 | data.attributes.username | string | User's username                       |          |
 | data.attributes.email    | string | User's email                          |          |
+| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
 | meta                     | object |                                       |          |
 | meta.token               | string | A temporary token (1 month)           |          |
 
@@ -158,7 +163,8 @@ $ curl -H "Content-Type: application/json" \
     "id": 1,
     "attributes": {
       "username": "dalecooper",
-      "email": "dale.cooper@lessy.io"
+      "email": "dale.cooper@lessy.io",
+      "admin": false
     }
   },
   "meta": {
@@ -190,6 +196,7 @@ Result format:
 | data.attributes          | object |                                       |          |
 | data.attributes.username | string | User's username                       |          |
 | data.attributes.email    | string | User's email                          |          |
+| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
 | meta                     | object |                                       |          |
 | meta.token               | string | A temporary token (1 month)           |          |
 
@@ -215,7 +222,8 @@ $ curl -H "Content-Type: application/json" \
     "id": 1,
     "attributes": {
       "username": "dalecooper",
-      "email": "dale.cooper@lessy.io"
+      "email": "dale.cooper@lessy.io",
+      "admin": false
     }
   },
   "meta": {

@@ -1,5 +1,25 @@
 # Changelog
 
+## Aries 2018-xx-yy
+
+### Features
+
+### Improvements
+
+### Documentation
+
+### Internationalisation
+
+### Bug fixes
+
+### Technical
+
+### API changes
+
+- `user.admin` is added
+
+### Migration notes
+
 ## Aquila 2018-01-21
 
 ### Improvements

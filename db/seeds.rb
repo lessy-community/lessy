@@ -11,7 +11,12 @@ end
 puts 'Starting seeding...'
 
 puts 'Creating Users records...'
-user = User.create!(email: 'dale.cooper@zéro.org', username: 'dalecooper', password: 'secret')
+user = User.create!(
+  email: 'dale.cooper@zéro.org',
+  username: 'dalecooper',
+  password: 'secret',
+  admin: true,
+)
 user.activate!
 
 puts 'Creating Projects records...'

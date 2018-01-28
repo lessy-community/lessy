@@ -38,6 +38,16 @@ Rails.application.routes.draw do
     delete '*path', to: 'welcome#not_found'
   end
 
+  namespace :admin do
+    resources :user_sessions, only: [:create]
+    get :login, to: 'user_sessions#new', as: :login
+    post :logout, to: 'user_sessions#destroy', as: :logout
+
+    resources :users
+
+    root to: 'users#index'
+  end
+
   root 'application#client'
   get '*path', to: 'application#client'
 end

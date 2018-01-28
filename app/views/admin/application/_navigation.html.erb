@@ -1,0 +1,17 @@
+<nav class="navigation" role="navigation">
+  <%= link_to 'Return to Lessy', '/', class: "navigation__link" %>
+
+  <% if current_user && current_user.admin? %>
+    <%= link_to 'Logout from admin', admin_logout_path, method: :post, class: "navigation__link" %>
+
+    <hr />
+
+    <% Administrate::Namespace.new(namespace).resources.select { |r| r.name != :user_sessions }.each do |resource| %>
+      <%= link_to(
+        display_resource_name(resource),
+        [namespace, resource.path],
+        class: "navigation__link navigation__link--#{nav_link_state(resource)}"
+      ) %>
+    <% end %>
+  <% end %>
+</nav>
