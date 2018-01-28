@@ -32,6 +32,15 @@
         <small>{{ $t('projects.timeline.untilDueDate') }}</small>
       </span>
 
+      <ly-button
+        v-if="!disableActions && project.isStarted"
+        type="ghost"
+        icon="pencil"
+        size="small"
+        v-tooltip.top="$t('projects.timeline.dueOnEdit')"
+        @click="activeModal = 'editDueDate'"
+      >
+      </ly-button>
       <span
         v-if="project.dueAt"
         class="project-timeline-labels-end"
@@ -110,6 +119,12 @@
       </ly-button>
     </div>
 
+    <project-edit-due-date-modal
+      v-if="activeModal === 'editDueDate'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-edit-due-date-modal>
+
     <project-start-modal
       v-if="activeModal === 'start'"
       :project="project"
@@ -128,6 +143,7 @@
   import { mapGetters } from 'vuex'
   import moment from 'moment'
 
+  import ProjectEditDueDateModal from './ProjectEditDueDateModal'
   import ProjectFinishModal from './ProjectFinishModal'
   import ProjectStartModal from './ProjectStartModal'
 
@@ -138,6 +154,7 @@
     },
 
     components: {
+      ProjectEditDueDateModal,
       ProjectFinishModal,
       ProjectStartModal,
     },

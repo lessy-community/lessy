@@ -220,6 +220,7 @@ export default {
     },
 
     modals: {
+      editDueDateTitle: 'Modifier la date d’échéance',
       finishTitle: 'Terminer le projet',
       finishIntro: 'Vous avez achevé le projet « {projectName} » ? Cool ! Dites-nous quand vous l’avez terminé :',
       startTitle: 'Démarrer le projet',
@@ -243,6 +244,7 @@ export default {
     timeline: {
       diff: '{days} jour | {days} jours',
       dueOn: 'date d’échéance : {date}',
+      dueOnEdit: 'Modifier la date d’échéance',
       dueToday: 'date d’échéance : aujourd’hui',
       finish: 'Terminer',
       finishedOn: 'terminé le {date}',

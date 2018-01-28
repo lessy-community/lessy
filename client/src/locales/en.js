@@ -220,6 +220,7 @@ export default {
     },
 
     modals: {
+      editDueDateTitle: 'Edit project’s due date',
       finishTitle: 'Finish project',
       finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
       startTitle: 'Start project',
@@ -243,6 +244,7 @@ export default {
     timeline: {
       diff: '{days} day | {days} days',
       dueOn: 'Due on {date}',
+      dueOnEdit: 'Edit due date',
       dueToday: 'due today',
       finish: 'Finish',
       finishedOn: 'finished on {date}',

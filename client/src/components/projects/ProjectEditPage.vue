@@ -3,8 +3,8 @@
     <ly-section :title="project.name">
       <project-edit-form
         :project="project"
-        :onSuccess="redirectToShow"
-        :onCancel="redirectToShow"
+        @success="redirectToShow"
+        @cancel="redirectToShow"
       ></project-edit-form>
     </ly-section>
   </app-page>
