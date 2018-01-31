@@ -237,7 +237,7 @@ export default {
     startForm: {
       cancel: 'Cancel',
       dueLabel: 'Due on',
-      dueCaption: 'The due date have to be after today',
+      dueCaption: 'The due date has to be after today',
       nameLabel: 'Name',
       submit: 'Start it now',
     },
