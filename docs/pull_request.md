@@ -14,7 +14,7 @@ The rest of this document explains specific points.
 ## Rebasing your branch on `master`
 
 Rebasing a branch is useful to make sure your code is based on the last version
-of Lessy and there is no conflict. Please never merge `master` in your branch
+of Lessy and there is no conflicts. Please never merge `master` in your branch
 or it will generate an awful Git history! To rebase a branch:
 
 ```console

@@ -48,11 +48,13 @@ If you already have a GitHub account, you can directly create an "issue" on our
 
 You might be interested to know **what will be next big features** of Lessy. We
 do not maintain any official roadmap. However, we are using small iterations to
-plan future work. An iteration is represented by a GitHub project and it groups
-a set of related features or technical issues. [Have a look to current
-iterations](https://github.com/lessy-community/lessy/projects)! Note that
+plan future work. An iteration is represented by a GitHub milestone and it
+groups a set of related features or technical issues. [Have a look to current
+milestones](https://github.com/lessy-community/lessy/milestones). Note that
 iterations are named after [constellations' name](https://en.wikipedia.org/wiki/88_modern_constellations)
 to remind us to look at the stars sometimes.
+
+Also, the work being done is tracked on our ["Current work" project board](https://github.com/lessy-community/lessy/projects/9).
 
 If you're an advanced user, you may prefer to **host Lessy on your own server**.
 That's the prefered option if you care about your data and we're totally OK
