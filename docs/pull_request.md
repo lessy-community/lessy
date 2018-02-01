@@ -77,9 +77,5 @@ Please have a look to the current history if you have doubts.
 We do not maintain an exhaustive list of coding style rules. It could be done
 in the future but it would be overwhelming to try to think to all cases.
 
-We wanted to use [Pronto](https://github.com/prontolabs/pronto) to
-automatically check your changes and comment your pull request but we had some
-troubles when we configured it so it is disabled for the moment.
-
 If we detect issues in your code, we will point them to you and add them to a
 list.

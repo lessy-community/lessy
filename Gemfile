@@ -39,12 +39,6 @@ group :development, :test do
   gem 'json_matchers'
   gem 'faker'
   gem 'action-cable-testing'
-
-  # Linters
-  gem 'pronto', require: false
-  gem 'pronto-eslint', require: false
-  gem 'pronto-rubocop', require: false
-  gem 'pronto-scss', require: false
   gem 'rubocop', require: false
 end
 
