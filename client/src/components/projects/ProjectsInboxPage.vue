@@ -2,6 +2,19 @@
   <app-page v-if="resourcesReady" name="projects-inbox" layout="application">
     <projects-header slot="header"></projects-header>
 
+    <ly-section
+      v-if="projectsInProgress.length > 0"
+      :title="$t('projects.inboxPage.projectsInProgress')"
+    >
+      <ly-list>
+        <project-item
+          v-for="project in projectsInProgress"
+          :key="project.id"
+          :project="project"
+        ></project-item>
+      </ly-list>
+    </ly-section>
+
     <ly-section :title="$t('projects.inboxPage.futureProjects')">
       <ly-button
         icon="plus"
@@ -74,6 +87,7 @@
       ...mapGetters({
         futureProjects: 'projects/listFutureByFirstCharacter',
         finishedProjects: 'projects/listFinished',
+        projectsInProgress: 'projects/listInProgress',
       }),
     },
 

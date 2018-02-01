@@ -283,6 +283,7 @@ export default {
       createProject: 'Créer un projet',
       finishedProjects: 'Projets terminés',
       futureProjects: 'Projets à venir',
+      projectsInProgress: 'Projets en cours',
       projectsPlaceholder: 'Vous n’avez encore aucun projet, sur quoi travaillez-vous ?',
     },
 

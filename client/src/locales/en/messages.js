@@ -288,6 +288,7 @@ export default {
       createProject: 'Create a project',
       finishedProjects: 'Finished projects',
       futureProjects: 'Future projects',
+      projectsInProgress: 'Projects in progress',
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
     },
 
