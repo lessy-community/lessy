@@ -77,5 +77,9 @@ Please have a look to the current history if you have doubts.
 We do not maintain an exhaustive list of coding style rules. It could be done
 in the future but it would be overwhelming to try to think to all cases.
 
-If we detect issues in your code, we will point them to you and add them to a
-list.
+However, we use [HoundCI](https://houndci.com) to perform automatic checks on
+new pull requests. Fixing all the violations detected by Hound is not required
+but highly recommended. We'll let you know if we think Hound is too restrictive
+and we'll try to adapt configuration accordingly. Hound is enabled on Ruby and
+JavaScript code base but cannot read `.vue` files so we may add comments after
+Hound.
