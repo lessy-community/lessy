@@ -30,4 +30,11 @@ class User < ApplicationRecord
    JsonWebToken.encode({ user_id: self.id }, expiration)
   end
 
+  def flipper_id
+    "User##{id}"
+  end
+
+  def flipper_enabled?(flag)
+    Flipper.enabled? flag, self
+  end
 end

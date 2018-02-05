@@ -39,6 +39,10 @@ or [**frontend**](frontend/index.md) (or even both of them!). If **you're
 interested by API** (for Lessy or for a third-party application), please have a
 look to [our specific documentation](api/index.md).
 
+Another important part of the development stack is the [feature flag
+system](feature_flags.md). It helps us to push code in production even if the
+feature is not complete.
+
 You'll probably need to know about [**how we are running tests**](tests.md) so
 you'll be able to run them by yourself.
 

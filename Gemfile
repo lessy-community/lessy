@@ -28,6 +28,10 @@ gem 'kaminari'
 # Generate administration
 gem 'administrate'
 
+# Support for feature flags
+gem 'flipper'
+gem 'flipper-active_record'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
