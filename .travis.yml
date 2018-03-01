@@ -22,4 +22,4 @@ before_script:
 
 script:
   - bundle exec rspec spec
-  - cd client && npm run test
+  - cd client && npm run test && cd -
