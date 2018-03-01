@@ -36,6 +36,5 @@ RUN cd /app/client \
   && npm cache clean --force \
   && npm run build \
   && rm -rf /app/client/node_modules
-  && cd /app
 
 CMD ["bundle", "exec", "rails", "server", "-p", "3000"]
