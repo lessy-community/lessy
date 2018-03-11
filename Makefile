@@ -16,10 +16,10 @@ clean:  ## Clean development environment
 	docker-compose -f docker-compose-dev.yml down
 
 test-back:  ## Run tests (backend)
-	docker-compose -f docker-compose-test.yml run --rm lessy bundle exec rspec
+	docker-compose -f docker-compose-dev.yml run -e RAILS_ENV=test --rm lessy bundle exec rspec
 
 test-front:  ## Run tests (frontend)
-	docker-compose -f docker-compose-test.yml run --rm -w /app/client lessy npm run test
+	docker-compose -f docker-compose-dev.yml run -e RAILS_ENV=test --rm -w /app/client lessy npm run test
 
 test: test-back test-front
 
