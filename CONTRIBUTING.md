@@ -22,7 +22,7 @@ ideas. Here is a list of contributions you can make:
   community**
 - make illustrations (for instance, we do not have any logo or mascot yet)
 - translate Lessy… well, we cannot choose the language in the application yet
-  but it's definitly something we want to support in the future
+  but it's definitely something we want to support in the future
 - improve documentation if you think something is wrong or our English is bad
   (it certainly is!)
 - and finally, help on development!
