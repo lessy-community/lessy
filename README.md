@@ -57,7 +57,7 @@ to remind us to look at the stars sometimes.
 Also, the work being done is tracked on our ["Current work" project board](https://github.com/lessy-community/lessy/projects/9).
 
 If you're an advanced user, you may prefer to **host Lessy on your own server**.
-That's the prefered option if you care about your data and we're totally OK
+That's the preferred option if you care about your data and we're totally OK
 with it. That's the reason we try to maintain [documentation to install Lessy](https://github.com/lessy-community/lessy/blob/master/docs/production_environment.md)
 in production up-to-date.
 
@@ -70,7 +70,7 @@ different from us. We want to work as a **diverse and inclusive community**.
 
 Contribution to the project is opened to everyone as long as our vision makes
 sense to you. You can start by reading our **[contribution guide](CONTRIBUTING.md)**.
-Our ground rules are detailled in our **[code of conduct](CODE_OF_CONDUCT.md)**,
+Our ground rules are detailed in our **[code of conduct](CODE_OF_CONDUCT.md)**,
 we strongly encourage you to read it.
 
 Also, all contributors are listed in our [contributors file](CONTRIBUTORS.md),
@@ -86,7 +86,7 @@ and always will be!
 
 ## Credits
 
-Lessy would definitly not be the same without these different projects:
+Lessy would definitely not be the same without these different projects:
 
 - [Ruby on Rails](http://rubyonrails.org/)
 - [VueJS](https://vuejs.org/)

@@ -18,7 +18,7 @@
       <h2>Illustrations, mascot and logo</h2>
 
       <p>We do not have any illustrations, mascot or logo yet. It is something
-      we definitly want to see appear in the future though.</p>
+      we definitely want to see appear in the future though.</p>
 
       <p>Illustrations are a very powerful tool to encourage users when they
       are frustrated or lost. They also help to introduce a new feature. Mascot

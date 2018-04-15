@@ -91,7 +91,7 @@ volumes:
 
 `network_mode: bridge` connects our container to the default Docker network so
 it is accessible by other services but you don't necessarily need to do it this
-way (it is just a bit easier to document ;)). Also please note you absolutly
+way (it is just a bit easier to document ;)). Also please note you absolutely
 need to create a named volume for data if you don't want to loose them at the
 next restart!
 
