@@ -12,6 +12,11 @@
       ></ly-form-input>
     </ly-form-group>
 
+    <p v-if="!noTosRequirement">
+      {{ $t('users.registerForm.tosMustAccept') }}
+      <router-link to="/terms-of-service">{{ $t('users.registerForm.tosLink') }}</router-link>.
+    </p>
+
     <ly-form-group type="actions-block">
       <ly-button type="primary" size="large" submit>
         {{ $t('users.registerForm.submit') }}
@@ -31,6 +36,7 @@
 
     props: {
       'onSuccess': { type: Function, required: true },
+      'noTosRequirement': { type: Boolean, default: false },
     },
 
     data () {

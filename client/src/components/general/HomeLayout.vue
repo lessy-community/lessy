@@ -19,7 +19,11 @@
                 {{ $t('general.homeLayout.login') }}
               </router-link>
             </div>
-            <user-register-form v-else :on-success="onRegistrationSuccess"></user-register-form>
+            <user-register-form
+              v-else
+              :on-success="onRegistrationSuccess"
+              :no-tos-requirement="tosVersion == null"
+            ></user-register-form>
           </ly-card>
         </ly-column>
 
@@ -115,6 +119,7 @@
     computed: {
       ...mapGetters({
         registrationDisabled: 'global/registrationDisabled',
+        tosVersion: 'global/tosVersion',
       }),
     },
 

@@ -144,6 +144,15 @@ export default {
       title: 'Page introuvable',
     },
 
+    termsOfServiceLayout: {
+      accept: 'J’ai lu et accepte les conditions',
+      changed: 'Les conditions d’utilisation du service ont changé, veuillez les lire avec attention.',
+      goBack: 'Revenir à la page principale',
+      loading: 'Chargement en cours, veuillez patienter…',
+      title: 'Conditions d’utilisation du service',
+      version: 'Version : {version}',
+    },
+
     welcomeHeader: {
       lessy: 'Lessy',
     },
@@ -364,6 +373,8 @@ export default {
       emailPlaceholder: 'dupuis@morizeau.com',
       login: 'Vous avez déjà un compte ? Connectez-vous',
       submit: 'Créez votre compte',
+      tosMustAccept: 'En cliquant sur “Créez votre compte”, vous acceptez nos',
+      tosLink: 'conditions d’utilisation',
     },
   },
 }

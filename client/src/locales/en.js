@@ -144,6 +144,15 @@ export default {
       title: 'Page not found',
     },
 
+    termsOfServiceLayout: {
+      accept: 'I read and accept terms',
+      changed: 'Terms of service have changed, you should read them carefully.',
+      goBack: 'Go back to the main page',
+      loading: 'Loading, please wait…',
+      title: 'Terms of service',
+      version: 'Version: {version}',
+    },
+
     welcomeHeader: {
       lessy: 'Lessy',
     },
@@ -364,6 +373,8 @@ export default {
       emailPlaceholder: 'john@doe.com',
       login: 'Have an account? Log in',
       submit: 'Create your account',
+      tosMustAccept: 'By clicking “Create your account”, you accept our',
+      tosLink: 'terms of service',
     },
   },
 }
