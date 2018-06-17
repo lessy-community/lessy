@@ -20,6 +20,9 @@
 
 ### Migration notes
 
+- To disable registration, run `Flipper.disable :feature_registration` in a
+  Rails console
+
 ## Aquila 2018-01-21
 
 ### Improvements
