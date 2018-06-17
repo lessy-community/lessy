@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "required": ["registrationDisabled"],
+  "properties": {
+    "registrationDisabled": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

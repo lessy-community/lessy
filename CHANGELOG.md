@@ -17,6 +17,7 @@
 ### API changes
 
 - `user.admin` is added
+- Provide `GET /api` endpoint
 
 ### Migration notes
 
