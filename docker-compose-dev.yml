@@ -3,6 +3,7 @@ version: '3'
 services:
   lessy:
     image: lessy:dev
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -24,6 +25,7 @@ services:
 
   db:
     image: postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
