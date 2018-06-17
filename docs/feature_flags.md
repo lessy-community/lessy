@@ -68,3 +68,14 @@ it anymore, you can remove the flag based on the same migration system than for
 creation (just inverse `up` and `down`!)
 
 Note this system is quite new so we'll probably need to improve it.
+
+## Conventions
+
+A feature flag system can quickly goes out of control. When you create a flag,
+please always follow this naming convention and add the flag in the list below.
+
+Flags which are expected to always exist must start by `feature_`.
+
+Temporary flags are used to help to build a feature and are expected to be
+destroyed once finished. They must start by `tmp_`. There are no such flags
+yet.
