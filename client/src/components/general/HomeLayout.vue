@@ -9,8 +9,17 @@
             <p class="text-secondary">{{ $t('general.homeLayout.intro') }}</p>
           </div>
 
-          <ly-card>
-            <user-register-form :on-success="onRegistrationSuccess"></user-register-form>
+          <ly-card v-if="infoReady">
+            <div v-if="registrationDisabled" class="app-page-home-registration-disabled">
+              <p>
+                <ly-icon name="frown-o" size="large"></ly-icon><br />
+                <span v-html="$t('general.homeLayout.registrationDisabled')"></span>
+              </p>
+              <router-link to="/login">
+                {{ $t('general.homeLayout.login') }}
+              </router-link>
+            </div>
+            <user-register-form v-else :on-success="onRegistrationSuccess"></user-register-form>
           </ly-card>
         </ly-column>
 
@@ -86,6 +95,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import UserRegisterForm from 'src/components/users/UserRegisterForm'
   import WelcomeHeader from './WelcomeHeader'
 
@@ -93,6 +104,26 @@
     components: {
       WelcomeHeader,
       UserRegisterForm,
+    },
+
+    data () {
+      return {
+        infoReady: false,
+      }
+    },
+
+    computed: {
+      ...mapGetters({
+        registrationDisabled: 'global/registrationDisabled',
+      }),
+    },
+
+    mounted () {
+      this.$store
+          .dispatch('global/listInfo')
+          .then(() => {
+            this.infoReady = true
+          })
     },
 
     methods: {
@@ -127,6 +158,14 @@
 
     .app-page-home-intro {
       max-width: 20rem;
+      margin-bottom: 2rem;
+    }
+
+    .app-page-home-registration-disabled {
+      text-align: center;
+    }
+    .app-page-home-registration-disabled p {
+      margin-top: 1rem;
       margin-bottom: 2rem;
     }
 

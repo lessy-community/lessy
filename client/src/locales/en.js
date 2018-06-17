@@ -24,6 +24,7 @@ export default {
     _: {
       login_failed: 'Oops we failed to log you, it seems your credentials are wrong.',
       missing_endpoint: 'It seems you try to access an unknown resource. It’s probably not your fault and we are sorry about that. We’ll try to fix it quickly!',
+      registration_disabled: 'The registration is disabled, you’re not authorized to create an account.',
       unauthorized: 'You’re not authorize to perform this action, please refresh the page and re-login.',
     },
 
@@ -109,6 +110,9 @@ export default {
     homeLayout: {
       title: 'Recover your power to manage time',
       intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
+
+      registrationDisabled: 'Unfortunately, registrations are <strong>closed</strong> for the moment.',
+      login: 'Have an account? Log in',
 
       detailsTitle: 'A respectful and ethical time manager',
       timeTitle: 'Time is a precious resource',
