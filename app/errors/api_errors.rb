@@ -98,4 +98,12 @@ module ApiErrors
     end
   end
 
+  class RegistrationDisabled < Base
+    def initialize
+      @status = '403 Forbidden'
+      @code = 'registration_disabled'
+      @title = 'Registration disabled'
+      @detail = 'Registration has been disabled by the administrator.'
+    end
+  end
 end

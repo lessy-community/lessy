@@ -18,6 +18,8 @@
 
 - `user.admin` is added
 - Provide `GET /api` endpoint
+- `POST /api/users` now raises an error if `feature_registration` flag is
+  disabled
 
 ### Migration notes
 
