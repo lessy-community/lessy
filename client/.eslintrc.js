@@ -1,7 +1,11 @@
 module.exports = {
+  env: {
+    es6: true
+  },
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
+    ecmaVersion: 6,
     sourceType: 'module'
   },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
