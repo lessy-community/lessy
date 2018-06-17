@@ -10,8 +10,12 @@ module FlipperMigration
   class FlipperGate < ApplicationRecord
   end
 
-  def create_flag!(flag_key)
-    FlipperFeature.find_or_create_by! key: flag_key
+  def create_flag(flag_key, enabled: false)
+    if enabled
+      Flipper.enable flag_key
+    else
+      Flipper.disable flag_key
+    end
   end
 
   def destroy_flag(flag_key)

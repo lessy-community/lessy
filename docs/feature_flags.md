@@ -17,7 +17,7 @@ class AddStatsFeatureFlag < ActiveRecord::Migration[5.1]
   include FlipperMigration
 
   def up
-    create_flag! :stats
+    create_flag :stats, enabled: false
   end
 
   def down
