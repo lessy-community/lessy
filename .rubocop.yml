@@ -13,6 +13,13 @@ Metrics/LineLength:
 Documentation:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 

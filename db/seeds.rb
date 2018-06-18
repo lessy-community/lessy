@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
 raise 'You cannot run seeds in production' if Rails.env.production?
 
-[Task, Project, User].each do |table|
-  puts "Deleting #{table.class.name} records..."
+# rubocop:disable Rails/Output
+[Task, Project, User, FlipperFeature].each do |table|
+  puts "Deleting #{table.name} records..."
   table.delete_all
 end
 
 puts 'Starting seeding...'
+
+puts 'Creating feature flags'
+Flipper.enable :feature_registration
 
 puts 'Creating Users records...'
 user = User.create!(
@@ -47,3 +53,4 @@ Task.create!([
 ])
 
 puts 'Seeds are now ready! You can login with: dalecooper / secret'
+# rubocop:enable Rails/Output

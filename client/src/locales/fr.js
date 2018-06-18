@@ -24,6 +24,7 @@ export default {
     _: {
       login_failed: 'Oups ! Nous n’avons pas pu vous connecter, vos identifiants ne semblent pas valides.',
       missing_endpoint: 'Il semble que vous tentiez d’accéder à des ressources inconnues. Vous n’y êtes probablement pour rien et nous en sommes désolés. Nous faisons de notre mieux pour régler ce problème au plus vite !',
+      registration_disabled: 'Les inscriptions ont été désactivées, vous n’êtes pas autorisé à vous créer un compte.',
       unauthorized: 'Vous n’avez pas la permission d’effectuer cette action, veuillez rafraîchir la page et vous reconnecter.',
     },
 
@@ -109,6 +110,9 @@ export default {
     homeLayout: {
       title: 'Maîtrisez votre temps',
       intro: 'Concentrez vos efforts sur ce qui est vraiment essentiel, ne dites plus jamais « Je n’ai pas le temps ».',
+
+      registrationDisabled: 'Malheureusement, les inscriptions sont <strong>fermées</strong> pour le moment.',
+      login: 'Vous avez déjà un compte ? Connectez-vous',
 
       detailsTitle: 'Un gestionnaire de temps éthique et respectueux',
       timeTitle: 'Le temps est une ressource précieuse',

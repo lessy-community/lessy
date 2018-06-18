@@ -17,8 +17,14 @@
 ### API changes
 
 - `user.admin` is added
+- Provide `GET /api` endpoint
+- `POST /api/users` now raises an error if `feature_registration` flag is
+  disabled
 
 ### Migration notes
+
+- To disable registration, run `Flipper.disable :feature_registration` in a
+  Rails console
 
 ## Aquila 2018-01-21
 

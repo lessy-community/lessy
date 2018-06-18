@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get '/', to: 'welcome#index'
+
     get '*path', to: 'welcome#not_found'
     post '*path', to: 'welcome#not_found'
     patch '*path', to: 'welcome#not_found'

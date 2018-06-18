@@ -74,7 +74,11 @@ Note this system is quite new so we'll probably need to improve it.
 A feature flag system can quickly goes out of control. When you create a flag,
 please always follow this naming convention and add the flag in the list below.
 
-Flags which are expected to always exist must start by `feature_`.
+Flags which are expected to always exist must start by `feature_`. Existing
+flags are:
+
+- `feature_registration` (default: `true`): if true, users can register within
+  the application
 
 Temporary flags are used to help to build a feature and are expected to be
 destroyed once finished. They must start by `tmp_`. There are no such flags

@@ -12,6 +12,10 @@ RSpec.describe Api::UsersController, type: :request do
   end
 
   describe 'POST #create' do
+    before do
+      Flipper.enable :feature_registration
+    end
+
     let(:payload) { {
       user: {
         email: 'john@doe.com',
@@ -79,6 +83,22 @@ RSpec.describe Api::UsersController, type: :request do
           source: { pointer: '/user/email' },
         }],
       }
+    end
+
+    context 'with feature_registration flag disabled' do
+      before do
+        Flipper.disable :feature_registration
+        subject
+      end
+
+      it_behaves_like 'API errors', :forbidden, errors: [
+        {
+          status: '403 Forbidden',
+          code: 'registration_disabled',
+          title: 'Registration disabled',
+          detail: 'Registration has been disabled by the administrator.',
+        },
+      ]
     end
   end
 

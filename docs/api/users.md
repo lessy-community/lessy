@@ -72,9 +72,10 @@ need to validate the user's account.
 
 Specific errors:
 
-| Code              | Description                        |
-|-------------------|------------------------------------|
-| taken             | Email address already exists       |
+| Code                   | Description                                 |
+|------------------------|---------------------------------------------|
+| taken                  | Email address already exists                |
+| registration\_disabled | Registration has been disabled by the admin |
 
 Example:
 
