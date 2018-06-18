@@ -15,11 +15,10 @@ RUN apk add --no-cache \
       nodejs \
       postgresql-client \
       tzdata \
-  && npm install npm@5 -g \
+  && npm install npm@6 -g \
   && apk --update add --virtual build-dependencies \
       build-base \
       ruby-dev \
-      openssl-dev \
       postgresql-dev \
       libc-dev \
       linux-headers \
