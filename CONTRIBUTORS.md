@@ -1,7 +1,7 @@
 # Lessy's contributors
 
 This document is here to thank all people who helped Lessy to be what it is. We
-didn't set any rules yet in order to appear here but it will definitly not be
+didn't set any rules yet in order to appear here but it will definitely not be
 bound to code contributions. A user making feedbacks and/or answering to other
 users' questions is as valuable as someone making code. Don't hesitate to ask
 if you think you deserve to appear in this document! Even smallest
