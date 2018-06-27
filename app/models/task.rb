@@ -8,7 +8,6 @@ class Task < ApplicationRecord
   validates :planned_count, numericality: { greater_than_or_equal_to: 0 }
   validates_uniqueness_of :order, scope: :user
 
-  before_create :set_order_attribute
   before_create :set_planned_count_attribute
 
   delegate :name, to: :project, prefix: true, allow_nil: true
@@ -58,11 +57,13 @@ class Task < ApplicationRecord
     end
   end
 
-private
-
-  def set_order_attribute
-    self.order = (user.tasks.maximum(:order) || 0) + 1 unless order.present?
+  def sync_order
+    user_other_tasks = user.tasks.where.not(id: id)
+    self.order = (user_other_tasks.maximum(:order) || 0) + 1
+    self
   end
+
+  private
 
   def set_planned_count_attribute
     self.planned_count = 1 if planned_at.present? && planned_count == 0

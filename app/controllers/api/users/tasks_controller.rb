@@ -12,7 +12,11 @@ class Api::Users::TasksController < ApiController
   def create
     @task = current_user.tasks.new(create_task_params)
     @task.sync_state_with_project
-    @task.save!
+    lock_name = "sync_order_for_user_#{current_user.id}"
+    Task.with_advisory_lock(lock_name) do
+      @task.sync_order
+      @task.save!
+    end
 
     NotificationsChannel.broadcast_to(
       current_user,

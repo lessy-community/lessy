@@ -14,16 +14,6 @@ RSpec.describe Task, type: :model do
   describe 'create!' do
     subject { Task.create! label: 'a task', state: 'planned', planned_count: 0, planned_at: DateTime.new(2017), user: user }
 
-    it 'sets order to 1 by default' do
-      Task.destroy_all
-      expect(subject.order).to eq 1
-    end
-
-    it "sets order by incrementing maximum users' tasks order by 1" do
-      create :task, order: 41, user: user
-      expect(subject.order).to eq 42
-    end
-
     it 'sets planned_count to 1 if planned_at is set' do
       expect(subject.planned_count).to eq 1
     end
@@ -598,6 +588,33 @@ RSpec.describe Task, type: :model do
 
           expect(task.state).to eq('planned')
         end
+      end
+    end
+  end
+
+  describe '#sync_order' do
+    let(:task) { create :task, user: user }
+
+    subject { task.sync_order }
+
+    context 'when there is no other task' do
+      before do
+        Task.destroy_all
+      end
+
+      it 'sets order to 1 by default' do
+        expect(subject.order).to eq 1
+      end
+    end
+
+    context 'when there is already other tasks for this user' do
+      before do
+        Task.destroy_all
+        create :task, order: 41, user: user
+      end
+
+      it 'sets order by incrementing maximum task order by 1' do
+        expect(subject.order).to eq 42
       end
     end
   end
