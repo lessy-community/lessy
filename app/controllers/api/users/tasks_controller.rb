@@ -12,6 +12,7 @@ class Api::Users::TasksController < ApiController
   def create
     @task = current_user.tasks.new(create_task_params)
     @task.sync_state_with_project
+    @task.sync_order
     @task.save!
 
     NotificationsChannel.broadcast_to(
