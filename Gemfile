@@ -47,6 +47,7 @@ group :development, :test do
   gem 'faker'
   gem 'action-cable-testing'
   gem 'rubocop', require: false
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
