@@ -18,6 +18,7 @@
 
 - `user.admin` is added
 - Provide `GET /api` endpoint
+- Provide `GET /api/terms_of_services/current` endpoint
 - `POST /api/users` now raises an error if `feature_registration` flag is
   disabled
 

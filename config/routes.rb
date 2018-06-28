@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get '/terms_of_services/current'
+
     get '/', to: 'welcome#index'
 
     get '*path', to: 'welcome#not_found'
