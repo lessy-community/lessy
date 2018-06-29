@@ -26,6 +26,7 @@
 
 - To disable registration, run `Flipper.disable :feature_registration` in a
   Rails console
+- You can now create terms of service from the admin
 
 ## Aquila 2018-01-21
 

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     post :logout, to: 'user_sessions#destroy', as: :logout
 
     resources :users
+    resources :terms_of_services
 
     root to: 'users#index'
   end

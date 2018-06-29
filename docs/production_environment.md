@@ -274,16 +274,6 @@ Now, you must initialize your database schema:
 $ docker-compose run --rm lessy bundle exec rails db:schema:load
 ```
 
-By default, public registration for user is disabled. If you want to enable it,
-run:
-
-```console
-$ docker-compose run --rm lessy bundle exec rails console
-irb> Flipper.enable :feature_registration
-irb> # or if you want to disable it again
-irb> Flipper.disable :feature_registration
-```
-
 ## Configuring Nginx
 
 The final step is to configure Nginx so it redirects requests from port 80 to
@@ -371,6 +361,23 @@ $ docker-compose run --rm lessy bundle exec rails console
 ```
 
 You should now be able to login at `https://your.lessy.server/admin`.
+
+## Configure user registration
+
+By default, public registration for user is disabled. If you want to enable it,
+run:
+
+```console
+$ docker-compose run --rm lessy bundle exec rails console
+irb> Flipper.enable :feature_registration
+irb> # or if you want to disable it again
+irb> Flipper.disable :feature_registration
+```
+
+You might want to set up some rules for your future users. Terms of service are
+the perfect way to do it. You can create them in the administration. Terms of
+service are effective once the "effective date" (i.e. `effective_at`) is
+passed. Versions must be unique.
 
 ## Updating Lessy
 
