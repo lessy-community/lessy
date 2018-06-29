@@ -4,6 +4,9 @@
 
 Return the user corresponding to the given token.
 
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
 Parameters: none.
 
 Result format:

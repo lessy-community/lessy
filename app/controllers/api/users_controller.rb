@@ -1,6 +1,6 @@
 class Api::UsersController < ApiController
-
   skip_before_action :require_login, only: [:create]
+  skip_before_action :require_tos_accepted, only: %i[create show]
 
   def create
     unless Flipper.enabled? :feature_registration

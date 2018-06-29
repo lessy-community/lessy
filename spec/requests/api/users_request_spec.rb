@@ -132,6 +132,17 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
+    context 'with not accepted terms of service' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+      let(:user) { create :user, :not_accepted_tos }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context 'with token of a deleted user' do
       before do
         user.destroy

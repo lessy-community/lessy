@@ -1,4 +1,5 @@
 class Api::Users::ProjectsController < ApiController
+  skip_before_action :require_tos_accepted, only: [:index]
 
   def index
     @projects = current_user

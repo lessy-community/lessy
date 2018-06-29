@@ -1,6 +1,6 @@
 class Api::Users::ActivationsController < ApiController
-
   skip_before_action :require_login, only: [:create]
+  skip_before_action :require_tos_accepted, only: [:create]
 
   def create
     @user = User.load_from_activation_token(params[:token])

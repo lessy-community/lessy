@@ -3,6 +3,7 @@
 module Api
   class TermsOfServicesController < ApiController
     skip_before_action :require_login, only: [:current]
+    skip_before_action :require_tos_accepted, only: [:current]
 
     def current
       @terms_of_service = TermsOfService.current

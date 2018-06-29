@@ -96,6 +96,9 @@ $ curl -H "Content-Type: application/json" \
 List projects owned by current user. This endpoint is paginated and return a
 maximum of 25 items per page.
 
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
 Parameters:
 
 | Name      | Type   | Description                          | Optional |

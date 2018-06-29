@@ -26,6 +26,7 @@ Here is a non-exhaustive list of errors:
 |---------------------|---------------------------------------------------------------------------------------------|
 | missing\_endpoint   | Endpoint does not exist (it might be you are using the wrong HTTP verb).                    |
 | unauthorized        | Token is not valid or has expired.                                                          |
+| tos\_not\_accepted  | User has not accepted the current terms of service.                                         |
 | parameter\_missing  | A required parameter is missing in the request. `source.pointer` should indicate which one. |
 | record\_not\_found  | You try to reach a record which does not exist. It might be that you don't have permission. |
 

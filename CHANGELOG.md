@@ -22,6 +22,8 @@
 - Provide `GET /api/terms_of_services/current` endpoint
 - `POST /api/users` now raises an error if `feature_registration` flag is
   disabled
+- Most of the authenticated requests now require that users accepted terms of
+  service
 
 ### Migration notes
 
