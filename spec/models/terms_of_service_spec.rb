@@ -8,6 +8,7 @@ RSpec.describe TermsOfService, type: :model do
   it { should have_db_column(:content) }
   it { should have_db_column(:version) }
   it { should have_db_column(:effective_at) }
+  it { should have_many(:users).dependent(:nullify) }
 
   it { should validate_presence_of(:content) }
   it { should validate_presence_of(:version) }

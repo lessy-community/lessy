@@ -12,5 +12,9 @@ FactoryBot.define do
     trait :inactive do
       # nothing on purpose
     end
+
+    trait :not_accepted_tos do
+      terms_of_service nil
+    end
   end
 end

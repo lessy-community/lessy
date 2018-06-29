@@ -6,7 +6,7 @@
     "type": { "type": "string" },
     "attributes": {
       "type": "object",
-      "required": ["email"],
+      "required": ["email", "hasAcceptedTos"],
       "properties": {
         "email": { "type": "string" },
         "username": {
@@ -15,7 +15,8 @@
             { "type": "null" }
           ]
         },
-        "admin": { "type": "boolean" }
+        "admin": { "type": "boolean" },
+        "hasAcceptedTos": { "type": "boolean" }
       },
       "additionalProperties": false
     }

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TermsOfService < ApplicationRecord
+  has_many :users, dependent: :nullify
+
   validates :content, :version, :effective_at, presence: true
   validates :version, uniqueness: { case_sensitive: false }
 

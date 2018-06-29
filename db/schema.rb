@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180628165422) do
+ActiveRecord::Schema.define(version: 20180629162317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,12 +85,15 @@ ActiveRecord::Schema.define(version: 20180628165422) do
     t.datetime "activation_token_expires_at"
     t.string "username"
     t.boolean "admin", default: false
+    t.bigint "terms_of_service_id"
     t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["terms_of_service_id"], name: "index_users_on_terms_of_service_id"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
+  add_foreign_key "users", "terms_of_services"
 end
