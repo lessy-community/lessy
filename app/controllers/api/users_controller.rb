@@ -1,6 +1,6 @@
 class Api::UsersController < ApiController
   skip_before_action :require_login, only: [:create]
-  skip_before_action :require_tos_accepted, only: %i[create show]
+  skip_before_action :require_tos_accepted, only: %i[create show accept_tos]
 
   def create
     unless Flipper.enabled? :feature_registration
@@ -16,6 +16,11 @@ class Api::UsersController < ApiController
 
   def show
     @user = current_user
+  end
+
+  def accept_tos
+    @user = current_user
+    @user.update! terms_of_service: TermsOfService.current
   end
 
 private

@@ -245,3 +245,46 @@ $ curl -H "Content-Type: application/json" \
   }
 }
 ```
+
+## `POST /api/users/me/terms_of_services`
+
+Accept the current terms of service for the user.
+
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
+Parameters: none.
+
+Result format:
+
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+
+Note: `hasAcceptedTos` should always be `true` here unless an extremely rare
+race condition happens (i.e. new terms of service are effective just after the
+creation of the user in DB).
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" \
+       -X POST \
+       https://lessy.io/api/users/me/terms_of_services
+```
+
+```json
+{
+  "data": {
+    "type": "user",
+    "id": 1,
+    "attributes": {
+      "hasAcceptedTos": true
+    }
+  }
+}
+```

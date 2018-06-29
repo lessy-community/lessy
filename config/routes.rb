@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get 'me/projects', module: :users, controller: 'users/projects', action: :index
         post 'me/tasks', module: :users, controller: 'users/tasks', action: :create
         get 'me/tasks', module: :users, controller: 'users/tasks', action: :index
+        post 'me/terms_of_services', controller: :users, action: :accept_tos
       end
     end
 
