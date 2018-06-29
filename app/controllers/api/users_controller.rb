@@ -22,6 +22,6 @@ private
 
   def create_user_params
     fetch_resource_params(:user, [:email])
+      .merge(terms_of_service: TermsOfService.current)
   end
-
 end

@@ -25,6 +25,8 @@ RSpec.describe Api::UsersController, type: :request do
     subject { post api_users_path, params: payload, as: :json }
 
     context 'with valid attributes' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+
       before { subject }
 
       it 'succeeds' do
@@ -43,6 +45,11 @@ RSpec.describe Api::UsersController, type: :request do
         contact = JSON.parse(response.body)['data']
         expect(contact['id']).not_to be_nil
         expect(contact['attributes']['email']).to eq('john@doe.com')
+      end
+
+      it 'accepts terms of service for the user' do
+        user = User.find_by(email: 'john@doe.com')
+        expect(user.accepted_tos?).to be true
       end
 
       it 'returns a token valid for 1 day' do

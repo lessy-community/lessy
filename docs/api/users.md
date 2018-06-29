@@ -71,7 +71,9 @@ Result format:
 | meta.token                     | string | A temporary token (24 hours)                         |          |
 
 Note: the returned token is only valid for 24 hours. To obtain full access, you
-need to validate the user's account.
+need to validate the user's account. Also, `hasAcceptedTos` should always be
+`true` here unless an extremely rare race condition happens (i.e. new terms of
+service are effective just after the creation of the user in DB).
 
 Specific errors:
 
