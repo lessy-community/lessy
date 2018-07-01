@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="terms-of-service">
+  <app-layout name="terms-of-service" no-tos-requirement>
     <welcome-header slot="header"></welcome-header>
     <app-page name="terms-of-service">
       <template v-if="ready">

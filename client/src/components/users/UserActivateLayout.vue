@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="user-activate">
+  <app-layout name="user-activate" no-tos-requirement>
     <welcome-header slot="header"></welcome-header>
     <app-page name="user-activate">
       <div class="app-page-user-activate-container">

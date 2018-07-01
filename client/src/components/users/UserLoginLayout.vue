@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="user-login">
+  <app-layout name="user-login" no-tos-requirement>
     <welcome-header slot="header"></welcome-header>
     <app-page name="user-login">
       <div class="app-page-user-login-container">

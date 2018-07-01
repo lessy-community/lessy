@@ -25,6 +25,7 @@ export default {
       login_failed: 'Oops we failed to log you, it seems your credentials are wrong.',
       missing_endpoint: 'It seems you try to access an unknown resource. It’s probably not your fault and we are sorry about that. We’ll try to fix it quickly!',
       registration_disabled: 'The registration is disabled, you’re not authorized to create an account.',
+      tos_not_accepted: 'Terms of service have changed. Please refresh the page to continue.',
       unauthorized: 'You’re not authorize to perform this action, please refresh the page and re-login.',
     },
 
@@ -151,6 +152,13 @@ export default {
       loading: 'Loading, please wait…',
       title: 'Terms of service',
       version: 'Version: {version}',
+    },
+
+    termsOfServiceModal: {
+      intro: 'Heads up! Our terms of service have recently changed and we want to be sure that you read it and you understand their implications.',
+      mustAccept: 'To continue to use our service, you’ll have to agree to those new terms.',
+      read: 'Read the terms of service',
+      title: 'Terms of service',
     },
 
     welcomeHeader: {
