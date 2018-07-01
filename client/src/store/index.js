@@ -5,6 +5,7 @@ import global from './modules/global'
 import users from './modules/users'
 import projects from './modules/projects'
 import tasks from './modules/tasks'
+import termsOfServices from './modules/terms_of_services'
 
 import cablePlugin from './plugins/cable'
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     users,
     projects,
     tasks,
+    termsOfServices,
   },
   plugins: [
     cablePlugin,

@@ -66,6 +66,11 @@ const actions = {
     commit('tasks/reset', null, { root: true })
     commit('projects/reset', null, { root: true })
   },
+
+  acceptTermsOfService ({ commit }) {
+    return usersApi.acceptTermsOfService()
+                   .then((res) => commit('update', res.data))
+  },
 }
 
 const mutations = {
@@ -78,6 +83,16 @@ const mutations = {
       },
     }
     state.current = data.id
+  },
+
+  update (state, data) {
+    state.byIds = {
+      ...state.byIds,
+      [data.id]: {
+        ...state.byIds[data.id],
+        ...data.attributes,
+      },
+    }
   },
 
   reset (state) {
