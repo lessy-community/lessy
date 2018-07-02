@@ -4,19 +4,23 @@
 
 Return the user corresponding to the given token.
 
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
 Parameters: none.
 
 Result format:
 
-| Name                     | Type   | Description                           | Optional |
-|--------------------------|--------|---------------------------------------|----------|
-| data                     | object |                                       |          |
-| data.type                | string | Type of returned data (always `user`) |          |
-| data.id                  | number | User's identifier                     |          |
-| data.attributes          | object |                                       |          |
-| data.attributes.username | string | User's username                       | yes      |
-| data.attributes.email    | string | User's email                          |          |
-| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.username       | string | User's username                                      | yes      |
+| data.attributes.email          | string | User's email                                         |          |
+| data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
 
 Note: `username` can be `null` if user's account has not been activated yet.
 
@@ -34,7 +38,8 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
     "attributes": {
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
-      "admin": false
+      "admin": false,
+      "hasAcceptedTos": true
     }
   }
 }
@@ -56,19 +61,22 @@ Parameters:
 
 Result format:
 
-| Name                     | Type   | Description                           | Optional |
-|--------------------------|--------|---------------------------------------|----------|
-| data                     | object |                                       |          |
-| data.type                | string | Type of returned data (always `user`) |          |
-| data.id                  | number | User's identifier                     |          |
-| data.attributes          | object |                                       |          |
-| data.attributes.email    | string | User's email                          |          |
-| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
-| meta                     | object |                                       |          |
-| meta.token               | string | A temporary token (24 hours)          |          |
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.email          | string | User's email                                         |          |
+| data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| meta                           | object |                                                      |          |
+| meta.token                     | string | A temporary token (24 hours)                         |          |
 
 Note: the returned token is only valid for 24 hours. To obtain full access, you
-need to validate the user's account.
+need to validate the user's account. Also, `hasAcceptedTos` should always be
+`true` here unless an extremely rare race condition happens (i.e. new terms of
+service are effective just after the creation of the user in DB).
 
 Specific errors:
 
@@ -94,7 +102,8 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "username": null,
       "email": "dale.cooper@lessy.io",
-      "admin": false
+      "admin": false,
+      "hasAcceptedTos": true
     }
   },
   "meta": {
@@ -127,17 +136,18 @@ underscores and it must be less than or equal to 25 characters.
 
 Result format:
 
-| Name                     | Type   | Description                           | Optional |
-|--------------------------|--------|---------------------------------------|----------|
-| data                     | object |                                       |          |
-| data.type                | string | Type of returned data (always `user`) |          |
-| data.id                  | number | User's identifier                     |          |
-| data.attributes          | object |                                       |          |
-| data.attributes.username | string | User's username                       |          |
-| data.attributes.email    | string | User's email                          |          |
-| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
-| meta                     | object |                                       |          |
-| meta.token               | string | A temporary token (1 month)           |          |
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.username       | string | User's username                                      |          |
+| data.attributes.email          | string | User's email                                         |          |
+| data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| meta                           | object |                                                      |          |
+| meta.token                     | string | A temporary token (1 month)                          |          |
 
 Specific errors:
 
@@ -165,7 +175,8 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
-      "admin": false
+      "admin": false,
+      "hasAcceptedTos": true
     }
   },
   "meta": {
@@ -189,17 +200,18 @@ Parameters:
 
 Result format:
 
-| Name                     | Type   | Description                           | Optional |
-|--------------------------|--------|---------------------------------------|----------|
-| data                     | object |                                       |          |
-| data.type                | string | Type of returned data (always `user`) |          |
-| data.id                  | number | User's identifier                     |          |
-| data.attributes          | object |                                       |          |
-| data.attributes.username | string | User's username                       |          |
-| data.attributes.email    | string | User's email                          |          |
-| data.attributes.admin    | bool   | Either if user is admin or not        | yes      |
-| meta                     | object |                                       |          |
-| meta.token               | string | A temporary token (1 month)           |          |
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.username       | string | User's username                                      |          |
+| data.attributes.email          | string | User's email                                         |          |
+| data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| meta                           | object |                                                      |          |
+| meta.token                     | string | A temporary token (1 month)                          |          |
 
 Specific errors:
 
@@ -224,11 +236,55 @@ $ curl -H "Content-Type: application/json" \
     "attributes": {
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
-      "admin": false
+      "admin": false,
+      "hasAcceptedTos": true
     }
   },
   "meta": {
     "token": "<token>"
+  }
+}
+```
+
+## `POST /api/users/me/terms_of_services`
+
+Accept the current terms of service for the user.
+
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
+Parameters: none.
+
+Result format:
+
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+
+Note: `hasAcceptedTos` should always be `true` here unless an extremely rare
+race condition happens (i.e. new terms of service are effective just after the
+creation of the user in DB).
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" \
+       -X POST \
+       https://lessy.io/api/users/me/terms_of_services
+```
+
+```json
+{
+  "data": {
+    "type": "user",
+    "id": 1,
+    "attributes": {
+      "hasAcceptedTos": true
+    }
   }
 }
 ```

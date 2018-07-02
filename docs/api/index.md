@@ -14,6 +14,7 @@ assume that users are not necessarily hosted on this server.
 - [Users](users.md)
 - [Projects](projects.md)
 - [Tasks](tasks.md)
+- [Terms of service](terms_of_service.md)
 - [Errors](errors.md)
 
 Also, a websocket is accessible to be notified of users' task and project

@@ -25,6 +25,7 @@ export default {
       login_failed: 'Oups ! Nous n’avons pas pu vous connecter, vos identifiants ne semblent pas valides.',
       missing_endpoint: 'Il semble que vous tentiez d’accéder à des ressources inconnues. Vous n’y êtes probablement pour rien et nous en sommes désolés. Nous faisons de notre mieux pour régler ce problème au plus vite !',
       registration_disabled: 'Les inscriptions ont été désactivées, vous n’êtes pas autorisé à vous créer un compte.',
+      tos_not_accepted: 'Les conditions d’utilisation du service ont évolué. Veuiller rafraîchir la page pour continuer.',
       unauthorized: 'Vous n’avez pas la permission d’effectuer cette action, veuillez rafraîchir la page et vous reconnecter.',
     },
 
@@ -142,6 +143,22 @@ export default {
       home: 'Accueil',
       intro: 'Il semble que cette page n’existe pas…',
       title: 'Page introuvable',
+    },
+
+    termsOfServiceLayout: {
+      accept: 'J’ai lu et accepte les conditions',
+      changed: 'Les conditions d’utilisation du service ont changé, veuillez les lire avec attention.',
+      goBack: 'Revenir à la page principale',
+      loading: 'Chargement en cours, veuillez patienter…',
+      title: 'Conditions d’utilisation du service',
+      version: 'Version : {version}',
+    },
+
+    termsOfServiceModal: {
+      intro: 'Hey là ! Nos conditions d’utilisation ont récemment été modifiées. Nous voulons nous assurer que vous les avez lues et que vous comprenez leur implication.',
+      mustAccept: 'Afin de continuer à utiliser ce service, vous devez accepter ces nouvelles conditions.',
+      read: 'Lire les conditions d’utilisation',
+      title: 'Conditions d’utilisation du service',
     },
 
     welcomeHeader: {
@@ -364,6 +381,8 @@ export default {
       emailPlaceholder: 'dupuis@morizeau.com',
       login: 'Vous avez déjà un compte ? Connectez-vous',
       submit: 'Créez votre compte',
+      tosMustAccept: 'En cliquant sur “Créez votre compte”, vous acceptez nos',
+      tosLink: 'conditions d’utilisation',
     },
   },
 }

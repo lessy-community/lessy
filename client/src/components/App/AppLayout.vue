@@ -5,13 +5,34 @@
       <slot name="header"></slot>
       <slot></slot>
     </div>
+
+    <terms-of-service-modal v-if="showTosModal"></terms-of-service-modal>
   </section>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
+  import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
+
   export default {
     props: {
       name: { type: String, required: true },
+      noTosRequirement: { type: Boolean, default: false },
+    },
+
+    components: {
+      TermsOfServiceModal,
+    },
+
+    computed: {
+      ...mapGetters({
+        user: 'users/current',
+      }),
+
+      showTosModal () {
+        return !this.noTosRequirement && this.user && !this.user.hasAcceptedTos
+      }
     },
   }
 </script>

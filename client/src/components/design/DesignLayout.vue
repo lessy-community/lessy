@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="design">
+  <app-layout name="design" no-tos-requirement>
     <design-menu slot="menu"></design-menu>
     <router-view></router-view>
   </app-layout>

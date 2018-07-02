@@ -22,6 +22,15 @@ module ApiErrors
     end
   end
 
+  class TosNotAccepted < Base
+    def initialize
+      @status = '403 Forbidden'
+      @code = :tos_not_accepted
+      @title = 'Terms of service not accepted'
+      @detail = 'Resource you try to reach requires that you accept the terms of service.'
+    end
+  end
+
   class LoginFailed < Base
     def initialize
       @status = '401 Unauthorized'

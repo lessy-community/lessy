@@ -17,9 +17,14 @@
 ### API changes
 
 - `user.admin` is added
+- `user.hasAcceptedTos` is added
 - Provide `GET /api` endpoint
+- Provide `GET /api/terms_of_services/current` endpoint
+- Provide `POST /api/users/me/terms_of_services` endpoint
 - `POST /api/users` now raises an error if `feature_registration` flag is
   disabled
+- Most of the authenticated requests now require that users accepted terms of
+  service
 
 ### Migration notes
 

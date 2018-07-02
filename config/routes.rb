@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get 'me/projects', module: :users, controller: 'users/projects', action: :index
         post 'me/tasks', module: :users, controller: 'users/tasks', action: :create
         get 'me/tasks', module: :users, controller: 'users/tasks', action: :index
+        post 'me/terms_of_services', controller: :users, action: :accept_tos
       end
     end
 
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get '/terms_of_services/current'
+
     get '/', to: 'welcome#index'
 
     get '*path', to: 'welcome#not_found'
@@ -46,6 +49,7 @@ Rails.application.routes.draw do
     post :logout, to: 'user_sessions#destroy', as: :logout
 
     resources :users
+    resources :terms_of_services
 
     root to: 'users#index'
   end

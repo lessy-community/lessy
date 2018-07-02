@@ -194,6 +194,19 @@ RSpec.describe Api::Users::ProjectsController, type: :request do
         }],
       }
     end
-  end
 
+    context 'with not accepted terms of service' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+      let(:user) { create :user, :activated, :not_accepted_tos }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :forbidden, errors: [{
+        status: '403 Forbidden',
+        code: 'tos_not_accepted',
+        title: 'Terms of service not accepted',
+        detail: 'Resource you try to reach requires that you accept the terms of service.',
+      }]
+    end
+  end
 end

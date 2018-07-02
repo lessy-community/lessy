@@ -2,7 +2,8 @@
   "type": "object",
   "required": ["registrationDisabled"],
   "properties": {
-    "registrationDisabled": { "type": "boolean" }
+    "registrationDisabled": { "type": "boolean" },
+    "tosVersion": { "type": "string" }
   },
   "additionalProperties": false
 }

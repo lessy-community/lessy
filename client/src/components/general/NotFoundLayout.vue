@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="not-found">
+  <app-layout name="not-found" no-tos-requirement>
     <welcome-header slot="header"></welcome-header>
     <app-page name="not-found">
       <ly-text-container margined>

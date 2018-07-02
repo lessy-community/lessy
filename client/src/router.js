@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import HomeLayout from './components/general/HomeLayout'
 import NotFoundLayout from './components/general/NotFoundLayout'
+import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
 
 import UserActivateLayout from './components/users/UserActivateLayout'
 import UserLoginLayout from './components/users/UserLoginLayout'
@@ -35,6 +36,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: HomeLayout, meta: { restrictForUnauth: true, title: 'Welcome' } },
   { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
+  { path: '/terms-of-service', component: TermsOfServiceLayout, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
   { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
   { path: '/tasks',

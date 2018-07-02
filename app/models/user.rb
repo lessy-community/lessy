@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-
   authenticates_with_sorcery!
 
   has_many :tasks, dependent: :destroy
   has_many :projects, dependent: :destroy
+  belongs_to :terms_of_service
 
   before_create :setup_activation
   after_create :send_activation_needed_email!
@@ -36,5 +36,9 @@ class User < ApplicationRecord
 
   def flipper_enabled?(flag)
     Flipper.enabled? flag, self
+  end
+
+  def accepted_tos?
+    terms_of_service == TermsOfService.current
   end
 end

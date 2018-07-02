@@ -28,4 +28,8 @@ export default {
   getCurrent: () => {
     return get('/api/users/me')
   },
+
+  acceptTermsOfService: () => {
+    return post('/api/users/me/terms_of_services', {})
+  },
 }

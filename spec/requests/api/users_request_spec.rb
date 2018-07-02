@@ -25,6 +25,8 @@ RSpec.describe Api::UsersController, type: :request do
     subject { post api_users_path, params: payload, as: :json }
 
     context 'with valid attributes' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+
       before { subject }
 
       it 'succeeds' do
@@ -43,6 +45,11 @@ RSpec.describe Api::UsersController, type: :request do
         contact = JSON.parse(response.body)['data']
         expect(contact['id']).not_to be_nil
         expect(contact['attributes']['email']).to eq('john@doe.com')
+      end
+
+      it 'accepts terms of service for the user' do
+        user = User.find_by(email: 'john@doe.com')
+        expect(user.accepted_tos?).to be true
       end
 
       it 'returns a token valid for 1 day' do
@@ -125,6 +132,17 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
+    context 'with not accepted terms of service' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+      let(:user) { create :user, :not_accepted_tos }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context 'with token of a deleted user' do
       before do
         user.destroy
@@ -173,4 +191,41 @@ RSpec.describe Api::UsersController, type: :request do
     end
   end
 
+  describe 'POST #accept_tos' do
+    let!(:tos) { create :terms_of_service, :in_the_past }
+    let(:user) { create :user, :not_accepted_tos }
+
+    subject { post me_terms_of_services_api_users_path, headers: { 'Authorization': token } }
+
+    context 'with valid authentication' do
+      let(:token) { user.token }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the users/accept_tos schema' do
+        expect(response).to match_response_schema('users/accept_tos')
+      end
+
+      it 'accepts terms of service for the user' do
+        expect(user.reload.accepted_tos?).to be true
+      end
+    end
+
+    context 'with invalid authentication' do
+      let(:token) { 'not a token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'unauthorized',
+        title: 'Authentication is required',
+        detail: 'Resource you try to reach requires a valid Authentication token.',
+      }]
+    end
+  end
 end

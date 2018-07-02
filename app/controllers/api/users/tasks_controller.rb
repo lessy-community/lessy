@@ -1,4 +1,5 @@
 class Api::Users::TasksController < ApiController
+  skip_before_action :require_tos_accepted, only: [:index]
 
   def index
     @tasks = current_user

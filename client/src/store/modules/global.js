@@ -2,11 +2,16 @@ import rootApi from 'src/api/root'
 
 const state = {
   registrationDisabled: true,
+  tosVersion: null,
 }
 
 const getters = {
   registrationDisabled (state) {
     return state.registrationDisabled
+  },
+
+  tosVersion (state) {
+    return state.tosVersion
   },
 }
 
@@ -22,6 +27,7 @@ const actions = {
 const mutations = {
   setInfo (state, data) {
     state.registrationDisabled = data.registrationDisabled
+    state.tosVersion = data.tosVersion
   },
 }
 

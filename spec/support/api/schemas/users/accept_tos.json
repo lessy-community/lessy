@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["id", "type", "attributes"],
+      "properties": {
+        "id": { "type": "integer" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "required": ["hasAcceptedTos"],
+          "properties": {
+            "hasAcceptedTos": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

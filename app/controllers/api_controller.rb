@@ -1,6 +1,7 @@
 class ApiController < ActionController::API
 
   before_action :require_login
+  before_action :require_tos_accepted
 
   rescue_from ActiveRecord::RecordInvalid, with: -> (exception) do
     errors = ApiErrors::RecordInvalid.load(exception)
@@ -46,6 +47,13 @@ protected
       errors = [ApiErrors::AuthenticationRequired.new]
       render_errors errors, :unauthorized
     end
+  end
+
+  def require_tos_accepted
+    return unless current_user && !current_user.accepted_tos?
+
+    errors = [ApiErrors::TosNotAccepted.new]
+    render_errors errors, :forbidden
   end
 
   def current_user
