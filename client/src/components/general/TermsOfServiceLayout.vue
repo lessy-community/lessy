@@ -73,7 +73,13 @@
     mounted () {
       this.$store
         .dispatch('termsOfServices/getCurrent')
-        .then(() => { this.ready = true })
+        .then(() => {
+          if (this.termsOfService == null) {
+            this.$router.push('/')
+          } else {
+            this.ready = true
+          }
+        })
     },
   }
 </script>

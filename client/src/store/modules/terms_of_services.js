@@ -14,7 +14,9 @@ const actions = {
   getCurrent ({ commit }) {
     return termsOfServiceApi.getCurrent()
       .then((res) => {
-        commit('setCurrent', res.data)
+        if (res.data) {
+          commit('setCurrent', res.data)
+        }
       })
   },
 }
