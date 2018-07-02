@@ -375,9 +375,9 @@ irb> Flipper.disable :feature_registration
 ```
 
 You might want to set up some rules for your future users. Terms of service are
-the perfect way to do it. You can create them in the administration. Terms of
-service are effective once the "effective date" (i.e. `effective_at`) is
-passed. Versions must be unique.
+the perfect way to do it. You can create them in the administration. Content
+accepts HTML. Terms of service are effective once the "effective date" (i.e.
+`effective_at`) is passed. Versions must be unique.
 
 ## Updating Lessy
 

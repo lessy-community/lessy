@@ -43,6 +43,16 @@ RSpec.describe Api::WelcomeController, type: :request do
         expect(api['registrationDisabled']).to be true
       end
     end
+
+    context 'when ToS are defined' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+
+      it 'returns current terms of service version' do
+        subject
+
+        expect(api['tosVersion']).to eq tos.version
+      end
+    end
   end
 
   describe '#not_found' do
