@@ -1,6 +1,14 @@
 import auth from '../auth'
 
 function parseJson (response) {
+  if (response.status === 204) {
+    // Response is 204 No Content
+    return {
+      data: {},
+      status: response.status,
+    }
+  }
+
   return response.json().then((json) => {
     return {
       data: json,
