@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import LyBadge from '@/components/Ly/LyBadge'
 
 describe('LyBadge', () => {

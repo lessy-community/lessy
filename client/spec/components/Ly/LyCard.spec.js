@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import LyButton from '@/components/Ly/LyButton'
 import LyIcon from '@/components/Ly/LyIcon'
 
