@@ -11,7 +11,7 @@ RSpec.describe Api::WelcomeController, type: :request do
     it 'succeeds' do
       subject
 
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'matches the welcome/index schema' do
