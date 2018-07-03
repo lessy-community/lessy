@@ -291,7 +291,6 @@ DEPENDENCIES
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0)
   timecop (~> 0.8)
-  tzinfo-data
   with_advisory_lock (~> 3.2)
 
 BUNDLED WITH
