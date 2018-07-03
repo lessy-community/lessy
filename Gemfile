@@ -3,13 +3,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1'
 # Use sqlite3 as the database for Active Record
-gem 'pg', '~> 0.21'
+gem 'pg', '~> 1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -20,7 +20,7 @@ gem 'redis', '~> 3.0'
 # gem 'rack-cors'
 
 # Add authentication methods
-gem 'sorcery', '~> 0.11'
+gem 'sorcery', '~> 0.12'
 
 # Manage pagination for us
 gem 'kaminari', '~> 1.1'
@@ -37,7 +37,7 @@ gem 'with_advisory_lock', '~> 3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '~> 9.1', platform: :mri
+  gem 'byebug', '~> 10.0', platform: :mri
   # Call 'ap' anywhere in the code to pretty print your Ruby objects with style
   gem 'awesome_print', '~> 1.8', require: 'ap'
   gem 'rspec-rails', '~> 3.6'
