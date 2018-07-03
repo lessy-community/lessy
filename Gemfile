@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1'
 # Use sqlite3 as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.21'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -20,33 +20,33 @@ gem 'redis', '~> 3.0'
 # gem 'rack-cors'
 
 # Add authentication methods
-gem 'sorcery'
+gem 'sorcery', '~> 0.11'
 
 # Manage pagination for us
-gem 'kaminari'
+gem 'kaminari', '~> 1.1'
 
 # Generate administration
-gem 'administrate'
+gem 'administrate', '~> 0.8'
 
 # Support for feature flags
-gem 'flipper'
-gem 'flipper-active_record'
+gem 'flipper', '~> 0.12'
+gem 'flipper-active_record', '~> 0.12'
 
 # Provide a lock system for DB
 gem 'with_advisory_lock', '~> 3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'byebug', '~> 9.1', platform: :mri
   # Call 'ap' anywhere in the code to pretty print your Ruby objects with style
-  gem 'awesome_print', require: 'ap'
+  gem 'awesome_print', '~> 1.8', require: 'ap'
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'timecop', '~> 0.8'
-  gem 'json_matchers'
-  gem 'faker'
-  gem 'action-cable-testing'
-  gem 'rubocop', require: false
+  gem 'json_matchers', '~> 0.7'
+  gem 'faker', '~> 1.8'
+  gem 'action-cable-testing', '~> 0.2'
+  gem 'rubocop', '~> 0.52', require: false
   gem 'shoulda-matchers', '~> 3.1'
 end
 

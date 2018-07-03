@@ -257,28 +257,28 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  action-cable-testing
-  administrate
-  awesome_print
-  byebug
+  action-cable-testing (~> 0.2)
+  administrate (~> 0.8)
+  awesome_print (~> 1.8)
+  byebug (~> 9.1)
   factory_bot_rails (~> 4.8)
-  faker
-  flipper
-  flipper-active_record
+  faker (~> 1.8)
+  flipper (~> 0.12)
+  flipper-active_record (~> 0.12)
   foreman (~> 0.84)
   jbuilder (~> 2.7)
-  json_matchers
-  kaminari
+  json_matchers (~> 0.7)
+  kaminari (~> 1.1)
   letter_opener (~> 1.4)
   listen (~> 3.1)
-  pg
+  pg (~> 0.21)
   puma (~> 3.0)
   rails (~> 5.1)
   redis (~> 3.0)
   rspec-rails (~> 3.6)
-  rubocop
+  rubocop (~> 0.52)
   shoulda-matchers (~> 3.1)
-  sorcery
+  sorcery (~> 0.11)
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0)
   timecop (~> 0.8)
