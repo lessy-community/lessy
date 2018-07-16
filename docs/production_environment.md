@@ -185,17 +185,13 @@ explanations to adapt it to your situation.
 
 ```console
 # mkdir -p /opt/lessy && cd /opt/lessy
-# git clone git@github.com:lessy-community/lessy.git code
 # vim docker-compose.yml
 
 version: '3'
 
 services:
   lessy:
-    image: lessy:prod
-    build:
-      context: code
-      dockerfile: Dockerfile
+    image: lessy/lessy:latest
     external_links:
       - postgresql_db_1:db
     ports:
@@ -264,9 +260,9 @@ And start the service:
 # systemctl enable lessy
 ```
 
-Lessy will take a bit of time to start because docker-compose needs to build
-the image first (install dependencies and compile frontend). After few minutes,
-you should have a running `lessy_lessy_1` container listening on port 3000.
+Lessy will take a bit of time to start because docker-compose needs to download
+the image first. After few seconds depending on your connection, you should
+have a running `lessy_lessy_1` container listening on port 3000.
 
 Now, you must initialize your database schema:
 
@@ -388,34 +384,11 @@ First of all, always check for "Migration notes" [in the CHANGELOG](https://gith
 We try to automate most of the steps, but you might need to add/rename
 environment variables or install new service.
 
-Then, get the source code up to date:
+Then, get the latest image up to date:
 
 ```console
-$ cd /opt/lessy/code
-$ git pull
+$ docker pull lessy/lessy:latest
 ```
-
-If `git pull` fails, it probably means you changed something here… You should
-not unless you really know what you do! You can try to execute this commands
-instead:
-
-```console
-$ git stash
-$ git pull
-$ git stash pop
-```
-
-If you are in this case, please [open an issue](https://github.com/lessy-community/lessy/issues)
-so we can figure out how to make it simpler for you.
-
-Then, we'll rebuild our image:
-
-```console
-$ cd /opt/lessy
-$ docker-compose build
-```
-
-It will take a bit of time but it should succeed!
 
 Finally, we need to apply last migrations to the database (if any) and restart
 the service:
