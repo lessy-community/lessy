@@ -344,20 +344,6 @@ manipulating personal data. Let's configure it with [Let's Encrypt](https://lets
 You'll need to agree to terms of service and say if you want to force HTTPS
 (highly recommended!)
 
-## Make your user admin
-
-Once you'll have created your first account, you might be interested to give it
-admin permissions:
-
-```console
-$ docker-compose run --rm lessy bundle exec rails console
-> user = User.first
-> # Make sure it is your user!
-> user.update admin: true
-```
-
-You should now be able to login at `https://your.lessy.server/admin`.
-
 ## Configure user registration
 
 By default, public registration for user is disabled. If you want to enable it,
@@ -374,6 +360,35 @@ You might want to set up some rules for your future users. Terms of service are
 the perfect way to do it. You can create them in the administration. Content
 accepts HTML. Terms of service are effective once the "effective date" (i.e.
 `effective_at`) is passed. Versions must be unique.
+
+## Create your first user
+
+You have two options to create a user: the first one is to enable user
+registration (see previous section) and create a user the "normal way", or you
+can create it in a Rails console:
+
+```console
+$ docker-compose run --rm lessy bundle exec rails console
+> user = User.create!(username: 'your_username',
+*                     email: 'your@email.com',
+*                     password: 'your strong password',
+*                     admin: true)
+> user.activate!
+```
+
+It will send you two emails, you can safely ignore them. You should now be able
+to login at `https://your.lessy.server/admin`.
+
+The `admin` argument is optional but you probably want to make your user
+administrator. You can make an existing user administrator with following
+commands:
+
+```console
+$ docker-compose run --rm lessy bundle exec rails console
+> user = User.first
+> # Make sure it is your user!
+> user.update admin: true
+```
 
 ## Updating Lessy
 
