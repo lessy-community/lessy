@@ -1,18 +1,46 @@
 # Changelog
 
-## Aries 2018-xx-yy
+## Aries 2018-08-27
 
 ### Features
 
+- [#63](https://github.com/lessy-community/lessy/issues/63) Provide an administration
+- [#303](https://github.com/lessy-community/lessy/issues/303) Allow admin to disable the registration
+- [#176](https://github.com/lessy-community/lessy/issues/176) Provide Terms of service feature
+
 ### Improvements
+
+- [#257](https://github.com/lessy-community/lessy/issues/257) Improve starting project
 
 ### Documentation
 
-### Internationalisation
+- [#288](https://github.com/lessy-community/lessy/issues/288) Document new development process
+- Remove all references to pronto
+- [#285](https://github.com/lessy-community/lessy/issues/285) Document HoundCI
+- Add naming convention for feature flags
+- Fix miscellaneous typos
+- Document production with image from hub
+- Update information to setup first user
 
 ### Bug fixes
 
+- [#305](https://github.com/lessy-community/lessy/issues/305) Fix Docker build
+- [#301](https://github.com/lessy-community/lessy/issues/301) Fix race condition on task order
+- Handle HTTP response 204
+
 ### Technical
+
+- Make backend reachable from outside of Docker
+- Update rubocop configuration for Hound
+- [#287](https://github.com/lessy-community/lessy/issues/287) Add support for feature flags
+- Remove docker-compose-test.yml
+- Configure Hound for JS
+- Fix linters configuration
+- Restart docker containers when appropriate
+- Fix Travis build
+- Provide `with_advisory_lock` gem
+- Provide `shoulda-matchers` gem
+- Update dependencies
 
 ### API changes
 
