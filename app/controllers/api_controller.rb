@@ -1,5 +1,4 @@
 class ApiController < ActionController::API
-
   before_action :require_login
   before_action :require_tos_accepted
 
@@ -9,23 +8,19 @@ class ApiController < ActionController::API
   end
 
   rescue_from ActiveRecord::RecordNotFound, with: -> (exception) do
-    errors = [ApiErrors::RecordNotFound.new(exception)]
-    render_errors errors, :not_found
+    render_error ApiErrors::RecordNotFound.new(exception), :not_found
   end
 
   rescue_from ActionController::ParameterMissing, with: -> (exception) do
-    errors = [ApiErrors::ParameterMissing.new(exception)]
-    render_errors errors, :unprocessable_entity
+    render_error ApiErrors::ParameterMissing.new(exception), :unprocessable_entity
   end
 
   rescue_from StateMachine::InvalidTransition, with: -> (exception) do
-    errors = [ApiErrors::InvalidTransition.new(exception)]
-    render_errors errors, :unprocessable_entity
+    render_error ApiErrors::InvalidTransition.new(exception), :unprocessable_entity
   end
 
   rescue_from StateMachine::ForbiddenTransition, with: -> (exception) do
-    errors = [ApiErrors::ForbiddenTransition.new(exception)]
-    render_errors errors, :unprocessable_entity
+    render_error ApiErrors::ForbiddenTransition.new(exception), :unprocessable_entity
   end
 
 protected
@@ -65,4 +60,7 @@ protected
     render 'api/errors', status: http_status
   end
 
+  def render_error(error, http_status)
+    render_errors [error], http_status
+  end
 end

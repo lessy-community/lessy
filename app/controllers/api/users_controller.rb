@@ -4,8 +4,7 @@ class Api::UsersController < ApiController
 
   def create
     unless Flipper.enabled? :feature_registration
-      errors = [ApiErrors::RegistrationDisabled.new]
-      render_errors errors, :forbidden
+      render_error ApiErrors::RegistrationDisabled.new, :forbidden
       return
     end
 

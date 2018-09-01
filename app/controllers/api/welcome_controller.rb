@@ -7,8 +7,7 @@ class Api::WelcomeController < ApiController
   end
 
   def not_found
-    errors = [ApiErrors::MissingEndpoint.new]
-    render_errors errors, :not_found
+    render_error ApiErrors::MissingEndpoint.new, :not_found
   end
 
 end

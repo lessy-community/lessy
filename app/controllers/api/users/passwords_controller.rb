@@ -7,7 +7,7 @@ class Api::Users::PasswordsController < ApiController
   def create
     @user = User.find_by_sorcery_token!(params[:token], type: :reset_password)
     if @user.inactive?
-      render_errors [ApiErrors::UserInactive.new], :unprocessable_entity
+      render_error ApiErrors::UserInactive.new, :unprocessable_entity
       return
     end
     @user.change_password! password_param

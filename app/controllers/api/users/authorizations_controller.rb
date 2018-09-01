@@ -4,12 +4,11 @@ class Api::Users::AuthorizationsController < ApiController
 
   def create
     @user = User.authenticate(params[:username], params[:password])
-    if @user
-      @token = @user.token(1.month.from_now)
-    else
-      errors = [ApiErrors::LoginFailed.new]
-      render_errors errors, :unauthorized
+    unless @user
+      render_error ApiErrors::LoginFailed.new, :unauthorized
+      return
     end
+    @token = @user.token(1.month.from_now)
   end
 
 end
