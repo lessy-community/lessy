@@ -247,7 +247,7 @@ export default {
       tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
 
-    layout: {
+    header: {
       inbox: 'Inbox',
       project: 'Project',
       title: 'Projects',

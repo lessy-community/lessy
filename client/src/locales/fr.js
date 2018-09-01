@@ -247,7 +247,7 @@ export default {
       tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
     },
 
-    layout: {
+    header: {
       inbox: 'Boîte d’entrée',
       project: 'Projet',
       title: 'Projets',

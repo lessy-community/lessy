@@ -12,9 +12,8 @@ import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
 import DashboardPage from './components/dashboard/DashboardPage'
 
-import ProjectsLayout from './components/projects/ProjectsLayout'
 import ProjectsInboxPage from './components/projects/ProjectsInboxPage'
-import ProjectLayout from './components/projects/ProjectLayout'
+import ProjectContainer from './components/projects/ProjectContainer'
 import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 
@@ -44,21 +43,15 @@ const routes = [
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
   { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, title: 'Backlog' } },
   { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, title: 'Statistics' } },
-  { path: '/projects',
-    component: ProjectsLayout,
+  { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
+  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
+  { path: '/projects/:projectSlug',
+    component: ProjectContainer,
     children: [
-      { path: '', redirect: 'inbox' },
-      { path: 'inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
-      { path: ':projectSlug',
-        component: ProjectLayout,
-        children: [
-          { path: '', component: ProjectShowPage, name: 'project/show', meta: { title: 'Project' } },
-          { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { title: 'Project' } },
-        ],
-        props: true,
-      },
+      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, title: 'Project' } },
+      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, title: 'Project' } },
     ],
-    meta: { restrictForAuth: true },
+    props: true,
   },
   { path: '/design', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
   { path: '/design/grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },

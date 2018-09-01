@@ -1,5 +1,7 @@
 <template>
-  <app-page name="projects-inbox">
+  <app-page name="projects-inbox" layout="application">
+    <projects-header slot="header"></projects-header>
+
     <ly-section :title="$t('projects.inboxPage.futureProjects')">
       <ly-button
         icon="plus"
@@ -43,12 +45,15 @@
 
 <script>
   import { mapGetters } from 'vuex'
+
+  import ProjectsHeader from './ProjectsHeader'
   import ProjectCreateForm from './ProjectCreateForm'
   import ProjectItem from './ProjectItem'
   import ProjectItemFinished from './ProjectItemFinished'
 
   export default {
     components: {
+      ProjectsHeader,
       ProjectCreateForm,
       ProjectItem,
       ProjectItemFinished,
