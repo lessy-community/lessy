@@ -135,8 +135,10 @@ export default {
       greetings: 'Have a great day!',
     },
 
-    loadingLayout: {
-      inProgress: 'Loading, please wait…',
+    loadingPage: {
+      inProgress: 'Loading…',
+      title: 'Lessy',
+      wait: '— Please sit and relax —',
     },
 
     notFoundPage: {

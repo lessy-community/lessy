@@ -135,8 +135,10 @@ export default {
       greetings: 'Passez une bonne journée !',
     },
 
-    loadingLayout: {
-      inProgress: 'Chargement en cours, veuillez patienter…',
+    loadingPage: {
+      inProgress: 'Chargement en cours…',
+      title: 'Lessy',
+      wait: '— Asseyez-vous et détendez-vous —',
     },
 
     notFoundPage: {

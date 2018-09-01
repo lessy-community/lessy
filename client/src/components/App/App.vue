@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <router-view v-if="ready"></router-view>
-    <loading-layout v-else></loading-layout>
+    <loading-page v-else></loading-page>
   </div>
 </template>
 
 <script>
-  import LoadingLayout from 'src/components/general/LoadingLayout'
+  import LoadingPage from 'src/components/general/LoadingPage'
 
   import { mapGetters } from 'vuex'
   import auth from 'src/auth'
 
   export default {
     components: {
-      LoadingLayout,
+      LoadingPage,
     },
 
     data () {
