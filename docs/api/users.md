@@ -185,6 +185,37 @@ $ curl -H "Content-Type: application/json" \
 }
 ```
 
+## `POST /api/users/activation_emails`
+
+Resend an activation emails containing a token to create an account.
+
+**This endpoint doesn't require an `Authorization` header.**
+
+Parameters:
+
+| Name       | Type   | Description  | Optional |
+|------------|--------|--------------|----------|
+| user       | object |              |          |
+| user.email | string | User's email |          |
+
+Result format: none.
+
+Please note that if the account is already activated, the response will be
+positive but no emails are sent.
+
+Example:
+
+```console
+$ curl -H "Content-Type: application/json" \
+       -X POST \
+       -d '{"user": {"email": "dale.cooper@lessy.io"}}' \
+       https://lessy.io/api/users/activation_emails
+```
+
+```raw
+no content
+```
+
 ## `POST /api/users/authorizations`
 
 Authenticate a user and get a token valid for 1 month.

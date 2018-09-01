@@ -1,6 +1,19 @@
 <template>
   <app-page name="dashboard">
-    <p v-if="!user.activated" v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
+    <ly-card v-if="!user.activated">
+      <p v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
+      <ly-button
+        v-if="!activationEmailResent"
+        icon="envelope-o"
+        @click="resendActivationEmail"
+      >
+        {{ $t('dashboard.page.resendActivationInstructions') }}
+      </ly-button>
+      <p v-else class="text-success">
+        <ly-icon name="check"></ly-icon>
+        {{ $t('dashboard.page.resendActivationInstructionsDone') }}
+      </p>
+    </ly-card>
 
     <ly-section :title="$t('dashboard.page.projectsInProgress')">
       <project-card-deck :projects="projects"></project-card-deck>
@@ -51,6 +64,7 @@
       return {
         createTaskEnabled: false,
         plannedAt: moment().endOf('day'),
+        activationEmailResent: false,
       }
     },
 
@@ -60,6 +74,14 @@
         projects: 'projects/listInProgress',
         tasks: 'tasks/listForToday',
       }),
+    },
+
+    methods: {
+      resendActivationEmail () {
+        this.$store
+          .dispatch('users/resendActivationEmail', { email: this.user.email })
+          .then(() => { this.activationEmailResent = true })
+      },
     },
   }
 </script>

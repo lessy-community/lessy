@@ -39,6 +39,10 @@ const actions = {
       })
   },
 
+  resendActivationEmail ({ commit }, { email }) {
+    return usersApi.resendActivationEmail(email)
+  },
+
   activate ({ commit }, { token, username, password }) {
     return usersApi.activate(token, username, password)
       .then((res) => {

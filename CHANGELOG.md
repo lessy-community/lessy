@@ -6,6 +6,7 @@
 
 - Provide `POST /api/users/password_resets` endpoint
 - Provide `POST /api/users/passwords` endpoint
+- Provide `POST /api/users/activation_emails` endpoint
 
 ## Aries 2018-08-27
 
