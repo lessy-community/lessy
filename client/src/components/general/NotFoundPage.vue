@@ -1,5 +1,5 @@
 <template>
-  <app-page name="not-found" layout="default">
+  <app-page name="not-found">
     <ly-text-container margined>
       <h1>{{ $t('general.notFoundPage.title') }}</h1>
       <p>{{ $t('general.notFoundPage.intro') }}</p>

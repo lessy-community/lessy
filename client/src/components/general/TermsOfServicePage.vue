@@ -1,5 +1,5 @@
 <template>
-  <app-page name="terms-of-service" layout="default">
+  <app-page name="terms-of-service">
     <template v-if="ready">
       <div class="ly-text-container margined">
         <h1>{{ $t('general.termsOfServicePage.title') }}</h1>

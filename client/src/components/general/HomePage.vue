@@ -1,5 +1,5 @@
 <template>
-  <app-page name="home" layout="default">
+  <app-page name="home">
     <ly-columns name="home-top">
       <ly-column>
         <div class="app-page-home-intro">

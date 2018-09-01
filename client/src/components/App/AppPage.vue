@@ -12,7 +12,7 @@
   export default {
     props: {
       name: { type: String, required: true },
-      layout: { type: String, required: true },
+      layout: { type: String, default: 'default' },
     },
   }
 </script>
