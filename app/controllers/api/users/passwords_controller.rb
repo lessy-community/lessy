@@ -3,10 +3,7 @@ class Api::Users::PasswordsController < ApiController
   skip_before_action :require_tos_accepted, only: [:create]
 
   def create
-    @user = User.load_from_reset_password_token(params[:token])
-    unless @user
-      raise ActiveRecord::RecordNotFound.new "Couldn't find User with token=#{ params[:token] }", User.name
-    end
+    @user = User.find_by_sorcery_token!(params[:token], type: :reset_password)
     if @user.inactive?
       render_errors [ApiErrors::UserInactive.new], :unprocessable_entity
       return
