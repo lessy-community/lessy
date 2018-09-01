@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-grid">
+  <app-page name="design-grid" layout="design">
     <ly-text-container>
       <h1>Grid</h1>
 

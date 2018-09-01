@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-colors">
+  <app-page name="design-colors" layout="design">
     <ly-text-container>
       <h1>Colors</h1>
 

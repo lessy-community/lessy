@@ -21,6 +21,8 @@ import AppPage from './components/App/AppPage'
 import AppMenu from './components/App/AppMenu'
 import AppMenuLink from './components/App/AppMenuLink'
 
+import LayoutDesign from './components/layouts/LayoutDesign'
+
 import i18n from './locales'
 import router from './router'
 import store from './store'
@@ -36,6 +38,8 @@ Vue.component('app-layout', AppLayout)
 Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)
 Vue.component('app-menu-link', AppMenuLink)
+
+Vue.component('layout-design', LayoutDesign)
 
 Vue.component('ly-badge', LyBadge)
 Vue.component('ly-button', LyButton)

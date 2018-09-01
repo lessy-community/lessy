@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-typography">
+  <app-page name="design-typography" layout="design">
     <ly-text-container>
       <h1>Typography</h1>
 

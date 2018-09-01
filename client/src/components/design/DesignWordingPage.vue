@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-wording">
+  <app-page name="design-wording" layout="design">
     <ly-text-container>
       <h1>Wording</h1>
 

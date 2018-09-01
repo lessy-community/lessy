@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-index">
+  <app-page name="design-index" layout="design">
     <ly-text-container>
       <h1>Lessy Design Guide</h1>
 

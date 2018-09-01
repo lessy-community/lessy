@@ -22,7 +22,6 @@ import TasksLayout from './components/tasks/TasksLayout'
 import TasksBacklogPage from './components/tasks/TasksBacklogPage'
 import TasksStatisticsPage from './components/tasks/TasksStatisticsPage'
 
-import DesignLayout from './components/design/DesignLayout'
 import DesignIndexPage from './components/design/DesignIndexPage'
 import DesignGridPage from './components/design/DesignGridPage'
 import DesignTypographyPage from './components/design/DesignTypographyPage'
@@ -68,18 +67,13 @@ const routes = [
     ],
     meta: { restrictForAuth: true },
   },
-  { path: '/design',
-    component: DesignLayout,
-    children: [
-      { path: '', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
-      { path: 'grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },
-      { path: 'typography', component: DesignTypographyPage, meta: { title: 'Typography · Lessy Design Guide' } },
-      { path: 'colors', component: DesignColorsPage, meta: { title: 'Colors · Lessy Design Guide' } },
-      { path: 'visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
-      { path: 'components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
-      { path: 'wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
-    ],
-  },
+  { path: '/design', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
+  { path: '/design/grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },
+  { path: '/design/typography', component: DesignTypographyPage, meta: { title: 'Typography · Lessy Design Guide' } },
+  { path: '/design/colors', component: DesignColorsPage, meta: { title: 'Colors · Lessy Design Guide' } },
+  { path: '/design/visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
+  { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
+  { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
   { path: '*', component: NotFoundLayout },
 ]
 
