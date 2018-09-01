@@ -27,6 +27,8 @@
       <ly-button type="primary" size="large" submit>
         {{ $t('users.loginForm.submit') }}
       </ly-button>
+      <router-link to="/password/reset">{{ $t('users.loginForm.passwordForgotten') }}</router-link>
+      <hr />
       <router-link to="/">{{ $t('users.loginForm.register') }}</router-link>
     </ly-form-group>
   </ly-form>

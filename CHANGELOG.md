@@ -1,5 +1,12 @@
 # Changelog
 
+## Ara 2018-xx-yy
+
+### API changes
+
+- Provide `POST /api/users/password_resets` endpoint
+- Provide `POST /api/users/passwords` endpoint
+
 ## Aries 2018-08-27
 
 ### Features

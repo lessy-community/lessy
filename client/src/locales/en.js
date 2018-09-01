@@ -81,6 +81,7 @@ export default {
     user: {
       parameter_missing: 'User is required.',
       record_not_found: 'User cannot be found.',
+      user_inactive: 'Your account has never been activated.',
 
       email: {
         parameter_missing: 'Username is required.',
@@ -366,6 +367,7 @@ export default {
     },
 
     loginForm: {
+      passwordForgotten: 'You can’t remember your password?',
       passwordLabel: 'Password',
       submit: 'Log in',
       register: 'Create an account',
@@ -374,6 +376,30 @@ export default {
 
     loginLayout: {
       title: 'Log in',
+    },
+
+    passwordNewForm: {
+      passwordLabel: 'Password',
+      submit: 'Change your password',
+    },
+
+    passwordNewLayout: {
+      intro: 'You’re going to change your password. Once done, you’ll be logged in and redirected to the dashboard.',
+      title: 'Change your password',
+    },
+
+    passwordResetForm: {
+      emailLabel: 'Email',
+      login: 'You remember your password?',
+      register: 'Create an account',
+      submit: 'Reset your password',
+    },
+
+    passwordResetLayout: {
+      emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
+      emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',
+      login: 'You remember your password?',
+      title: 'Reset your password',
     },
 
     registerForm: {

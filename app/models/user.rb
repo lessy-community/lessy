@@ -26,6 +26,18 @@ class User < ApplicationRecord
     User.where(username: identifier).or(User.where(id: identifier)).take!
   end
 
+  def self.find_by_sorcery_token!(token, type:)
+    loader = "load_from_#{type}_token"
+    user = User.send(loader, token)
+    unless user
+      raise ActiveRecord::RecordNotFound.new(
+        "Couldn't find User with #{type}_token=#{token}",
+        User.name,
+      )
+    end
+    user
+  end
+
   def token(expiration = 1.day.from_now)
    JsonWebToken.encode({ user_id: self.id }, expiration)
   end
@@ -36,6 +48,10 @@ class User < ApplicationRecord
 
   def flipper_enabled?(flag)
     Flipper.enabled? flag, self
+  end
+
+  def inactive?
+    activation_state == 'pending'
   end
 
   def accepted_tos?

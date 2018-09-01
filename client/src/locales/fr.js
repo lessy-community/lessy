@@ -81,6 +81,7 @@ export default {
     user: {
       parameter_missing: 'Un utilisateur/une utilisatrice est nécessaire.',
       record_not_found: 'L’utilisateur/utilisatrice n’a pas été trouvé·e.',
+      user_inactive: 'Votre compte n’a jamais été activé.',
 
       email: {
         parameter_missing: 'Le nom d’utilisateur/utilisatrice est nécessaire.',
@@ -366,6 +367,7 @@ export default {
     },
 
     loginForm: {
+      passwordForgotten: 'Mot de passe oublié ?',
       passwordLabel: 'Mot de passe',
       submit: 'Se connecter',
       register: 'Créer un compte',
@@ -374,6 +376,30 @@ export default {
 
     loginLayout: {
       title: 'Se connecter',
+    },
+
+    passwordNewForm: {
+      passwordLabel: 'Mot de passe',
+      submit: 'Changez votre mot de passe',
+    },
+
+    passwordNewLayout: {
+      intro: 'Vous êtes sur le point de changer votre mot de passe. Une fois cela fait, vous serez connecté et redirigé vers le tableau de bord.',
+      title: 'Changez votre mot de passe',
+    },
+
+    passwordResetForm: {
+      emailLabel: 'Email',
+      login: 'Vous vous souvenez de votre mot de passe ?',
+      register: 'Créer un compte',
+      submit: 'Réinitialisez votre mot de passe',
+    },
+
+    passwordResetLayout: {
+      emailIntro: 'Veuillez entrer l’adresse email de votre compte afin de vous envoyer un lien permettant de réinitialiser votre mot de passe.',
+      emailSentTo: 'Nous venons de vous envoyer un lien à l’adresse {email} afin que vous puissiez vous définir un nouveau mot de passe. Si vous ne recevez pas d’email, veuillez vérifier vos spams.',
+      login: 'Vous vous souvenez de votre mot de passe ?',
+      title: 'Réinitialisez votre mot de passe',
     },
 
     registerForm: {

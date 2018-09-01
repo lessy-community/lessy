@@ -7,6 +7,8 @@ import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
 
 import UserActivateLayout from './components/users/UserActivateLayout'
 import UserLoginLayout from './components/users/UserLoginLayout'
+import UserPasswordResetLayout from './components/users/UserPasswordResetLayout'
+import UserPasswordNewLayout from './components/users/UserPasswordNewLayout'
 
 import DashboardLayout from './components/dashboard/DashboardLayout'
 
@@ -36,6 +38,8 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: HomeLayout, meta: { restrictForUnauth: true, title: 'Welcome' } },
   { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
+  { path: '/password/reset', component: UserPasswordResetLayout, meta: { restrictForUnauth: true, title: 'Reset your password' } },
+  { path: '/password/:token/new', component: UserPasswordNewLayout, meta: { restrictForUnauth: true, title: 'Change your password' } },
   { path: '/terms-of-service', component: TermsOfServiceLayout, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
   { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },

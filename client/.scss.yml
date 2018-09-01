@@ -1,0 +1,42 @@
+scss_files: 'src/**/*.scss'
+
+linters:
+  LeadingZero:
+    style: exclude_zero
+
+  PropertySortOrder:
+    order:
+      - position
+      - top
+      - right
+      - bottom
+      - left
+      - z-index
+      -
+      - display
+      - float
+      - width
+      - height
+      - margin
+      - margin-top
+      - margin-bottom
+      - margin-left
+      - margin-right
+      - padding
+      - padding-top
+      - padding-bottom
+      - padding-left
+      - padding-right
+      -
+      - font
+      - line-height
+      - color
+      - text-align
+      -
+      - background
+      - border
+      - border-radius
+      - box-shadow
+      -
+      - opacity
+    separate_groups: true

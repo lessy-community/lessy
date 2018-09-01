@@ -71,6 +71,18 @@ const actions = {
     return usersApi.acceptTermsOfService()
                    .then((res) => commit('update', res.data))
   },
+
+  resetPassword ({ commit }, { email }) {
+    return usersApi.resetPassword(email)
+  },
+
+  changePassword ({ commit }, { token, password }) {
+    return usersApi.changePassword(token, password)
+      .then((res) => {
+        auth.login(res.meta.token)
+        commit('setCurrent', res.data)
+      })
+  },
 }
 
 const mutations = {

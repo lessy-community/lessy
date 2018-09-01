@@ -13,6 +13,10 @@ FactoryBot.define do
       # nothing on purpose
     end
 
+    trait :password_reseted do
+      after(:create, &:generate_reset_password_token!)
+    end
+
     trait :not_accepted_tos do
       terms_of_service nil
     end

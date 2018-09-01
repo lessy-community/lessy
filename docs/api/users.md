@@ -288,3 +288,102 @@ $ curl -H "Authorization: <token>" \
   }
 }
 ```
+
+## `POST /api/users/password_resets`
+
+Set a reset password token and send an email to the user.
+
+**This endpoint doesn't require an `Authorization` header.**
+
+Parameters:
+
+| Name       | Type   | Description  | Optional |
+|------------|--------|--------------|----------|
+| user       | object |              |          |
+| user.email | string | User's email |          |
+
+Result format: None
+
+Specific errors:
+
+| Code              | Description                                                      |
+|-------------------|------------------------------------------------------------------|
+| user\_inactive    | User did not activate its account and cannot reset its password. |
+
+Example:
+
+```console
+$ curl -H "Content-Type: application/json" \
+       -X POST \
+       -d '{"user": { "email": "dale.cooper@lessy.io" }}' \
+       https://lessy.io/api/users/password_resets
+```
+
+```raw
+no content
+```
+
+## `POST /api/users/passwords`
+
+Change the password of the user, using the reset password token from the email.
+
+**This endpoint doesn't require an `Authorization` header.**
+
+Parameters:
+
+| Name          | Type   | Description            | Optional |
+|---------------|--------|------------------------|----------|
+| user          | object |                        |          |
+| user.password | string | User's password to set |          |
+| token         | string | Reset password token   |          |
+
+**Important note:** the `token` is the one present in the link of the **reset
+password email** (e.g. `https://lessy.io/password/9xNZHo_YR1J8SvzseL_S/new`)
+
+Result format:
+
+| Name                           | Type   | Description                                          | Optional |
+|--------------------------------|--------|------------------------------------------------------|----------|
+| data                           | object |                                                      |          |
+| data.type                      | string | Type of returned data (always `user`)                |          |
+| data.id                        | number | User's identifier                                    |          |
+| data.attributes                | object |                                                      |          |
+| data.attributes.username       | string | User's username                                      |          |
+| data.attributes.email          | string | User's email                                         |          |
+| data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
+| data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| meta                           | object |                                                      |          |
+| meta.token                     | string | A temporary token (1 month)                          |          |
+
+Specific errors:
+
+| Code              | Description                                                      |
+|-------------------|------------------------------------------------------------------|
+| user\_inactive    | User did not activate its account and cannot reset its password. |
+
+Example:
+
+```console
+$ curl -H "Content-Type: application/json" \
+       -X POST \
+       -d '{"user": {"password": "secret"}, "token": "<reset_token>"}' \
+       https://lessy.io/api/users/passwords
+```
+
+```json
+{
+  "data": {
+    "type": "user",
+    "id": 1,
+    "attributes": {
+      "username": "dalecooper",
+      "email": "dale.cooper@lessy.io",
+      "admin": false,
+      "hasAcceptedTos": true
+    }
+  },
+  "meta": {
+    "token": "<token>"
+  }
+}
+```
