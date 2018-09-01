@@ -288,3 +288,31 @@ $ curl -H "Authorization: <token>" \
   }
 }
 ```
+
+## `POST /api/users/password_resets`
+
+Set a reset password token and send an email to the user.
+
+**This endpoint doesn't require an `Authorization` header.**
+
+Parameters:
+
+| Name       | Type   | Description  | Optional |
+|------------|--------|--------------|----------|
+| user       | object |              |          |
+| user.email | string | User's email |          |
+
+Result format: None
+
+Example:
+
+```console
+$ curl -H "Content-Type: application/json" \
+       -X POST \
+       -d '{"user": { "email": "dale.cooper@lessy.io" }}' \
+       https://lessy.io/api/users/password_resets
+```
+
+```raw
+no content
+```

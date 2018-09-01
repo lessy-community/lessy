@@ -11,4 +11,11 @@ class UserMailer < ApplicationMailer
     mail to: user.email,
          subject: 'Your account is now activated'
   end
+
+  def reset_password_email(user)
+    @user = user
+    @reset_url = "#{ root_url }password/#{ user.reset_password_token }/new"
+    mail to: user.email,
+         subject: 'Lessy password reset'
+  end
 end

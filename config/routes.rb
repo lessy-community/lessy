@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     namespace :users do
       resources :authorizations, only: [:create]
       resources :activations, only: [:create]
+      resources :password_resets, only: [:create]
     end
 
     patch '/projects/:id', to: 'projects#update', as: 'project'
