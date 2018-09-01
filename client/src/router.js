@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HomeLayout from './components/general/HomeLayout'
+import HomePage from './components/general/HomePage'
 import NotFoundLayout from './components/general/NotFoundLayout'
 import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
 
@@ -35,7 +35,7 @@ import auth from './auth'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: HomeLayout, meta: { restrictForUnauth: true, title: 'Welcome' } },
+  { path: '/', component: HomePage, meta: { restrictForUnauth: true, title: 'Welcome' } },
   { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
   { path: '/password/reset', component: UserPasswordResetLayout, meta: { restrictForUnauth: true, title: 'Reset your password' } },
   { path: '/password/:token/new', component: UserPasswordNewLayout, meta: { restrictForUnauth: true, title: 'Change your password' } },

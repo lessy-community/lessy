@@ -111,7 +111,7 @@ export default {
       tasks: 'Tasks',
     },
 
-    homeLayout: {
+    homePage: {
       title: 'Recover your power to manage time',
       intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
 

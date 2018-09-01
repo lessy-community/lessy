@@ -111,7 +111,7 @@ export default {
       tasks: 'Tâches',
     },
 
-    homeLayout: {
+    homePage: {
       title: 'Maîtrisez votre temps',
       intro: 'Concentrez vos efforts sur ce qui est vraiment essentiel, ne dites plus jamais « Je n’ai pas le temps ».',
 
