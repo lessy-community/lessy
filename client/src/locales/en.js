@@ -369,7 +369,7 @@ export default {
       usernameCaption: 'Only lowercase letters, underscore and dash (max 25 characters).',
     },
 
-    activateLayout: {
+    activatePage: {
       intro: 'To continue, you have to pick a unique username and a password so you can login to your account later.',
       title: 'Activate your account',
     },
@@ -382,7 +382,7 @@ export default {
       usernameLabel: 'Username',
     },
 
-    loginLayout: {
+    loginPage: {
       title: 'Log in',
     },
 
@@ -391,7 +391,7 @@ export default {
       submit: 'Change your password',
     },
 
-    passwordNewLayout: {
+    passwordNewPage: {
       intro: 'You’re going to change your password. Once done, you’ll be logged in and redirected to the dashboard.',
       title: 'Change your password',
     },
@@ -403,7 +403,7 @@ export default {
       submit: 'Reset your password',
     },
 
-    passwordResetLayout: {
+    passwordResetPage: {
       accountInactive: 'You didn’t activate your account and so we can’t reset your password. Did you receive the email with the activation instructions?',
       emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
       emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',

@@ -5,10 +5,10 @@ import HomePage from './components/general/HomePage'
 import NotFoundPage from './components/general/NotFoundPage'
 import TermsOfServicePage from './components/general/TermsOfServicePage'
 
-import UserActivateLayout from './components/users/UserActivateLayout'
-import UserLoginLayout from './components/users/UserLoginLayout'
-import UserPasswordResetLayout from './components/users/UserPasswordResetLayout'
-import UserPasswordNewLayout from './components/users/UserPasswordNewLayout'
+import UserActivatePage from './components/users/UserActivatePage'
+import UserLoginPage from './components/users/UserLoginPage'
+import UserPasswordResetPage from './components/users/UserPasswordResetPage'
+import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
 import DashboardLayout from './components/dashboard/DashboardLayout'
 
@@ -36,11 +36,11 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: HomePage, meta: { restrictForUnauth: true, title: 'Welcome' } },
-  { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
-  { path: '/password/reset', component: UserPasswordResetLayout, meta: { restrictForUnauth: true, title: 'Reset your password' } },
-  { path: '/password/:token/new', component: UserPasswordNewLayout, meta: { restrictForUnauth: true, title: 'Change your password' } },
+  { path: '/login', component: UserLoginPage, meta: { restrictForUnauth: true, title: 'Login' } },
+  { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, title: 'Reset your password' } },
+  { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, title: 'Change your password' } },
   { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
-  { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
+  { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
   { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
   { path: '/tasks',
     component: TasksLayout,

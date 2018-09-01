@@ -369,7 +369,7 @@ export default {
       usernameCaption: 'Utilisez seulement des minuscules, le caractère soulignement et/ou le trait d’union (25 caractères maximum).',
     },
 
-    activateLayout: {
+    activatePage: {
       intro: 'Pour continuer, vous devez choisir un nom d’utilisateur/utilisatrice unique et un mot de passe qui vous permettront vous connecter à votre compte par la suite.',
       title: 'Activez votre compte',
     },
@@ -382,7 +382,7 @@ export default {
       usernameLabel: 'Nom d’utilisateur/utilisatrice',
     },
 
-    loginLayout: {
+    loginPage: {
       title: 'Se connecter',
     },
 
@@ -391,7 +391,7 @@ export default {
       submit: 'Changez votre mot de passe',
     },
 
-    passwordNewLayout: {
+    passwordNewPage: {
       intro: 'Vous êtes sur le point de changer votre mot de passe. Une fois cela fait, vous serez connecté et redirigé vers le tableau de bord.',
       title: 'Changez votre mot de passe',
     },
@@ -403,7 +403,7 @@ export default {
       submit: 'Réinitialisez votre mot de passe',
     },
 
-    passwordResetLayout: {
+    passwordResetPage: {
       accountInactive: 'Vous n’avez pas activé votre compte et nous ne pouvons pas réinitialiser votre mot de passe. Avez-vous bien reçu le mail contenant les instructions d’activation ?',
       emailIntro: 'Veuillez entrer l’adresse email de votre compte afin de vous envoyer un lien permettant de réinitialiser votre mot de passe.',
       emailSentTo: 'Nous venons de vous envoyer un lien à l’adresse {email} afin que vous puissiez vous définir un nouveau mot de passe. Si vous ne recevez pas d’email, veuillez vérifier vos spams.',

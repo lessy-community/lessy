@@ -23,6 +23,7 @@ import AppMenuLink from './components/App/AppMenuLink'
 
 import LayoutDefault from './components/layouts/LayoutDefault'
 import LayoutDesign from './components/layouts/LayoutDesign'
+import LayoutSingleForm from './components/layouts/LayoutSingleForm'
 
 import i18n from './locales'
 import router from './router'
@@ -42,6 +43,7 @@ Vue.component('app-menu-link', AppMenuLink)
 
 Vue.component('layout-default', LayoutDefault)
 Vue.component('layout-design', LayoutDesign)
+Vue.component('layout-single-form', LayoutSingleForm)
 
 Vue.component('ly-badge', LyBadge)
 Vue.component('ly-button', LyButton)
