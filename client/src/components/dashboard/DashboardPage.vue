@@ -1,5 +1,7 @@
 <template>
-  <app-page name="dashboard">
+  <app-page name="dashboard" layout="application">
+    <app-header slot="header" :title="$t('dashboard.page.title')"></app-header>
+
     <ly-card v-if="!user.activated">
       <p v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
       <ly-button

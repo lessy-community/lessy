@@ -6,10 +6,6 @@ export default {
   },
 
   dashboard: {
-    layout: {
-      title: 'Dashboard',
-    },
-
     page: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       backlog: 'pick some from backlog',
@@ -19,6 +15,7 @@ export default {
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
       tasksForToday: '{count} task for today | {count} tasks for today',
+      title: 'Dashboard',
     },
   },
 

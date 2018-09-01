@@ -10,7 +10,7 @@ import UserLoginPage from './components/users/UserLoginPage'
 import UserPasswordResetPage from './components/users/UserPasswordResetPage'
 import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
-import DashboardLayout from './components/dashboard/DashboardLayout'
+import DashboardPage from './components/dashboard/DashboardPage'
 
 import ProjectsLayout from './components/projects/ProjectsLayout'
 import ProjectsInboxPage from './components/projects/ProjectsInboxPage'
@@ -41,7 +41,7 @@ const routes = [
   { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, title: 'Change your password' } },
   { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
-  { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
+  { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, title: 'Dashboard' } },
   { path: '/tasks',
     component: TasksLayout,
     children: [
