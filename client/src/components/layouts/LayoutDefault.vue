@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="default" no-legacy>
+  <app-layout name="default">
     <header class="header-default" slot="header">
       <div class="header-default-container">
         <router-link class="header-default-brand" to="/">{{ $t('layouts.default.lessy') }}</router-link>

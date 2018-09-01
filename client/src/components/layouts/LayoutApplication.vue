@@ -1,5 +1,5 @@
 <template>
-  <app-layout name="application" no-legacy>
+  <app-layout name="application">
     <app-menu :title="$t('layouts.application.title')" slot="menu">
       <app-menu-link to="/dashboard" icon="tachometer">{{ $t('layouts.application.dashboard') }}</app-menu-link>
       <app-menu-link to="/tasks" icon="check-circle">{{ $t('layouts.application.tasks') }}</app-menu-link>
