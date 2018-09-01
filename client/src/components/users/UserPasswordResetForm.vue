@@ -36,9 +36,16 @@
 
     methods: {
       resetPassword () {
-        this.$store.dispatch('users/resetPassword', { email: this.email })
-                   .then(() => { this.$emit('success', this.email) })
-                   .catch(this.setFailureErrors)
+        this.$store
+          .dispatch('users/resetPassword', { email: this.email })
+          .then(() => { this.$emit('success', this.email) })
+          .catch((errors) => {
+            this.$emit('fail', {
+              errors: errors.data.errors,
+              email: this.email
+            })
+            this.setFailureErrors(errors)
+          })
       },
     },
   }

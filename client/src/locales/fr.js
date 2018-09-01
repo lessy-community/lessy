@@ -398,9 +398,12 @@ export default {
     },
 
     passwordResetLayout: {
+      accountInactive: 'Vous n’avez pas activé votre compte et nous ne pouvons pas réinitialiser votre mot de passe. Avez-vous bien reçu le mail contenant les instructions d’activation ?',
       emailIntro: 'Veuillez entrer l’adresse email de votre compte afin de vous envoyer un lien permettant de réinitialiser votre mot de passe.',
       emailSentTo: 'Nous venons de vous envoyer un lien à l’adresse {email} afin que vous puissiez vous définir un nouveau mot de passe. Si vous ne recevez pas d’email, veuillez vérifier vos spams.',
       login: 'Vous vous souvenez de votre mot de passe ?',
+      resendActivationInstructions: 'Renvoyer les instructions',
+      resendActivationInstructionsDone: 'Fait',
       title: 'Réinitialisez votre mot de passe',
     },
 

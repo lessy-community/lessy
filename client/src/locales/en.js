@@ -398,9 +398,12 @@ export default {
     },
 
     passwordResetLayout: {
+      accountInactive: 'You didn’t activate your account and so we can’t reset your password. Did you receive the email with the activation instructions?',
       emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
       emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',
       login: 'You remember your password?',
+      resendActivationInstructions: 'Resend activation instructions',
+      resendActivationInstructionsDone: 'Done',
       title: 'Reset your password',
     },
 
