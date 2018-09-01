@@ -40,6 +40,16 @@ module ApiErrors
     end
   end
 
+  class UserInactive < Base
+    def initialize
+      @status = '422 Unprocessable Entity'
+      @code = 'user_inactive'
+      @title = 'User is inactive'
+      @detail = 'The user did not activate its account.'
+      @source_pointer = '/user'
+    end
+  end
+
   class ParameterMissing < Base
     def initialize(exception)
       if exception.is_a? ActionController::ResourceParameterMissing

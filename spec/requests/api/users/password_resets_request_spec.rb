@@ -3,7 +3,8 @@ require 'shared_examples_for_failures'
 
 RSpec.describe Api::Users::PasswordResetsController, type: :request do
   describe 'POST #create' do
-    let!(:user) { create :user, :activated, email: 'john@doe.com' }
+    let!(:user) { create :user, user_trait, email: 'john@doe.com' }
+    let(:user_trait) { :activated }
     let(:payload) { {
       user: {
         email: email,
@@ -63,6 +64,23 @@ RSpec.describe Api::Users::PasswordResetsController, type: :request do
           title: 'Parameter is missing',
           detail: 'A parameter is missing or empty but it is required.',
           source: { pointer: '/user/email' },
+        }],
+      }
+    end
+
+    context 'with an inactive user' do
+      let(:user_trait) { :inactive }
+      let(:email) { 'john@doe.com' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'user_inactive',
+          title: 'User is inactive',
+          detail: 'The user did not activate its account.',
+          source: { pointer: '/user' },
         }],
       }
     end

@@ -81,6 +81,7 @@ export default {
     user: {
       parameter_missing: 'User is required.',
       record_not_found: 'User cannot be found.',
+      user_inactive: 'Your account has never been activated.',
 
       email: {
         parameter_missing: 'Username is required.',

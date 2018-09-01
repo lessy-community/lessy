@@ -4,6 +4,10 @@ class Api::Users::PasswordResetsController < ApiController
 
   def create
     @user = User.find_by!(find_user_params)
+    if @user.inactive?
+      render_errors [ApiErrors::UserInactive.new], :unprocessable_entity
+      return
+    end
     @user.deliver_reset_password_instructions!
     head :no_content
   end

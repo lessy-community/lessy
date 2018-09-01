@@ -304,6 +304,12 @@ Parameters:
 
 Result format: None
 
+Specific errors:
+
+| Code              | Description                                                      |
+|-------------------|------------------------------------------------------------------|
+| user\_inactive    | User did not activate its account and cannot reset its password. |
+
 Example:
 
 ```console
@@ -348,6 +354,12 @@ Result format:
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
 | meta                           | object |                                                      |          |
 | meta.token                     | string | A temporary token (1 month)                          |          |
+
+Specific errors:
+
+| Code              | Description                                                      |
+|-------------------|------------------------------------------------------------------|
+| user\_inactive    | User did not activate its account and cannot reset its password. |
 
 Example:
 

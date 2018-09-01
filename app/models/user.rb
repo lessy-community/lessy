@@ -38,6 +38,10 @@ class User < ApplicationRecord
     Flipper.enabled? flag, self
   end
 
+  def inactive?
+    activation_state == 'pending'
+  end
+
   def accepted_tos?
     terms_of_service == TermsOfService.current
   end

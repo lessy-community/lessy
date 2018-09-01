@@ -3,7 +3,8 @@ require 'shared_examples_for_failures'
 
 RSpec.describe Api::Users::PasswordsController, type: :request do
   describe 'POST #create' do
-    let(:user) { create :user, :activated, :password_reseted }
+    let(:user) { create :user, user_trait, :password_reseted }
+    let(:user_trait) { :activated }
     let(:payload) { {
       user: {
         password: password,
@@ -75,6 +76,24 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
           code: 'record_not_found',
           title: 'Record not found',
           detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+          source: { pointer: '/user' },
+        }],
+      }
+    end
+
+    context 'with an inactive user' do
+      let(:user_trait) { :inactive }
+      let(:password) { 'secret' }
+      let(:token) { user.reset_password_token }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'user_inactive',
+          title: 'User is inactive',
+          detail: 'The user did not activate its account.',
           source: { pointer: '/user' },
         }],
       }

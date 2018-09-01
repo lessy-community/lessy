@@ -81,6 +81,7 @@ export default {
     user: {
       parameter_missing: 'Un utilisateur/une utilisatrice est nécessaire.',
       record_not_found: 'L’utilisateur/utilisatrice n’a pas été trouvé·e.',
+      user_inactive: 'Votre compte n’a jamais été activé.',
 
       email: {
         parameter_missing: 'Le nom d’utilisateur/utilisatrice est nécessaire.',

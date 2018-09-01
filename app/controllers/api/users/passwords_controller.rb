@@ -7,6 +7,10 @@ class Api::Users::PasswordsController < ApiController
     unless @user
       raise ActiveRecord::RecordNotFound.new "Couldn't find User with token=#{ params[:token] }", User.name
     end
+    if @user.inactive?
+      render_errors [ApiErrors::UserInactive.new], :unprocessable_entity
+      return
+    end
     @user.change_password! password_param
     @token = @user.token(1.month.from_now)
   end
