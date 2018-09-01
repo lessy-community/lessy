@@ -1,7 +1,7 @@
 <template>
   <div :class="['app-layout', `app-layout-${name}`]">
     <slot name="menu"></slot>
-    <div class="app-page-container">
+    <div class="app-layout-container">
       <slot name="header"></slot>
       <main class="app-layout-main">
         <slot></slot>
@@ -30,16 +30,15 @@
 
       flex-shrink: 0;
     }
-    > .app-page-container {
+    > .app-layout-container {
       flex-grow: 1;
     }
   }
 
-  .app-page-container {
+  .app-layout-container {
     display: flex;
     flex-direction: column;
 
-    > .app-page,
     > .app-layout-main {
       flex-grow: 1;
     }
