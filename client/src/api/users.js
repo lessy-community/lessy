@@ -32,4 +32,13 @@ export default {
   acceptTermsOfService: () => {
     return post('/api/users/me/terms_of_services', {})
   },
+
+  resetPassword: (email) => {
+    const payload = {
+      user: {
+        email,
+      },
+    }
+    return post('/api/users/password_resets', payload, false)
+  },
 }

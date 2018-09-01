@@ -366,6 +366,7 @@ export default {
     },
 
     loginForm: {
+      passwordForgotten: 'You can’t remember your password?',
       passwordLabel: 'Password',
       submit: 'Log in',
       register: 'Create an account',
@@ -374,6 +375,20 @@ export default {
 
     loginLayout: {
       title: 'Log in',
+    },
+
+    passwordResetForm: {
+      emailLabel: 'Email',
+      login: 'You remember your password?',
+      register: 'Create an account',
+      submit: 'Reset your password',
+    },
+
+    passwordResetLayout: {
+      emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
+      emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',
+      login: 'You remember your password?',
+      title: 'Reset your password',
     },
 
     registerForm: {

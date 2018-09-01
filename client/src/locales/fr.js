@@ -366,6 +366,7 @@ export default {
     },
 
     loginForm: {
+      passwordForgotten: 'Mot de passe oublié ?',
       passwordLabel: 'Mot de passe',
       submit: 'Se connecter',
       register: 'Créer un compte',
@@ -374,6 +375,20 @@ export default {
 
     loginLayout: {
       title: 'Se connecter',
+    },
+
+    passwordResetForm: {
+      emailLabel: 'Email',
+      login: 'Vous vous souvenez de votre mot de passe ?',
+      register: 'Créer un compte',
+      submit: 'Réinitialisez votre mot de passe',
+    },
+
+    passwordResetLayout: {
+      emailIntro: 'Veuillez entrer l’adresse email de votre compte afin de vous envoyer un lien permettant de réinitialiser votre mot de passe.',
+      emailSentTo: 'Nous venons de vous envoyer un lien à l’adresse {email} afin que vous puissiez vous définir un nouveau mot de passe. Si vous ne recevez pas d’email, veuillez vérifier vos spams.',
+      login: 'Vous vous souvenez de votre mot de passe ?',
+      title: 'Réinitialisez votre mot de passe',
     },
 
     registerForm: {

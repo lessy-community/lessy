@@ -29,6 +29,16 @@ img {
   max-width: 100%;
 }
 
+hr {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  border: none;
+  border-radius: .25rem;
+  box-shadow: 0 0 0 1px $ly-color-grey-30;
+}
+
 code {
   padding: .1rem .25rem;
 
