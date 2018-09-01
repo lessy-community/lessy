@@ -16,6 +16,8 @@ export default {
       createTask: 'Add tasks for today',
       or: 'or',
       projectsInProgress: 'Projects in progress',
+      resendActivationInstructions: 'Resend activation instructions',
+      resendActivationInstructionsDone: 'Done',
       tasksForToday: '{count} task for today | {count} tasks for today',
     },
   },

@@ -5,6 +5,15 @@ export default {
     return post('/api/users', { email }, false)
   },
 
+  resendActivationEmail: (email) => {
+    const payload = {
+      user: {
+        email,
+      },
+    }
+    return post('/api/users/activation_emails', payload, false)
+  },
+
   activate: (token, username, password) => {
     const url = `/api/users/activations`
     const payload = {

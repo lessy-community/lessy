@@ -16,6 +16,8 @@ export default {
       createTask: 'Ajouter des tâches pour aujourd’hui',
       or: 'ou',
       projectsInProgress: 'Projets en cours',
+      resendActivationInstructions: 'Renvoyer les instructions',
+      resendActivationInstructionsDone: 'Fait',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
     },
   },
