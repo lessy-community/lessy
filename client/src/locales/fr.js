@@ -6,10 +6,6 @@ export default {
   },
 
   dashboard: {
-    layout: {
-      title: 'Tableau de bord',
-    },
-
     page: {
       activationInstructions: 'Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
       backlog: 'en sélectionner depuis la liste d’attente',
@@ -19,6 +15,7 @@ export default {
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      title: 'Tableau de bord',
     },
   },
 
@@ -105,13 +102,7 @@ export default {
   },
 
   general: {
-    defaultMenu: {
-      dashboard: 'Tableau de bord',
-      projects: 'Projets',
-      tasks: 'Tâches',
-    },
-
-    homeLayout: {
+    homePage: {
       title: 'Maîtrisez votre temps',
       intro: 'Concentrez vos efforts sur ce qui est vraiment essentiel, ne dites plus jamais « Je n’ai pas le temps ».',
 
@@ -138,17 +129,20 @@ export default {
       greetings: 'Passez une bonne journée !',
     },
 
-    loadingLayout: {
-      inProgress: 'Chargement en cours, veuillez patienter…',
+    loadingPage: {
+      inProgress: 'Chargement en cours…',
+      title: 'Lessy',
+      wait: '— Asseyez-vous et détendez-vous —',
     },
 
-    notFoundLayout: {
+    notFoundPage: {
       home: 'Accueil',
-      intro: 'Il semble que cette page n’existe pas…',
-      title: 'Page introuvable',
+      intro: 'Vous venez de vous perdre. Mais pas d’inquiétude, l’accueil n’est pas bien loin…',
+      meh: 'Page introuvable',
+      title: 'Lessy',
     },
 
-    termsOfServiceLayout: {
+    termsOfServicePage: {
       accept: 'J’ai lu et accepte les conditions',
       changed: 'Les conditions d’utilisation du service ont changé, veuillez les lire avec attention.',
       goBack: 'Revenir à la page principale',
@@ -163,8 +157,17 @@ export default {
       read: 'Lire les conditions d’utilisation',
       title: 'Conditions d’utilisation du service',
     },
+  },
 
-    welcomeHeader: {
+  layouts: {
+    application: {
+      title: 'Lessy',
+      dashboard: 'Tableau de bord',
+      projects: 'Projets',
+      tasks: 'Tâches',
+    },
+
+    default: {
       lessy: 'Lessy',
     },
   },
@@ -237,7 +240,7 @@ export default {
       tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
     },
 
-    layout: {
+    header: {
       inbox: 'Boîte d’entrée',
       project: 'Projet',
       title: 'Projets',
@@ -335,7 +338,7 @@ export default {
       empty: 'Aucune tâche ici…',
     },
 
-    layout: {
+    header: {
       backlog: 'Liste d’attente',
       statistics: 'Statistiques',
       title: 'Tâches',
@@ -363,7 +366,7 @@ export default {
       usernameCaption: 'Utilisez seulement des minuscules, le caractère soulignement et/ou le trait d’union (25 caractères maximum).',
     },
 
-    activateLayout: {
+    activatePage: {
       intro: 'Pour continuer, vous devez choisir un nom d’utilisateur/utilisatrice unique et un mot de passe qui vous permettront vous connecter à votre compte par la suite.',
       title: 'Activez votre compte',
     },
@@ -376,7 +379,7 @@ export default {
       usernameLabel: 'Nom d’utilisateur/utilisatrice',
     },
 
-    loginLayout: {
+    loginPage: {
       title: 'Se connecter',
     },
 
@@ -385,7 +388,7 @@ export default {
       submit: 'Changez votre mot de passe',
     },
 
-    passwordNewLayout: {
+    passwordNewPage: {
       intro: 'Vous êtes sur le point de changer votre mot de passe. Une fois cela fait, vous serez connecté et redirigé vers le tableau de bord.',
       title: 'Changez votre mot de passe',
     },
@@ -397,7 +400,7 @@ export default {
       submit: 'Réinitialisez votre mot de passe',
     },
 
-    passwordResetLayout: {
+    passwordResetPage: {
       accountInactive: 'Vous n’avez pas activé votre compte et nous ne pouvons pas réinitialiser votre mot de passe. Avez-vous bien reçu le mail contenant les instructions d’activation ?',
       emailIntro: 'Veuillez entrer l’adresse email de votre compte afin de vous envoyer un lien permettant de réinitialiser votre mot de passe.',
       emailSentTo: 'Nous venons de vous envoyer un lien à l’adresse {email} afin que vous puissiez vous définir un nouveau mot de passe. Si vous ne recevez pas d’email, veuillez vérifier vos spams.',

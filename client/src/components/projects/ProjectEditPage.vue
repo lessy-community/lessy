@@ -1,5 +1,6 @@
 <template>
-  <app-page name="project-edit">
+  <app-page name="project-edit" layout="application">
+    <projects-header slot="header"></projects-header>
     <ly-section :title="project.name">
       <project-edit-form
         :project="project"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+  import ProjectsHeader from './ProjectsHeader'
   import ProjectEditForm from './ProjectEditForm'
 
   export default {
@@ -19,6 +21,7 @@
     },
 
     components: {
+      ProjectsHeader,
       ProjectEditForm,
     },
 

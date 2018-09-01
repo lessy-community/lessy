@@ -1,5 +1,7 @@
 <template>
-  <app-page name="project-show">
+  <app-page name="project-show" layout="application">
+    <projects-header slot="header"></projects-header>
+
     <ly-section :title="project.name">
       <ly-button
         icon="pencil"
@@ -34,12 +36,14 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import ProjectsHeader from './ProjectsHeader'
   import ProjectTimeline from './ProjectTimeline'
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
 
   export default {
     components: {
+      ProjectsHeader,
       ProjectTimeline,
       TaskCreateForm,
       TaskList,

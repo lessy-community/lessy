@@ -6,10 +6,6 @@ export default {
   },
 
   dashboard: {
-    layout: {
-      title: 'Dashboard',
-    },
-
     page: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       backlog: 'pick some from backlog',
@@ -19,6 +15,7 @@ export default {
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
       tasksForToday: '{count} task for today | {count} tasks for today',
+      title: 'Dashboard',
     },
   },
 
@@ -105,13 +102,7 @@ export default {
   },
 
   general: {
-    defaultMenu: {
-      dashboard: 'Dashboard',
-      projects: 'Projects',
-      tasks: 'Tasks',
-    },
-
-    homeLayout: {
+    homePage: {
       title: 'Recover your power to manage time',
       intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
 
@@ -138,17 +129,20 @@ export default {
       greetings: 'Have a great day!',
     },
 
-    loadingLayout: {
-      inProgress: 'Loading, please wait…',
+    loadingPage: {
+      inProgress: 'Loading…',
+      title: 'Lessy',
+      wait: '— Please sit and relax —',
     },
 
-    notFoundLayout: {
+    notFoundPage: {
       home: 'Home page',
-      intro: "It looks like this page doesn't exist…",
-      title: 'Page not found',
+      intro: 'You’ve just got lost. But don’t worry, home isn’t far from here…',
+      meh: 'Page not found',
+      title: 'Lessy',
     },
 
-    termsOfServiceLayout: {
+    termsOfServicePage: {
       accept: 'I read and accept terms',
       changed: 'Terms of service have changed, you should read them carefully.',
       goBack: 'Go back to the main page',
@@ -163,8 +157,17 @@ export default {
       read: 'Read the terms of service',
       title: 'Terms of service',
     },
+  },
 
-    welcomeHeader: {
+  layouts: {
+    application: {
+      title: 'Lessy',
+      dashboard: 'Dashboard',
+      projects: 'Projects',
+      tasks: 'Tasks',
+    },
+
+    default: {
       lessy: 'Lessy',
     },
   },
@@ -237,7 +240,7 @@ export default {
       tasksCount: '{finishedCount} / {totalCount} task | {finishedCount} / {totalCount} tasks',
     },
 
-    layout: {
+    header: {
       inbox: 'Inbox',
       project: 'Project',
       title: 'Projects',
@@ -335,7 +338,7 @@ export default {
       empty: 'There are no tasks here…',
     },
 
-    layout: {
+    header: {
       backlog: 'Backlog',
       statistics: 'Statistics',
       title: 'Tasks',
@@ -363,7 +366,7 @@ export default {
       usernameCaption: 'Only lowercase letters, underscore and dash (max 25 characters).',
     },
 
-    activateLayout: {
+    activatePage: {
       intro: 'To continue, you have to pick a unique username and a password so you can login to your account later.',
       title: 'Activate your account',
     },
@@ -376,7 +379,7 @@ export default {
       usernameLabel: 'Username',
     },
 
-    loginLayout: {
+    loginPage: {
       title: 'Log in',
     },
 
@@ -385,7 +388,7 @@ export default {
       submit: 'Change your password',
     },
 
-    passwordNewLayout: {
+    passwordNewPage: {
       intro: 'You’re going to change your password. Once done, you’ll be logged in and redirected to the dashboard.',
       title: 'Change your password',
     },
@@ -397,7 +400,7 @@ export default {
       submit: 'Reset your password',
     },
 
-    passwordResetLayout: {
+    passwordResetPage: {
       accountInactive: 'You didn’t activate your account and so we can’t reset your password. Did you receive the email with the activation instructions?',
       emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
       emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',

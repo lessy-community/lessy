@@ -1,28 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HomeLayout from './components/general/HomeLayout'
-import NotFoundLayout from './components/general/NotFoundLayout'
-import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
+import HomePage from './components/general/HomePage'
+import NotFoundPage from './components/general/NotFoundPage'
+import TermsOfServicePage from './components/general/TermsOfServicePage'
 
-import UserActivateLayout from './components/users/UserActivateLayout'
-import UserLoginLayout from './components/users/UserLoginLayout'
-import UserPasswordResetLayout from './components/users/UserPasswordResetLayout'
-import UserPasswordNewLayout from './components/users/UserPasswordNewLayout'
+import UserActivatePage from './components/users/UserActivatePage'
+import UserLoginPage from './components/users/UserLoginPage'
+import UserPasswordResetPage from './components/users/UserPasswordResetPage'
+import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
-import DashboardLayout from './components/dashboard/DashboardLayout'
+import DashboardPage from './components/dashboard/DashboardPage'
 
-import ProjectsLayout from './components/projects/ProjectsLayout'
 import ProjectsInboxPage from './components/projects/ProjectsInboxPage'
-import ProjectLayout from './components/projects/ProjectLayout'
+import ProjectContainer from './components/projects/ProjectContainer'
 import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 
-import TasksLayout from './components/tasks/TasksLayout'
 import TasksBacklogPage from './components/tasks/TasksBacklogPage'
 import TasksStatisticsPage from './components/tasks/TasksStatisticsPage'
 
-import DesignLayout from './components/design/DesignLayout'
 import DesignIndexPage from './components/design/DesignIndexPage'
 import DesignGridPage from './components/design/DesignGridPage'
 import DesignTypographyPage from './components/design/DesignTypographyPage'
@@ -36,51 +33,34 @@ import auth from './auth'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: HomeLayout, meta: { restrictForUnauth: true, title: 'Welcome' } },
-  { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
-  { path: '/password/reset', component: UserPasswordResetLayout, meta: { restrictForUnauth: true, title: 'Reset your password' } },
-  { path: '/password/:token/new', component: UserPasswordNewLayout, meta: { restrictForUnauth: true, title: 'Change your password' } },
-  { path: '/terms-of-service', component: TermsOfServiceLayout, meta: { title: 'Terms of service' } },
-  { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
-  { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
-  { path: '/tasks',
-    component: TasksLayout,
+  { path: '/', component: HomePage, meta: { restrictForUnauth: true, title: 'Welcome' } },
+  { path: '/login', component: UserLoginPage, meta: { restrictForUnauth: true, title: 'Login' } },
+  { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, title: 'Reset your password' } },
+  { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, title: 'Change your password' } },
+  { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
+  { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
+  { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, title: 'Dashboard' } },
+  { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
+  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, title: 'Backlog' } },
+  { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, title: 'Statistics' } },
+  { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
+  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
+  { path: '/projects/:projectSlug',
+    component: ProjectContainer,
     children: [
-      { path: '', redirect: 'backlog' },
-      { path: 'backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { title: 'Backlog' } },
-      { path: 'statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { title: 'Statistics' } },
+      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, title: 'Project' } },
+      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, title: 'Project' } },
     ],
-    meta: { restrictForAuth: true },
+    props: true,
   },
-  { path: '/projects',
-    component: ProjectsLayout,
-    children: [
-      { path: '', redirect: 'inbox' },
-      { path: 'inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
-      { path: ':projectSlug',
-        component: ProjectLayout,
-        children: [
-          { path: '', component: ProjectShowPage, name: 'project/show', meta: { title: 'Project' } },
-          { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { title: 'Project' } },
-        ],
-        props: true,
-      },
-    ],
-    meta: { restrictForAuth: true },
-  },
-  { path: '/design',
-    component: DesignLayout,
-    children: [
-      { path: '', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
-      { path: 'grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },
-      { path: 'typography', component: DesignTypographyPage, meta: { title: 'Typography · Lessy Design Guide' } },
-      { path: 'colors', component: DesignColorsPage, meta: { title: 'Colors · Lessy Design Guide' } },
-      { path: 'visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
-      { path: 'components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
-      { path: 'wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
-    ],
-  },
-  { path: '*', component: NotFoundLayout },
+  { path: '/design', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
+  { path: '/design/grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },
+  { path: '/design/typography', component: DesignTypographyPage, meta: { title: 'Typography · Lessy Design Guide' } },
+  { path: '/design/colors', component: DesignColorsPage, meta: { title: 'Colors · Lessy Design Guide' } },
+  { path: '/design/visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
+  { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
+  { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
+  { path: '*', component: NotFoundPage },
 ]
 
 let router = new VueRouter({

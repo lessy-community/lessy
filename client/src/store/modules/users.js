@@ -66,9 +66,6 @@ const actions = {
 
   logout ({ commit }) {
     auth.logout()
-    commit('reset')
-    commit('tasks/reset', null, { root: true })
-    commit('projects/reset', null, { root: true })
   },
 
   acceptTermsOfService ({ commit }) {

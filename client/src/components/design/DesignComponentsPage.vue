@@ -1,5 +1,5 @@
 <template>
-  <app-page name="design-components">
+  <app-page name="design-components" layout="design">
     <ly-text-container>
       <h1>Components</h1>
 

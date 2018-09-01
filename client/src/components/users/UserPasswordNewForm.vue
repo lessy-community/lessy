@@ -1,5 +1,5 @@
 <template>
-  <ly-form @submit="resetPassword" :error="getErrors() || getErrors('/user')" margined>
+  <ly-form @submit="resetPassword" :error="getErrors() || getErrors('/user')">
     <ly-form-group>
       <ly-form-input
         type="password"

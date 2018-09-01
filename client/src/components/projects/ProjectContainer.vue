@@ -1,14 +1,19 @@
 <template>
-  <router-view v-if="project" :project="project"></router-view>
+  <router-view v-if="resourcesReady && project" :project="project"></router-view>
+  <loading-page v-else></loading-page>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
 
+  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+
   export default {
     props: {
       projectSlug: { type: String, required: true },
     },
+
+    mixins: [ResourcesLoader],
 
     computed: {
       ...mapGetters({

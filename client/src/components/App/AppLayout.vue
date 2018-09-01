@@ -1,38 +1,19 @@
 <template>
-  <section :class="['app-layout', `app-layout-${name}`]">
+  <div :class="['app-layout', `app-layout-${name}`]">
     <slot name="menu"></slot>
-    <div class="app-page-container">
+    <div class="app-layout-container">
       <slot name="header"></slot>
-      <slot></slot>
+      <main class="app-layout-main">
+        <slot></slot>
+      </main>
     </div>
-
-    <terms-of-service-modal v-if="showTosModal"></terms-of-service-modal>
-  </section>
+  </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
-  import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
-
   export default {
     props: {
       name: { type: String, required: true },
-      noTosRequirement: { type: Boolean, default: false },
-    },
-
-    components: {
-      TermsOfServiceModal,
-    },
-
-    computed: {
-      ...mapGetters({
-        user: 'users/current',
-      }),
-
-      showTosModal () {
-        return !this.noTosRequirement && this.user && !this.user.hasAcceptedTos
-      }
     },
   }
 </script>
@@ -49,18 +30,27 @@
 
       flex-shrink: 0;
     }
-    > .app-page-container {
+    > .app-layout-container {
       flex-grow: 1;
     }
   }
 
-  .app-page-container {
+  .app-layout-container {
     display: flex;
     flex-direction: column;
 
-    > .app-page {
+    > .app-layout-main {
       flex-grow: 1;
     }
+  }
+
+  .app-layout-main {
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    background-color: $ly-color-grey-10;
   }
 
   @media(max-width: $small-screen-width) {
@@ -70,6 +60,11 @@
       > .app-menu {
         width: auto;
       }
+    }
+
+    .app-layout-main {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 </style>

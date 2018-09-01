@@ -21,6 +21,14 @@ import AppPage from './components/App/AppPage'
 import AppMenu from './components/App/AppMenu'
 import AppMenuLink from './components/App/AppMenuLink'
 
+import LayoutApplication from './components/layouts/LayoutApplication'
+import LayoutDefault from './components/layouts/LayoutDefault'
+import LayoutDesign from './components/layouts/LayoutDesign'
+import LayoutEmpty from './components/layouts/LayoutEmpty'
+import LayoutSingleForm from './components/layouts/LayoutSingleForm'
+
+import LoadingPage from './components/general/LoadingPage'
+
 import i18n from './locales'
 import router from './router'
 import store from './store'
@@ -36,6 +44,14 @@ Vue.component('app-layout', AppLayout)
 Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)
 Vue.component('app-menu-link', AppMenuLink)
+
+Vue.component('layout-application', LayoutApplication)
+Vue.component('layout-default', LayoutDefault)
+Vue.component('layout-design', LayoutDesign)
+Vue.component('layout-empty', LayoutEmpty)
+Vue.component('layout-single-form', LayoutSingleForm)
+
+Vue.component('loading-page', LoadingPage)
 
 Vue.component('ly-badge', LyBadge)
 Vue.component('ly-button', LyButton)

@@ -1,7 +1,10 @@
 <template>
-  <app-page name="tasks-statistics">
+  <app-page v-if="resourcesReady" name="tasks-statistics" layout="application">
+    <tasks-header slot="header"></tasks-header>
+
     <line-chart :name="$t('tasks.statisticsPage.chartName')" :data="chartData()"></line-chart>
   </app-page>
+  <loading-page v-else></loading-page>
 </template>
 
 <script>
@@ -9,12 +12,18 @@
   import { extendMoment } from 'moment-range'
   const moment = extendMoment(Moment)
 
+  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+
+  import TasksHeader from './TasksHeader'
   import LineChart from './LineChart'
 
   import { mapGetters } from 'vuex'
 
   export default {
+    mixins: [ResourcesLoader],
+
     components: {
+      TasksHeader,
       LineChart,
     },
 
