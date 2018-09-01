@@ -169,6 +169,12 @@ export default {
     },
   },
 
+  layouts: {
+    default: {
+      lessy: 'Lessy',
+    },
+  },
+
   ly: {
     form: {
       input: {

@@ -21,6 +21,7 @@ import AppPage from './components/App/AppPage'
 import AppMenu from './components/App/AppMenu'
 import AppMenuLink from './components/App/AppMenuLink'
 
+import LayoutDefault from './components/layouts/LayoutDefault'
 import LayoutDesign from './components/layouts/LayoutDesign'
 
 import i18n from './locales'
@@ -39,6 +40,7 @@ Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)
 Vue.component('app-menu-link', AppMenuLink)
 
+Vue.component('layout-default', LayoutDefault)
 Vue.component('layout-design', LayoutDesign)
 
 Vue.component('ly-badge', LyBadge)
