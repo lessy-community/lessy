@@ -170,6 +170,13 @@ export default {
   },
 
   layouts: {
+    application: {
+      title: 'Lessy',
+      dashboard: 'Dashboard',
+      projects: 'Projects',
+      tasks: 'Tasks',
+    },
+
     default: {
       lessy: 'Lessy',
     },

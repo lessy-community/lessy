@@ -21,6 +21,7 @@ import AppPage from './components/App/AppPage'
 import AppMenu from './components/App/AppMenu'
 import AppMenuLink from './components/App/AppMenuLink'
 
+import LayoutApplication from './components/layouts/LayoutApplication'
 import LayoutDefault from './components/layouts/LayoutDefault'
 import LayoutDesign from './components/layouts/LayoutDesign'
 import LayoutSingleForm from './components/layouts/LayoutSingleForm'
@@ -41,6 +42,7 @@ Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)
 Vue.component('app-menu-link', AppMenuLink)
 
+Vue.component('layout-application', LayoutApplication)
 Vue.component('layout-default', LayoutDefault)
 Vue.component('layout-design', LayoutDesign)
 Vue.component('layout-single-form', LayoutSingleForm)
