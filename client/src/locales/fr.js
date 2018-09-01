@@ -102,12 +102,6 @@ export default {
   },
 
   general: {
-    defaultMenu: {
-      dashboard: 'Tableau de bord',
-      projects: 'Projets',
-      tasks: 'Tâches',
-    },
-
     homePage: {
       title: 'Maîtrisez votre temps',
       intro: 'Concentrez vos efforts sur ce qui est vraiment essentiel, ne dites plus jamais « Je n’ai pas le temps ».',
@@ -161,10 +155,6 @@ export default {
       mustAccept: 'Afin de continuer à utiliser ce service, vous devez accepter ces nouvelles conditions.',
       read: 'Lire les conditions d’utilisation',
       title: 'Conditions d’utilisation du service',
-    },
-
-    welcomeHeader: {
-      lessy: 'Lessy',
     },
   },
 

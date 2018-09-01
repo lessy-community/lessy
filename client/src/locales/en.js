@@ -102,12 +102,6 @@ export default {
   },
 
   general: {
-    defaultMenu: {
-      dashboard: 'Dashboard',
-      projects: 'Projects',
-      tasks: 'Tasks',
-    },
-
     homePage: {
       title: 'Recover your power to manage time',
       intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
@@ -161,10 +155,6 @@ export default {
       mustAccept: 'To continue to use our service, you’ll have to agree to those new terms.',
       read: 'Read the terms of service',
       title: 'Terms of service',
-    },
-
-    welcomeHeader: {
-      lessy: 'Lessy',
     },
   },
 
