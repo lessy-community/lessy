@@ -137,8 +137,9 @@ export default {
 
     notFoundPage: {
       home: 'Home page',
-      intro: "It looks like this page doesn't exist…",
-      title: 'Page not found',
+      intro: 'You’ve just got lost. But don’t worry, home isn’t far from here…',
+      meh: 'Page not found',
+      title: 'Lessy',
     },
 
     termsOfServicePage: {

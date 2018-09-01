@@ -137,8 +137,9 @@ export default {
 
     notFoundPage: {
       home: 'Accueil',
-      intro: 'Il semble que cette page n’existe pas…',
-      title: 'Page introuvable',
+      intro: 'Vous venez de vous perdre. Mais pas d’inquiétude, l’accueil n’est pas bien loin…',
+      meh: 'Page introuvable',
+      title: 'Lessy',
     },
 
     termsOfServicePage: {
