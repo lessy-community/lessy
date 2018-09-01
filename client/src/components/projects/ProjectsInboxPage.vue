@@ -1,5 +1,5 @@
 <template>
-  <app-page name="projects-inbox" layout="application">
+  <app-page v-if="resourcesReady" name="projects-inbox" layout="application">
     <projects-header slot="header"></projects-header>
 
     <ly-section :title="$t('projects.inboxPage.futureProjects')">
@@ -41,10 +41,13 @@
       </ly-list>
     </ly-section>
   </app-page>
+  <loading-page v-else></loading-page>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+
+  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
   import ProjectsHeader from './ProjectsHeader'
   import ProjectCreateForm from './ProjectCreateForm'
@@ -52,6 +55,8 @@
   import ProjectItemFinished from './ProjectItemFinished'
 
   export default {
+    mixins: [ResourcesLoader],
+
     components: {
       ProjectsHeader,
       ProjectCreateForm,

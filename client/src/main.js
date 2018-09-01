@@ -27,6 +27,8 @@ import LayoutDesign from './components/layouts/LayoutDesign'
 import LayoutEmpty from './components/layouts/LayoutEmpty'
 import LayoutSingleForm from './components/layouts/LayoutSingleForm'
 
+import LoadingPage from './components/general/LoadingPage'
+
 import i18n from './locales'
 import router from './router'
 import store from './store'
@@ -48,6 +50,8 @@ Vue.component('layout-default', LayoutDefault)
 Vue.component('layout-design', LayoutDesign)
 Vue.component('layout-empty', LayoutEmpty)
 Vue.component('layout-single-form', LayoutSingleForm)
+
+Vue.component('loading-page', LoadingPage)
 
 Vue.component('ly-badge', LyBadge)
 Vue.component('ly-button', LyButton)

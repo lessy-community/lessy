@@ -1,6 +1,7 @@
 import rootApi from 'src/api/root'
 
 const state = {
+  resourcesReady: false,
   registrationDisabled: true,
   tosVersion: null,
 }
@@ -12,6 +13,10 @@ const getters = {
 
   tosVersion (state) {
     return state.tosVersion
+  },
+
+  resourcesReady (state) {
+    return state.resourcesReady
   },
 }
 
@@ -28,6 +33,10 @@ const mutations = {
   setInfo (state, data) {
     state.registrationDisabled = data.registrationDisabled
     state.tosVersion = data.tosVersion
+  },
+
+  setResourcesReady (state, value) {
+    state.resourcesReady = value
   },
 }
 

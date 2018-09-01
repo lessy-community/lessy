@@ -1,5 +1,5 @@
 <template>
-  <app-page name="dashboard" layout="application">
+  <app-page v-if="resourcesReady" name="dashboard" layout="application">
     <app-header slot="header" :title="$t('dashboard.page.title')"></app-header>
 
     <ly-card v-if="!user.activated">
@@ -45,17 +45,23 @@
       ></task-create-form>
     </ly-section>
   </app-page>
+  <loading-page v-else></loading-page>
 </template>
 
 <script>
   import moment from 'moment'
 
   import { mapGetters } from 'vuex'
+
+  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
   import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
 
   export default {
+    mixins: [ResourcesLoader],
+
     components: {
       TaskCreateForm,
       TaskList,

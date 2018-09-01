@@ -39,6 +39,8 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import auth from 'src/auth'
+
   export default {
     data () {
       return {
@@ -71,6 +73,10 @@
             this.ready = true
           }
         })
+
+      if (auth.isLoggedIn()) {
+        this.$store.dispatch('users/getCurrent')
+      }
     },
   }
 </script>
