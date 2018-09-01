@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Users::PasswordsController < ApiController
   skip_before_action :require_login, only: [:create]
   skip_before_action :require_tos_accepted, only: [:create]
@@ -12,7 +14,7 @@ class Api::Users::PasswordsController < ApiController
     @token = @user.token(1.month.from_now)
   end
 
-private
+  private
 
   def password_param
     fetch_resource_params(:user, [:password])[:password]

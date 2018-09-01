@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'shared_examples_for_failures'
 
@@ -5,15 +7,16 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
   describe 'POST #create' do
     let(:user) { create :user, user_trait, :password_reseted }
     let(:user_trait) { :activated }
-    let(:payload) { {
-      user: {
-        password: password,
-      },
-      token: token,
-    } }
+    let(:payload) do
+      {
+        user: {
+          password: password,
+        },
+        token: token,
+      }
+    end
 
-    subject { post api_users_passwords_path, params: payload,
-                                             as: :json }
+    subject { post api_users_passwords_path, params: payload, as: :json }
 
     context 'with valid attributes' do
       let(:password) { 'secret' }
@@ -53,15 +56,13 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
 
       before { subject }
 
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'parameter_missing',
-          title: 'Parameter is missing',
-          detail: 'A parameter is missing or empty but it is required.',
-          source: { pointer: '/user/password' },
-        }],
-      }
+      it_behaves_like 'API errors', :unprocessable_entity, errors: [{
+        status: '422 Unprocessable Entity',
+        code: 'parameter_missing',
+        title: 'Parameter is missing',
+        detail: 'A parameter is missing or empty but it is required.',
+        source: { pointer: '/user/password' },
+      }]
     end
 
     context 'with invalid token' do
@@ -70,15 +71,13 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
 
       before { subject }
 
-      it_behaves_like 'API errors', :not_found, {
-        errors: [{
-          status: '404 Not Found',
-          code: 'record_not_found',
-          title: 'Record not found',
-          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
-          source: { pointer: '/user' },
-        }],
-      }
+      it_behaves_like 'API errors', :not_found, errors: [{
+        status: '404 Not Found',
+        code: 'record_not_found',
+        title: 'Record not found',
+        detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+        source: { pointer: '/user' },
+      }]
     end
 
     context 'with an inactive user' do
@@ -88,15 +87,13 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
 
       before { subject }
 
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'user_inactive',
-          title: 'User is inactive',
-          detail: 'The user did not activate its account.',
-          source: { pointer: '/user' },
-        }],
-      }
+      it_behaves_like 'API errors', :unprocessable_entity, errors: [{
+        status: '422 Unprocessable Entity',
+        code: 'user_inactive',
+        title: 'User is inactive',
+        detail: 'The user did not activate its account.',
+        source: { pointer: '/user' },
+      }]
     end
   end
 end

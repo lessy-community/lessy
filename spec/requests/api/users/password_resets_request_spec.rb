@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'shared_examples_for_failures'
 
@@ -5,14 +7,15 @@ RSpec.describe Api::Users::PasswordResetsController, type: :request do
   describe 'POST #create' do
     let!(:user) { create :user, user_trait, email: 'john@doe.com' }
     let(:user_trait) { :activated }
-    let(:payload) { {
-      user: {
-        email: email,
-      },
-    } }
+    let(:payload) do
+      {
+        user: {
+          email: email,
+        },
+      }
+    end
 
-    subject { post api_users_password_resets_path, params: payload,
-                                                   as: :json }
+    subject { post api_users_password_resets_path, params: payload, as: :json }
 
     context 'with an email corresponding to an existing user' do
       let(:email) { 'john@doe.com' }
@@ -41,15 +44,13 @@ RSpec.describe Api::Users::PasswordResetsController, type: :request do
         subject
       end
 
-      it_behaves_like 'API errors', :not_found, {
-        errors: [{
-          status: '404 Not Found',
-          code: 'record_not_found',
-          title: 'Record not found',
-          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
-          source: { pointer: '/user' },
-        }],
-      }
+      it_behaves_like 'API errors', :not_found, errors: [{
+        status: '404 Not Found',
+        code: 'record_not_found',
+        title: 'Record not found',
+        detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+        source: { pointer: '/user' },
+      }]
     end
 
     context 'with missing email attribute' do
@@ -57,15 +58,13 @@ RSpec.describe Api::Users::PasswordResetsController, type: :request do
 
       before { subject }
 
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'parameter_missing',
-          title: 'Parameter is missing',
-          detail: 'A parameter is missing or empty but it is required.',
-          source: { pointer: '/user/email' },
-        }],
-      }
+      it_behaves_like 'API errors', :unprocessable_entity, errors: [{
+        status: '422 Unprocessable Entity',
+        code: 'parameter_missing',
+        title: 'Parameter is missing',
+        detail: 'A parameter is missing or empty but it is required.',
+        source: { pointer: '/user/email' },
+      }]
     end
 
     context 'with an inactive user' do
@@ -74,15 +73,13 @@ RSpec.describe Api::Users::PasswordResetsController, type: :request do
 
       before { subject }
 
-      it_behaves_like 'API errors', :unprocessable_entity, {
-        errors: [{
-          status: '422 Unprocessable Entity',
-          code: 'user_inactive',
-          title: 'User is inactive',
-          detail: 'The user did not activate its account.',
-          source: { pointer: '/user' },
-        }],
-      }
+      it_behaves_like 'API errors', :unprocessable_entity, errors: [{
+        status: '422 Unprocessable Entity',
+        code: 'user_inactive',
+        title: 'User is inactive',
+        detail: 'The user did not activate its account.',
+        source: { pointer: '/user' },
+      }]
     end
   end
 end

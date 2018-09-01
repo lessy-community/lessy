@@ -14,9 +14,7 @@ FactoryBot.define do
     end
 
     trait :password_reseted do
-      after(:create) do |user|
-        user.generate_reset_password_token!
-      end
+      after(:create, &:generate_reset_password_token!)
     end
 
     trait :not_accepted_tos do

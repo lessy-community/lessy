@@ -5,3 +5,6 @@ eslint:
   config_file: client/.eslintrc
 jshint:
   enabled: false
+scss:
+  enabled: true
+  config_file: client/.scss.yml
