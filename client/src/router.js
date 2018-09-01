@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import HomePage from './components/general/HomePage'
-import NotFoundLayout from './components/general/NotFoundLayout'
+import NotFoundPage from './components/general/NotFoundPage'
 import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
 
 import UserActivateLayout from './components/users/UserActivateLayout'
@@ -74,7 +74,7 @@ const routes = [
   { path: '/design/visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
   { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
   { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
-  { path: '*', component: NotFoundLayout },
+  { path: '*', component: NotFoundPage },
 ]
 
 let router = new VueRouter({

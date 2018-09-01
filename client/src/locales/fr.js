@@ -142,7 +142,7 @@ export default {
       inProgress: 'Chargement en cours, veuillez patienter…',
     },
 
-    notFoundLayout: {
+    notFoundPage: {
       home: 'Accueil',
       intro: 'Il semble que cette page n’existe pas…',
       title: 'Page introuvable',

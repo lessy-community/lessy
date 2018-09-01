@@ -142,7 +142,7 @@ export default {
       inProgress: 'Loading, please wait…',
     },
 
-    notFoundLayout: {
+    notFoundPage: {
       home: 'Home page',
       intro: "It looks like this page doesn't exist…",
       title: 'Page not found',
