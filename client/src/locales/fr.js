@@ -377,6 +377,16 @@ export default {
       title: 'Se connecter',
     },
 
+    passwordNewForm: {
+      passwordLabel: 'Mot de passe',
+      submit: 'Changez votre mot de passe',
+    },
+
+    passwordNewLayout: {
+      intro: 'Vous êtes sur le point de changer votre mot de passe. Une fois cela fait, vous serez connecté et redirigé vers le tableau de bord.',
+      title: 'Changez votre mot de passe',
+    },
+
     passwordResetForm: {
       emailLabel: 'Email',
       login: 'Vous vous souvenez de votre mot de passe ?',

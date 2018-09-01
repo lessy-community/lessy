@@ -377,6 +377,16 @@ export default {
       title: 'Log in',
     },
 
+    passwordNewForm: {
+      passwordLabel: 'Password',
+      submit: 'Change your password',
+    },
+
+    passwordNewLayout: {
+      intro: 'You’re going to change your password. Once done, you’ll be logged in and redirected to the dashboard.',
+      title: 'Change your password',
+    },
+
     passwordResetForm: {
       emailLabel: 'Email',
       login: 'You remember your password?',

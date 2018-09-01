@@ -41,4 +41,14 @@ export default {
     }
     return post('/api/users/password_resets', payload, false)
   },
+
+  changePassword: (token, password) => {
+    const payload = {
+      user: {
+        password,
+      },
+      token,
+    }
+    return post('/api/users/passwords', payload, false)
+  },
 }
