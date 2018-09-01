@@ -345,7 +345,7 @@ export default {
       empty: 'There are no tasks here…',
     },
 
-    layout: {
+    header: {
       backlog: 'Backlog',
       statistics: 'Statistics',
       title: 'Tasks',

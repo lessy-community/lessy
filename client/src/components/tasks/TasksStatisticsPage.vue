@@ -1,5 +1,7 @@
 <template>
-  <app-page name="tasks-statistics">
+  <app-page name="tasks-statistics" layout="application">
+    <tasks-header slot="header"></tasks-header>
+
     <line-chart :name="$t('tasks.statisticsPage.chartName')" :data="chartData()"></line-chart>
   </app-page>
 </template>
@@ -9,12 +11,14 @@
   import { extendMoment } from 'moment-range'
   const moment = extendMoment(Moment)
 
+  import TasksHeader from './TasksHeader'
   import LineChart from './LineChart'
 
   import { mapGetters } from 'vuex'
 
   export default {
     components: {
+      TasksHeader,
       LineChart,
     },
 

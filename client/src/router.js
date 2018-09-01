@@ -18,7 +18,6 @@ import ProjectLayout from './components/projects/ProjectLayout'
 import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 
-import TasksLayout from './components/tasks/TasksLayout'
 import TasksBacklogPage from './components/tasks/TasksBacklogPage'
 import TasksStatisticsPage from './components/tasks/TasksStatisticsPage'
 
@@ -42,15 +41,9 @@ const routes = [
   { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, title: 'Dashboard' } },
-  { path: '/tasks',
-    component: TasksLayout,
-    children: [
-      { path: '', redirect: 'backlog' },
-      { path: 'backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { title: 'Backlog' } },
-      { path: 'statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { title: 'Statistics' } },
-    ],
-    meta: { restrictForAuth: true },
-  },
+  { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
+  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, title: 'Backlog' } },
+  { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, title: 'Statistics' } },
   { path: '/projects',
     component: ProjectsLayout,
     children: [
