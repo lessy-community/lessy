@@ -1,54 +1,45 @@
 <template>
-  <app-layout name="terms-of-service" no-tos-requirement>
-    <welcome-header slot="header"></welcome-header>
-    <app-page name="terms-of-service">
-      <template v-if="ready">
-        <div class="ly-text-container margined">
-          <h1>{{ $t('general.termsOfServiceLayout.title') }}</h1>
+  <app-page name="terms-of-service" layout="default">
+    <template v-if="ready">
+      <div class="ly-text-container margined">
+        <h1>{{ $t('general.termsOfServicePage.title') }}</h1>
 
-          <p class="text-secondary">
-            {{ $t('general.termsOfServiceLayout.version', { version: termsOfService.version }) }}
-          </p>
+        <p class="text-secondary">
+          {{ $t('general.termsOfServicePage.version', { version: termsOfService.version }) }}
+        </p>
 
-          <div v-if="user && !user.hasAcceptedTos" class="tos-changed">
-            {{ $t('general.termsOfServiceLayout.changed') }}
-          </div>
+        <div v-if="user && !user.hasAcceptedTos" class="tos-changed">
+          {{ $t('general.termsOfServicePage.changed') }}
         </div>
-
-        <div v-html="termsOfService.content"></div>
-
-        <div v-if="user && !user.hasAcceptedTos" class="accept-tos-footer">
-          <router-link to="/">
-            {{ $t('general.termsOfServiceLayout.goBack') }}
-          </router-link>
-          <ly-button type="primary" size="large" @click="acceptTos">
-            {{ $t('general.termsOfServiceLayout.accept') }}
-          </ly-button>
-        </div>
-        <div v-else class="accept-tos-footer">
-          <router-link to="/">
-            {{ $t('general.termsOfServiceLayout.goBack') }}
-          </router-link>
-        </div>
-      </template>
-      <div v-else class="ly-text-container margined">
-        <h1>{{ $t('general.termsOfServiceLayout.title') }}</h1>
-        <h2>{{ $t('general.termsOfServiceLayout.loading') }}</h2>
       </div>
-    </app-page>
-  </app-layout>
+
+      <div v-html="termsOfService.content"></div>
+
+      <div v-if="user && !user.hasAcceptedTos" class="accept-tos-footer">
+        <router-link to="/">
+          {{ $t('general.termsOfServicePage.goBack') }}
+        </router-link>
+        <ly-button type="primary" size="large" @click="acceptTos">
+          {{ $t('general.termsOfServicePage.accept') }}
+        </ly-button>
+      </div>
+      <div v-else class="accept-tos-footer">
+        <router-link to="/">
+          {{ $t('general.termsOfServicePage.goBack') }}
+        </router-link>
+      </div>
+    </template>
+    <div v-else class="ly-text-container margined">
+      <h1>{{ $t('general.termsOfServicePage.title') }}</h1>
+      <h2>{{ $t('general.termsOfServicePage.loading') }}</h2>
+    </div>
+  </app-page>
 </template>
 
 <script>
-  import WelcomeHeader from './WelcomeHeader'
-
   import { mapGetters } from 'vuex'
 
   export default {
-    components: {
-      WelcomeHeader,
-    },
-
     data () {
       return {
         ready: false,
@@ -85,8 +76,8 @@
 </script>
 
 <style lang="scss">
-  .app-page-terms-of-service {
-    padding-bottom: 10rem;
+  .app-page-terms-of-service .app-layout-main {
+    padding-bottom: 15rem;
   }
 
   .app-page-terms-of-service .ly-columns {

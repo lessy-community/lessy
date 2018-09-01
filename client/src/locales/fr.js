@@ -148,7 +148,7 @@ export default {
       title: 'Page introuvable',
     },
 
-    termsOfServiceLayout: {
+    termsOfServicePage: {
       accept: 'J’ai lu et accepte les conditions',
       changed: 'Les conditions d’utilisation du service ont changé, veuillez les lire avec attention.',
       goBack: 'Revenir à la page principale',

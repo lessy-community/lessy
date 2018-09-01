@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import HomePage from './components/general/HomePage'
 import NotFoundPage from './components/general/NotFoundPage'
-import TermsOfServiceLayout from './components/general/TermsOfServiceLayout'
+import TermsOfServicePage from './components/general/TermsOfServicePage'
 
 import UserActivateLayout from './components/users/UserActivateLayout'
 import UserLoginLayout from './components/users/UserLoginLayout'
@@ -39,7 +39,7 @@ const routes = [
   { path: '/login', component: UserLoginLayout, meta: { restrictForUnauth: true, title: 'Login' } },
   { path: '/password/reset', component: UserPasswordResetLayout, meta: { restrictForUnauth: true, title: 'Reset your password' } },
   { path: '/password/:token/new', component: UserPasswordNewLayout, meta: { restrictForUnauth: true, title: 'Change your password' } },
-  { path: '/terms-of-service', component: TermsOfServiceLayout, meta: { title: 'Terms of service' } },
+  { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivateLayout, meta: { title: 'User activation' } },
   { path: '/dashboard', component: DashboardLayout, meta: { restrictForAuth: true, title: 'Dashboard' } },
   { path: '/tasks',

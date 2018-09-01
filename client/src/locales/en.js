@@ -148,7 +148,7 @@ export default {
       title: 'Page not found',
     },
 
-    termsOfServiceLayout: {
+    termsOfServicePage: {
       accept: 'I read and accept terms',
       changed: 'Terms of service have changed, you should read them carefully.',
       goBack: 'Go back to the main page',
