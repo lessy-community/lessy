@@ -1,5 +1,15 @@
 <template>
-  <section :class="['app-layout', `app-layout-${name}`]">
+  <div v-if="noLegacy" :class="['app-layout', `app-layout-${name}`]">
+    <slot name="menu"></slot>
+    <div class="app-page-container">
+      <slot name="header"></slot>
+      <main class="app-layout-main">
+        <slot></slot>
+      </main>
+    </div>
+  </div>
+
+  <section v-else :class="['app-layout', `app-layout-${name}`]">
     <slot name="menu"></slot>
     <div class="app-page-container">
       <slot name="header"></slot>
@@ -19,6 +29,7 @@
     props: {
       name: { type: String, required: true },
       noTosRequirement: { type: Boolean, default: false },
+      noLegacy: { type: Boolean, default: false },
     },
 
     components: {
@@ -58,9 +69,19 @@
     display: flex;
     flex-direction: column;
 
-    > .app-page {
+    > .app-page,
+    > .app-layout-main {
       flex-grow: 1;
     }
+  }
+
+  .app-layout-main {
+    padding-top: 1rem;
+    padding-bottom: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    background-color: $ly-color-grey-10;
   }
 
   @media(max-width: $small-screen-width) {
@@ -70,6 +91,11 @@
       > .app-menu {
         width: auto;
       }
+    }
+
+    .app-layout-main {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 </style>
