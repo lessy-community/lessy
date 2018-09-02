@@ -34,15 +34,19 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: HomePage, meta: { restrictForUnauth: true, title: 'Welcome' } },
+  { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
+
   { path: '/login', component: UserLoginPage, meta: { restrictForUnauth: true, title: 'Login' } },
   { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, title: 'Reset your password' } },
   { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, title: 'Change your password' } },
-  { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
   { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
+
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, title: 'Dashboard' } },
+
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
   { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, title: 'Backlog' } },
   { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, title: 'Statistics' } },
+
   { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
   { path: '/projects/inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
   { path: '/projects/:projectSlug',
@@ -53,6 +57,7 @@ const routes = [
     ],
     props: true,
   },
+
   { path: '/design', component: DesignIndexPage, meta: { title: 'Lessy Design Guide' } },
   { path: '/design/grid', component: DesignGridPage, meta: { title: 'Grid · Lessy Design Guide' } },
   { path: '/design/typography', component: DesignTypographyPage, meta: { title: 'Typography · Lessy Design Guide' } },
@@ -60,6 +65,7 @@ const routes = [
   { path: '/design/visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
   { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
   { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
+
   { path: '*', component: NotFoundPage },
 ]
 
