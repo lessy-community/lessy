@@ -193,6 +193,15 @@ export default {
     },
   },
 
+  profile: {
+    editForm: {
+      disabled: 'Please note you can’t edit your profile yet. The feature is on its way and should be available soon.',
+      emailLabel: 'Email',
+      usernameLabel: 'Username',
+      passwordLabel: 'New password',
+    },
+  },
+
   projects: {
     card: {
       shouldAddTasks: 'Usually, a living project holds unfinished tasks.',

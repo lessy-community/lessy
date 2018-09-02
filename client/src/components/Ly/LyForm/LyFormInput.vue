@@ -22,6 +22,7 @@
         :required="required"
         :invalid="invalid"
         :autocomplete="autocomplete"
+        :disabled="disabled"
         @input="$emit('input', $event.target.value)"
       />
 
@@ -31,6 +32,7 @@
         icon="eye"
         @on="showPassword = true"
         @off="showPassword = false"
+        :disabled="disabled"
       >
         <span class="no-mobile">{{ $t('ly.form.input.revealPassword') }}</span>
       </ly-button>
@@ -55,6 +57,7 @@
       error: { type: String },
       autocomplete: { type: String },
       required: { type: Boolean },
+      disabled: { type: Boolean },
     },
 
     data () {

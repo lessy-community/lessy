@@ -193,6 +193,14 @@ export default {
     },
   },
 
+  profile: {
+    editForm: {
+      emailLabel: 'Email',
+      usernameLabel: 'Nom d’utilisateur/utilisatrice',
+      passwordLabel: 'Nouveau mot de passe',
+    },
+  },
+
   projects: {
     card: {
       shouldAddTasks: 'Des tâches inachevées devraient être associées pour vous assurer que le projet avance.',
