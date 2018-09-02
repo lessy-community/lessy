@@ -130,16 +130,14 @@ export default {
     },
 
     loadingPage: {
-      inProgress: 'Chargement en cours…',
-      title: 'Lessy',
+      title: 'Chargement en cours…',
       wait: '— Asseyez-vous et détendez-vous —',
     },
 
     notFoundPage: {
       home: 'Accueil',
       intro: 'Vous venez de vous perdre. Mais pas d’inquiétude, l’accueil n’est pas bien loin…',
-      meh: 'Page introuvable',
-      title: 'Lessy',
+      title: 'Page introuvable',
     },
 
     termsOfServicePage: {
@@ -168,7 +166,15 @@ export default {
     },
 
     default: {
-      lessy: 'Lessy',
+      brand: 'Lessy',
+    },
+
+    empty: {
+      brand: 'Lessy',
+    },
+
+    singleForm: {
+      brand: 'Lessy',
     },
   },
 

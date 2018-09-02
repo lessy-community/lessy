@@ -1,7 +1,21 @@
 <template>
   <app-layout name="empty">
     <slot name="menu" slot="menu"></slot>
-    <slot name="header" slot="header"></slot>
+    <app-header slot="header" :brand="$t('layouts.empty.brand')">
+    </app-header>
     <slot></slot>
   </app-layout>
 </template>
+
+<style lang="scss">
+  .app-layout-empty {
+    .app-layout-main,
+    .app-header {
+      background-color: $ly-color-grey-10;
+    }
+
+    .app-header-brand {
+      color: $ly-color-grey-50;
+    }
+  }
+</style>
