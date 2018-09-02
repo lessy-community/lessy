@@ -22,7 +22,7 @@ textarea {
 
   transition: border .2s ease-in-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     box-shadow: 0 0 2px $ly-color-grey-30,
                 1px 1px 2px $ly-color-grey-20 inset;
   }
@@ -37,6 +37,12 @@ textarea {
   &.invalid:focus {
     box-shadow: 0 0 1px $ly-color-red-50,
                 1px 1px 2px $ly-color-grey-20 inset;
+  }
+  &:disabled {
+    color: $ly-color-grey-50;
+
+    background-color: $ly-color-grey-20;
+    border-color: $ly-color-grey-30;
   }
 
   &::placeholder {

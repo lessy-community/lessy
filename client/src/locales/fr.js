@@ -170,6 +170,13 @@ export default {
     singleForm: {
       brand: 'Lessy',
     },
+
+    profile: {
+      brand: 'Lessy',
+      dashboard: 'Retour au tableau de bord',
+      profile: 'Profil',
+      title: 'Profil',
+    },
   },
 
   ly: {
@@ -183,6 +190,14 @@ export default {
         moreOptions: '+1 additional option | +{number} additional options',
         unselect: 'Unselect',
       },
+    },
+  },
+
+  profile: {
+    editForm: {
+      emailLabel: 'Email',
+      usernameLabel: 'Nom d’utilisateur/utilisatrice',
+      passwordLabel: 'Nouveau mot de passe',
     },
   },
 
@@ -411,7 +426,9 @@ export default {
     },
 
     popover: {
+      administration: 'Administrer',
       logout: 'Se déconnecter',
+      profile: 'Modifier le profil',
     },
 
     registerForm: {

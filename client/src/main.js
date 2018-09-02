@@ -25,6 +25,7 @@ import LayoutApplication from './components/layouts/LayoutApplication'
 import LayoutDefault from './components/layouts/LayoutDefault'
 import LayoutDesign from './components/layouts/LayoutDesign'
 import LayoutEmpty from './components/layouts/LayoutEmpty'
+import LayoutProfile from './components/layouts/LayoutProfile'
 import LayoutSingleForm from './components/layouts/LayoutSingleForm'
 
 import LoadingPage from './components/general/LoadingPage'
@@ -49,6 +50,7 @@ Vue.component('layout-application', LayoutApplication)
 Vue.component('layout-default', LayoutDefault)
 Vue.component('layout-design', LayoutDesign)
 Vue.component('layout-empty', LayoutEmpty)
+Vue.component('layout-profile', LayoutProfile)
 Vue.component('layout-single-form', LayoutSingleForm)
 
 Vue.component('loading-page', LoadingPage)

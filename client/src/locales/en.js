@@ -170,6 +170,13 @@ export default {
     singleForm: {
       brand: 'Lessy',
     },
+
+    profile: {
+      brand: 'Lessy',
+      dashboard: 'Back to dashboard',
+      profile: 'Profile',
+      title: 'Profile',
+    },
   },
 
   ly: {
@@ -183,6 +190,15 @@ export default {
         moreOptions: '+1 additional option | +{number} additional options',
         unselect: 'Unselect',
       },
+    },
+  },
+
+  profile: {
+    editForm: {
+      disabled: 'Please note you can’t edit your profile yet. The feature is on its way and should be available soon.',
+      emailLabel: 'Email',
+      usernameLabel: 'Username',
+      passwordLabel: 'New password',
     },
   },
 
@@ -411,7 +427,9 @@ export default {
     },
 
     popover: {
+      administration: 'Administrate',
       logout: 'Log out',
+      profile: 'Edit profile',
     },
 
     registerForm: {
