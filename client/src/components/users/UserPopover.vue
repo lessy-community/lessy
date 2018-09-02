@@ -1,10 +1,20 @@
 <template>
-  <div v-if="user" class="user-popover">
-    {{ user.displayedName }}
-    <ly-button type="ghost" @click="logout">
-      {{ $t('users.popover.logout') }}
+  <ly-popover v-if="user">
+    <ly-button
+      slot="toggle"
+      type="ghost"
+      icon="user"
+    >
+      {{ user.displayedName }}
     </ly-button>
-  </div>
+
+    <template slot="menu">
+      <ly-popover-item @click="logout">
+        {{ $t('users.popover.logout') }}
+        <ly-icon name="sign-out" class="float-right"></ly-icon>
+      </ly-popover-item>
+    </template>
+  </ly-popover>
 </template>
 
 <script>
@@ -25,3 +35,9 @@
     },
   }
 </script>
+
+<style scoped>
+  .ly-icon.float-right {
+    float: right;
+  }
+</style>
