@@ -1,6 +1,7 @@
 <template>
   <app-page v-if="resourcesReady" name="dashboard" layout="application">
-    <app-header slot="header" :title="$t('dashboard.page.title')"></app-header>
+    <layout-application-header slot="header" :title="$t('dashboard.page.title')">
+    </layout-application-header>
 
     <ly-card v-if="!user.activated">
       <p v-html="$t('dashboard.page.activationInstructions', { email: user.email })"></p>
@@ -55,6 +56,8 @@
 
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
+  import LayoutApplicationHeader from 'src/components/layouts/LayoutApplicationHeader'
+
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
   import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
@@ -63,6 +66,7 @@
     mixins: [ResourcesLoader],
 
     components: {
+      LayoutApplicationHeader,
       TaskCreateForm,
       TaskList,
       ProjectCardDeck,
