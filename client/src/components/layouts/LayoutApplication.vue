@@ -41,7 +41,52 @@
 </script>
 
 <style lang="scss">
-  .app-layout-application .app-layout-main {
-    border-radius: .25rem 0 0 0;
+  .app-layout-application {
+    .app-layout-main {
+      border-radius: .25rem 0 0 0;
+    }
+
+    .app-header {
+      background-color: $ly-color-pine-60;
+
+      color: $ly-color-white;
+
+      .app-header-right {
+        background: linear-gradient(45deg, $ly-color-pine-60 3.5rem,
+                                           $ly-color-grey-20 3.5rem,
+                                           $ly-color-grey-20 4rem,
+                                           $ly-color-pine-60 4rem,
+                                           $ly-color-pine-60 4.5rem,
+                                           $ly-color-grey-20 4.5rem);
+
+        color: $ly-color-grey-90;
+      }
+    }
+
+    .app-header-link {
+      color: $ly-color-white;
+
+      opacity: .7;
+      transition: opacity .2s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+      }
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media(max-width: $small-screen-width) {
+    .app-layout-application {
+      .app-layout-main {
+        border-radius: 0;
+      }
+
+      .app-header {
+        padding-top: .5rem;
+      }
+    }
   }
 </style>
