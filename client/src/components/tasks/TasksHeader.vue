@@ -1,16 +1,21 @@
 <template>
-  <layout-application-header :title="$t('tasks.header.title')">
-    <app-header-link to="/tasks/backlog">{{ $t('tasks.header.backlog') }}</app-header-link>
-    <app-header-link to="/tasks/statistics">{{ $t('tasks.header.statistics') }}</app-header-link>
-  </layout-application-header>
+  <app-header :title="$t('tasks.header.title')" fluid>
+    <template slot="navigation">
+      <app-header-link to="/tasks/backlog">{{ $t('tasks.header.backlog') }}</app-header-link>
+      <app-header-link to="/tasks/statistics">{{ $t('tasks.header.statistics') }}</app-header-link>
+    </template>
+
+    <user-popover slot="right">
+    </user-popover>
+  </app-header>
 </template>
 
 <script>
-  import LayoutApplicationHeader from 'src/components/layouts/LayoutApplicationHeader'
+  import UserPopover from 'src/components/users/UserPopover'
 
   export default {
     components: {
-      LayoutApplicationHeader,
+      UserPopover,
     },
   }
 </script>
