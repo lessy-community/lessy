@@ -1,11 +1,7 @@
 <template>
   <layout-application-header :title="$t('projects.header.title')">
-    <app-header-link to="/projects/inbox">
-      {{ $t('projects.header.inbox') }}
-    </app-header-link>
-    <app-header-link v-if="project" :to="project.urlShow">
-      {{ $t('projects.header.project') }}
-    </app-header-link>
+    <app-header-link to="/projects/inbox">{{ $t('projects.header.inbox') }}</app-header-link>
+    <app-header-link v-if="project" :to="project.urlShow">{{ $t('projects.header.project') }}</app-header-link>
   </layout-application-header>
 </template>
 
