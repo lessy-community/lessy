@@ -153,7 +153,7 @@ export default {
 
   layouts: {
     application: {
-      title: 'Lessy',
+      brand: 'Lessy',
       dashboard: 'Tableau de bord',
       projects: 'Projets',
       tasks: 'Tâches',

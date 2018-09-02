@@ -4,7 +4,7 @@
       <ly-button type="ghost" icon="bars" @click="toggleMobileNavigation">Menu</ly-button>
 
       <router-link class="app-brand" :to="home">
-        {{ title }}
+        {{ brand }}
       </router-link>
     </header>
 
@@ -19,7 +19,7 @@
 
   export default {
     props: {
-      title: { type: String, required: true },
+      brand: { type: String, required: true },
       home: { type: String, default: '/dashboard' },
     },
 
