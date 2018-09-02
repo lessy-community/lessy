@@ -130,16 +130,14 @@ export default {
     },
 
     loadingPage: {
-      inProgress: 'Loading…',
-      title: 'Lessy',
+      title: 'Loading…',
       wait: '— Please sit and relax —',
     },
 
     notFoundPage: {
       home: 'Home page',
       intro: 'You’ve just got lost. But don’t worry, home isn’t far from here…',
-      meh: 'Page not found',
-      title: 'Lessy',
+      title: 'Page not found',
     },
 
     termsOfServicePage: {
@@ -168,7 +166,15 @@ export default {
     },
 
     default: {
-      lessy: 'Lessy',
+      brand: 'Lessy',
+    },
+
+    empty: {
+      brand: 'Lessy',
+    },
+
+    singleForm: {
+      brand: 'Lessy',
     },
   },
 
