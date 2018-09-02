@@ -14,27 +14,17 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
-  import AppMenu from 'src/components/App/AppMenu'
-  import AppMenuLink from 'src/components/App/AppMenuLink'
-
   import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
 
   export default {
     components: {
-      AppMenu,
-      AppMenuLink,
       TermsOfServiceModal,
     },
 
     computed: {
-      ...mapGetters({
-        user: 'users/current',
-      }),
-
       showTosModal () {
-        return this.user && !this.user.hasAcceptedTos
+        const user = this.$store.getters['users/current']
+        return user && !user.hasAcceptedTos
       }
     },
   }
