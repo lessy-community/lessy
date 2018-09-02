@@ -1,5 +1,9 @@
 <nav class="navigation" role="navigation">
-  <%= link_to 'Return to Lessy', '/', class: "navigation__link" %>
+  <% if Rails.env.development? %>
+    <%= link_to 'Return to Lessy', 'http://localhost:5000/', class: "navigation__link" %>
+  <% else %>
+    <%= link_to 'Return to Lessy', '/', class: "navigation__link" %>
+  <% end %>
 
   <% if current_user && current_user.admin? %>
     <%= link_to 'Logout from admin', admin_logout_path, method: :post, class: "navigation__link" %>
