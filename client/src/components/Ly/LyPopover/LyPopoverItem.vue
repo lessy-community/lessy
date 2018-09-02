@@ -1,8 +1,19 @@
 <template>
-  <a href="#" @click.prevent="$emit('click')" class="ly-popover-item">
+  <router-link v-if="to" :to="to" class="ly-popover-item">
+    <slot></slot>
+  </router-link>
+  <a v-else href="#" @click.prevent="$emit('click')" class="ly-popover-item">
     <slot></slot>
   </a>
 </template>
+
+<script>
+  export default {
+    props: {
+      to: { type: String },
+    },
+  }
+</script>
 
 <style lang="scss">
   .ly-popover-item {
