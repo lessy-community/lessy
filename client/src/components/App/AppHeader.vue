@@ -117,12 +117,12 @@
       line-height: 2.5rem;
       white-space: nowrap;
 
-      background: linear-gradient(45deg, $ly-color-grey-20 4rem,
+      background: linear-gradient(45deg, $ly-color-grey-20 3.5rem,
+                                         $ly-color-grey-10 3.5rem,
                                          $ly-color-grey-10 4rem,
-                                         $ly-color-grey-10 4.5rem,
+                                         $ly-color-grey-20 4rem,
                                          $ly-color-grey-20 4.5rem,
-                                         $ly-color-grey-20 5rem,
-                                         $ly-color-grey-10 5rem);
+                                         $ly-color-grey-10 4.5rem);
     }
   }
 
