@@ -418,6 +418,7 @@ export default {
     },
 
     popover: {
+      administration: 'Administrate',
       logout: 'Log out',
       profile: 'Edit profile',
     },

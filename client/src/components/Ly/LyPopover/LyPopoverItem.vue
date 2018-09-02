@@ -2,6 +2,9 @@
   <router-link v-if="to" :to="to" class="ly-popover-item">
     <slot></slot>
   </router-link>
+  <a v-else-if="href" :href="href" class="ly-popover-item">
+    <slot></slot>
+  </a>
   <a v-else href="#" @click.prevent="$emit('click')" class="ly-popover-item">
     <slot></slot>
   </a>
@@ -11,6 +14,7 @@
   export default {
     props: {
       to: { type: String },
+      href: { type: String },
     },
   }
 </script>
