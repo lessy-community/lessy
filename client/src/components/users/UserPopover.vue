@@ -9,6 +9,12 @@
     </ly-button>
 
     <template slot="menu">
+      <ly-popover-item to="/profile">
+        {{ $t('users.popover.profile') }}
+      </ly-popover-item>
+
+      <ly-popover-separator></ly-popover-separator>
+
       <ly-popover-item @click="logout">
         {{ $t('users.popover.logout') }}
         <ly-icon name="sign-out" class="float-right"></ly-icon>

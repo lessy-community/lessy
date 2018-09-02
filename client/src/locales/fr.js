@@ -170,6 +170,13 @@ export default {
     singleForm: {
       brand: 'Lessy',
     },
+
+    profile: {
+      brand: 'Lessy',
+      dashboard: 'Retour au tableau de bord',
+      profile: 'Profil',
+      title: 'Profil',
+    },
   },
 
   ly: {
@@ -412,6 +419,7 @@ export default {
 
     popover: {
       logout: 'Se déconnecter',
+      profile: 'Modifier le profil',
     },
 
     registerForm: {
