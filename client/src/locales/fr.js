@@ -1,10 +1,4 @@
 export default {
-  app: {
-    appHeader: {
-      logout: 'Déconnexion',
-    },
-  },
-
   dashboard: {
     page: {
       activationInstructions: 'Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
@@ -414,6 +408,10 @@ export default {
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
       title: 'Réinitialisez votre mot de passe',
+    },
+
+    popover: {
+      logout: 'Se déconnecter',
     },
 
     registerForm: {

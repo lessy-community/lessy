@@ -1,10 +1,4 @@
 export default {
-  app: {
-    appHeader: {
-      logout: 'Log out',
-    },
-  },
-
   dashboard: {
     page: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
@@ -414,6 +408,10 @@ export default {
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
       title: 'Reset your password',
+    },
+
+    popover: {
+      logout: 'Log out',
     },
 
     registerForm: {
