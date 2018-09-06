@@ -6,7 +6,7 @@ class Api::Users::ActivationsController < ApiController
     @user = User.find_by_sorcery_token!(params[:token], type: :activation)
     @user.update! activate_user_params
     @user.activate!
-    @token = @user.token(1.month.from_now)
+    @token = @user.token(expiration: 1.month.from_now)
   end
 
 private

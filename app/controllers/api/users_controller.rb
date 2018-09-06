@@ -9,7 +9,7 @@ class Api::UsersController < ApiController
     end
 
     @user = User.create!(create_user_params)
-    @token = @user.token(1.day.from_now)
+    @token = @user.token(expiration: 1.day.from_now)
     render status: :created
   end
 

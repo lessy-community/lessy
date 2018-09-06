@@ -18,7 +18,7 @@ class User < ApplicationRecord
   def self.find_by_authorization_token(token)
     decoded_token = JsonWebToken.decode(token)
     return nil unless decoded_token
-    User.find decoded_token[:user_id]
+    User.find decoded_token[:data][:user_id]
   end
 
   def self.find_by_identifier!(identifier)
@@ -38,7 +38,7 @@ class User < ApplicationRecord
     user
   end
 
-  def token(expiration = 1.day.from_now)
+  def token(expiration: 1.day.from_now)
    JsonWebToken.encode({ user_id: self.id }, expiration)
   end
 

@@ -8,7 +8,6 @@ class Api::Users::AuthorizationsController < ApiController
       render_error ApiErrors::LoginFailed.new, :unauthorized
       return
     end
-    @token = @user.token(1.month.from_now)
+    @token = @user.token(expiration: 1.month.from_now)
   end
-
 end

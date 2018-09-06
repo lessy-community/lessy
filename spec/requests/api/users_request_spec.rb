@@ -161,7 +161,7 @@ RSpec.describe Api::UsersController, type: :request do
     end
 
     context 'with expired token' do
-      let(:token) { user.token(1.day.ago) }
+      let(:token) { user.token(expiration: 1.day.ago) }
 
       before { subject }
 

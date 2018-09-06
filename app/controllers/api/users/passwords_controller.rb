@@ -11,7 +11,7 @@ class Api::Users::PasswordsController < ApiController
       return
     end
     @user.change_password! password_param
-    @token = @user.token(1.month.from_now)
+    @token = @user.token(expiration: 1.month.from_now)
   end
 
   private

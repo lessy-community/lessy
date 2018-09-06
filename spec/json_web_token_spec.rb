@@ -3,7 +3,7 @@ require 'base64'
 
 RSpec.describe JsonWebToken do
   describe '.encode' do
-    let(:token) { described_class.encode({ data: 'test' }, 1.day.from_now) }
+    let(:token) { described_class.encode({ foo: 'bar' }, 1.day.from_now) }
 
     it 'returns a token containing periods' do
       expect(token).to include('.')
@@ -20,15 +20,15 @@ RSpec.describe JsonWebToken do
     let(:decoded_token) { described_class.decode(token) }
 
     context 'when expiration is in the future' do
-      let(:token) { described_class.encode({ data: 'test' }, 1.day.from_now) }
+      let(:token) { described_class.encode({ foo: 'bar' }, 1.day.from_now) }
 
       it 'returns a decoded token with passed data' do
-        expect(decoded_token[:data]).to eq('test')
+        expect(decoded_token[:data][:foo]).to eq('bar')
       end
     end
 
     context 'when expiration is in the past' do
-      let(:token) { described_class.encode({ data: 'test' }, 1.day.ago) }
+      let(:token) { described_class.encode({ foo: 'bar' }, 1.day.ago) }
 
       it 'returns nil' do
         expect(decoded_token).to be_nil
