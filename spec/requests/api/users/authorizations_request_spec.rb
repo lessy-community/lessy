@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'shared_examples_for_failures'
 
 RSpec.describe Api::Users::AuthorizationsController, type: :request do
-
   before do
     Timecop.freeze Date.new(2017)
   end
@@ -12,20 +11,20 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
   end
 
   describe 'POST #create' do
-    let!(:user) { create :user, :inactive, username: 'john', password: 'secret' }
-    let(:payload) { {
-      username: 'john',
-      password: 'secret',
-    } }
+    let!(:user) { create :user, user_trait, username: 'john', password: 'secret' }
+    let(:user_trait) { :activated }
+    let(:payload) do
+      {
+        username: 'john',
+        password: 'secret',
+      }
+    end
 
     subject { post api_users_authorizations_path, params: payload,
                                                   as: :json }
 
     context 'with valid username and password' do
-      before do
-        user.activate!
-        subject
-      end
+      before { subject }
 
       it 'succeeds' do
         expect(response).to have_http_status(:ok)
@@ -43,16 +42,16 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
     end
 
     context 'with inactive user' do
+      let(:user_trait) { :inactive }
+
       before { subject }
 
-      it_behaves_like 'API errors', :unauthorized, {
-        errors: [{
-          status: '401 Unauthorized',
-          code: 'login_failed',
-          title: 'Credentials are wrong',
-          detail: 'You failed to authenticate yourself, credentials are probably wrong.',
-        }],
-      }
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'login_failed',
+        title: 'Credentials are wrong',
+        detail: 'You failed to authenticate yourself, credentials are probably wrong.',
+      }]
     end
 
     context 'with invalid password' do
@@ -61,20 +60,14 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
         password: 'wrong secret',
       } }
 
-      before do
-        user.activate!
-        subject
-      end
+      before { subject }
 
-      it_behaves_like 'API errors', :unauthorized, {
-        errors: [{
-          status: '401 Unauthorized',
-          code: 'login_failed',
-          title: 'Credentials are wrong',
-          detail: 'You failed to authenticate yourself, credentials are probably wrong.',
-        }],
-      }
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'login_failed',
+        title: 'Credentials are wrong',
+        detail: 'You failed to authenticate yourself, credentials are probably wrong.',
+      }]
     end
   end
-
 end
