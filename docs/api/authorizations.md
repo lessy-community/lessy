@@ -57,4 +57,8 @@ If everything is OK, it should return:
 The returned token must be saved and is valid for the next month only. Then it
 will be invalidated.
 
+You can also ask for a "sudo" token which has greater permissions but is valid
+for only 15 minutes. Endpoints requiring a sudo token are clearly identified in
+the documentation.
+
 You can learn more about `users` API in [the dedicated section](users.md).

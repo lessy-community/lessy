@@ -8,6 +8,11 @@ class Api::Users::AuthorizationsController < ApiController
       render_error ApiErrors::LoginFailed.new, :unauthorized
       return
     end
-    @token = @user.token(expiration: 1.month.from_now)
+    sudo_mode = params[:sudo] ? true : false
+    token_duration_validity = sudo_mode ? 15.minutes : 1.month
+    @token = @user.token(
+      expiration: token_duration_validity.from_now,
+      sudo: sudo_mode,
+    )
   end
 end

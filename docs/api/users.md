@@ -218,16 +218,18 @@ no content
 
 ## `POST /api/users/authorizations`
 
-Get an authorization token for a user, valid for 1 month.
+Get an authorization token for a user, valid for 1 month (15 minutes if a
+`sudo` token is asked).
 
 **This endpoint doesn't require an `Authorization` header.**
 
 Parameters:
 
-| Name                     | Type   | Description     | Optional |
-|--------------------------|--------|-----------------|----------|
-| username                 | string | User's username |          |
-| password                 | string | User's password |          |
+| Name                     | Type   | Description                            | Optional |
+|--------------------------|--------|----------------------------------------|----------|
+| username                 | string | User's username                        |          |
+| password                 | string | User's password                        |          |
+| sudo                     | bool   | Ask for token with greater permissions | yes      |
 
 Result format:
 
@@ -242,7 +244,7 @@ Result format:
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
 | meta                           | object |                                                      |          |
-| meta.token                     | string | A temporary token (1 month)                          |          |
+| meta.token                     | string | A temporary token (valid for 1 month or 15 minutes)  |          |
 
 Specific errors:
 
