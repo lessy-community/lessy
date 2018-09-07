@@ -2,7 +2,7 @@ import { get, post } from './http'
 
 export default {
   register: (email) => {
-    return post('/api/users', { email }, false)
+    return post('/api/users', { email }, { authorization: 'none' })
   },
 
   resendActivationEmail: (email) => {
@@ -11,7 +11,7 @@ export default {
         email,
       },
     }
-    return post('/api/users/activation_emails', payload, false)
+    return post('/api/users/activation_emails', payload, { authorization: 'none' })
   },
 
   activate: (token, username, password) => {
@@ -23,7 +23,7 @@ export default {
       },
       token,
     }
-    return post(url, payload, false)
+    return post(url, payload, { authorization: 'none' })
   },
 
   login: (username, password) => {
@@ -31,7 +31,16 @@ export default {
       username,
       password,
     }
-    return post('/api/users/authorizations', payload, false)
+    return post('/api/users/authorizations', payload, { authorization: 'none' })
+  },
+
+  sudo: (username, password) => {
+    const payload = {
+      username,
+      password,
+      sudo: true,
+    }
+    return post('/api/users/authorizations', payload, { authorization: 'none' })
   },
 
   getCurrent: () => {
@@ -48,7 +57,7 @@ export default {
         email,
       },
     }
-    return post('/api/users/password_resets', payload, false)
+    return post('/api/users/password_resets', payload, { authorization: 'none' })
   },
 
   changePassword: (token, password) => {
@@ -58,6 +67,6 @@ export default {
       },
       token,
     }
-    return post('/api/users/passwords', payload, false)
+    return post('/api/users/passwords', payload, { authorization: 'none' })
   },
 }

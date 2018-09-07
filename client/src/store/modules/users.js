@@ -56,6 +56,15 @@ const actions = {
       })
   },
 
+  sudo ({ commit, state }, { password }) {
+    const userId = state.current
+    const user = state.byIds[userId]
+    return usersApi.sudo(user.username, password)
+      .then((res) => {
+        auth.sudo(res.meta.token)
+      })
+  },
+
   getCurrent ({ commit }) {
     return usersApi.getCurrent()
                    .then((res) => commit('setCurrent', res.data))

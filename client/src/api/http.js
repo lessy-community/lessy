@@ -27,17 +27,18 @@ function handleErrors ({data, status}) {
   }
 }
 
-function get (url, needAuthorization = true) {
-  const options = {
+function get (url, options = { authorization: 'normal' }) {
+  const { authorization } = options
+  const fetchOptions = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   }
-  if (needAuthorization) {
-    options['headers']['Authorization'] = auth.getToken()
+  if (authorization !== 'none') {
+    fetchOptions['headers']['Authorization'] = auth.getToken(authorization)
   }
-  return window.fetch(url, options)
+  return window.fetch(url, fetchOptions)
                .then(parseJson)
                .then(handleErrors)
 }
@@ -54,46 +55,53 @@ function getWhileNext (callback) {
   return crawl
 }
 
-function post (url, payload, needAuthorization = true) {
-  const options = {
+function post (url, payload, options = { authorization: 'normal' }) {
+  const { authorization } = options
+  const fetchOptions = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   }
-  if (needAuthorization) {
-    options['headers']['Authorization'] = auth.getToken()
+  if (authorization !== 'none') {
+    fetchOptions['headers']['Authorization'] = auth.getToken(authorization)
   }
-  return window.fetch(url, options)
+  return window.fetch(url, fetchOptions)
                .then(parseJson)
                .then(handleErrors)
 }
 
-function patch (url, payload) {
-  const options = {
+function patch (url, payload, options = { authorization: 'normal' }) {
+  const { authorization } = options
+  const fetchOptions = {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': auth.getToken(),
     },
     body: JSON.stringify(payload),
   }
-  return window.fetch(url, options)
+  if (authorization !== 'none') {
+    fetchOptions['headers']['Authorization'] = auth.getToken(authorization)
+  }
+  return window.fetch(url, fetchOptions)
                .then(parseJson)
                .then(handleErrors)
 }
 
-function put (url, payload) {
-  const options = {
+function put (url, payload, options = { authorization: 'normal' }) {
+  const { authorization } = options
+  const fetchOptions = {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': auth.getToken(),
     },
     body: JSON.stringify(payload),
   }
-  return window.fetch(url, options)
+  if (authorization !== 'none') {
+    fetchOptions['headers']['Authorization'] = auth.getToken(authorization)
+  }
+  return window.fetch(url, fetchOptions)
                .then(parseJson)
                .then(handleErrors)
 }
