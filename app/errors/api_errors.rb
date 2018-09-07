@@ -22,6 +22,15 @@ module ApiErrors
     end
   end
 
+  class SudoRequired < Base
+    def initialize
+      @status = '403 Forbidden'
+      @code = :sudo_required
+      @title = 'Sudo authorization token is required'
+      @detail = 'Resource you try to reach requires higher permissions.'
+    end
+  end
+
   class TosNotAccepted < Base
     def initialize
       @status = '403 Forbidden'
