@@ -218,7 +218,7 @@ no content
 
 ## `POST /api/users/authorizations`
 
-Authenticate a user and get a token valid for 1 month.
+Get an authorization token for a user, valid for 1 month.
 
 **This endpoint doesn't require an `Authorization` header.**
 

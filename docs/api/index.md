@@ -10,7 +10,7 @@ Please note all examples are based on lessy.io official service but you MUST
 assume that users are not necessarily hosted on this server.
 
 - [Root API](root.md)
-- [Authentication](authentication.md)
+- [Authorizations](authorizations.md)
 - [Users](users.md)
 - [Projects](projects.md)
 - [Tasks](tasks.md)

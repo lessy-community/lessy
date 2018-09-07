@@ -7,9 +7,9 @@ Please note this is an experimental feature so it might be unstable.
 
 Current implementation is accessible under `client/src/store/plugins/cable.js`.
 
-## Authentication
+## Authorization
 
-Websocket notifications are per user and must be authenticated. Once user is
+Websocket notifications are per user and must be authorized. Once user is
 logged in, just set a `Authorization` session cookie that will be sent at the
 websocket connection:
 
@@ -17,7 +17,7 @@ websocket connection:
 document.cookie = 'Authorization=<user token>;path=/'
 ```
 
-The token is the same than the one used during [API authentication](authentication.md).
+The token is the same than the one used during [API authorization](authorizations.md).
 
 ## Subscription
 
@@ -25,7 +25,7 @@ Since the notification system is based on [Rails ActionCable feature](http://gui
 we use [actioncable package](https://www.npmjs.com/package/actioncable) to
 help us to handle the connection.
 
-Once you set the authentication cookie, you only have to create a websocket
+Once you set the authorization cookie, you only have to create a websocket
 consumer and to subscribe to `NotificationsChannel`:
 
 ```js

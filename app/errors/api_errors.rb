@@ -13,12 +13,12 @@ module ApiErrors
     end
   end
 
-  class AuthenticationRequired < Base
+  class AuthorizationRequired < Base
     def initialize
       @status = '401 Unauthorized'
       @code = :unauthorized
-      @title = 'Authentication is required'
-      @detail = 'Resource you try to reach requires a valid Authentication token.'
+      @title = 'Authorization is required'
+      @detail = 'Resource you try to reach requires a valid Authorization token.'
     end
   end
 

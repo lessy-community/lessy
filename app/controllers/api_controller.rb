@@ -39,7 +39,7 @@ protected
 
   def require_login
     if current_user.nil?
-      errors = [ApiErrors::AuthenticationRequired.new]
+      errors = [ApiErrors::AuthorizationRequired.new]
       render_errors errors, :unauthorized
     end
   end

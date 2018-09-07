@@ -169,8 +169,8 @@ RSpec.describe Api::UsersController, type: :request do
         errors: [{
           status: '401 Unauthorized',
           code: 'unauthorized',
-          title: 'Authentication is required',
-          detail: 'Resource you try to reach requires a valid Authentication token.',
+          title: 'Authorization is required',
+          detail: 'Resource you try to reach requires a valid Authorization token.',
         }],
       }
     end
@@ -184,8 +184,8 @@ RSpec.describe Api::UsersController, type: :request do
         errors: [{
           status: '401 Unauthorized',
           code: 'unauthorized',
-          title: 'Authentication is required',
-          detail: 'Resource you try to reach requires a valid Authentication token.',
+          title: 'Authorization is required',
+          detail: 'Resource you try to reach requires a valid Authorization token.',
         }],
       }
     end
@@ -197,7 +197,7 @@ RSpec.describe Api::UsersController, type: :request do
 
     subject { post me_terms_of_services_api_users_path, headers: { 'Authorization': token } }
 
-    context 'with valid authentication' do
+    context 'with valid authorization' do
       let(:token) { user.token }
 
       before { subject }
@@ -215,7 +215,7 @@ RSpec.describe Api::UsersController, type: :request do
       end
     end
 
-    context 'with invalid authentication' do
+    context 'with invalid authorization' do
       let(:token) { 'not a token' }
 
       before { subject }
@@ -223,8 +223,8 @@ RSpec.describe Api::UsersController, type: :request do
       it_behaves_like 'API errors', :unauthorized, errors: [{
         status: '401 Unauthorized',
         code: 'unauthorized',
-        title: 'Authentication is required',
-        detail: 'Resource you try to reach requires a valid Authentication token.',
+        title: 'Authorization is required',
+        detail: 'Resource you try to reach requires a valid Authorization token.',
       }]
     end
   end

@@ -1,13 +1,13 @@
-# Authentication (API)
+# Authorizations (API)
 
-Almost all API requests require authentication which is based on a JsonWebToken
+Almost all API requests require authorization which is based on a JsonWebToken
 system. We will discuss how to get user token later in this document.
 
-Important note: unless it is specified, the endpoints requiring authentication
+Important note: unless it is specified, the endpoints requiring authorization
 also require that user accepted current terms of service.
 
-To authenticate through Lessy API, you have to send an `Authentication` HTTP
-header.
+To authorize requests to the Lessy API, you have to send an `Authorization`
+HTTP header.
 
 Example:
 

@@ -226,7 +226,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
       }
     end
 
-    context 'with invalid authentication' do
+    context 'with invalid authorization' do
       let(:token) { 'not a token' }
 
       before { subject }
@@ -235,8 +235,8 @@ RSpec.describe Api::Users::TasksController, type: :request do
         errors: [{
           status: '401 Unauthorized',
           code: 'unauthorized',
-          title: 'Authentication is required',
-          detail: 'Resource you try to reach requires a valid Authentication token.',
+          title: 'Authorization is required',
+          detail: 'Resource you try to reach requires a valid Authorization token.',
         }],
       }
     end
