@@ -13,6 +13,11 @@
         {{ $t('profile.page.passwordChanged') }}
       </p>
     </ly-section>
+
+    <ly-section :title="$t('profile.page.account')">
+      <profile-delete-account>
+      </profile-delete-account>
+    </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -24,6 +29,7 @@
 
   import ProfileIdentityEditForm from './ProfileIdentityEditForm'
   import ProfilePasswordNewForm from './ProfilePasswordNewForm'
+  import ProfileDeleteAccount from './ProfileDeleteAccount'
 
   export default {
     mixins: [ResourcesLoader],
@@ -31,6 +37,7 @@
     components: {
       ProfileIdentityEditForm,
       ProfilePasswordNewForm,
+      ProfileDeleteAccount,
     },
 
     data () {

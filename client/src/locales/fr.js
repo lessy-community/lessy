@@ -205,6 +205,13 @@ export default {
   },
 
   profile: {
+    deleteAccount: {
+      submit: 'Supprimez votre compte',
+      understand: 'Je comprends',
+      understandLabel: 'Saisissez « Je comprends » pour pouvoir supprimer votre compte',
+      warn: '<strong>Attention</strong>, vous ne pourrez pas annuler la suppression de votre compte et toutes vos données seront perdues.',
+    },
+
     identityEditForm: {
       emailLabel: 'Email',
       usernameLabel: 'Nom d’utilisateur/utilisatrice',
@@ -212,6 +219,7 @@ export default {
     },
 
     page: {
+      account: 'Compte',
       identity: 'Identité',
       password: 'Mot de passe',
       passwordChanged: 'Nous avons bien pris en compte votre nouveau mot de passe.',

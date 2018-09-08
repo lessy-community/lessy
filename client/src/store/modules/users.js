@@ -92,6 +92,10 @@ const actions = {
         commit('setCurrent', res.data)
       })
   },
+
+  deleteAccount () {
+    return usersApi.deleteAccount()
+  },
 }
 
 const mutations = {
