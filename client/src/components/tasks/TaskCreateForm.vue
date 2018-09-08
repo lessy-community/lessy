@@ -21,6 +21,10 @@
       <ly-button v-if="onCancel" @click="onCancel">
         {{ $t('tasks.createForm.cancel') }}
       </ly-button>
+      <span :class="['text-success', { show: created }]">
+        <ly-icon name="check"></ly-icon>
+        {{ $t('tasks.createForm.created') }}
+      </span>
     </ly-form-group>
   </ly-form>
 </template>
@@ -42,6 +46,7 @@
     data () {
       return {
         label: '',
+        created: false,
       }
     },
 
@@ -59,6 +64,8 @@
             const { labelInput } = this.$refs
             this.label = ''
             this.cleanErrors()
+            this.created = true
+            setTimeout(() => { this.created = false }, 5000)
             labelInput && labelInput.focus()
           })
           .catch((failure) => {
@@ -75,3 +82,15 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .text-success {
+    opacity: 0;
+
+    transition: opacity .2s ease-in-out;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+</style>
