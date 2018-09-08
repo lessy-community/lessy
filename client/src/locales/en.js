@@ -205,6 +205,13 @@ export default {
   },
 
   profile: {
+    deleteAccount: {
+      submit: 'Delete your account',
+      understand: 'I understand',
+      understandLabel: 'Enter “I understand” to be able to delete your account',
+      warn: '<strong>Please be careful</strong>, deleting your account cannot be canceled and all your data will be lost then.',
+    },
+
     identityEditForm: {
       disabled: 'Please note you can’t edit your identity yet. The feature is on its way and should be available soon.',
       emailLabel: 'Email',
@@ -213,6 +220,7 @@ export default {
     },
 
     page: {
+      account: 'Account',
       identity: 'Identity',
       password: 'Password',
       passwordChanged: 'We successfully changed your password.',

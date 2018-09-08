@@ -1,4 +1,4 @@
-import { get, post } from './http'
+import { get, post, destroy } from './http'
 
 export default {
   register: (email) => {
@@ -69,5 +69,9 @@ export default {
     }
     const authorization = token == null ? 'sudo' : 'none'
     return post('/api/users/passwords', payload, { authorization })
+  },
+
+  deleteAccount: () => {
+    return destroy('/api/users/me', {}, { authorization: 'sudo' })
   },
 }

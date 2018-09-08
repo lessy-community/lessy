@@ -106,10 +106,28 @@ function put (url, payload, options = { authorization: 'normal' }) {
                .then(handleErrors)
 }
 
+function destroy (url, payload, options = { authorization: 'normal' }) {
+  const { authorization } = options
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  }
+  if (authorization !== 'none') {
+    fetchOptions['headers']['Authorization'] = auth.getToken(authorization)
+  }
+  return window.fetch(url, fetchOptions)
+               .then(parseJson)
+               .then(handleErrors)
+}
+
 export {
   get,
   post,
   patch,
   put,
+  destroy,
   getWhileNext,
 }
