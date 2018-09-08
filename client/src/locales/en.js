@@ -124,7 +124,9 @@ export default {
     },
 
     loadingPage: {
+      reset: 'Reset your session',
       title: 'Loading…',
+      tooLong: 'The loading takes too much time. It is sometimes useful to reset your session and re-login.',
       wait: '— Please sit and relax —',
     },
 

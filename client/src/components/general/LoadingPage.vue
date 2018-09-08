@@ -4,9 +4,42 @@
 
     <ly-icon name="circle-o-notch" size="large" spin></ly-icon>
 
-    <p class="text-secondary">{{ $t('general.loadingPage.wait') }}</p>
+    <p v-if="!showReset" class="waiter text-secondary">
+      {{ $t('general.loadingPage.wait') }}
+    </p>
+    <div v-else class="reset-block">
+      <p class="text-secondary">
+        {{ $t('general.loadingPage.tooLong') }}
+      </p>
+      <ly-button @click="reset">
+        {{ $t('general.loadingPage.reset') }}
+      </ly-button>
+    </div>
   </app-page>
 </template>
+
+<script>
+  import auth from 'src/auth'
+
+  export default {
+    data () {
+      return {
+        showReset: false,
+      }
+    },
+
+    methods: {
+      reset () {
+        auth.logout()
+        window.location = '/login'
+      },
+    },
+
+    mounted () {
+      setTimeout(() => { this.showReset = true }, 10000)
+    },
+  }
+</script>
 
 <style lang="scss">
   .app-page-loading .app-layout-main {
@@ -22,8 +55,15 @@
                                         $ly-color-grey-10 83%,
                                         $ly-color-grey-20 83%);
 
-    > .text-secondary {
+    > .waiter,
+    > .reset-block {
       margin-top: 1.5rem;
+    }
+
+    .reset-block {
+      max-width: 30rem;
+
+      text-align: center;
     }
   }
 </style>

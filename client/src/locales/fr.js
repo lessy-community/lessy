@@ -124,7 +124,9 @@ export default {
     },
 
     loadingPage: {
+      reset: 'Réinitialiser votre session',
       title: 'Chargement en cours…',
+      tooLong: 'Le chargement prend beaucoup de temps. Il est parfois utile de réinitialiser votre session et de vous reconnecter.',
       wait: '— Asseyez-vous et détendez-vous —',
     },
 
