@@ -191,6 +191,204 @@ RSpec.describe Api::UsersController, type: :request do
     end
   end
 
+  describe 'PATCH #update' do
+    let(:user) { create :user, :activated }
+    let(:token) { user.token }
+    let(:payload) do
+      {
+        user: {
+          username: username,
+          email: email,
+        },
+      }
+    end
+
+    subject { patch me_api_users_path, params: payload,
+                                       headers: { 'Authorization': token },
+                                       as: :json }
+
+    context 'with valid parameters' do
+      let(:username) { 'douglasjones' }
+      let(:email) { 'douglas.jones@lessy.io' }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'matches the users/update schema' do
+        expect(response).to match_response_schema('users/update')
+      end
+
+      it 'saves the new user' do
+        user.reload
+        expect(user.username).to eq username
+        expect(user.email).to eq email
+      end
+
+      it 'returns the new user' do
+        contact = JSON.parse(response.body)['data']
+        expect(contact['id']).to eq(user.id)
+        expect(contact['attributes']['username']).to eq username
+        expect(contact['attributes']['email']).to eq email
+      end
+    end
+
+    context 'with partial parameters' do
+      let(:username) { 'douglasjones' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'does not save nil email' do
+        expect(user.reload.email).not_to be nil
+      end
+    end
+
+    context 'with existing email' do
+      let(:username) { 'douglasjones' }
+      let(:email) { 'douglas.jones@lessy.io' }
+
+      before do
+        create :user, email: email
+        subject
+      end
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/email' },
+        }],
+      }
+    end
+
+    context 'with invalid username' do
+      let(:username) { 'Douglas Jones' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'invalid',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
+    end
+
+    context 'with too long username' do
+      let(:username) { 'douglasdouglasdouglasdouglasdouglasdouglas' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'too_long',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
+    end
+
+    context 'with existing username' do
+      let(:username) { 'douglasjones' }
+      let(:email) { nil }
+
+      before do
+        create :user, username: username
+        subject
+      end
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'taken',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
+    end
+
+    context 'with blacklisted username' do
+      let(:username) { 'dashboard' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unprocessable_entity, {
+        errors: [{
+          status: '422 Unprocessable Entity',
+          code: 'exclusion',
+          title: 'Resource validation failed',
+          detail: 'Resource cannot be saved because of validation constraints.',
+          source: { pointer: '/user/username' },
+        }],
+      }
+    end
+
+    context 'with invalid token' do
+      let(:token) { 'not-a-token' }
+      let(:username) { 'douglasjones' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'unauthorized',
+        title: 'Authorization is required',
+        detail: 'Resource you try to reach requires a valid Authorization token.',
+      }]
+    end
+
+    context 'with not accepted terms of service' do
+      let!(:tos) { create :terms_of_service, :in_the_past }
+      let(:user) { create :user, :activated, :not_accepted_tos }
+      let(:username) { 'douglasjones' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :forbidden, errors: [{
+        status: '403 Forbidden',
+        code: 'tos_not_accepted',
+        title: 'Terms of service not accepted',
+        detail: 'Resource you try to reach requires that you accept the terms of service.',
+      }]
+    end
+
+    context 'with inactive user' do
+      let(:user) { create :user, :inactive }
+      let(:username) { 'douglasjones' }
+      let(:email) { nil }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :forbidden, errors: [{
+        status: '403 Forbidden',
+        code: 'user_inactive',
+        title: 'User is inactive',
+        detail: 'The user did not activate its account.',
+        source: { pointer: '/user' },
+      }]
+    end
+  end
+
   describe 'DELETE #destroy' do
     let(:user) { create :user, :activated }
     let(:token) { user.token(sudo: true) }
