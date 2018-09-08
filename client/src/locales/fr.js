@@ -223,8 +223,11 @@ export default {
 
     page: {
       account: 'Compte',
+      activationInstructions: 'Certaines sections du profil ne sont pas activées car vous devez d’abord activer votre compte. Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
       identity: 'Identité',
       password: 'Mot de passe',
+      resendActivationInstructions: 'Renvoyer les instructions',
+      resendActivationInstructionsDone: 'Fait',
     },
 
     passwordNewForm: {

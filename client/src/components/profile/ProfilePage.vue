@@ -1,14 +1,32 @@
 <template>
   <app-page v-if="resourcesReady" name="profile" layout="profile">
-    <ly-section :title="$t('profile.page.identity')">
-      <profile-identity-edit-form :user="user">
-      </profile-identity-edit-form>
-    </ly-section>
+    <ly-text-container v-if="!user.activated">
+      <ly-card>
+        <p v-html="$t('profile.page.activationInstructions', { email: user.email })"></p>
+        <ly-button
+          v-if="!activationEmailResent"
+          icon="envelope-o"
+          @click="resendActivationEmail"
+        >
+          {{ $t('profile.page.resendActivationInstructions') }}
+        </ly-button>
+        <p v-else class="text-success">
+          <ly-icon name="check"></ly-icon>
+          {{ $t('profile.page.resendActivationInstructionsDone') }}
+        </p>
+      </ly-card>
+    </ly-text-container>
+    <template v-else>
+      <ly-section :title="$t('profile.page.identity')">
+        <profile-identity-edit-form :user="user">
+        </profile-identity-edit-form>
+      </ly-section>
 
-    <ly-section :title="$t('profile.page.password')">
-      <profile-password-new-form>
-      </profile-password-new-form>
-    </ly-section>
+      <ly-section :title="$t('profile.page.password')">
+        <profile-password-new-form>
+        </profile-password-new-form>
+      </ly-section>
+    </template>
 
     <ly-section :title="$t('profile.page.account')">
       <profile-delete-account>
@@ -36,10 +54,24 @@
       ProfileDeleteAccount,
     },
 
+    data () {
+      return {
+        activationEmailResent: false,
+      }
+    },
+
     computed: {
       ...mapGetters({
         user: 'users/current',
       }),
+    },
+
+    methods: {
+      resendActivationEmail () {
+        this.$store
+          .dispatch('users/resendActivationEmail', { email: this.user.email })
+          .then(() => { this.activationEmailResent = true })
+      },
     },
   }
 </script>
