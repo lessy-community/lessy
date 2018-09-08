@@ -218,16 +218,18 @@ no content
 
 ## `POST /api/users/authorizations`
 
-Get an authorization token for a user, valid for 1 month.
+Get an authorization token for a user, valid for 1 month (15 minutes if a
+`sudo` token is asked).
 
 **This endpoint doesn't require an `Authorization` header.**
 
 Parameters:
 
-| Name                     | Type   | Description     | Optional |
-|--------------------------|--------|-----------------|----------|
-| username                 | string | User's username |          |
-| password                 | string | User's password |          |
+| Name                     | Type   | Description                            | Optional |
+|--------------------------|--------|----------------------------------------|----------|
+| username                 | string | User's username                        |          |
+| password                 | string | User's password                        |          |
+| sudo                     | bool   | Ask for token with greater permissions | yes      |
 
 Result format:
 
@@ -242,7 +244,7 @@ Result format:
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
 | meta                           | object |                                                      |          |
-| meta.token                     | string | A temporary token (1 month)                          |          |
+| meta.token                     | string | A temporary token (valid for 1 month or 15 minutes)  |          |
 
 Specific errors:
 
@@ -356,9 +358,10 @@ no content
 
 ## `POST /api/users/passwords`
 
-Change the password of the user, using the reset password token from the email.
+Change the password of the user.
 
-**This endpoint doesn't require an `Authorization` header.**
+**This endpoint requires either a sudo `Authorization` header OR a reset
+password token.**
 
 Parameters:
 
@@ -366,10 +369,12 @@ Parameters:
 |---------------|--------|------------------------|----------|
 | user          | object |                        |          |
 | user.password | string | User's password to set |          |
-| token         | string | Reset password token   |          |
+| token         | string | Reset password token   | yes      |
 
 **Important note:** the `token` is the one present in the link of the **reset
-password email** (e.g. `https://lessy.io/password/9xNZHo_YR1J8SvzseL_S/new`)
+password email** (e.g. `https://lessy.io/password/9xNZHo_YR1J8SvzseL_S/new`).
+If you don't pass this token, you'll need to authorize the request with a
+[**sudo** `Authorization` token](#post-apiusersauthorizations).
 
 Result format:
 
@@ -383,14 +388,17 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
-| meta                           | object |                                                      |          |
-| meta.token                     | string | A temporary token (1 month)                          |          |
+| meta                           | object |                                                      | yes      |
+| meta.token                     | string | A temporary token (1 month)                          | yes      |
+
+Note: the token is not returned if request is done through sudo authorization.
 
 Specific errors:
 
 | Code              | Description                                                      |
 |-------------------|------------------------------------------------------------------|
 | user\_inactive    | User did not activate its account and cannot reset its password. |
+| sudo\_required    | User need to be authenticated with a sudo token.                 |
 
 Example:
 

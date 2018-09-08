@@ -41,6 +41,18 @@ protected
     render_error ApiErrors::AuthorizationRequired.new, :unauthorized if current_user.nil?
   end
 
+  def require_sudo
+    token = request.headers['Authorization']
+    decoded_token = JsonWebToken.decode(token)
+
+    if decoded_token.nil?
+      render_error ApiErrors::AuthorizationRequired.new, :unauthorized
+      return
+    end
+
+    render_error ApiErrors::SudoRequired.new, :forbidden unless decoded_token[:data][:sudo]
+  end
+
   def require_tos_accepted
     return unless current_user && !current_user.accepted_tos?
     render_error ApiErrors::TosNotAccepted.new, :forbidden

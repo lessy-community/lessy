@@ -20,8 +20,8 @@ Metrics/BlockLength:
 Rails/DynamicFindBy:
   Whitelist:
     - find_by_authorization_token
-    - find_by_identifier
-    - find_by_sorcery_token
+    - find_by_identifier!
+    - find_by_sorcery_token!
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

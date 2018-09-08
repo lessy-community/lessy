@@ -41,6 +41,25 @@ RSpec.describe Api::Users::AuthorizationsController, type: :request do
       end
     end
 
+    context 'with sudo parameter' do
+      let(:payload) do
+        {
+          username: 'john',
+          password: 'secret',
+          sudo: true,
+        }
+      end
+
+      before { subject }
+
+      it 'returns a token valid for 15 minutes' do
+        token = JSON.parse(response.body)['meta']['token']
+        decoded_token = JsonWebToken.decode(token)
+        expect(decoded_token[:exp]).to eq(15.minutes.from_now.to_i)
+        expect(decoded_token[:data][:sudo]).to be true
+      end
+    end
+
     context 'with inactive user' do
       let(:user_trait) { :inactive }
 

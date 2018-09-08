@@ -134,6 +134,15 @@ export default {
       title: 'Page introuvable',
     },
 
+    sudoModal: {
+      cancel: 'Annuler',
+      intro: 'Nous devons vérifier votre identité, merci d’entrer votre mot de passe actuel pour continuer.',
+      more: 'Vous entrez en mode « sudo ». Nous ne vous demanderons plus votre mot de passe pour les 15 prochaines minutes.',
+      passwordLabel: 'Mot de passe',
+      submit: 'Confirmer',
+      title: 'Vérification d’identité',
+    },
+
     termsOfServicePage: {
       accept: 'J’ai lu et accepte les conditions',
       changed: 'Les conditions d’utilisation du service ont changé, veuillez les lire avec attention.',
@@ -202,6 +211,13 @@ export default {
 
     page: {
       identity: 'Identité',
+      password: 'Mot de passe',
+      passwordChanged: 'Nous avons bien pris en compte votre nouveau mot de passe.',
+    },
+
+    passwordNewForm: {
+      passwordLabel: 'Nouveau mot de passe',
+      submit: 'Changez votre mot de passe',
     },
   },
 

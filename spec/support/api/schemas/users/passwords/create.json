@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "required": ["data", "meta"],
+  "required": ["data"],
   "properties": {
     "data": { "$ref": "../user.json" },
     "meta": {

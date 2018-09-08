@@ -38,8 +38,8 @@ class User < ApplicationRecord
     user
   end
 
-  def token(expiration: 1.day.from_now)
-   JsonWebToken.encode({ user_id: self.id }, expiration)
+  def token(expiration: 1.day.from_now, sudo: false)
+    JsonWebToken.encode({ user_id: id, sudo: sudo }, expiration)
   end
 
   def flipper_id
