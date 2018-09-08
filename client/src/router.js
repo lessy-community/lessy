@@ -31,33 +31,34 @@ import DesignComponentsPage from './components/design/DesignComponentsPage'
 import DesignWordingPage from './components/design/DesignWordingPage'
 
 import auth from './auth'
+import i18n from './locales'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: HomePage, meta: { restrictForUnauth: true, title: 'Welcome' } },
-  { path: '/terms-of-service', component: TermsOfServicePage, meta: { title: 'Terms of service' } },
+  { path: '/', component: HomePage, meta: { restrictForUnauth: true, iTitle: 'general.homePage.browserTitle' } },
+  { path: '/terms-of-service', component: TermsOfServicePage, meta: { iTitle: 'general.termsOfServicePage.title' } },
 
-  { path: '/login', component: UserLoginPage, meta: { restrictForUnauth: true, title: 'Login' } },
-  { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, title: 'Reset your password' } },
-  { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, title: 'Change your password' } },
-  { path: '/users/:token/activate', component: UserActivatePage, meta: { title: 'User activation' } },
+  { path: '/login', component: UserLoginPage, meta: { restrictForUnauth: true, iTitle: 'users.loginPage.title' } },
+  { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, iTitle: 'users.passwordResetPage.title' } },
+  { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, iTitle: 'users.passwordNewPage.title' } },
+  { path: '/users/:token/activate', component: UserActivatePage, meta: { iTitle: 'users.activatePage.title' } },
 
-  { path: '/profile', component: ProfilePage, meta: { restrictForAuth: true, title: 'Profile' } },
+  { path: '/profile', component: ProfilePage, meta: { restrictForAuth: true, iTitle: 'layouts.profile.title' } },
 
-  { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, title: 'Dashboard' } },
+  { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, iTitle: 'dashboard.page.title' } },
 
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
-  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, title: 'Backlog' } },
-  { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, title: 'Statistics' } },
+  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, iTitle: 'tasks.header.backlog' } },
+  { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, iTitle: 'tasks.header.statistics' } },
 
   { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
-  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { title: 'Inbox' } },
+  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { iTitle: 'projects.header.inbox' } },
   { path: '/projects/:projectSlug',
     component: ProjectContainer,
     children: [
-      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, title: 'Project' } },
-      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, title: 'Project' } },
+      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, iTitle: 'projects.header.project' } },
+      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, iTitle: 'projects.header.project' } },
     ],
     props: true,
   },
@@ -70,7 +71,7 @@ const routes = [
   { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
   { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
 
-  { path: '*', component: NotFoundPage },
+  { path: '*', component: NotFoundPage, meta: { iTitle: 'general.notFoundPage.title' } },
 ]
 
 let router = new VueRouter({
@@ -90,7 +91,9 @@ function isRestrictedForUnauth (route) {
 }
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title ? to.meta.title + ' · Lessy' : 'Lessy'
+  const { iTitle, title } = to.meta
+  const docTitle = iTitle ? i18n.t(iTitle) : title
+  document.title = docTitle ? docTitle + ' · Lessy' : 'Lessy'
   if (isRestrictedForAuth(to) && !auth.isLoggedIn()) {
     next({ path: '/' })
   } else if (isRestrictedForUnauth(to) && auth.isLoggedIn()) {
