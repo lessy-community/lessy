@@ -58,7 +58,7 @@
     props: {
       options: { type: Array, required: true },
       name: { type: String, required: true },
-      value: { type: Number },
+      value: { type: [Number, String] },
       placeholder: { type: String },
       label: { type: String },
       caption: { type: String },

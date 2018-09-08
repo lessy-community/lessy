@@ -198,8 +198,8 @@ export default {
       },
 
       select: {
-        moreOptions: '+1 additional option | +{number} additional options',
-        unselect: 'Unselect',
+        moreOptions: '+1 option supplémentaire | +{number} options supplémentaires',
+        unselect: 'Désélectionner',
       },
     },
   },
