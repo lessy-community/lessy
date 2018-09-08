@@ -19,11 +19,14 @@ export default {
         .then(() => {
           this.$store.commit('global/setResourcesReady', true)
         })
-        .catch(() => {
-          // having troubles to fetch current user? It probably means token
-          // expired or user does not exist. Logout and return to home page.
-          auth.logout()
-          window.location = '/'
+        .catch((e) => {
+          const isUnauthorized = e.data.errors.some(error => error.code === 'unauthorized')
+          if (isUnauthorized) {
+            // having troubles to fetch current user? It probably means token
+            // expired or user does not exist. Logout and return to home page.
+            auth.logout()
+            window.location = '/'
+          }
         })
   },
 }
