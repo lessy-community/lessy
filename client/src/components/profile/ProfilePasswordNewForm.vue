@@ -11,7 +11,7 @@
     </ly-form-group>
 
     <ly-form-group>
-      <ly-button type="primary" submit>
+      <ly-button submit>
         {{ $t('profile.passwordNewForm.submit') }}
       </ly-button>
       <span :class="['text-success', { show: saved }]">
