@@ -212,6 +212,13 @@ export default {
 
     page: {
       identity: 'Identity',
+      password: 'Password',
+      passwordChanged: 'We successfully changed your password.',
+    },
+
+    passwordNewForm: {
+      passwordLabel: 'New password',
+      submit: 'Change your password',
     },
   },
 

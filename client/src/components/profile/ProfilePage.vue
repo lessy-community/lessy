@@ -4,6 +4,15 @@
       <profile-identity-edit-form :user="user">
       </profile-identity-edit-form>
     </ly-section>
+
+    <ly-section :title="$t('profile.page.password')">
+      <profile-password-new-form v-if="!passwordChanged" @success="passwordChanged = true">
+      </profile-password-new-form>
+      <p v-else class="text-success">
+        <ly-icon name="check"></ly-icon>
+        {{ $t('profile.page.passwordChanged') }}
+      </p>
+    </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -14,12 +23,20 @@
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
   import ProfileIdentityEditForm from './ProfileIdentityEditForm'
+  import ProfilePasswordNewForm from './ProfilePasswordNewForm'
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
       ProfileIdentityEditForm,
+      ProfilePasswordNewForm,
+    },
+
+    data () {
+      return {
+        passwordChanged: false,
+      }
     },
 
     computed: {
