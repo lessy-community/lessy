@@ -215,8 +215,11 @@ export default {
     identityEditForm: {
       disabled: 'Please note you can’t edit your identity yet. The feature is on its way and should be available soon.',
       emailLabel: 'Email',
-      usernameLabel: 'Username',
       passwordLabel: 'New password',
+      saved: 'Saved!',
+      submit: 'Edit your identity',
+      usernameCaption: 'Only lowercase letters, underscore and dash (max 25 characters).',
+      usernameLabel: 'Username',
     },
 
     page: {

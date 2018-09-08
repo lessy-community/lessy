@@ -214,8 +214,11 @@ export default {
 
     identityEditForm: {
       emailLabel: 'Email',
-      usernameLabel: 'Nom d’utilisateur/utilisatrice',
       passwordLabel: 'Nouveau mot de passe',
+      saved: 'Enregistré !',
+      submit: 'Modifiez votre identité',
+      usernameCaption: 'Utilisez seulement des minuscules, le caractère soulignement et/ou le trait d’union (25 caractères maximum).',
+      usernameLabel: 'Nom d’utilisateur/utilisatrice',
     },
 
     page: {
