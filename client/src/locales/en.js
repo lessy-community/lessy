@@ -134,6 +134,15 @@ export default {
       title: 'Page not found',
     },
 
+    sudoModal: {
+      cancel: 'Cancel',
+      intro: 'We need to verify your identity, please enter your current password to continue.',
+      more: 'You are entering “sudo” mode. We won’t ask for your password again for the next 15 minutes.',
+      passwordLabel: 'Password',
+      submit: 'Confirm',
+      title: 'Identity check',
+    },
+
     termsOfServicePage: {
       accept: 'I read and accept terms',
       changed: 'Terms of service have changed, you should read them carefully.',
