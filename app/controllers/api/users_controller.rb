@@ -1,6 +1,8 @@
 class Api::UsersController < ApiController
   skip_before_action :require_login, only: [:create]
-  skip_before_action :require_tos_accepted, only: %i[create show accept_tos]
+  skip_before_action :require_tos_accepted, only: %i[create show destroy accept_tos]
+
+  before_action :require_sudo, only: :destroy
 
   def create
     unless Flipper.enabled? :feature_registration
@@ -15,6 +17,10 @@ class Api::UsersController < ApiController
 
   def show
     @user = current_user
+  end
+
+  def destroy
+    current_user.destroy!
   end
 
   def accept_tos

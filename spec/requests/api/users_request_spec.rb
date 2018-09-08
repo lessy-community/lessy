@@ -109,7 +109,7 @@ RSpec.describe Api::UsersController, type: :request do
     end
   end
 
-  describe 'GET #me' do
+  describe 'GET #show' do
     let(:user) { create :user }
     let(:token) { user.token }
 
@@ -188,6 +188,51 @@ RSpec.describe Api::UsersController, type: :request do
           detail: 'Resource you try to reach requires a valid Authorization token.',
         }],
       }
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let(:user) { create :user }
+    let(:token) { user.token(sudo: true) }
+
+    subject { delete me_api_users_path, headers: { 'Authorization': token } }
+
+    context 'when authorized with sudo token' do
+      before { subject }
+
+      it 'succeeds with no content' do
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'destroys the corresponding user' do
+        expect(User.find_by(id: user.id)).not_to be_present
+      end
+    end
+
+    context 'when authorized with not sudo token' do
+      let(:token) { user.token(sudo: false) }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :forbidden, errors: [{
+        status: '403 Forbidden',
+        code: 'sudo_required',
+        title: 'Sudo authorization token is required',
+        detail: 'Resource you try to reach requires higher permissions.',
+      }]
+    end
+
+    context 'when not authorized' do
+      let(:token) { 'not-a-token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'unauthorized',
+        title: 'Authorization is required',
+        detail: 'Resource you try to reach requires a valid Authorization token.',
+      }]
     end
   end
 

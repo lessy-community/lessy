@@ -45,6 +45,33 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
 }
 ```
 
+## `DELETE /api/users/me`
+
+Destroy the current user and its associated projects and tasks.
+
+**This endpoint requires a sudo `Authorization` header but NOT that user
+accepted terms of service.**
+
+Parameters: none.
+
+Result format: none.
+
+Specific errors:
+
+| Code              | Description                                      |
+|-------------------|--------------------------------------------------|
+| sudo\_required    | User need to be authenticated with a sudo token. |
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" -X DELETE https://lessy.io/api/users/me
+```
+
+```raw
+no content
+```
+
 ## `POST /api/users`
 
 Create a new user on Lessy. This action sends an email to the given address
