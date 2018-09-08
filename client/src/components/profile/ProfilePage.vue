@@ -28,6 +28,11 @@
       </ly-section>
     </template>
 
+    <ly-section :title="$t('profile.page.language')">
+      <profile-language-form>
+      </profile-language-form>
+    </ly-section>
+
     <ly-section :title="$t('profile.page.account')">
       <profile-delete-account>
       </profile-delete-account>
@@ -43,6 +48,7 @@
 
   import ProfileIdentityEditForm from './ProfileIdentityEditForm'
   import ProfilePasswordNewForm from './ProfilePasswordNewForm'
+  import ProfileLanguageForm from './ProfileLanguageForm'
   import ProfileDeleteAccount from './ProfileDeleteAccount'
 
   export default {
@@ -51,6 +57,7 @@
     components: {
       ProfileIdentityEditForm,
       ProfilePasswordNewForm,
+      ProfileLanguageForm,
       ProfileDeleteAccount,
     },
 
