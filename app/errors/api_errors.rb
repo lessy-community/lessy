@@ -51,7 +51,7 @@ module ApiErrors
 
   class UserInactive < Base
     def initialize
-      @status = '422 Unprocessable Entity'
+      @status = '403 Forbidden'
       @code = 'user_inactive'
       @title = 'User is inactive'
       @detail = 'The user did not activate its account.'

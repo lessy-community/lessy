@@ -53,6 +53,10 @@ protected
     render_error ApiErrors::SudoRequired.new, :forbidden unless decoded_token[:data][:sudo]
   end
 
+  def require_active_user(user = current_user)
+    render_error ApiErrors::UserInactive.new, :forbidden if !user || user.inactive?
+  end
+
   def require_tos_accepted
     return unless current_user && !current_user.accepted_tos?
     render_error ApiErrors::TosNotAccepted.new, :forbidden

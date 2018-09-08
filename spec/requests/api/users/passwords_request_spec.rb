@@ -88,8 +88,8 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
 
         before { subject }
 
-        it_behaves_like 'API errors', :unprocessable_entity, errors: [{
-          status: '422 Unprocessable Entity',
+        it_behaves_like 'API errors', :forbidden, errors: [{
+          status: '403 Forbidden',
           code: 'user_inactive',
           title: 'User is inactive',
           detail: 'The user did not activate its account.',
@@ -178,8 +178,8 @@ RSpec.describe Api::Users::PasswordsController, type: :request do
 
         before { subject }
 
-        it_behaves_like 'API errors', :unprocessable_entity, errors: [{
-          status: '422 Unprocessable Entity',
+        it_behaves_like 'API errors', :forbidden, errors: [{
+          status: '403 Forbidden',
           code: 'user_inactive',
           title: 'User is inactive',
           detail: 'The user did not activate its account.',

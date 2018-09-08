@@ -4,19 +4,20 @@ class Api::Users::PasswordResetsController < ApiController
   skip_before_action :require_login, only: [:create]
   skip_before_action :require_tos_accepted, only: [:create]
 
+  before_action :set_user
+  before_action do
+    require_active_user(@user)
+  end
+
   def create
-    @user = User.find_by!(find_user_params)
-    if @user.inactive?
-      render_error ApiErrors::UserInactive.new, :unprocessable_entity
-      return
-    end
     @user.deliver_reset_password_instructions!
     head :no_content
   end
 
   private
 
-  def find_user_params
-    fetch_resource_params(:user, [:email])
+  def set_user
+    find_user_params = fetch_resource_params(:user, [:email])
+    @user = User.find_by!(find_user_params)
   end
 end

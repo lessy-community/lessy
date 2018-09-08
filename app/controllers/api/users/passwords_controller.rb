@@ -6,12 +6,11 @@ class Api::Users::PasswordsController < ApiController
   before_action :require_sudo, if: -> { !params[:token] }
 
   before_action :set_user, only: [:create]
+  before_action do
+    require_active_user(@user)
+  end
 
   def create
-    if @user.inactive?
-      render_error ApiErrors::UserInactive.new, :unprocessable_entity
-      return
-    end
     @user.change_password! password_param
     @token = @user.token(expiration: 1.month.from_now) if params[:token]
   end
