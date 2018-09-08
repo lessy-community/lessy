@@ -1,4 +1,4 @@
-import { get, post, destroy } from './http'
+import { get, post, patch, destroy } from './http'
 
 export default {
   register: (email) => {
@@ -45,6 +45,16 @@ export default {
 
   getCurrent: () => {
     return get('/api/users/me')
+  },
+
+  updateCurrent: (username, email) => {
+    const payload = {
+      user: {
+        username,
+        email,
+      },
+    }
+    return patch('/api/users/me', payload)
   },
 
   acceptTermsOfService: () => {

@@ -70,6 +70,11 @@ const actions = {
                    .then((res) => commit('setCurrent', res.data))
   },
 
+  updateCurrent ({ commit }, { username, email }) {
+    return usersApi.updateCurrent(username, email)
+                   .then((res) => commit('update', res.data))
+  },
+
   logout ({ commit }) {
     auth.logout()
   },

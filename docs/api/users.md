@@ -45,6 +45,61 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
 }
 ```
 
+## `PATCH /api/users/me`
+
+Update the current user.
+
+Parameters:
+
+| Name          | Type   | Description     | Optional |
+|---------------|--------|-----------------|----------|
+| user          | object |                 |          |
+| user.username | string | User's username | yes      |
+| user.email    | string | User's email    | yes      |
+
+Result format:
+
+| Name                           | Type   | Description                           | Optional |
+|--------------------------------|--------|---------------------------------------|----------|
+| data                           | object |                                       |          |
+| data.type                      | string | Type of returned data (always `user`) |          |
+| data.id                        | number | User's identifier                     |          |
+| data.attributes                | object |                                       |          |
+| data.attributes.username       | string | User's username                       |          |
+| data.attributes.email          | string | User's email                          |          |
+
+Specific errors:
+
+| Code              | Description                              |
+|-------------------|------------------------------------------|
+| user\_inactive    | User did not activate its account        |
+| taken             | Email address or username already exists |
+| invalid           | Username's format is incorrect           |
+| too\_long         | Username is too long                     |
+| exclusion         | Username is blacklisted                  |
+
+Example:
+
+```console
+$ curl -H "Content-Type: application/json" \
+       -X PATCH \
+       -d '{"user": {"username": "douglasjones", "email": "douglas.jones@lessy.io"}}' \
+       https://lessy.io/api/users/me
+```
+
+```json
+{
+  "data": {
+    "type": "user",
+    "id": 1,
+    "attributes": {
+      "username": "douglasjones",
+      "email": "douglas.jones@lessy.io"
+    }
+  }
+}
+```
+
 ## `DELETE /api/users/me`
 
 Destroy the current user and its associated projects and tasks.

@@ -215,14 +215,20 @@ export default {
     identityEditForm: {
       disabled: 'Please note you can’t edit your identity yet. The feature is on its way and should be available soon.',
       emailLabel: 'Email',
-      usernameLabel: 'Username',
       passwordLabel: 'New password',
+      saved: 'Saved!',
+      submit: 'Edit your identity',
+      usernameCaption: 'Only lowercase letters, underscore and dash (max 25 characters).',
+      usernameLabel: 'Username',
     },
 
     page: {
       account: 'Account',
+      activationInstructions: 'Some sections of the profile are disabled because you didn’t activate your account yet. We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       identity: 'Identity',
       password: 'Password',
+      resendActivationInstructions: 'Resend activation instructions',
+      resendActivationInstructionsDone: 'Done',
     },
 
     passwordNewForm: {

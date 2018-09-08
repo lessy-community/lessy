@@ -4,6 +4,7 @@
 
 ### API changes
 
+- Provide `PATCH /api/users/me` endpoint
 - Provide `DELETE /api/users/me` endpoint
 - Provide `POST /api/users/password_resets` endpoint
 - Provide `POST /api/users/passwords` endpoint

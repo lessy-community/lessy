@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create] do
       collection do
         get 'me', action: 'show'
+        patch 'me', action: 'update'
         delete 'me', action: 'destroy'
         post 'me/projects', module: :users, controller: 'users/projects', action: :create
         get 'me/projects', module: :users, controller: 'users/projects', action: :index

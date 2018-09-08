@@ -3,6 +3,7 @@ class Api::UsersController < ApiController
   skip_before_action :require_tos_accepted, only: %i[create show destroy accept_tos]
 
   before_action :require_registration_enabled, only: :create
+  before_action :require_active_user, only: :update
   before_action only: :destroy do
     require_sudo if current_user.active?
   end
@@ -15,6 +16,11 @@ class Api::UsersController < ApiController
 
   def show
     @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.update! update_user_params
   end
 
   def destroy
@@ -36,5 +42,10 @@ private
   def create_user_params
     fetch_resource_params(:user, [:email])
       .merge(terms_of_service: TermsOfService.current)
+  end
+
+  def update_user_params
+    fetch_resource_params(:user, [], [:email, :username])
+      .delete_if { |k, v| v.nil? }
   end
 end
