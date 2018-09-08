@@ -184,7 +184,7 @@ export default {
 
     profile: {
       brand: 'Lessy',
-      dashboard: 'Retour au tableau de bord',
+      dashboard: 'Retour tableau de bord',
       profile: 'Profil',
       title: 'Profil',
     },
