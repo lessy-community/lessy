@@ -1,6 +1,6 @@
 <template>
   <div class="profile-delete-account">
-    <ly-text-container>
+    <ly-form @submit="deleteAccount">
       <ly-card>
         <p class="text-warning" v-html="$t('profile.deleteAccount.warn')">
         </p>
@@ -17,12 +17,12 @@
       </ly-form-group>
 
       <ly-button
-        @click="deleteAccount"
         :disabled="understand !== $t('profile.deleteAccount.understand')"
+        submit
       >
         {{ $t('profile.deleteAccount.submit') }}
       </ly-button>
-    </ly-text-container>
+    </ly-form>
 
     <sudo-modal
       v-if="showSudoModal"
