@@ -49,8 +49,9 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
 
 Destroy the current user and its associated projects and tasks.
 
-**This endpoint requires a sudo `Authorization` header but NOT that user
-accepted terms of service.**
+**This endpoint requires a `Authorization` header but NOT that user accepted
+terms of service. If user is active, `Authorization` header must be a sudo
+one.**
 
 Parameters: none.
 
@@ -61,6 +62,8 @@ Specific errors:
 | Code              | Description                                      |
 |-------------------|--------------------------------------------------|
 | sudo\_required    | User need to be authenticated with a sudo token. |
+
+Note: sudo isn't required if [user is “inactive”](#post-apiusersactivations).
 
 Example:
 

@@ -94,7 +94,10 @@ const actions = {
   },
 
   deleteAccount () {
-    return usersApi.deleteAccount()
+    const userId = state.current
+    const user = state.byIds[userId]
+    const userActive = !!user.username
+    return usersApi.deleteAccount(userActive)
   },
 }
 

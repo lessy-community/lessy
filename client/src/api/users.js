@@ -71,7 +71,8 @@ export default {
     return post('/api/users/passwords', payload, { authorization })
   },
 
-  deleteAccount: () => {
-    return destroy('/api/users/me', {}, { authorization: 'sudo' })
+  deleteAccount: (userActive) => {
+    const authorization = userActive ? 'sudo' : 'normal'
+    return destroy('/api/users/me', {}, { authorization })
   },
 }

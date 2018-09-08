@@ -3,7 +3,9 @@ class Api::UsersController < ApiController
   skip_before_action :require_tos_accepted, only: %i[create show destroy accept_tos]
 
   before_action :require_registration_enabled, only: :create
-  before_action :require_sudo, only: :destroy
+  before_action only: :destroy do
+    require_sudo if current_user.active?
+  end
 
   def create
     @user = User.create!(create_user_params)

@@ -192,12 +192,27 @@ RSpec.describe Api::UsersController, type: :request do
   end
 
   describe 'DELETE #destroy' do
-    let(:user) { create :user }
+    let(:user) { create :user, :activated }
     let(:token) { user.token(sudo: true) }
 
     subject { delete me_api_users_path, headers: { 'Authorization': token } }
 
     context 'when authorized with sudo token' do
+      before { subject }
+
+      it 'succeeds with no content' do
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'destroys the corresponding user' do
+        expect(User.find_by(id: user.id)).not_to be_present
+      end
+    end
+
+    context 'with inactive user and not sudo token' do
+      let(:user) { create :user, :inactive }
+      let(:token) { user.token(sudo: false) }
+
       before { subject }
 
       it 'succeeds with no content' do

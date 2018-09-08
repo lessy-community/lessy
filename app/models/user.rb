@@ -50,6 +50,10 @@ class User < ApplicationRecord
     Flipper.enabled? flag, self
   end
 
+  def active?
+    activation_state == 'active'
+  end
+
   def inactive?
     activation_state == 'pending'
   end
