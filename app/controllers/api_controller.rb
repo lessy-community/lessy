@@ -38,17 +38,12 @@ protected
   end
 
   def require_login
-    if current_user.nil?
-      errors = [ApiErrors::AuthorizationRequired.new]
-      render_errors errors, :unauthorized
-    end
+    render_error ApiErrors::AuthorizationRequired.new, :unauthorized if current_user.nil?
   end
 
   def require_tos_accepted
     return unless current_user && !current_user.accepted_tos?
-
-    errors = [ApiErrors::TosNotAccepted.new]
-    render_errors errors, :forbidden
+    render_error ApiErrors::TosNotAccepted.new, :forbidden
   end
 
   def current_user
