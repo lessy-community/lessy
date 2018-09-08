@@ -6,12 +6,8 @@
     </ly-section>
 
     <ly-section :title="$t('profile.page.password')">
-      <profile-password-new-form v-if="!passwordChanged" @success="passwordChanged = true">
+      <profile-password-new-form>
       </profile-password-new-form>
-      <p v-else class="text-success">
-        <ly-icon name="check"></ly-icon>
-        {{ $t('profile.page.passwordChanged') }}
-      </p>
     </ly-section>
 
     <ly-section :title="$t('profile.page.account')">
@@ -38,12 +34,6 @@
       ProfileIdentityEditForm,
       ProfilePasswordNewForm,
       ProfileDeleteAccount,
-    },
-
-    data () {
-      return {
-        passwordChanged: false,
-      }
     },
 
     computed: {

@@ -223,11 +223,11 @@ export default {
       account: 'Account',
       identity: 'Identity',
       password: 'Password',
-      passwordChanged: 'We successfully changed your password.',
     },
 
     passwordNewForm: {
       passwordLabel: 'New password',
+      saved: 'Saved!',
       submit: 'Change your password',
     },
   },

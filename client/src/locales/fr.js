@@ -222,11 +222,11 @@ export default {
       account: 'Compte',
       identity: 'Identité',
       password: 'Mot de passe',
-      passwordChanged: 'Nous avons bien pris en compte votre nouveau mot de passe.',
     },
 
     passwordNewForm: {
       passwordLabel: 'Nouveau mot de passe',
+      saved: 'Enregistré !',
       submit: 'Changez votre mot de passe',
     },
   },

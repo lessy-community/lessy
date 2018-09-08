@@ -14,6 +14,10 @@
       <ly-button type="primary" submit>
         {{ $t('profile.passwordNewForm.submit') }}
       </ly-button>
+      <span :class="['text-success', { show: saved }]">
+        <ly-icon name="check"></ly-icon>
+        {{ $t('profile.passwordNewForm.saved') }}
+      </span>
     </ly-form-group>
 
     <sudo-modal
@@ -40,6 +44,7 @@
       return {
         password: '',
         showSudoModal: false,
+        saved: false,
       }
     },
 
@@ -50,9 +55,10 @@
             password: this.password,
           })
           .then(() => {
-            this.$emit('success')
             this.password = ''
             this.showSudoModal = false
+            this.saved = true
+            setTimeout(() => { this.saved = false }, 5000)
           })
           .catch((e) => {
             this.showSudoModal = e.data.errors.some(error => error.code === 'unauthorized')
@@ -61,3 +67,15 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .text-success {
+    opacity: 0;
+
+    transition: opacity .2s ease-in-out;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+</style>
