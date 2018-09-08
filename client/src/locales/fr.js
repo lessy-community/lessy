@@ -194,10 +194,14 @@ export default {
   },
 
   profile: {
-    editForm: {
+    identityEditForm: {
       emailLabel: 'Email',
       usernameLabel: 'Nom d’utilisateur/utilisatrice',
       passwordLabel: 'Nouveau mot de passe',
+    },
+
+    page: {
+      identity: 'Identité',
     },
   },
 

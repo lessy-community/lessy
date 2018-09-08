@@ -1,7 +1,9 @@
 <template>
   <app-page v-if="resourcesReady" name="profile" layout="profile">
-    <profile-edit-form :user="user">
-    </profile-edit-form>
+    <ly-section :title="$t('profile.page.identity')">
+      <profile-identity-edit-form :user="user">
+      </profile-identity-edit-form>
+    </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -11,13 +13,13 @@
 
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
-  import ProfileEditForm from './ProfileEditForm'
+  import ProfileIdentityEditForm from './ProfileIdentityEditForm'
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
-      ProfileEditForm,
+      ProfileIdentityEditForm,
     },
 
     computed: {

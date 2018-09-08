@@ -194,11 +194,15 @@ export default {
   },
 
   profile: {
-    editForm: {
-      disabled: 'Please note you can’t edit your profile yet. The feature is on its way and should be available soon.',
+    identityEditForm: {
+      disabled: 'Please note you can’t edit your identity yet. The feature is on its way and should be available soon.',
       emailLabel: 'Email',
       usernameLabel: 'Username',
       passwordLabel: 'New password',
+    },
+
+    page: {
+      identity: 'Identity',
     },
   },
 

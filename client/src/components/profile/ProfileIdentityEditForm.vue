@@ -2,7 +2,7 @@
   <ly-form>
     <ly-card>
       <p>
-        {{ $t('profile.editForm.disabled') }}
+        {{ $t('profile.identityEditForm.disabled') }}
       </p>
     </ly-card>
 
@@ -11,7 +11,7 @@
         type="text"
         name="username"
         v-model="username"
-        :label="$t('profile.editForm.usernameLabel')"
+        :label="$t('profile.identityEditForm.usernameLabel')"
         :error="getErrors('/user/username')"
         required
         disabled
@@ -23,20 +23,9 @@
         type="text"
         name="email"
         v-model="email"
-        :label="$t('profile.editForm.emailLabel')"
+        :label="$t('profile.identityEditForm.emailLabel')"
         :error="getErrors('/user/email')"
         required
-        disabled
-      ></ly-form-input>
-    </ly-form-group>
-
-    <ly-form-group>
-      <ly-form-input
-        type="password"
-        name="password"
-        v-model="password"
-        :label="$t('profile.editForm.passwordLabel')"
-        :error="getErrors('/user/password')"
         disabled
       ></ly-form-input>
     </ly-form-group>
@@ -57,7 +46,6 @@
       return {
         username: this.user.username,
         email: this.user.email,
-        password: '',
       }
     },
   }
