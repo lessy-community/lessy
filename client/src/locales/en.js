@@ -213,7 +213,6 @@ export default {
     },
 
     identityEditForm: {
-      disabled: 'Please note you can’t edit your identity yet. The feature is on its way and should be available soon.',
       emailLabel: 'Email',
       passwordLabel: 'New password',
       saved: 'Saved!',
