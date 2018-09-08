@@ -60,13 +60,14 @@ export default {
     return post('/api/users/password_resets', payload, { authorization: 'none' })
   },
 
-  changePassword: (token, password) => {
+  changePassword: (password, token = null) => {
     const payload = {
       user: {
         password,
       },
       token,
     }
-    return post('/api/users/passwords', payload, { authorization: 'none' })
+    const authorization = token == null ? 'sudo' : 'none'
+    return post('/api/users/passwords', payload, { authorization })
   },
 }

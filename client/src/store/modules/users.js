@@ -83,10 +83,12 @@ const actions = {
     return usersApi.resetPassword(email)
   },
 
-  changePassword ({ commit }, { token, password }) {
-    return usersApi.changePassword(token, password)
+  changePassword ({ commit }, { password, token }) {
+    return usersApi.changePassword(password, token)
       .then((res) => {
-        auth.login(res.meta.token)
+        if (res.meta) {
+          auth.login(res.meta.token)
+        }
         commit('setCurrent', res.data)
       })
   },
