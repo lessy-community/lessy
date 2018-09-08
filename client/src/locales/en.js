@@ -102,6 +102,7 @@ export default {
 
   general: {
     homePage: {
+      browserTitle: 'Welcome',
       title: 'Recover your power to manage time',
       intro: 'Collect, organize and focus on what really matters, never say “I don’t have time” again.',
 
