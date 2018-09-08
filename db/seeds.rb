@@ -18,7 +18,7 @@ Flipper.enable :feature_registration
 
 puts 'Creating Users records...'
 user = User.create!(
-  email: 'dale.cooper@zéro.org',
+  email: 'dale.cooper@lessy.io',
   username: 'dalecooper',
   password: 'secret',
   admin: true,
