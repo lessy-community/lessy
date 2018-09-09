@@ -6,7 +6,7 @@
       </router-link>
     </ly-list-item-adapt>
     <ly-badge v-if="project.isPaused" size="small">
-      {{ $t('projects.item.pausedOn', { date: project.pausedAtLabel }) }}
+      {{ $t('projects.item.pausedOn', { date: $d(project.pausedAt, 'short') }) }}
     </ly-badge>
     <ly-badge v-if="tasks.length > 0" size="small">
       {{ $tc('projects.item.tasksCount', tasks.length, {

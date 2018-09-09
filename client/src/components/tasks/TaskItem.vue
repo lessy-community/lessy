@@ -53,7 +53,7 @@
       <ly-button
         v-else
         @click="start"
-        v-tooltip.top="$t('tasks.item.plannedOn', { date: task.plannedAtLabel })"
+        v-tooltip.top="$t('tasks.item.plannedOn', { date: $d(task.plannedAt, 'long') })"
       >
         {{ $t('tasks.item.replan') }}
       </ly-button>

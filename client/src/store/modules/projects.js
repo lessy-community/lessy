@@ -2,7 +2,7 @@ import marked from 'marked'
 
 import { getWhileNext } from '../../api/http'
 
-import { formatDate, groupByFirstCharacter } from '../../utils'
+import { groupByFirstCharacter } from '../../utils'
 
 import projectsApi from '../../api/projects'
 
@@ -33,10 +33,10 @@ const getters = {
         isPaused,
         isFinished,
         mdDescription: marked(project.description, { sanitize: true, breaks: true, smartypants: true }),
-        startedAtLabel: isStarted ? formatDate(project.startedAt) : '',
-        dueAtLabel: isStarted ? formatDate(project.dueAt) : '',
-        pausedAtLabel: isPaused ? formatDate(project.pausedAt) : '',
-        finishedAtLabel: isFinished ? formatDate(project.finishedAt) : '',
+        startedAt: isStarted ? new Date(project.startedAt * 1000) : null,
+        dueAt: isStarted ? new Date(project.dueAt * 1000) : null,
+        pausedAt: isPaused ? new Date(project.pausedAt * 1000) : null,
+        finishedAt: isFinished ? new Date(project.finishedAt * 1000) : null,
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
       }

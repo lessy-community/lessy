@@ -12,8 +12,12 @@ const i18n = new VueI18n({
   locale: getPreferedLanguage(),
   fallbackLocale: 'en',
   messages: {
-    en,
-    fr,
+    en: en.messages,
+    fr: fr.messages,
+  },
+  dateTimeFormats: {
+    en: en.dateTimeFormats,
+    fr: fr.dateTimeFormats,
   },
 })
 

@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 function mapElementsById (elements, fk = 'id') {
   let byIds = {}
   elements.forEach((element) => {
@@ -33,13 +31,8 @@ function groupByFirstCharacter (array, attribute = null) {
   return groups
 }
 
-function formatDate (timestamp) {
-  return moment.unix(timestamp).format('DD MMMM YYYY')
-}
-
 export {
   mapElementsById,
   objectsToOptions,
   groupByFirstCharacter,
-  formatDate,
 }

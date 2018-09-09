@@ -6,7 +6,7 @@
       </router-link>
     </ly-list-item-adapt>
     <ly-badge size="small">
-      {{ $t('projects.itemFinished.finishedLabel', { date: project.finishedAtLabel }) }}
+      {{ $t('projects.itemFinished.finishedLabel', { date: $d(project.finishedAt, 'short') }) }}
     </ly-badge>
     <ly-badge v-if="tasks.length > 0" size="small">
       {{ $tc('projects.itemFinished.tasksCount', tasks.length, {

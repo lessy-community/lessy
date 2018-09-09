@@ -4,19 +4,19 @@
       <span
         v-if="project.startedAt"
         class="project-timeline-labels-start"
-        v-tooltip.top="$t('projects.timeline.startedOn', { date: startLabel })"
+        v-tooltip.top="$t('projects.timeline.startedOn', { date: $d(project.startedAt, 'long') })"
       >
-        {{ startShortLabel }}
+        {{ $d(project.startedAt, 'abbr') }}
       </span>
 
       <span v-if="project.state === 'newed'" class="project-timeline-labels-diff">
         {{ $t('projects.timeline.notStarted') }}
       </span>
       <span v-else-if="project.state === 'paused'" class="project-timeline-labels-diff">
-        {{ $t('projects.timeline.pausedOn', { date: project.pausedAtLabel }) }}
+        {{ $t('projects.timeline.pausedOn', { date: $d(project.pausedAt, 'long') }) }}
       </span>
       <span v-else-if="project.state === 'finished'" class="project-timeline-labels-diff">
-        {{ $t('projects.timeline.finishedOn', { date: project.finishedAtLabel }) }}
+        {{ $t('projects.timeline.finishedOn', { date: $d(project.finishedAt, 'long') }) }}
       </span>
       <span v-else-if="status === 'late'" class="project-timeline-labels-diff">
         {{ $t('projects.timeline.late') }}
@@ -44,9 +44,9 @@
       <span
         v-if="project.dueAt"
         class="project-timeline-labels-end"
-        v-tooltip.top="$t('projects.timeline.dueOn', { date: endLabel })"
+        v-tooltip.top="$t('projects.timeline.dueOn', { date: $d(project.dueAt, 'long') })"
       >
-        {{ endShortLabel }}
+        {{ $d(project.dueAt, 'abbr') }}
       </span>
     </div>
 
@@ -161,7 +161,7 @@
 
     data () {
       return {
-        today: moment().unix(),
+        today: moment(),
         activeModal: null,
       }
     },
@@ -172,7 +172,7 @@
       }),
 
       numberDaysDiff () {
-        return moment.unix(this.project.dueAt).diff(moment.unix(this.today).startOf('day'), 'days')
+        return moment(this.project.dueAt).diff(this.today.startOf('day'), 'days')
       },
 
       rawProgression () {
@@ -181,14 +181,14 @@
           return 100
         }
 
-        const dueDate = moment.unix(dueAt).startOf('day')
-        const startedDate = moment.unix(startedAt).startOf('day')
+        const dueDate = moment(dueAt).startOf('day')
+        const startedDate = moment(startedAt).startOf('day')
         let referenceDate = moment().startOf('day')
         if (state === 'paused') {
-          referenceDate = moment.unix(pausedAt).startOf('day')
+          referenceDate = moment(pausedAt).startOf('day')
         }
         if (state === 'finished') {
-          referenceDate = moment.unix(finishedAt).startOf('day')
+          referenceDate = moment(finishedAt).startOf('day')
         }
 
         return dueDate.diff(referenceDate, 'days') / dueDate.diff(startedDate, 'days') * 100
@@ -204,22 +204,6 @@
         if (this.rawProgression < 0) { return 'late' }
         if (this.rawProgression < 20) { return 'due-soon' }
         return 'normal'
-      },
-
-      startLabel () {
-        return moment.unix(this.project.startedAt).format('DD MMMM YYYY')
-      },
-
-      endLabel () {
-        return moment.unix(this.project.dueAt).format('DD MMMM YYYY')
-      },
-
-      startShortLabel () {
-        return moment.unix(this.project.startedAt).format('DD MMM')
-      },
-
-      endShortLabel () {
-        return moment.unix(this.project.dueAt).format('DD MMM')
       },
     },
 
