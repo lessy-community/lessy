@@ -47,7 +47,7 @@
 
   export default {
     props: {
-      value: { type: [String, Number], required: true },
+      value: { type: [String, Number, Date], required: true },
       type: { type: String, required: true },
       name: { type: String, required: true },
       placeholder: { type: String },
@@ -79,9 +79,9 @@
       },
 
       inputValue () {
-        if (this.type === 'date' && typeof this.value === 'number') {
+        if (this.type === 'date' && this.value instanceof Date) {
           // TODO: beurk
-          return moment.unix(this.value).format('YYYY-MM-DD')
+          return moment(this.value).format('YYYY-MM-DD')
         }
         return this.value
       },

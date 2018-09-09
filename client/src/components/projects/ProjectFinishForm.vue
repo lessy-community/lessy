@@ -24,7 +24,6 @@
 </template>
 
 <script>
-  import moment from 'moment'
   import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
 
   export default {
@@ -36,7 +35,7 @@
 
     data () {
       return {
-        finishedAt: moment().unix(),
+        finishedAt: new Date(),
       }
     },
 

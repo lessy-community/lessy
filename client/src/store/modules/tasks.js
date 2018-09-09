@@ -4,7 +4,7 @@ import anchorme from 'anchorme'
 
 import { getWhileNext } from '../../api/http'
 
-import { mapElementsById, formatDate } from '../../utils'
+import { mapElementsById } from '../../utils'
 
 import tasksApi from '../../api/tasks'
 
@@ -47,7 +47,7 @@ const getters = {
         isAbandoned,
         startedSinceWeeks,
         replannedCount: task.plannedCount - 1,
-        plannedAtLabel: formatDate(task.plannedAt),
+        plannedAt: task.plannedAt ? new Date(task.plannedAt * 1000) : null,
         formattedLabel: anchorme(sanitizeHtml(task.label, { allowedTags }), anchorOptions),
       }
     }

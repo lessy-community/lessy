@@ -66,7 +66,7 @@
     data () {
       return {
         projectId: null,
-        dueAt: moment().add(2, 'week').unix(),
+        dueAt: moment().add(2, 'weeks').toDate(),
       }
     },
 

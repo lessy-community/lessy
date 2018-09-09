@@ -8,7 +8,7 @@ export default {
       projectsInProgress: 'Projets en cours',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
-      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Tableau de bord',
     },
   },
@@ -246,8 +246,8 @@ export default {
 
   projects: {
     card: {
-      shouldAddTasks: 'Des tâches inachevées devraient être associées pour vous assurer que le projet avance.',
-      tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
+      shouldAddTasks: 'Des tâches devraient être associées pour vous assurer que le projet avance.',
+      tasksCount: '{finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâches',
     },
 
     cardDeck: {
@@ -283,19 +283,17 @@ export default {
       createProject: 'Créer un projet',
       finishedProjects: 'Projets terminés',
       futureProjects: 'Projets à venir',
-      hideFinishedProjects: 'Masquer votre projet | Masquer vos projets',
       projectsPlaceholder: 'Vous n’avez encore aucun projet, sur quoi travaillez-vous ?',
-      seeFinishedProjects: 'Afficher votre projet achevé | Afficher vos {count} projets achevés',
     },
 
     item: {
       pausedOn: 'mis en pause le {date}',
-      tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
+      tasksCount: '{finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâches',
     },
 
     itemFinished: {
       finishedLabel: 'terminé le {date}',
-      tasksCount: '{finishedCount} tâche sur {totalCount} achevée | {finishedCount} tâches sur {totalCount} achevées',
+      tasksCount: '{finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâche | {finishedCount} / {totalCount} tâches',
     },
 
     header: {
@@ -338,9 +336,9 @@ export default {
 
     timeline: {
       diff: '{days} jour | {days} jours',
-      dueOn: 'date d’échéance : {date}',
+      dueOn: 'échéance le {date}',
       dueOnEdit: 'Modifier la date d’échéance',
-      dueToday: 'date d’échéance : aujourd’hui',
+      dueToday: 'échéance aujourd’hui',
       finish: 'Terminer',
       finishedOn: 'terminé le {date}',
       late: 'en retard',
@@ -363,7 +361,7 @@ export default {
     },
 
     backlogPage: {
-      tasksNumber: '{count} tâche en file d’attente | {count} tâches en file d’attente',
+      tasksNumber: '0 tâche en file d’attente | 1 tâche en file d’attente | {count} tâches en file d’attente',
     },
 
     createForm: {
@@ -382,7 +380,7 @@ export default {
     item: {
       abandon: 'Abandonner',
       attachToProject: 'Attacher à un projet',
-      planned: 'planifié le {date}',
+      plannedOn: 'planifié pour le {date}',
       edit: 'Modifier',
       markAsDone: 'Marquer comme effectuée',
       markAsUndone: 'Marquer comme à faire',
@@ -391,6 +389,7 @@ export default {
       replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
       startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       transformInProject: 'Transformer en projet',
+      week: '{count}s',
     },
 
     list: {

@@ -36,7 +36,7 @@
 
     data () {
       return {
-        dueAt: moment().add(2, 'week').unix(),
+        dueAt: moment().add(2, 'weeks').toDate(),
       }
     },
 
