@@ -25,7 +25,8 @@
         v-if="task.startedSinceWeeks > 0"
         v-tooltip.top="$tc('tasks.item.startedSinceWeeks', task.startedSinceWeeks, { count: task.startedSinceWeeks })"
       >
-        <ly-icon name="calendar"></ly-icon> {{ task.startedSinceWeeks }}w
+        <ly-icon name="calendar"></ly-icon>
+        {{ $t('tasks.item.week', { count: task.startedSinceWeeks }) }}
       </span>
       <span
         v-if="task.replannedCount > 0"

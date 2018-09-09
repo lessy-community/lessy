@@ -288,9 +288,7 @@ export default {
       createProject: 'Create a project',
       finishedProjects: 'Finished projects',
       futureProjects: 'Future projects',
-      hideFinishedProjects: 'Hide your project | Hide your projects',
       projectsPlaceholder: "You don't have any project yet, what are you working on?",
-      seeFinishedProjects: 'See your finished project | See your {count} finished projects',
     },
 
     item: {
@@ -396,6 +394,7 @@ export default {
       replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
       startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       transformInProject: 'Transform in project',
+      week: '{count}w',
     },
 
     list: {
