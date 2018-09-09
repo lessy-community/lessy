@@ -1,6 +1,31 @@
 # Changelog
 
-## Ara 2018-xx-yy
+## Ara 2018-09-09
+
+### Features
+
+- [#183](https://github.com/lessy-community/lessy/issues/183) Provide a reset password feature
+- [#184](https://github.com/lessy-community/lessy/issues/184) Add feature to resend activation email
+- [#43](https://github.com/lessy-community/lessy/issues/43) Add a profile page
+- [#171](https://github.com/lessy-community/lessy/issues/171) Add support for French
+
+### Improvements
+
+- [#226](https://github.com/lessy-community/lessy/issues/226) Show successful info on task creation
+
+### Bug fixes
+
+- Log out user automatically only if error is unauthorized
+
+### Technical
+
+- [#319](https://github.com/lessy-community/lessy/issues/319) Rethink page and layout concepts
+- Accept "to" prop in LyPopoverItem
+- Fix link to Lessy in admin for development
+- Refactor auth token related-methods
+- Change user's email in seeds
+- Fix LyFormSelect issues
+- Update some NPM packages
 
 ### API changes
 
