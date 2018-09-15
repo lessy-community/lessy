@@ -193,8 +193,8 @@ export default {
     },
 
     profile: {
+      backToApp: 'Back to application',
       brand: 'Lessy',
-      dashboard: 'Back to dashboard',
       profile: 'Profile',
       title: 'Profile',
     },

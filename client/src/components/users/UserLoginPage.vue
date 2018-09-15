@@ -15,7 +15,7 @@
 
     methods: {
       onLoginSuccess () {
-        window.location = '/dashboard'
+        window.location = '/'
       },
     },
   }

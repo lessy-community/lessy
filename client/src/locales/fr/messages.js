@@ -188,8 +188,8 @@ export default {
     },
 
     profile: {
+      backToApp: 'Retour à l’application',
       brand: 'Lessy',
-      dashboard: 'Retour tableau de bord',
       profile: 'Profil',
       title: 'Profil',
     },

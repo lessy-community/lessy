@@ -25,7 +25,7 @@
 
     methods: {
       onFormSuccess () {
-        window.location = '/dashboard'
+        window.location = '/'
       },
     },
   }
