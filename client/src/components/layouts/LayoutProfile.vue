@@ -4,7 +4,7 @@
       <app-menu-link to="/profile">
         {{ $t('layouts.profile.profile') }}
       </app-menu-link>
-      <app-menu-link to="/" icon="home">
+      <app-menu-link to="/today" icon="home">
         {{ $t('layouts.profile.backToApp') }}
       </app-menu-link>
     </app-menu>

@@ -3,7 +3,6 @@
     :class="['app-menu-link', { 'with-icon': icon }]"
     active-class="active"
     :to="to"
-    exact
   >
     <ly-icon v-if="icon" :name="icon"></ly-icon>
     <slot></slot>
