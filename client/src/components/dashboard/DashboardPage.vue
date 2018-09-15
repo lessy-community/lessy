@@ -25,7 +25,13 @@
     </ly-section>
 
     <ly-section
-      v-if="!todayFeatureEnabled"
+      v-if="todayFeatureEnabled"
+      :title="$t('dashboard.page.statsChart')"
+    >
+      <line-chart :data="chartData()"></line-chart>
+    </ly-section>
+    <ly-section
+      v-else
       :title="$tc('dashboard.page.tasksForToday', tasks.length, { count: tasks.length })"
     >
       <task-list :tasks="tasks"></task-list>
@@ -65,6 +71,7 @@
 
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
+  import LineChart from 'src/components/tasks/LineChart'
   import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
 
   export default {
@@ -74,6 +81,7 @@
       UserPopover,
       TaskCreateForm,
       TaskList,
+      LineChart,
       ProjectCardDeck,
     },
 
@@ -91,6 +99,8 @@
         todayFeatureEnabled: 'features/todayEnabled',
         projects: 'projects/listInProgress',
         tasks: 'tasks/listForToday',
+        countFinishedTasksByDays: 'tasks/countFinishedByDays',
+        countCreatedTasksByDays: 'tasks/countCreatedByDays',
       }),
     },
 
@@ -99,6 +109,41 @@
         this.$store
           .dispatch('users/resendActivationEmail', { email: this.user.email })
           .then(() => { this.activationEmailResent = true })
+      },
+
+      chartData () {
+        const lastWeek = moment().subtract(2, 'weeks')
+        const today = moment()
+        const period = moment.range(lastWeek, today)
+        const days = Array.from(period.by('day'))
+
+        return {
+          labels: days.map(date => this.$d(date.toDate(), 'abbr')),
+          datasets: [
+            {
+              label: this.$t('dashboard.page.createdTasks'),
+              backgroundColor: '#0080b0',
+              borderColor: '#0080b0',
+              pointBorderColor: '#fff',
+              pointRadius: 6,
+              pointBorderWidth: 3,
+              fill: false,
+              lineTension: 0,
+              data: days.map(date => this.countCreatedTasksByDays[date.format('YYYY-MM-DD')] || 0),
+            },
+            {
+              label: this.$t('dashboard.page.finishedTasks'),
+              backgroundColor: '#5cb860',
+              borderColor: '#5cb860',
+              pointBorderColor: '#fff',
+              pointRadius: 6,
+              pointBorderWidth: 3,
+              fill: false,
+              lineTension: 0,
+              data: days.map(date => this.countFinishedTasksByDays[date.format('YYYY-MM-DD')] || 0),
+            },
+          ],
+        }
       },
     },
   }

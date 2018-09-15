@@ -2,7 +2,7 @@
   <app-header :title="$t('tasks.header.title')" fluid>
     <template slot="navigation">
       <app-header-link to="/tasks/backlog">{{ $t('tasks.header.backlog') }}</app-header-link>
-      <app-header-link to="/tasks/statistics">{{ $t('tasks.header.statistics') }}</app-header-link>
+      <app-header-link v-if="!todayFeatureEnabled" to="/tasks/statistics">{{ $t('tasks.header.statistics') }}</app-header-link>
     </template>
 
     <user-popover slot="right">
@@ -11,11 +11,19 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import UserPopover from 'src/components/users/UserPopover'
 
   export default {
     components: {
       UserPopover,
+    },
+
+    computed: {
+      ...mapGetters({
+        todayFeatureEnabled: 'features/todayEnabled',
+      }),
     },
   }
 </script>
