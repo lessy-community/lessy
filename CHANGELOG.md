@@ -1,5 +1,11 @@
 # Changelog
 
+## Auriga 2018-xx-yy
+
+### API changes
+
+- Provide `GET /api/users/me/features` endpoint
+
 ## Ara 2018-09-09
 
 ### Features

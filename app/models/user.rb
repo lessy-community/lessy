@@ -50,6 +50,10 @@ class User < ApplicationRecord
     Flipper.enabled? flag, self
   end
 
+  def features_enabled
+    Flipper.features.select { |feature| flipper_enabled?(feature.name) }
+  end
+
   def active?
     activation_state == 'active'
   end
