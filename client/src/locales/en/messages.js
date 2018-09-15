@@ -9,10 +9,13 @@ export default {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       backlog: 'pick some from backlog',
       createTask: 'Add tasks for today',
+      createdTasks: 'created tasks',
+      finishedTasks: 'finished tasks',
       or: 'or',
       projectsInProgress: 'Projects in progress',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
+      statsChart: 'Tasks statistics',
       tasksForToday: '{count} task for today | {count} tasks for today',
       title: 'Dashboard',
     },
@@ -174,6 +177,7 @@ export default {
       dashboard: 'Dashboard',
       projects: 'Projects',
       tasks: 'Tasks',
+      today: 'Today',
     },
 
     default: {
@@ -189,8 +193,8 @@ export default {
     },
 
     profile: {
+      backToApp: 'Back to application',
       brand: 'Lessy',
-      dashboard: 'Back to dashboard',
       profile: 'Profile',
       title: 'Profile',
     },
@@ -418,6 +422,16 @@ export default {
 
     statisticsPage: {
       chartName: 'Tasks statistics',
+    },
+  },
+
+  today: {
+    page: {
+      backlog: 'pick some from backlog',
+      createTask: 'Add tasks for today',
+      or: 'or',
+      tasksForToday: '{count} task for today | {count} tasks for today',
+      title: 'Today',
     },
   },
 

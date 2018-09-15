@@ -81,5 +81,6 @@ flags are:
   the application
 
 Temporary flags are used to help to build a feature and are expected to be
-destroyed once finished. They must start by `tmp_`. There are no such flags
-yet.
+destroyed once finished. They must start by `tmp_`. Exisiting flags are:
+
+- `tmp_today` (default: `false`): if true, user can access a new "today" page

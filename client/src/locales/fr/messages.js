@@ -4,10 +4,13 @@ export default {
       activationInstructions: 'Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
       backlog: 'en sélectionner depuis la liste d’attente',
       createTask: 'Ajouter des tâches pour aujourd’hui',
+      createdTasks: 'tâches créées',
+      finishedTasks: 'tâches terminées',
       or: 'ou',
       projectsInProgress: 'Projets en cours',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
+      statsChart: 'Statistiques des tâches',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Tableau de bord',
     },
@@ -169,6 +172,7 @@ export default {
       dashboard: 'Tableau de bord',
       projects: 'Projets',
       tasks: 'Tâches',
+      today: 'Aujourd’hui',
     },
 
     default: {
@@ -184,8 +188,8 @@ export default {
     },
 
     profile: {
+      backToApp: 'Retour à l’application',
       brand: 'Lessy',
-      dashboard: 'Retour tableau de bord',
       profile: 'Profil',
       title: 'Profil',
     },
@@ -413,6 +417,16 @@ export default {
 
     statisticsPage: {
       chartName: 'Statistiques des tâches',
+    },
+  },
+
+  today: {
+    page: {
+      backlog: 'en sélectionner depuis la liste d’attente',
+      createTask: 'Ajouter des tâches pour aujourd’hui',
+      or: 'ou',
+      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      title: 'Aujourd’hui',
     },
   },
 

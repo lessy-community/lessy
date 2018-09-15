@@ -511,3 +511,37 @@ $ curl -H "Content-Type: application/json" \
   }
 }
 ```
+
+## `GET /api/users/me/features`
+
+Return the list of features enabled for this current user.
+
+**This endpoint requires an `Authorization` header but NOT that user accepted
+terms of service.**
+
+Parameters: none.
+
+Result format:
+
+| Name        | Type   | Description                              | Optional |
+|-------------|--------|------------------------------------------|----------|
+| data        | array  |                                          |          |
+| data[].type | string | Type of returned data (always `feature`) |          |
+| data[].id   | string | Task's identifier                        |          |
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" https://lessy.io/api/users/me/features
+```
+
+```json
+{
+  "data": [
+    {
+      "type": "user",
+      "id": "tmp_today"
+    }
+  ]
+}
+```

@@ -12,6 +12,7 @@ export default {
         .dispatch('users/getCurrent')
         .then(() => {
           return Promise.all([
+            this.$store.dispatch('features/list'),
             this.$store.dispatch('tasks/list'),
             this.$store.dispatch('projects/list'),
           ])

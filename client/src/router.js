@@ -12,6 +12,7 @@ import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
 import ProfilePage from './components/profile/ProfilePage'
 
+import TodayPage from './components/today/TodayPage'
 import DashboardPage from './components/dashboard/DashboardPage'
 
 import ProjectsInboxPage from './components/projects/ProjectsInboxPage'
@@ -46,6 +47,7 @@ const routes = [
 
   { path: '/profile', component: ProfilePage, meta: { restrictForAuth: true, iTitle: 'layouts.profile.title' } },
 
+  { path: '/today', component: TodayPage, meta: { restrictForAuth: true, iTitle: 'today.page.title' } },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, iTitle: 'dashboard.page.title' } },
 
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
@@ -97,7 +99,7 @@ router.beforeEach((to, from, next) => {
   if (isRestrictedForAuth(to) && !auth.isLoggedIn()) {
     next({ path: '/' })
   } else if (isRestrictedForUnauth(to) && auth.isLoggedIn()) {
-    next({ path: '/dashboard' })
+    next({ path: '/today' })
   } else {
     next()
   }

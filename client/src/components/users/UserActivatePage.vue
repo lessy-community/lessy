@@ -25,7 +25,7 @@
 
     methods: {
       onActivationSuccess () {
-        window.location = '/dashboard'
+        window.location = '/'
       },
     },
   }
