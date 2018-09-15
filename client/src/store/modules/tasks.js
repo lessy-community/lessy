@@ -90,7 +90,8 @@ const getters = {
   countFinishedByDays (state, getters) {
     const byDays = {}
     getters.listFinished.forEach((task) => {
-      const key = task.finishedAt
+      const finishedAt = moment.unix(task.finishedAt)
+      const key = finishedAt.format('YYYY-MM-DD')
       byDays[key] = (byDays[key] || 0) + 1
     })
     return byDays
@@ -99,7 +100,8 @@ const getters = {
   countCreatedByDays (state, getters) {
     const byDays = {}
     getters.list.forEach((task) => {
-      const key = task.startedAt
+      const startedAt = moment.unix(task.startedAt)
+      const key = startedAt.format('YYYY-MM-DD')
       byDays[key] = (byDays[key] || 0) + 1
     })
     return byDays
