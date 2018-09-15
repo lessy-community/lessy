@@ -24,7 +24,10 @@
       <project-card-deck :projects="projects"></project-card-deck>
     </ly-section>
 
-    <ly-section :title="$tc('dashboard.page.tasksForToday', tasks.length, { count: tasks.length })">
+    <ly-section
+      v-if="!todayFeatureEnabled"
+      :title="$tc('dashboard.page.tasksForToday', tasks.length, { count: tasks.length })"
+    >
       <task-list :tasks="tasks"></task-list>
 
       <template v-if="!createTaskEnabled">
@@ -85,6 +88,7 @@
     computed: {
       ...mapGetters({
         user: 'users/current',
+        todayFeatureEnabled: 'features/todayEnabled',
         projects: 'projects/listInProgress',
         tasks: 'tasks/listForToday',
       }),

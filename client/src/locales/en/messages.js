@@ -174,6 +174,7 @@ export default {
       dashboard: 'Dashboard',
       projects: 'Projects',
       tasks: 'Tasks',
+      today: 'Today',
     },
 
     default: {
@@ -418,6 +419,16 @@ export default {
 
     statisticsPage: {
       chartName: 'Tasks statistics',
+    },
+  },
+
+  today: {
+    page: {
+      backlog: 'pick some from backlog',
+      createTask: 'Add tasks for today',
+      or: 'or',
+      tasksForToday: '{count} task for today | {count} tasks for today',
+      title: 'Today',
     },
   },
 

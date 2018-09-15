@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import global from './modules/global'
 import users from './modules/users'
+import features from './modules/features'
 import projects from './modules/projects'
 import tasks from './modules/tasks'
 import termsOfServices from './modules/terms_of_services'
@@ -17,6 +18,7 @@ export default new Vuex.Store({
   modules: {
     global,
     users,
+    features,
     projects,
     tasks,
     termsOfServices,

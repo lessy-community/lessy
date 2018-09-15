@@ -169,6 +169,7 @@ export default {
       dashboard: 'Tableau de bord',
       projects: 'Projets',
       tasks: 'Tâches',
+      today: 'Aujourd’hui',
     },
 
     default: {
@@ -413,6 +414,16 @@ export default {
 
     statisticsPage: {
       chartName: 'Statistiques des tâches',
+    },
+  },
+
+  today: {
+    page: {
+      backlog: 'en sélectionner depuis la liste d’attente',
+      createTask: 'Ajouter des tâches pour aujourd’hui',
+      or: 'ou',
+      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      title: 'Aujourd’hui',
     },
   },
 
