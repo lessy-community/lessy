@@ -9,7 +9,7 @@
         type="primary"
         icon="rocket"
         size="large"
-        @click="showTaskPlanModal = true"
+        @click="activeModal = 'plan'"
       >
         {{ $t('tasks.planner.startJourney') }}
       </ly-button>
@@ -33,9 +33,18 @@
         </ly-list>
 
         <ly-button
+          v-if="showEndOfDayButton"
+          type="primary"
+          icon="check"
+          @click="activeModal = 'finishDay'"
+        >
+          {{ $t('tasks.planner.finishDay') }}
+        </ly-button>
+
+        <ly-button
           :type="planButtonType"
           icon="calendar-plus-o"
-          @click="showTaskPlanModal = true"
+          @click="activeModal = 'plan'"
         >
           {{ $t('tasks.planner.planTask') }}
         </ly-button>
@@ -54,32 +63,44 @@
     </template>
 
     <tasks-plan-modal
-      v-if="showTaskPlanModal"
+      v-if="activeModal === 'plan'"
       :intro="planModalIntro"
-      @close="showTaskPlanModal = false"
+      @close="activeModal = null"
     >
     </tasks-plan-modal>
+
+    <tasks-complete-day-modal
+      v-if="activeModal === 'finishDay'"
+      :unfinishedCount="todoTasks.length"
+      :finishedCount="finishedTasks.length"
+      @complete="completeDay"
+      @close="activeModal = null"
+    >
+    </tasks-complete-day-modal>
   </div>
 </template>
 
 <script>
   import TaskItem from './TaskItem'
   import TasksPlanModal from './TasksPlanModal'
+  import TasksCompleteDayModal from './TasksCompleteDayModal'
 
   export default {
     props: {
       todoTasks: { type: Array },
       finishedTasks: { type: Array },
+      showEndOfDayButton: { type: Boolean },
     },
 
     components: {
       TaskItem,
       TasksPlanModal,
+      TasksCompleteDayModal,
     },
 
     data () {
       return {
-        showTaskPlanModal: false,
+        activeModal: null,
       }
     },
 
@@ -93,6 +114,9 @@
       },
 
       planButtonType () {
+        if (this.showEndOfDayButton) {
+          return 'ghost'
+        }
         return [0, 1, 2].includes(this.tasksTotalCount) ? 'primary' : 'default'
       },
 
@@ -106,6 +130,13 @@
           default:
             return this.$t('tasks.planner.additionalTask')
         }
+      },
+    },
+
+    methods: {
+      completeDay () {
+        this.$emit('completed')
+        this.activeModal = null
       },
     },
   }

@@ -409,6 +409,19 @@ export default {
     modals: {
       attachProjectTitle: 'Attacher la tâche à un projet',
       cancel: 'Annuler',
+      completeDay: {
+        cancel: 'Continuer de travailler',
+        intro: 'C’est la fin de journée, vous avez mérité de prendre un peu de repos.',
+        ok: 'Terminer',
+        summary: {
+          allDone: 'Vous avez terminé toutes les tâches que vous aviez planifiées, bravo !',
+          neutral: 'Vous avez terminé {finishedCount} tâche sur {totalCount}. | Vous avez terminé {finishedCount} tâches sur {totalCount}.',
+          nothingDone: 'Ce n’est pas grâve si vous n’avez terminé aucune tâche aujourd’hui, vous ferez mieux demain.',
+          nothingPlanned: 'Vous n’aviez rien planifié aujourd’hui, c’est bien aussi !',
+        },
+        title: 'Terminer votre journée',
+        unfinishedToBacklog: 'Les tâches que vous n’avez pas terminées seront disponibles demain dans la liste d’attente.',
+      },
       confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
       confirmAbandonTitle: 'Abandonner la tâche',
       orPickFromBacklog: 'ou sélectionnez-en une depuis votre file d’attente',
@@ -422,6 +435,7 @@ export default {
       additionalMostImportantTask: 'Il doit s’agir de l’une des tâches les plus importantes à réaliser pour vous aujourd’hui.',
       allFinished: 'Vous avez terminé toutes vos tâches, bien joué !',
       empty: 'Vous n’avez pas encore planifié de tâche.',
+      finishDay: 'Terminer votre journée',
       firstMostImportantTask: 'Il doit s’agir de la tâche la plus importante à réaliser pour vous aujourd’hui, choisissez-là avec soin.',
       importantTaskPlaceholder: [
         'Planifiez la seconde tâche la plus importante de votre journée… | Planifiez la troisième tâche la plus importante de votre journée.',
@@ -440,6 +454,7 @@ export default {
 
   today: {
     page: {
+      dayCompleted: 'Votre journée est terminée, passez une bonne soirée !',
       title: 'Aujourd’hui',
     },
   },
