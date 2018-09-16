@@ -336,6 +336,22 @@
         <ly-list-item key="3" with-handle>Element 3</ly-list-item>
       </ly-list>
 
+      <h3>Selectable</h3>
+      <p>You can make list' items selectable to trigger an action. Please note
+      a selectable list cannot be made draggable.</p>
+
+      <ly-list stripped>
+        <ly-list-item key="1" selectable @select="alert('Element 1 selected')">
+          Element 1
+        </ly-list-item>
+        <ly-list-item key="2" selectable @select="alert('Element 2 selected')">
+          Element 2
+        </ly-list-item>
+        <ly-list-item key="3" selectable @select="alert('Element 3 selected')">
+          Element 3
+        </ly-list-item>
+      </ly-list>
+
       <h3>Generic</h3>
       <p>Items can include different components such as buttons, badges or
       icons.</p>
@@ -494,6 +510,12 @@
           { value: 42, label: 'Zagreb' },
         ],
       }
+    },
+
+    methods: {
+      alert (text) {
+        window.alert(text)
+      },
     },
   }
 </script>

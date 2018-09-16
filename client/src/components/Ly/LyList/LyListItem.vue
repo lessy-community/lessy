@@ -1,5 +1,13 @@
 <template>
-  <div :class="['ly-list-item', { [`ly-list-item-${name}`]: name }]">
+  <a
+    v-if="selectable"
+    href="#"
+    @click.prevent="$emit('select')"
+    :class="['ly-list-item', 'selectable', { [`ly-list-item-${name}`]: name }]"
+  >
+    <slot></slot>
+  </a>
+  <div v-else :class="['ly-list-item', { [`ly-list-item-${name}`]: name }]">
     <span v-if="withHandle" class="my-handle">::</span>
 
     <slot></slot>
@@ -11,6 +19,7 @@
     props: {
       name: { type: String },
       'with-handle': { type: Boolean },
+      selectable: { type: Boolean },
     },
   }
 </script>
@@ -41,6 +50,21 @@
     > * + * {
       margin-left: .25rem;
       margin-right: 0;
+    }
+
+    &.selectable {
+      color: $ly-color-grey-90;
+      text-decoration: none;
+
+      border: 1px solid transparent;
+      border-radius: .25rem;
+    }
+    &.selectable:hover {
+      border-color: $ly-color-pine-50;
+      box-shadow: 0 0 1px $ly-color-pine-50 inset;
+    }
+    &.selectable:focus {
+      border-color: $ly-color-pine-50;
     }
   }
 
