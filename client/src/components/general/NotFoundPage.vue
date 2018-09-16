@@ -1,5 +1,5 @@
 <template>
-  <app-page name="not-found" layout="empty">
+  <app-page name="not-found" layout="empty" centered>
     <h1>{{ $t('general.notFoundPage.title') }}</h1>
 
     <ly-icon name="chain-broken" size="large"></ly-icon>
@@ -12,11 +12,6 @@
 
 <style lang="scss">
   .app-page-not-found .app-layout-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     background: linear-gradient(225deg, $ly-color-grey-10 80%,
                                         $ly-color-grey-20 80%,
                                         $ly-color-grey-20 81%,

@@ -3,7 +3,7 @@
     <slot name="menu"></slot>
     <div class="app-layout-container">
       <slot name="header"></slot>
-      <main class="app-layout-main">
+      <main :class="['app-layout-main', { centered }]">
         <slot></slot>
       </main>
     </div>
@@ -14,6 +14,7 @@
   export default {
     props: {
       name: { type: String, required: true },
+      centered: { type: Boolean },
     },
   }
 </script>
@@ -51,6 +52,13 @@
     padding-right: 2rem;
 
     background-color: $ly-color-grey-10;
+
+    &.centered {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   @media(max-width: $small-screen-width) {
