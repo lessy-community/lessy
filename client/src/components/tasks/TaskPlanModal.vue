@@ -1,5 +1,9 @@
 <template>
   <ly-modal :title="$t('tasks.modals.planTitle')" width="large">
+    <p v-if="intro" class="text-secondary">
+      {{ intro }}
+    </p>
+
     <task-create-form
       :plannedAt="plannedAt"
       :onCancel="() => { this.$emit('close') }"
@@ -25,6 +29,10 @@
   import TaskSelectList from './TaskSelectList'
 
   export default {
+    props: {
+      intro: { type: String }
+    },
+
     components: {
       TaskCreateForm,
       TaskSelectList,

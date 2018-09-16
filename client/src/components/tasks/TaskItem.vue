@@ -6,7 +6,7 @@
     :onSuccess="() => { this.editMode = false }"
     :onCancel="() => { this.editMode = false }"
   ></task-edit-form>
-  <ly-list-item v-else name="task" with-handle :class="[{ finished: task.isFinished }]">
+  <ly-list-item v-else name="task" :with-handle="!nohandle" :class="[{ finished: task.isFinished }]">
     <ly-list-item-adapt>
       <span v-html="task.formattedLabel"></span>
       <ly-badge v-if="project && !hideProjectBadge" size="small">
@@ -108,7 +108,7 @@
   export default {
     props: {
       task: { type: Object, required: true },
-      notoggle: { type: Boolean },
+      nohandle: { type: Boolean },
       hideProjectBadge: { type: Boolean },
     },
 

@@ -417,6 +417,20 @@ export default {
       transformInProjectTitle: 'Transformer la tâche en projet',
     },
 
+    planner: {
+      additionalTask: 'Les tâches que vous allez planifier à partir de maintenant ne doivent pas être critiques pour votre journée.',
+      additionalMostImportantTask: 'Il doit s’agir de l’une des tâches les plus importantes à réaliser pour vous aujourd’hui.',
+      empty: 'Vous n’avez pas encore planifié de tâche.',
+      firstMostImportantTask: 'Il doit s’agir de la tâche la plus importante à réaliser pour vous aujourd’hui, choisissez-là avec soin.',
+      importantTaskPlaceholder: [
+        'Planifiez la seconde tâche la plus importante de votre journée… | Planifiez la troisième tâche la plus importante de votre journée.',
+        '… et la troisième.',
+      ],
+      planTask: 'Planifier une tâche',
+      startJourney: 'Démarrer votre journée',
+      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+    },
+
     statisticsPage: {
       chartName: 'Statistiques des tâches',
     },
@@ -424,8 +438,6 @@ export default {
 
   today: {
     page: {
-      planTask: 'Planifier une tâche',
-      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Aujourd’hui',
     },
   },

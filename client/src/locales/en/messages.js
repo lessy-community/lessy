@@ -422,6 +422,20 @@ export default {
       transformInProjectTitle: 'Transform task in a project',
     },
 
+    planner: {
+      additionalTask: 'Tasks you are going to plan now should not to be critical to your day.',
+      additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
+      empty: 'You did not plan any task yet.',
+      firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
+      importantTaskPlaceholder: [
+        'Plan the second most important task of your day… | Plan the third most important task of your day.',
+        '… and your third.',
+      ],
+      planTask: 'Plan a task',
+      startJourney: 'Start your journey',
+      tasksForToday: '{count} task for today | {count} tasks for today',
+    },
+
     statisticsPage: {
       chartName: 'Tasks statistics',
     },
@@ -429,8 +443,6 @@ export default {
 
   today: {
     page: {
-      planTask: 'Plan a task',
-      tasksForToday: '{count} task for today | {count} tasks for today',
       title: 'Today',
     },
   },
