@@ -386,19 +386,19 @@ export default {
       submit: 'Update',
     },
 
+    indicators: {
+      replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
+      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
+      week: '{count}w',
+    },
+
     item: {
       abandon: 'Abandon',
       attachToProject: 'Attach to a project',
-      plannedOn: 'planned on {date}',
       edit: 'Edit',
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
-      plan: 'Plan for today',
-      replan: 'Replan for today',
-      replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
-      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       transformInProject: 'Transform in project',
-      week: '{count}w',
     },
 
     list: {
@@ -416,8 +416,26 @@ export default {
       cancel: 'Cancel',
       confirmAbandon: 'The task « {label} » will be marked as abandoned and will disappear from the list. Can you confirm?',
       confirmAbandonTitle: 'Abandon task',
+      orPickFromBacklog: 'or pick one from your backlog',
+      planTitle: 'Plan a task for today',
       submitAbandon: 'Confirm abandon',
       transformInProjectTitle: 'Transform task in a project',
+    },
+
+    planner: {
+      additionalTask: 'Tasks you are going to plan now should not to be critical to your day.',
+      additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
+      allFinished: 'You’ve finished all your tasks, well done!',
+      empty: 'You did not plan any task yet.',
+      firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
+      importantTaskPlaceholder: [
+        'Plan the second most important task of your day… | Plan the third most important task of your day.',
+        '… and your third.',
+      ],
+      planTask: 'Plan a task',
+      startJourney: 'Start your journey',
+      tasksForToday: '{count} task for today | {count} tasks for today',
+      tasksFinishedToday: '{count} task finished today | {count} tasks finished today',
     },
 
     statisticsPage: {
@@ -427,10 +445,6 @@ export default {
 
   today: {
     page: {
-      backlog: 'pick some from backlog',
-      createTask: 'Add tasks for today',
-      or: 'or',
-      tasksForToday: '{count} task for today | {count} tasks for today',
       title: 'Today',
     },
   },

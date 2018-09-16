@@ -381,19 +381,19 @@ export default {
       submit: 'Mettre à jour',
     },
 
+    indicators: {
+      replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
+      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
+      week: '{count}s',
+    },
+
     item: {
       abandon: 'Abandonner',
       attachToProject: 'Attacher à un projet',
-      plannedOn: 'planifié pour le {date}',
       edit: 'Modifier',
       markAsDone: 'Marquer comme effectuée',
       markAsUndone: 'Marquer comme à faire',
-      plan: 'Planifier pour aujourd’hui',
-      replan: 'Planifier à nouveau pour aujourd’hui',
-      replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
-      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       transformInProject: 'Transformer en projet',
-      week: '{count}s',
     },
 
     list: {
@@ -411,8 +411,26 @@ export default {
       cancel: 'Annuler',
       confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
       confirmAbandonTitle: 'Abandonner la tâche',
+      orPickFromBacklog: 'ou sélectionnez-en une depuis votre file d’attente',
+      planTitle: 'Planifiez une tâche pour aujourd’hui',
       submitAbandon: 'Confirmer l’abandon',
       transformInProjectTitle: 'Transformer la tâche en projet',
+    },
+
+    planner: {
+      additionalTask: 'Les tâches que vous allez planifier à partir de maintenant ne doivent pas être critiques pour votre journée.',
+      additionalMostImportantTask: 'Il doit s’agir de l’une des tâches les plus importantes à réaliser pour vous aujourd’hui.',
+      allFinished: 'Vous avez terminé toutes vos tâches, bien joué !',
+      empty: 'Vous n’avez pas encore planifié de tâche.',
+      firstMostImportantTask: 'Il doit s’agir de la tâche la plus importante à réaliser pour vous aujourd’hui, choisissez-là avec soin.',
+      importantTaskPlaceholder: [
+        'Planifiez la seconde tâche la plus importante de votre journée… | Planifiez la troisième tâche la plus importante de votre journée.',
+        '… et la troisième.',
+      ],
+      planTask: 'Planifier une tâche',
+      startJourney: 'Démarrer votre journée',
+      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      tasksFinishedToday: '{count} tâche terminée aujourd’hui | {count} tâche terminée aujourd’hui | {count} tâches terminées aujourd’hui',
     },
 
     statisticsPage: {
@@ -422,10 +440,6 @@ export default {
 
   today: {
     page: {
-      backlog: 'en sélectionner depuis la liste d’attente',
-      createTask: 'Ajouter des tâches pour aujourd’hui',
-      or: 'ou',
-      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Aujourd’hui',
     },
   },

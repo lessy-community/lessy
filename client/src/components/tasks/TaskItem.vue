@@ -6,7 +6,7 @@
     :onSuccess="() => { this.editMode = false }"
     :onCancel="() => { this.editMode = false }"
   ></task-edit-form>
-  <ly-list-item v-else name="task" with-handle :class="[{ finished: task.isFinished }]">
+  <ly-list-item v-else name="task" :with-handle="!nohandle" :class="[{ finished: task.isFinished }]">
     <ly-list-item-adapt>
       <span v-html="task.formattedLabel"></span>
       <ly-badge v-if="project && !hideProjectBadge" size="small">
@@ -16,48 +16,15 @@
       </ly-badge>
     </ly-list-item-adapt>
 
-    <ly-badge
-      name="indicators"
-      v-if="task.startedSinceWeeks > 0 || task.replannedCount > 0"
-      :type="{ alert: task.startedSinceWeeks > 2 || task.replannedCount > 2, warning: task.startedSinceWeeks === 2 || task.replannedCount === 2 }"
-    >
-      <span
-        v-if="task.startedSinceWeeks > 0"
-        v-tooltip.top="$tc('tasks.item.startedSinceWeeks', task.startedSinceWeeks, { count: task.startedSinceWeeks })"
-      >
-        <ly-icon name="calendar"></ly-icon>
-        {{ $t('tasks.item.week', { count: task.startedSinceWeeks }) }}
-      </span>
-      <span
-        v-if="task.replannedCount > 0"
-        v-tooltip.top="$tc('tasks.item.replanned', task.replannedCount, { count: task.replannedCount })"
-      >
-        <ly-icon name="repeat"></ly-icon> {{ task.replannedCount }}
-      </span>
-    </ly-badge>
+    <task-indicators :task="task"></task-indicators>
 
     <ly-button
-      v-if="!task.isBacklogged"
+      v-if="!notoggle && task.isForToday"
       :type="task.isFinished ? 'ghost' : 'default'"
       @click="toggleFinishTask"
     >
       {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
     </ly-button>
-    <template v-else>
-      <ly-button
-        v-if="!task.plannedAt"
-        @click="start"
-      >
-        {{ $t('tasks.item.plan') }}
-      </ly-button>
-      <ly-button
-        v-else
-        @click="start"
-        v-tooltip.top="$t('tasks.item.plannedOn', { date: $d(task.plannedAt, 'long') })"
-      >
-        {{ $t('tasks.item.replan') }}
-      </ly-button>
-    </template>
 
     <ly-popover>
       <ly-button
@@ -101,6 +68,7 @@
 
 <script>
   import TaskEditForm from './TaskEditForm'
+  import TaskIndicators from './TaskIndicators'
   import TaskConfirmAbandonModal from './TaskConfirmAbandonModal'
   import TaskAttachProjectModal from './TaskAttachProjectModal'
   import TaskTransformInProjectModal from './TaskTransformInProjectModal'
@@ -109,11 +77,13 @@
     props: {
       task: { type: Object, required: true },
       notoggle: { type: Boolean },
+      nohandle: { type: Boolean },
       hideProjectBadge: { type: Boolean },
     },
 
     components: {
       TaskEditForm,
+      TaskIndicators,
       TaskConfirmAbandonModal,
       TaskAttachProjectModal,
       TaskTransformInProjectModal,
@@ -141,11 +111,6 @@
         } else {
           this.$store.dispatch('tasks/finish', { task })
         }
-      },
-
-      start () {
-        const { task } = this
-        this.$store.dispatch('tasks/start', { task })
       },
     },
   }

@@ -1,71 +1,50 @@
 <template>
-  <app-page v-if="resourcesReady" name="today" layout="application">
+  <app-page
+    v-if="resourcesReady"
+    name="today"
+    layout="application"
+    :centered="centered"
+  >
     <app-header :title="$t('today.page.title')" fluid slot="header">
       <user-popover slot="right">
       </user-popover>
     </app-header>
 
-    <ly-section :title="$tc('today.page.tasksForToday', tasks.length, { count: tasks.length })">
-      <task-list :tasks="tasks"></task-list>
-
-      <template v-if="!createTaskEnabled">
-        <ly-button
-          icon="plus"
-          type="primary"
-          @click="createTaskEnabled = true"
-        >
-          {{ $t('today.page.createTask') }}
-        </ly-button>
-
-        {{ $t('today.page.or') }}
-
-        <router-link to="/tasks/backlog">{{ $t('today.page.backlog') }}</router-link>
-      </template>
-      <task-create-form
-        v-else
-        :plannedAt="plannedAt"
-        :onCancel="() => { this.createTaskEnabled = false }"
-        autoFocus
-      ></task-create-form>
-    </ly-section>
+    <tasks-planner
+      :todoTasks="todoTasks"
+      :finishedTasks="finishedTasks"
+    ></tasks-planner>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
 
 <script>
-  import moment from 'moment'
-
   import { mapGetters } from 'vuex'
 
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
   import UserPopover from 'src/components/users/UserPopover'
-
-  import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
-  import TaskList from 'src/components/tasks/TaskList'
+  import TasksPlanner from 'src/components/tasks/TasksPlanner'
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
       UserPopover,
-      TaskCreateForm,
-      TaskList,
-    },
-
-    data () {
-      return {
-        createTaskEnabled: false,
-        plannedAt: moment().endOf('day'),
-      }
+      TasksPlanner,
     },
 
     computed: {
       ...mapGetters({
         user: 'users/current',
-        tasks: 'tasks/listForToday',
+        todoTasks: 'tasks/listTodoForToday',
+        finishedTasks: 'tasks/listFinishedToday',
         todayFeatureEnabled: 'features/todayEnabled',
       }),
+
+      centered () {
+        return this.todoTasks.length + this.finishedTasks.length === 0
+      },
     },
 
     watch: {

@@ -36,6 +36,7 @@
     mixins: [ErrorsHandler],
 
     props: {
+      'onSuccess': { type: Function },
       'onCancel': { type: Function },
       'autoFocus': { type: Boolean },
       'plannedAt': { type: Object },
@@ -67,6 +68,7 @@
             this.created = true
             setTimeout(() => { this.created = false }, 5000)
             labelInput && labelInput.focus()
+            this.onSuccess && this.onSuccess()
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
