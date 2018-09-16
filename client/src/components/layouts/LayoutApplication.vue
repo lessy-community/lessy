@@ -1,7 +1,7 @@
 <template>
   <app-layout name="application" :centered="centered">
     <app-menu :brand="$t('layouts.application.brand')" slot="menu">
-      <app-menu-link v-if="todayFeatureEnabled" to="/today" icon="calendar-o">{{ $t('layouts.application.today') }}</app-menu-link>
+      <app-menu-link to="/today" icon="calendar-o">{{ $t('layouts.application.today') }}</app-menu-link>
       <app-menu-link to="/dashboard" icon="tachometer">{{ $t('layouts.application.dashboard') }}</app-menu-link>
       <app-menu-link to="/tasks" icon="check-circle">{{ $t('layouts.application.tasks') }}</app-menu-link>
       <app-menu-link to="/projects" icon="folder-open">{{ $t('layouts.application.projects') }}</app-menu-link>
@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
 
   export default {
@@ -29,10 +27,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        todayFeatureEnabled: 'features/todayEnabled',
-      }),
-
       showTosModal () {
         const user = this.$store.getters['users/current']
         return user && !user.hasAcceptedTos

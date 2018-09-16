@@ -24,70 +24,38 @@
       <project-card-deck :projects="projects"></project-card-deck>
     </ly-section>
 
-    <ly-section
-      v-if="todayFeatureEnabled"
-      :title="$t('dashboard.page.statsChart')"
-    >
+    <ly-section :title="$t('dashboard.page.statsChart')">
       <line-chart :data="chartData()"></line-chart>
-    </ly-section>
-    <ly-section
-      v-else
-      :title="$tc('dashboard.page.tasksForToday', tasks.length, { count: tasks.length })"
-    >
-      <task-list :tasks="tasks"></task-list>
-
-      <template v-if="!createTaskEnabled">
-        <ly-button
-          icon="plus"
-          type="primary"
-          @click="createTaskEnabled = true"
-        >
-          {{ $t('dashboard.page.createTask') }}
-        </ly-button>
-
-        {{ $t('dashboard.page.or') }}
-
-        <router-link to="/tasks/backlog">{{ $t('dashboard.page.backlog') }}</router-link>
-      </template>
-      <task-create-form
-        v-else
-        :plannedAt="plannedAt"
-        :onCancel="() => { this.createTaskEnabled = false }"
-        autoFocus
-      ></task-create-form>
     </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
 
 <script>
-  import moment from 'moment'
+  import initialMoment from 'moment'
+  import { extendMoment } from 'moment-range'
+  const moment = extendMoment(initialMoment)
 
   import { mapGetters } from 'vuex'
 
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
   import UserPopover from 'src/components/users/UserPopover'
-
-  import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
-  import TaskList from 'src/components/tasks/TaskList'
-  import LineChart from 'src/components/tasks/LineChart'
   import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
+
+  import LineChart from './LineChart'
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
       UserPopover,
-      TaskCreateForm,
-      TaskList,
       LineChart,
       ProjectCardDeck,
     },
 
     data () {
       return {
-        createTaskEnabled: false,
         plannedAt: moment().endOf('day'),
         activationEmailResent: false,
       }
@@ -96,9 +64,7 @@
     computed: {
       ...mapGetters({
         user: 'users/current',
-        todayFeatureEnabled: 'features/todayEnabled',
         projects: 'projects/listInProgress',
-        tasks: 'tasks/listForToday',
         countFinishedTasksByDays: 'tasks/countFinishedByDays',
         countCreatedTasksByDays: 'tasks/countCreatedByDays',
       }),

@@ -21,7 +21,6 @@ import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 
 import TasksBacklogPage from './components/tasks/TasksBacklogPage'
-import TasksStatisticsPage from './components/tasks/TasksStatisticsPage'
 
 import DesignIndexPage from './components/design/DesignIndexPage'
 import DesignGridPage from './components/design/DesignGridPage'
@@ -52,7 +51,6 @@ const routes = [
 
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
   { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, iTitle: 'tasks.header.backlog' } },
-  { path: '/tasks/statistics', component: TasksStatisticsPage, name: 'tasks/statistics', meta: { restrictForAuth: true, iTitle: 'tasks.header.statistics' } },
 
   { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
   { path: '/projects/inbox', component: ProjectsInboxPage, meta: { iTitle: 'projects.header.inbox' } },

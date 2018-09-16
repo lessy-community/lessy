@@ -7,16 +7,12 @@ export default {
   dashboard: {
     page: {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
-      backlog: 'pick some from backlog',
-      createTask: 'Add tasks for today',
       createdTasks: 'created tasks',
       finishedTasks: 'finished tasks',
-      or: 'or',
       projectsInProgress: 'Projects in progress',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
       statsChart: 'Tasks statistics',
-      tasksForToday: '{count} task for today | {count} tasks for today',
       title: 'Dashboard',
     },
   },
@@ -407,7 +403,6 @@ export default {
 
     header: {
       backlog: 'Backlog',
-      statistics: 'Statistics',
       title: 'Tasks',
     },
 
@@ -450,10 +445,6 @@ export default {
       startJourney: 'Start your journey',
       tasksForToday: '{count} task for today | {count} tasks for today',
       tasksFinishedToday: '{count} task finished today | {count} tasks finished today',
-    },
-
-    statisticsPage: {
-      chartName: 'Tasks statistics',
     },
   },
 

@@ -5,9 +5,6 @@ const state = {
 }
 
 const getters = {
-  todayEnabled (state) {
-    return state.enabled.includes('tmp_today')
-  },
 }
 
 const actions = {

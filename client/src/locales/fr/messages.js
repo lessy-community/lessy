@@ -2,16 +2,12 @@ export default {
   dashboard: {
     page: {
       activationInstructions: 'Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
-      backlog: 'en sélectionner depuis la liste d’attente',
-      createTask: 'Ajouter des tâches pour aujourd’hui',
       createdTasks: 'tâches créées',
       finishedTasks: 'tâches terminées',
-      or: 'ou',
       projectsInProgress: 'Projets en cours',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
       statsChart: 'Statistiques des tâches',
-      tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Tableau de bord',
     },
   },
@@ -402,7 +398,6 @@ export default {
 
     header: {
       backlog: 'Liste d’attente',
-      statistics: 'Statistiques',
       title: 'Tâches',
     },
 
@@ -445,10 +440,6 @@ export default {
       startJourney: 'Démarrer votre journée',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       tasksFinishedToday: '{count} tâche terminée aujourd’hui | {count} tâche terminée aujourd’hui | {count} tâches terminées aujourd’hui',
-    },
-
-    statisticsPage: {
-      chartName: 'Statistiques des tâches',
     },
   },
 

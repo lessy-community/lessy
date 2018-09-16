@@ -15,7 +15,6 @@ puts 'Starting seeding...'
 
 puts 'Creating feature flags'
 Flipper.enable :feature_registration
-Flipper.enable :tmp_today
 
 puts 'Creating Users records...'
 user = User.create!(

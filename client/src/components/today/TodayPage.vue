@@ -58,20 +58,11 @@
         user: 'users/current',
         todoTasks: 'tasks/listTodoForToday',
         finishedTasks: 'tasks/listFinishedToday',
-        todayFeatureEnabled: 'features/todayEnabled',
       }),
 
       centered () {
         const tasksTotalCount = this.todoTasks.length + this.finishedTasks.length
         return this.dayCompleted || tasksTotalCount === 0
-      },
-    },
-
-    watch: {
-      resourcesReady: function (ready) {
-        if (ready && !this.todayFeatureEnabled) {
-          this.$router.push('/dashboard')
-        }
       },
     },
 
@@ -100,12 +91,6 @@
       isEndOfDay () {
         return this.millisecondsBeforeEndOfDay() <= 0
       },
-    },
-
-    mounted () {
-      if (this.resourcesReady && !this.todayFeatureEnabled) {
-        this.$router.push('/dashboard')
-      }
     },
 
     created () {
