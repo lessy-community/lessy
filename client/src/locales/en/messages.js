@@ -416,6 +416,8 @@ export default {
       cancel: 'Cancel',
       confirmAbandon: 'The task « {label} » will be marked as abandoned and will disappear from the list. Can you confirm?',
       confirmAbandonTitle: 'Abandon task',
+      orPickFromBacklog: 'or pick one from your backlog',
+      planTitle: 'Plan a task for today',
       submitAbandon: 'Confirm abandon',
       transformInProjectTitle: 'Transform task in a project',
     },
@@ -427,9 +429,7 @@ export default {
 
   today: {
     page: {
-      backlog: 'pick some from backlog',
-      createTask: 'Add tasks for today',
-      or: 'or',
+      planTask: 'Plan a task',
       tasksForToday: '{count} task for today | {count} tasks for today',
       title: 'Today',
     },

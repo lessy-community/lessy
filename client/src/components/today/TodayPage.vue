@@ -8,26 +8,17 @@
     <ly-section :title="$tc('today.page.tasksForToday', tasks.length, { count: tasks.length })">
       <task-list :tasks="tasks"></task-list>
 
-      <template v-if="!createTaskEnabled">
-        <ly-button
-          icon="plus"
-          type="primary"
-          @click="createTaskEnabled = true"
-        >
-          {{ $t('today.page.createTask') }}
-        </ly-button>
-
-        {{ $t('today.page.or') }}
-
-        <router-link to="/tasks/backlog">{{ $t('today.page.backlog') }}</router-link>
-      </template>
-      <task-create-form
-        v-else
-        :plannedAt="plannedAt"
-        :onCancel="() => { this.createTaskEnabled = false }"
-        autoFocus
-      ></task-create-form>
+      <ly-button
+        icon="calendar-plus-o"
+        type="primary"
+        @click="showTaskPlanModal = true"
+      >
+        {{ $t('today.page.planTask') }}
+      </ly-button>
     </ly-section>
+
+    <task-plan-modal v-if="showTaskPlanModal" @close="showTaskPlanModal = false">
+    </task-plan-modal>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -41,21 +32,21 @@
 
   import UserPopover from 'src/components/users/UserPopover'
 
-  import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
+  import TaskPlanModal from 'src/components/tasks/TaskPlanModal'
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
       UserPopover,
-      TaskCreateForm,
       TaskList,
+      TaskPlanModal,
     },
 
     data () {
       return {
-        createTaskEnabled: false,
+        showTaskPlanModal: false,
         plannedAt: moment().endOf('day'),
       }
     },

@@ -411,6 +411,8 @@ export default {
       cancel: 'Annuler',
       confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
       confirmAbandonTitle: 'Abandonner la tâche',
+      orPickFromBacklog: 'ou sélectionnez-en une depuis votre file d’attente',
+      planTitle: 'Planifiez une tâche pour aujourd’hui',
       submitAbandon: 'Confirmer l’abandon',
       transformInProjectTitle: 'Transformer la tâche en projet',
     },
@@ -422,9 +424,7 @@ export default {
 
   today: {
     page: {
-      backlog: 'en sélectionner depuis la liste d’attente',
-      createTask: 'Ajouter des tâches pour aujourd’hui',
-      or: 'ou',
+      planTask: 'Planifier une tâche',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
       title: 'Aujourd’hui',
     },
