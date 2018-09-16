@@ -7,7 +7,7 @@
       <app-menu-link to="/design/visuals">Visuals</app-menu-link>
       <app-menu-link to="/design/components">Components</app-menu-link>
       <app-menu-link to="/design/wording">Wording</app-menu-link>
-      <app-menu-link to="/" icon="home">Back to home</app-menu-link>
+      <app-menu-link to="/today" icon="home">Back to home</app-menu-link>
     </app-menu>
 
     <slot></slot>
