@@ -389,12 +389,9 @@ export default {
     item: {
       abandon: 'Abandon',
       attachToProject: 'Attach to a project',
-      plannedOn: 'planned on {date}',
       edit: 'Edit',
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
-      plan: 'Plan for today',
-      replan: 'Replan for today',
       replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
       startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       transformInProject: 'Transform in project',

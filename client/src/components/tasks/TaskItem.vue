@@ -37,27 +37,12 @@
     </ly-badge>
 
     <ly-button
-      v-if="!task.isBacklogged"
+      v-if="!notoggle && task.isForToday"
       :type="task.isFinished ? 'ghost' : 'default'"
       @click="toggleFinishTask"
     >
       {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
     </ly-button>
-    <template v-else>
-      <ly-button
-        v-if="!task.plannedAt"
-        @click="start"
-      >
-        {{ $t('tasks.item.plan') }}
-      </ly-button>
-      <ly-button
-        v-else
-        @click="start"
-        v-tooltip.top="$t('tasks.item.plannedOn', { date: $d(task.plannedAt, 'long') })"
-      >
-        {{ $t('tasks.item.replan') }}
-      </ly-button>
-    </template>
 
     <ly-popover>
       <ly-button
@@ -108,6 +93,7 @@
   export default {
     props: {
       task: { type: Object, required: true },
+      notoggle: { type: Boolean },
       nohandle: { type: Boolean },
       hideProjectBadge: { type: Boolean },
     },
@@ -141,11 +127,6 @@
         } else {
           this.$store.dispatch('tasks/finish', { task })
         }
-      },
-
-      start () {
-        const { task } = this
-        this.$store.dispatch('tasks/start', { task })
       },
     },
   }
