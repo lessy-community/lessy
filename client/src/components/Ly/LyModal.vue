@@ -1,7 +1,7 @@
 <template>
   <transition name="ly-modal">
     <div class="ly-modal-mask">
-      <section class="ly-modal-container">
+      <section :class="['ly-modal-container', `ly-modal-container-${width}`]">
         <header v-if="title" class="ly-modal-header">
           {{ title }}
         </header>
@@ -18,6 +18,7 @@
   export default {
     props: {
       title: { type: String },
+      width: { type: String, default: 'small' },
     },
 
     beforeCreate () {
@@ -47,7 +48,6 @@
   }
 
   .ly-modal-container {
-    max-width: 30rem;
     margin: 5rem auto;
 
     background-color: $ly-color-grey-10;
@@ -55,6 +55,16 @@
     box-shadow: 0 0 1px $ly-color-grey-50,
                 1px 2px 3px $ly-color-grey-60;
     transition: all .2s ease-in-out;
+
+    &.ly-modal-container-small {
+      max-width: 30rem;
+    }
+    &.ly-modal-container-medium {
+      max-width: 45rem;
+    }
+    &.ly-modal-container-large {
+      max-width: 60rem;
+    }
   }
 
   .ly-modal-header {
