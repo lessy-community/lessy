@@ -381,16 +381,19 @@ export default {
       submit: 'Mettre à jour',
     },
 
+    indicators: {
+      replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
+      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
+      week: '{count}s',
+    },
+
     item: {
       abandon: 'Abandonner',
       attachToProject: 'Attacher à un projet',
       edit: 'Modifier',
       markAsDone: 'Marquer comme effectuée',
       markAsUndone: 'Marquer comme à faire',
-      replanned: 'Vous avez déjà planifié cette tâche une fois | Vous avez planifié cette tâche {count} fois, que pensez-vous de l’idée de la scinder en plusieurs parties ou de la renommer afin qu’elle soit plus facile à accomplir ?',
-      startedSinceWeeks: 'Vous avez créé cette tâche il y a une semaine | Vous avez créé cette tâche il y a {count} semaines, peut-être est-il temps de l’abandonner, qu’en pensez-vous ?',
       transformInProject: 'Transformer en projet',
-      week: '{count}s',
     },
 
     list: {

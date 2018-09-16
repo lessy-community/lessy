@@ -386,16 +386,19 @@ export default {
       submit: 'Update',
     },
 
+    indicators: {
+      replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
+      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
+      week: '{count}w',
+    },
+
     item: {
       abandon: 'Abandon',
       attachToProject: 'Attach to a project',
       edit: 'Edit',
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
-      replanned: 'You’ve replanned this task once | You’ve replanned this task {count} times, what about splitting or renaming it so it would be easier to achieve?',
-      startedSinceWeeks: 'You’ve started this task 1 week ago | You’ve started this task {count} weeks ago, it may be time to abandon it, don’t you think?',
       transformInProject: 'Transform in project',
-      week: '{count}w',
     },
 
     list: {
