@@ -11,7 +11,7 @@
         size="large"
         @click="showTaskPlanModal = true"
       >
-        {{ $t('tasks.planner.planTask') }}
+        {{ $t('tasks.planner.startJourney') }}
       </ly-button>
     </div>
     <template v-else>
