@@ -10,7 +10,10 @@
       </user-popover>
     </app-header>
 
-    <tasks-planner :tasks="tasks"></tasks-planner>
+    <tasks-planner
+      :todoTasks="todoTasks"
+      :finishedTasks="finishedTasks"
+    ></tasks-planner>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -34,12 +37,13 @@
     computed: {
       ...mapGetters({
         user: 'users/current',
-        tasks: 'tasks/listForToday',
+        todoTasks: 'tasks/listTodoForToday',
+        finishedTasks: 'tasks/listFinishedToday',
         todayFeatureEnabled: 'features/todayEnabled',
       }),
 
       centered () {
-        return this.tasks.length === 0
+        return this.todoTasks.length + this.finishedTasks.length === 0
       },
     },
 

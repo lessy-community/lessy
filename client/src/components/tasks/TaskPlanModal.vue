@@ -40,7 +40,7 @@
 
     data () {
       return {
-        plannedAt: moment().endOf('day'),
+        plannedAt: moment(),
       }
     },
 

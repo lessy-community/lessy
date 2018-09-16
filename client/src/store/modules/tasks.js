@@ -66,6 +66,20 @@ const getters = {
       .filter((task) => task.isForToday)
   },
 
+  listTodoForToday (state, getters) {
+    return getters
+      .list
+      .filter((task) => task.isForToday && !task.isFinished)
+      .sort((t1, t2) => t1.plannedAt - t2.plannedAt)
+  },
+
+  listFinishedToday (state, getters) {
+    return getters
+      .list
+      .filter((task) => task.isForToday && task.isFinished)
+      .sort((t1, t2) => t1.finishedAt - t2.finishedAt)
+  },
+
   listBacklog (state, getters) {
     return getters
       .list

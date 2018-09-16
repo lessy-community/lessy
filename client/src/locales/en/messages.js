@@ -425,6 +425,7 @@ export default {
     planner: {
       additionalTask: 'Tasks you are going to plan now should not to be critical to your day.',
       additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
+      allFinished: 'You’ve finished all your tasks, well done!',
       empty: 'You did not plan any task yet.',
       firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
       importantTaskPlaceholder: [
@@ -434,6 +435,7 @@ export default {
       planTask: 'Plan a task',
       startJourney: 'Start your journey',
       tasksForToday: '{count} task for today | {count} tasks for today',
+      tasksFinishedToday: '{count} task finished today | {count} tasks finished today',
     },
 
     statisticsPage: {

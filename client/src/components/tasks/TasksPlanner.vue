@@ -1,6 +1,6 @@
 <template>
   <div class="tasks-planner">
-    <div v-if="tasks.length === 0" class="tasks-planner-placeholder">
+    <div v-if="tasksTotalCount === 0" class="tasks-planner-placeholder">
       <p class="text-secondary">
         {{ $t('tasks.planner.empty') }}
       </p>
@@ -14,31 +14,44 @@
         {{ $t('tasks.planner.planTask') }}
       </ly-button>
     </div>
-    <ly-section v-else :title="$tc('tasks.planner.tasksForToday', tasks.length, { count: tasks.length })">
-      <ly-list stripped>
-        <task-item
-          v-for="task in tasks"
-          :key="task.id"
-          :task="task"
-          nohandle
-        ></task-item>
+    <template v-else>
+      <ly-section :title="$tc('tasks.planner.tasksForToday', this.todoTasks.length, { count: this.todoTasks.length })">
+        <ly-list stripped :placeholder="$t('tasks.planner.allFinished')">
+          <task-item
+            v-for="task in todoTasks"
+            :key="task.id"
+            :task="task"
+            nohandle
+          ></task-item>
 
-        <ly-list-item
-          v-for="i in nbPlaceholders"
-          class="text-secondary"
+          <ly-list-item
+            v-for="i in nbPlaceholders"
+            class="text-secondary"
+          >
+            {{ $tc(`tasks.planner.importantTaskPlaceholder.${i - 1}`, tasksTotalCount) }}
+          </ly-list-item>
+        </ly-list>
+
+        <ly-button
+          :type="planButtonType"
+          icon="calendar-plus-o"
+          @click="showTaskPlanModal = true"
         >
-          {{ $tc(`tasks.planner.importantTaskPlaceholder.${i - 1}`, tasks.length) }}
-        </ly-list-item>
-      </ly-list>
+          {{ $t('tasks.planner.planTask') }}
+        </ly-button>
+      </ly-section>
 
-      <ly-button
-        :type="planButtonType"
-        icon="calendar-plus-o"
-        @click="showTaskPlanModal = true"
-      >
-        {{ $t('tasks.planner.planTask') }}
-      </ly-button>
-    </ly-section>
+      <ly-section v-if="finishedTasks.length > 0" :title="$tc('tasks.planner.tasksFinishedToday', this.finishedTasks.length, { count: this.finishedTasks.length })">
+        <ly-list stripped>
+          <task-item
+            v-for="task in finishedTasks"
+            :key="task.id"
+            :task="task"
+            nohandle
+          ></task-item>
+        </ly-list>
+      </ly-section>
+    </template>
 
     <task-plan-modal
       v-if="showTaskPlanModal"
@@ -55,7 +68,8 @@
 
   export default {
     props: {
-      tasks: { type: Array },
+      todoTasks: { type: Array },
+      finishedTasks: { type: Array },
     },
 
     components: {
@@ -70,16 +84,20 @@
     },
 
     computed: {
+      tasksTotalCount () {
+        return this.todoTasks.length + this.finishedTasks.length
+      },
+
       nbPlaceholders () {
-        return Math.max(3 - this.tasks.length, 0)
+        return Math.max(3 - this.tasksTotalCount, 0)
       },
 
       planButtonType () {
-        return [0, 1, 2].includes(this.tasks.length) ? 'primary' : 'default'
+        return [0, 1, 2].includes(this.tasksTotalCount) ? 'primary' : 'default'
       },
 
       planModalIntro () {
-        switch (this.tasks.length) {
+        switch (this.tasksTotalCount) {
           case 0:
             return this.$t('tasks.planner.firstMostImportantTask')
           case 1:

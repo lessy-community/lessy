@@ -420,6 +420,7 @@ export default {
     planner: {
       additionalTask: 'Les tâches que vous allez planifier à partir de maintenant ne doivent pas être critiques pour votre journée.',
       additionalMostImportantTask: 'Il doit s’agir de l’une des tâches les plus importantes à réaliser pour vous aujourd’hui.',
+      allFinished: 'Vous avez terminé toutes vos tâches, bien joué !',
       empty: 'Vous n’avez pas encore planifié de tâche.',
       firstMostImportantTask: 'Il doit s’agir de la tâche la plus importante à réaliser pour vous aujourd’hui, choisissez-là avec soin.',
       importantTaskPlaceholder: [
@@ -429,6 +430,7 @@ export default {
       planTask: 'Planifier une tâche',
       startJourney: 'Démarrer votre journée',
       tasksForToday: '{count} tâche pour aujourd’hui | {count} tâche pour aujourd’hui | {count} tâches pour aujourd’hui',
+      tasksFinishedToday: '{count} tâche terminée aujourd’hui | {count} tâche terminée aujourd’hui | {count} tâches terminées aujourd’hui',
     },
 
     statisticsPage: {
