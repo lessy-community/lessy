@@ -53,18 +53,18 @@
       </ly-section>
     </template>
 
-    <task-plan-modal
+    <tasks-plan-modal
       v-if="showTaskPlanModal"
       :intro="planModalIntro"
       @close="showTaskPlanModal = false"
     >
-    </task-plan-modal>
+    </tasks-plan-modal>
   </div>
 </template>
 
 <script>
   import TaskItem from './TaskItem'
-  import TaskPlanModal from './TaskPlanModal'
+  import TasksPlanModal from './TasksPlanModal'
 
   export default {
     props: {
@@ -74,7 +74,7 @@
 
     components: {
       TaskItem,
-      TaskPlanModal,
+      TasksPlanModal,
     },
 
     data () {
