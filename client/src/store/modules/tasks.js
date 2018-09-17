@@ -96,9 +96,20 @@ const getters = {
     }
   },
 
-  listForCurrentProject (state, getters, rootState, rootGetters) {
+  listTodoForCurrentProject (state, getters, rootState, rootGetters) {
     const currentProject = rootGetters['projects/current']
-    return getters.listForProject(currentProject)
+    return getters
+      .listForProject(currentProject)
+      .filter((task) => !task.isFinished)
+      .sort((t1, t2) => t1.order - t2.order)
+  },
+
+  listFinishedForCurrentProject (state, getters, rootState, rootGetters) {
+    const currentProject = rootGetters['projects/current']
+    return getters
+      .listForProject(currentProject)
+      .filter((task) => task.isFinished)
+      .sort((t1, t2) => t1.finishedAt - t2.finishedAt)
   },
 
   countFinishedByDays (state, getters) {

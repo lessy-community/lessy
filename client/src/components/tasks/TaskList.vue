@@ -2,7 +2,7 @@
   <ly-list
     :placeholder="$t('tasks.list.empty')"
     stripped
-    draggable
+    :draggable="!nodraggable"
     :draggable-model="tasks"
     @draggable-change="changeOrder"
   >
@@ -11,6 +11,7 @@
       :key="task.id"
       :task="task"
       :notoggle="notoggle"
+      :nohandle="nodraggable"
       :hide-project-badge="hideProjectBadge"
     ></task-item>
   </ly-list>
@@ -22,6 +23,7 @@
   export default {
     props: {
       'tasks': { type: Array },
+      'nodraggable': { type: Boolean },
       'notoggle': { type: Boolean },
       'hideProjectBadge': { type: Boolean },
     },
@@ -32,6 +34,9 @@
 
     methods: {
       changeOrder (event) {
+        if (this.nodraggable) {
+          return
+        }
         const { moved: { oldIndex, newIndex } } = event
         const task = this.tasks[oldIndex]
         const order = this.tasks[newIndex].order

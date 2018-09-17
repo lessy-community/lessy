@@ -318,6 +318,7 @@ export default {
     showPage: {
       associatedTasks: 'Associated tasks',
       edit: 'Edit',
+      finishedTasks: 'Finished tasks',
       noDescription: 'There is no description for this project yet.',
       timeline: 'Timeline',
     },

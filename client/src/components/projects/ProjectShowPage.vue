@@ -26,7 +26,21 @@
 
           <h3>{{ $t('projects.showPage.associatedTasks') }}</h3>
           <task-create-form :project-id="project.id"></task-create-form>
-          <task-list :tasks="tasks" notoggle hide-project-badge></task-list>
+          <task-list
+            :tasks="todoTasks"
+            notoggle
+            hide-project-badge
+          ></task-list>
+
+          <template v-if="finishedTasks.length > 0">
+            <h3>{{ $t('projects.showPage.finishedTasks') }}</h3>
+            <task-list
+              :tasks="finishedTasks"
+              nodraggable
+              notoggle
+              hide-project-badge
+            ></task-list>
+          </template>
         </ly-column>
       </ly-columns>
     </ly-section>
@@ -55,7 +69,8 @@
 
     computed: {
       ...mapGetters({
-        tasks: 'tasks/listForCurrentProject',
+        todoTasks: 'tasks/listTodoForCurrentProject',
+        finishedTasks: 'tasks/listFinishedForCurrentProject',
       }),
     },
 

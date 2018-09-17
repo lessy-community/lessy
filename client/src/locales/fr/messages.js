@@ -313,6 +313,7 @@ export default {
     showPage: {
       associatedTasks: 'Tâches associées',
       edit: 'Modifier',
+      finishedTasks: 'Tâches terminées',
       noDescription: 'Ce projet n’a pas encore de description.',
       timeline: 'Chronologie',
     },
