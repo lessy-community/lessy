@@ -17,8 +17,8 @@ class User < ApplicationRecord
 
   def self.find_by_authorization_token(token)
     decoded_token = JsonWebToken.decode(token)
-    return nil unless decoded_token
-    User.find decoded_token[:data][:user_id]
+    return nil unless decoded_token && decoded_token[:data]
+    User.find_by id: decoded_token[:data][:user_id]
   end
 
   def self.find_by_identifier!(identifier)

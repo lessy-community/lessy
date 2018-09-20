@@ -24,6 +24,50 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '.find_by_authorization_token' do
+    let(:user) { create :user }
+
+    subject { User.find_by_authorization_token(token) }
+
+    context 'when token is valid' do
+      let(:token) { user.token(expiration: 1.day.from_now) }
+
+      it 'returns the user' do
+        expect(subject).to eq(user)
+      end
+    end
+
+    context 'when token is expired' do
+      let(:token) { user.token(expiration: 1.day.ago) }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when token corresponds to a destroyed user' do
+      let(:token) { user.token(expiration: 1.day.from_now) }
+
+      before do
+        user.destroy
+      end
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when token is malformed' do
+      let(:token) do
+        JWT.encode({}, Rails.application.secrets.secret_key_base, 'HS256')
+      end
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
   describe '#accepted_tos?' do
     subject { user.accepted_tos? }
 

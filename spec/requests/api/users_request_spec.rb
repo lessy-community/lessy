@@ -149,15 +149,12 @@ RSpec.describe Api::UsersController, type: :request do
         subject
       end
 
-      it_behaves_like 'API errors', :not_found, {
-        errors: [{
-          status: '404 Not Found',
-          code: 'record_not_found',
-          title: 'Record not found',
-          detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
-          source: { pointer: '/user' },
-        }],
-      }
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'unauthorized',
+        title: 'Authorization is required',
+        detail: 'Resource you try to reach requires a valid Authorization token.',
+      }]
     end
 
     context 'with expired token' do
