@@ -108,7 +108,9 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(api_project['attributes']['name']).to eq('New name for a project')
         expect(api_project['attributes']['slug']).to eq('new-name-for-a-project')
         expect(api_project['attributes']['description']).to eq('New description')
-        expect(api_project['attributes']['dueAt']).to eq(DateTime.new(2018, 1, 20).to_i)
+        expect(api_project['attributes']['dueAt']).to eq(
+          DateTime.new(2018, 1, 20).in_time_zone.as_json
+        )
       end
     end
 
