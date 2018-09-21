@@ -2,9 +2,9 @@
 
 Lessy is a time manager application built upon strong principles. It is
 designed to be as **intuitive and inclusive** as possible. Its goal is to
-return people their **power to manage time**, instil **self-confidence** and
-challenge their **capacity to question themselves**. It is built by a **diverse
-and welcoming community**.
+help people to recover their **power to manage time**, instil
+**self-confidence** and challenge their **capacity to question themselves**. It
+is built by a **diverse and welcoming community**.
 
 Every feature we develop, every discussion we have, every decision we make MUST
 support this vision.
