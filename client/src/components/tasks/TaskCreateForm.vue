@@ -36,8 +36,8 @@
     mixins: [ErrorsHandler],
 
     props: {
-      plannedAt: { type: Object },
-      finishedAt: { type: Object },
+      plannedAt: { type: Date },
+      finishedAt: { type: Date },
       projectId: { type: Number },
       autoFocus: { type: Boolean },
       showWarning: { type: Boolean },
@@ -60,8 +60,8 @@
         this.$store
           .dispatch('tasks/create', {
             label: this.label,
-            plannedAt: this.plannedAt && this.plannedAt.unix(),
-            finishedAt: this.finishedAt && this.finishedAt.unix(),
+            plannedAt: this.plannedAt,
+            finishedAt: this.finishedAt,
             projectId: this.projectId,
           })
           .then((taskId) => {

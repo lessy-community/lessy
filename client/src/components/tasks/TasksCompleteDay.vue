@@ -40,8 +40,6 @@
 </template>
 
 <script>
-  import moment from 'moment'
-
   import TaskList from '@/components/tasks/TaskList'
   import TaskCreateForm from '@/components/tasks/TaskCreateForm'
 
@@ -58,7 +56,7 @@
 
     data () {
       return {
-        finishedAt: moment(),
+        finishedAt: new Date(),
       }
     },
 
