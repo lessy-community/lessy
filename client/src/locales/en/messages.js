@@ -19,9 +19,9 @@ export default {
 
   errors: {
     _: {
-      login_failed: 'Oops we failed to log you, it seems your credentials are wrong.',
-      missing_endpoint: 'It seems you try to access an unknown resource. It’s probably not your fault and we are sorry about that. We’ll try to fix it quickly!',
-      registration_disabled: 'The registration is disabled, you’re not authorized to create an account.',
+      login_failed: 'Oops, we failed to log you in, it seems your credentials are wrong.',
+      missing_endpoint: 'It seems you’re trying to access an unknown resource. It’s probably not your fault and we are sorry about that. We’ll try to fix it quickly!',
+      registration_disabled: 'Registration is disabled, you’re not authorized to create an account.',
       tos_not_accepted: 'Terms of service have changed. Please refresh the page to continue.',
       unauthorized: 'You’re not authorize to perform this action, please refresh the page and re-login.',
     },
@@ -52,12 +52,12 @@ export default {
       },
 
       slug: {
-        invalid: 'Something went wrong when saving the project (does its name contain any special character?). Please choose another name.',
-        taken: 'This name is close to another of your project names, please try to change it.',
+        invalid: 'Something went wrong when saving the project (does its name contain any special characters?). Please choose another name.',
+        taken: 'This name is similar to another of your project names, please try to change it.',
       },
 
       state: {
-        invalid_transition: 'You try to perform an action which should not be possible normally, we are sorry about that!',
+        invalid_transition: 'You’re trying to perform an action which should not normally be possible, we are sorry about that!',
         reached_max_started: 'You cannot start more than three projects.',
       },
     },
@@ -71,7 +71,7 @@ export default {
       },
 
       state: {
-        invalid_transition: 'You try to perform an action which should not be possible normally, we are sorry about that!',
+        invalid_transition: 'You’re trying to perform an action which should not normally be possible, we are sorry about that!',
       },
     },
 
@@ -120,9 +120,9 @@ export default {
       exploreTitle: 'Explore source code',
       exploreDetails: 'Because Lessy is <a href="https://github.com/lessy-community/lessy/blob/master/LICENSE">free</a> and always will be.',
       hostTitle: 'Host it',
-      hostDetails: 'Data are yours and we don’t want to be a centralized service.',
+      hostDetails: 'Data is yours and we don’t want to be a centralized service.',
       donateTitle: 'Donate',
-      donateDetails: 'It helps us to maintain the service opened to everyone.',
+      donateDetails: 'It helps us maintaining the service opened to everyone.',
 
       madeWithLove: 'Made with ♥ by <a href="https://github.com/lessy-community/lessy/blob/master/CONTRIBUTORS.md">amazing contributors</a>.',
       greetings: 'Have a great day!',
@@ -289,7 +289,7 @@ export default {
       finishedProjects: 'Finished projects',
       futureProjects: 'Future projects',
       projectsInProgress: 'Projects in progress',
-      projectsPlaceholder: "You don't have any project yet, what are you working on?",
+      projectsPlaceholder: "You don't have any projects yet, what are you working on?",
     },
 
     item: {
@@ -311,7 +311,7 @@ export default {
     modals: {
       editDueDateTitle: 'Edit project’s due date',
       finishTitle: 'Finish project',
-      finishIntro: 'You’ve finished « {projectName} »? That’s great! Let us know when you finished it:',
+      finishIntro: 'Have you finished “{projectName}”? That’s great! Let us know when you finished it:',
       startNewTitle: 'Start a project',
       startTitle: 'Start project',
     },
@@ -335,7 +335,7 @@ export default {
     startNewForm: {
       cancel: 'Cancel',
       dueLabel: 'Due on',
-      dueCaption: 'The due date have to be after today',
+      dueCaption: 'The due date has to be after today',
       noProjects: 'You have no projects in your inbox so let’s create one!',
       projectLabel: 'Project',
       submit: 'Start the project',
@@ -352,7 +352,7 @@ export default {
       notStarted: 'not started',
       pause: 'Pause',
       pausedOn: 'paused on {date}',
-      reachedMaxInProgress: 'You already reached the maximum of started projects.',
+      reachedMaxInProgress: 'You already reached the maximum number of started projects.',
       restart: 'Restart',
       start: 'Start',
       startedOn: 'Started on {date}',
@@ -396,7 +396,7 @@ export default {
       edit: 'Edit',
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
-      transformInProject: 'Transform in project',
+      transformInProject: 'Transform into a project',
     },
 
     list: {
@@ -417,26 +417,26 @@ export default {
         ok: 'Complete',
         summary: {
           allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
-          neutral: 'You’ve finished {finishedCount} task on {totalCount}. | You’ve finished {finishedCount} tasks on {totalCount}.',
-          nothingDone: 'That’s ok if you didn’t do what you’ve planned, you’ll do better tomorrow.',
+          neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
+          nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
           nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
         },
         title: 'Complete your journey',
         unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
       },
-      confirmAbandon: 'The task « {label} » will be marked as abandoned and will disappear from the list. Can you confirm?',
+      confirmAbandon: 'The task “{label}” will be marked as abandoned and will disappear from the list. Can you confirm?',
       confirmAbandonTitle: 'Abandon task',
       orPickFromBacklog: 'or pick one from your backlog',
       planTitle: 'Plan a task for today',
       submitAbandon: 'Confirm abandon',
-      transformInProjectTitle: 'Transform task in a project',
+      transformInProjectTitle: 'Transform task into a project',
     },
 
     planner: {
-      additionalTask: 'Tasks you are going to plan now should not to be critical to your day.',
+      additionalTask: 'Tasks you are going to plan now should not be critical to your day.',
       additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
       allFinished: 'You’ve finished all your tasks, well done!',
-      empty: 'You did not plan any task yet.',
+      empty: 'You did not plan any tasks yet.',
       finishDay: 'Finish your day',
       firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
       importantTaskPlaceholder: [
@@ -494,7 +494,7 @@ export default {
 
     passwordResetForm: {
       emailLabel: 'Email',
-      login: 'You remember your password?',
+      login: 'Remember your password?',
       register: 'Create an account',
       submit: 'Reset your password',
     },
@@ -502,8 +502,8 @@ export default {
     passwordResetPage: {
       accountInactive: 'You didn’t activate your account and so we can’t reset your password. Did you receive the email with the activation instructions?',
       emailIntro: 'Please enter the email address related to your account so we’ll send you a link to reset your password.',
-      emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you receive no emails, please check your spams.',
-      login: 'You remember your password?',
+      emailSentTo: 'We’ve just sent an email to {email} so you’ll be able to create a new password in a few minutes. If you do not receive our email, please check your spams.',
+      login: 'Remember your password?',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
       title: 'Reset your password',
