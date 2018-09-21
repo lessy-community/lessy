@@ -13,12 +13,12 @@
         "order": { "type": "integer" },
         "plannedCount": { "type": "integer" },
         "state": { "type": "string" },
-        "startedAt": { "type": "integer" },
-        "plannedAt": { "type": "integer" },
-        "finishedAt": { "type": "integer" },
-        "abandonedAt": { "type": "integer" },
-        "createdAt": { "type": "integer" },
-        "updatedAt": { "type": "integer" }
+        "startedAt": { "type": "date" },
+        "plannedAt": { "type": "date" },
+        "finishedAt": { "type": "date" },
+        "abandonedAt": { "type": "date" },
+        "createdAt": { "type": "date" },
+        "updatedAt": { "type": "date" }
       },
       "additionalProperties": false
     },

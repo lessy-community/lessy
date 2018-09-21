@@ -119,7 +119,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
         expect(task['attributes']['state']).to eq('started')
-        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.in_time_zone.as_json)
       end
     end
 
@@ -152,8 +152,8 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
         expect(task['attributes']['state']).to eq('planned')
-        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
-        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).to_i)
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.in_time_zone.as_json)
+        expect(task['attributes']['plannedAt']).to eq(DateTime.new(2017).in_time_zone.as_json)
       end
     end
 
@@ -228,7 +228,7 @@ RSpec.describe Api::Users::TasksController, type: :request do
         expect(task['id']).not_to be_nil
         expect(task['attributes']['label']).to eq('My task')
         expect(task['attributes']['state']).to eq('started')
-        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.in_time_zone.as_json)
         expect(task['relationships']['project']['data']['id']).to eq(project.id)
       end
     end

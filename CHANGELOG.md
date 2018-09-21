@@ -9,6 +9,7 @@
 - Provide `DELETE /api/projects/:id` endpoint
 - `PUT /api/tasks/:id/state` endpoint now accepts `started` when task is planned
 - `POST /api/users/me/tasks` endpoint now accepts `finished_at`
+- Tasks' endpoints now return `Date` instead of timestamps
 
 ## Ara 2018-09-09
 

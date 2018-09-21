@@ -165,7 +165,7 @@ RSpec.describe Api::TasksController, type: :request do
 
         it 'returns the updated task' do
           task = JSON.parse(response.body)['data']
-          expect(task['attributes']['finishedAt']).to eq(DateTime.new(2017).to_i)
+          expect(task['attributes']['finishedAt']).to eq(DateTime.new(2017).in_time_zone.as_json)
         end
       end
 
@@ -306,7 +306,7 @@ RSpec.describe Api::TasksController, type: :request do
 
         it 'returns the updated task' do
           task = JSON.parse(response.body)['data']
-          expect(task['attributes']['abandonedAt']).to eq(DateTime.new(2017).to_i)
+          expect(task['attributes']['abandonedAt']).to eq(DateTime.new(2017).in_time_zone.as_json)
         end
       end
 
