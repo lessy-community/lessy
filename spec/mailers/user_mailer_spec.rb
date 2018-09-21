@@ -6,7 +6,7 @@ describe UserMailer do
     let(:mail) { described_class.activation_needed_email(user).deliver_now }
 
     it 'renders the subject' do
-      expect(mail.subject).to eq('[Lessy] Welcome on Lessy!')
+      expect(mail.subject).to eq('[Lessy] Welcome to Lessy!')
     end
 
     it 'renders the receiver email' do
