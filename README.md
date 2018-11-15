@@ -1,5 +1,7 @@
 # Lessy
 
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+
 Lessy is a time manager application built upon strong principles. It is
 designed to be as **intuitive and inclusive** as possible. Its goal is to
 return people their **power to manage time**, instil **self-confidence** and
