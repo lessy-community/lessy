@@ -7,6 +7,7 @@ WORKDIR /app/
 
 RUN apk add --no-cache \
       nodejs \
+      nodejs-npm \
       postgresql-client \
       tzdata \
   && npm install npm@6 -g
