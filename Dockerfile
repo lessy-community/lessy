@@ -13,9 +13,9 @@ ENV RAILS_LOG_TO_STDOUT true
 
 RUN apk add --no-cache \
       nodejs \
+      nodejs-npm \
       postgresql-client \
-      tzdata \
-  && npm install npm@6 -g \
+      tzdata
   && apk --update add --virtual build-dependencies \
       build-base \
       ruby-dev \
