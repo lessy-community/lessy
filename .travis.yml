@@ -14,7 +14,7 @@ services:
 
 install:
   - bundle install
-  - nvm install 6
+  - nvm install 10
   - cd client && npm cache clean && npm install && cd -
 
 before_script:
