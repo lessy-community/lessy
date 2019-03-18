@@ -15,7 +15,7 @@ services:
 install:
   - bundle install
   - nvm install 10
-  - cd client && npm cache clean && npm install && cd -
+  - cd client && npm cache verify && npm install && cd -
 
 before_script:
   - psql -c 'create database lessy_test;' -U postgres
