@@ -15,7 +15,7 @@ RUN apk add --no-cache \
       nodejs \
       nodejs-npm \
       postgresql-client \
-      tzdata
+      tzdata \
   && apk --update add --virtual build-dependencies \
       build-base \
       ruby-dev \
