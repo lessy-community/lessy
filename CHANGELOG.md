@@ -6,6 +6,7 @@
 
 - Provide `GET /api/users/me/features` endpoint
 - Accessing `GET /api/users/me` with an invalid user id now returns a `unauthorized` error
+- Provide `DELETE /api/projects/:id` endpoint
 
 ## Ara 2018-09-09
 

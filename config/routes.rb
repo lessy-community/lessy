@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
 
     patch '/projects/:id', to: 'projects#update', as: 'project'
-    resources :projects, only: [:show] do
+    resources :projects, only: %i[show destroy] do
       member do
         put 'state', action: :update_state
       end
