@@ -16,6 +16,10 @@ class Api::ProjectsController < ApiController
     )
   end
 
+  def destroy
+    current_project.destroy!
+  end
+
   def update_state
     @project = current_project
     @project.update_with_transition! update_project_state_params

@@ -270,6 +270,20 @@ const mutations = {
     state.byIds = mapElementsById(tasks)
   },
 
+  abandonTasksForProject (state, projectId) {
+    const tasks = Object.entries(state.byIds).map(([id, task]) => {
+      if (task.projectId !== projectId) {
+        return task
+      }
+      return {
+        ...task,
+        state: 'abandoned',
+        abandonedAt: +moment(),
+      }
+    })
+    state.byIds = mapElementsById(tasks)
+  },
+
   reset (state) {
     state.current = null
     state.byIds = {}

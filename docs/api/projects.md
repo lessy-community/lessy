@@ -377,6 +377,30 @@ $ curl -H "Content-Type: application/json" \
 }
 ```
 
+## `DELETE /api/projects/:id`
+
+Destroy the given project and marks associated tasks as abandoned.
+
+Parameters:
+
+| Name | Type   | Description  | Optional |
+|------|--------|--------------|----------|
+| id   | number | Project's id |          |
+
+Result format: none.
+
+Specific errors:
+
+Example:
+
+```console
+$ curl -H "Authorization: <token>" -X DELETE https://lessy.io/api/projects/42
+```
+
+```raw
+no content
+```
+
 ## `PUT /api/projects/:id/state`
 
 Update a given project's state.

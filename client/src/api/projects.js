@@ -1,4 +1,4 @@
-import { get, post, patch, put } from './http'
+import { get, post, patch, put, destroy } from './http'
 
 export default {
   list () {
@@ -42,4 +42,8 @@ export default {
       },
     })
   },
+
+  delete (project) {
+    return destroy(`/api/projects/${project.id}`)
+  }
 }

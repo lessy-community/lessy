@@ -217,6 +217,66 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
   end
 
+  describe 'DELETE #destroy' do
+    let(:project) { create :project, user: user }
+    let(:token) { user.token }
+
+    subject { delete api_project_path(project.id), headers: { 'Authorization': token } }
+
+    context 'with owned project' do
+      before { subject }
+
+      it 'succeeds with no content' do
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'destroys the corresponding project' do
+        expect(Project.find_by(id: project.id)).not_to be_present
+      end
+    end
+
+    context 'with associated task' do
+      let!(:task) { create :task, :newed, user: user, project: project }
+
+      before { subject }
+
+      it 'succeeds with no content' do
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'marks the associated task as abandoned' do
+        expect(task.reload.state).to eq('abandoned')
+      end
+    end
+
+    context 'with not owned project' do
+      let(:token) { create(:user, :activated).token }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :not_found, errors: [{
+        status: '404 Not Found',
+        code: 'record_not_found',
+        title: 'Record not found',
+        detail: 'Record cannot be found, it has been deleted or you may not have access to it.',
+        source: { pointer: '/project' },
+      }]
+    end
+
+    context 'when not authorized' do
+      let(:token) { 'not-a-token' }
+
+      before { subject }
+
+      it_behaves_like 'API errors', :unauthorized, errors: [{
+        status: '401 Unauthorized',
+        code: 'unauthorized',
+        title: 'Authorization is required',
+        detail: 'Resource you try to reach requires a valid Authorization token.',
+      }]
+    end
+  end
+
   describe 'PUT #update_state' do
     let(:token) { user.token }
 

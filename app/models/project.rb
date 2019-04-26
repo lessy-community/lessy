@@ -14,4 +14,14 @@ class Project < ApplicationRecord
   before_validation do
     self.slug = self.name.parameterize
   end
+
+  before_destroy :abandon_tasks, prepend: true
+
+  private
+
+  def abandon_tasks
+    # rubocop:disable Rails/SkipsModelValidations
+    tasks.update_all state: :abandoned, abandoned_at: Time.zone.now
+    # rubocop:enable Rails/SkipsModelValidations
+  end
 end
