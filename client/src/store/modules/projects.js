@@ -132,6 +132,15 @@ const actions = {
       .finish(project, finishedAt)
       .then((res) => commit('set', res.data))
   },
+
+  delete ({ commit }, { project }) {
+    return projectsApi
+      .delete(project)
+      .then((res) => {
+        commit('remove', project.id)
+        commit('tasks/abandonTasksForProject', project.id, { root: true })
+      })
+  },
 }
 
 const mutations = {
@@ -160,6 +169,12 @@ const mutations = {
         userId: data.relationships.user.data.id,
       },
     }
+  },
+
+  remove (state, id) {
+    let byIds = { ...state.byIds }
+    delete byIds[id]
+    state.byIds = byIds
   },
 
   setCurrent (state, projectSlug) {

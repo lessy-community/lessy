@@ -10,6 +10,14 @@
         {{ $t('projects.showPage.edit') }}
       </ly-button>
 
+      <ly-button
+        type="ghost"
+        icon="trash"
+        @click="activeModal = 'delete'"
+      >
+        {{ $t('projects.showPage.delete') }}
+      </ly-button>
+
       <ly-columns bordered>
         <ly-column>
           <h3>Notes</h3>
@@ -44,6 +52,12 @@
         </ly-column>
       </ly-columns>
     </ly-section>
+
+    <project-delete-modal
+      v-if="activeModal === 'delete'"
+      :project="project"
+      @close="activeModal = null"
+    ></project-delete-modal>
   </app-page>
 </template>
 
@@ -52,6 +66,7 @@
 
   import ProjectsHeader from './ProjectsHeader'
   import ProjectTimeline from './ProjectTimeline'
+  import ProjectDeleteModal from './ProjectDeleteModal'
   import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
   import TaskList from 'src/components/tasks/TaskList'
 
@@ -59,12 +74,19 @@
     components: {
       ProjectsHeader,
       ProjectTimeline,
+      ProjectDeleteModal,
       TaskCreateForm,
       TaskList,
     },
 
     props: {
       'project': { type: Object, required: true },
+    },
+
+    data () {
+      return {
+        activeModal: null,
+      }
     },
 
     computed: {

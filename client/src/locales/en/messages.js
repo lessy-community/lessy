@@ -309,6 +309,11 @@ export default {
     },
 
     modals: {
+      deleteTitle: 'Delete a project',
+      deleteIntro: 'Do you really want to delete the project “{projectName}”? Its associated tasks will be marked as abandonned and you’ll not have access to them anymore.',
+      deleteConfirm: 'Delete the project',
+      deleteCancel: 'Cancel',
+
       editDueDateTitle: 'Edit project’s due date',
       finishTitle: 'Finish project',
       finishIntro: 'Have you finished “{projectName}”? That’s great! Let us know when you finished it:',
@@ -318,6 +323,7 @@ export default {
 
     showPage: {
       associatedTasks: 'Associated tasks',
+      delete: 'Delete',
       edit: 'Edit',
       finishedTasks: 'Finished tasks',
       noDescription: 'There is no description for this project yet.',
