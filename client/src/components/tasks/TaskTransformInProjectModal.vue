@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('tasks.modals.transformInProjectTitle')">
+  <ly-modal
+    :title="$t('tasks.modals.transformInProjectTitle')"
+    @close="$emit('close')"
+  >
     <project-create-form
       :initialName="task.label"
       @success="onTaskTransformSuccess"

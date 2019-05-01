@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('tasks.modals.completeDay.title')">
+  <ly-modal
+    :title="$t('tasks.modals.completeDay.title')"
+    @close="$emit('close')"
+  >
     <p>
       {{ $t('tasks.modals.completeDay.intro') }}
     </p>

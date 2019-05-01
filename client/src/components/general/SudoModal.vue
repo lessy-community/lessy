@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('general.sudoModal.title')">
+  <ly-modal
+    :title="$t('general.sudoModal.title')"
+    @close="$emit('close')"
+  >
     <p>
       {{ $t('general.sudoModal.intro') }}
     </p>

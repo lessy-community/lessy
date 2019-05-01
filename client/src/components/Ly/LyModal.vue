@@ -3,6 +3,14 @@
     <div class="ly-modal-mask">
       <section :class="['ly-modal-container', `ly-modal-container-${width}`]">
         <header v-if="title" class="ly-modal-header">
+          <ly-button
+            v-if="!noclose"
+            @click="$emit('close')"
+            type="ghost"
+            icon="times"
+          >
+          </ly-button>
+
           {{ title }}
         </header>
 
@@ -19,14 +27,28 @@
     props: {
       title: { type: String },
       width: { type: String, default: 'small' },
+      noclose: { type: Boolean },
+    },
+
+    methods: {
+      onKeypress (e) {
+        if (e.key === 'Escape') {
+          this.$emit('close')
+        }
+      },
     },
 
     beforeCreate () {
       document.body.classList.add('modal-opened')
     },
 
+    created () {
+      window.addEventListener('keydown', this.onKeypress)
+    },
+
     destroyed () {
       document.body.classList.remove('modal-opened')
+      window.removeEventListener('keydown', this.onKeypress)
     },
   }
 </script>
@@ -72,6 +94,10 @@
 
     font-size: 1.1rem;
     font-weight: bold;
+
+    .ly-button {
+      float: right;
+    }
   }
   .ly-modal-body {
     padding: 1rem;

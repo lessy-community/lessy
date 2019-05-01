@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('projects.modals.editDueDateTitle')">
+  <ly-modal
+    :title="$t('projects.modals.editDueDateTitle')"
+    @close="$emit('close')"
+  >
     <p class="text-secondary">
       {{ project.name }}
     </p>

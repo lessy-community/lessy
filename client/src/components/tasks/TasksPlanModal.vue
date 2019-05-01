@@ -1,5 +1,9 @@
 <template>
-  <ly-modal :title="$t('tasks.modals.planTitle')" width="large">
+  <ly-modal
+    :title="$t('tasks.modals.planTitle')"
+    @close="$emit('close')"
+    width="large"
+  >
     <p v-if="intro" class="text-secondary">
       {{ intro }}
     </p>

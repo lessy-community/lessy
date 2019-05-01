@@ -397,8 +397,8 @@
       current context (i.e. user should stay on the same page).<p>
 
       <ly-button @click="activeModal = 'first'">Click to open modal</ly-button>
-      <ly-modal v-if="activeModal === 'first'" title="Some complex form">
-        <ly-form @submit="activeModal = null">
+      <ly-modal v-if="activeModal === 'first'" title="Some complex form" @close="closeModal">
+        <ly-form @submit="closeModal">
           <ly-form-group>
             <ly-form-input
               type="text"
@@ -413,7 +413,7 @@
             <ly-button type="primary" submit>
               Submit
             </ly-button>
-            <ly-button @click="activeModal = null">
+            <ly-button @click="closeModal">
               Cancel
             </ly-button>
           </ly-form-group>
@@ -427,8 +427,13 @@
       <ly-button @click="activeModal = 'small'">
         Small modal
       </ly-button>
-      <ly-modal v-if="activeModal === 'small'" title="A small modal" width="small">
-        <ly-button @click="activeModal = null">
+      <ly-modal
+        v-if="activeModal === 'small'"
+        title="A small modal"
+        width="small"
+        @close="closeModal"
+      >
+        <ly-button @click="closeModal">
           Close
         </ly-button>
       </ly-modal>
@@ -436,8 +441,13 @@
       <ly-button @click="activeModal = 'medium'">
         Medium modal
       </ly-button>
-      <ly-modal v-if="activeModal === 'medium'" title="A medium modal" width="medium">
-        <ly-button @click="activeModal = null">
+      <ly-modal
+        v-if="activeModal === 'medium'"
+        title="A medium modal"
+        width="medium"
+        @close="closeModal"
+      >
+        <ly-button @click="closeModal">
           Close
         </ly-button>
       </ly-modal>
@@ -445,8 +455,33 @@
       <ly-button @click="activeModal = 'large'">
         Large modal
       </ly-button>
-      <ly-modal v-if="activeModal === 'large'" title="A large modal" width="large">
-        <ly-button @click="activeModal = null">
+      <ly-modal
+        v-if="activeModal === 'large'"
+        title="A large modal"
+        width="large"
+        @close="closeModal"
+      >
+        <ly-button @click="closeModal">
+          Close
+        </ly-button>
+      </ly-modal>
+
+      <h3>Removing native closing</h3>
+      <p>You should always handle the close event: it is triggered on
+      <code>Escape</code> keypress and when clicking on the modal cross. For
+      very special cases, you might want to not support this event. In this
+      situation, you should hide the cross.</p>
+
+      <ly-button @click="activeModal = 'noclose'">
+        Modal with no cross
+      </ly-button>
+      <ly-modal
+        v-if="activeModal === 'noclose'"
+        title="A modal with no cross"
+        noclose
+      >
+        <p>Always provide a way to close the modal in the body!</p>
+        <ly-button @click="closeModal">
           Close
         </ly-button>
       </ly-modal>
@@ -544,6 +579,10 @@
     },
 
     methods: {
+      closeModal () {
+        this.activeModal = null
+      },
+
       alert (text) {
         window.alert(text)
       },

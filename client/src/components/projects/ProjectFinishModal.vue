@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('projects.modals.finishTitle')">
+  <ly-modal
+    :title="$t('projects.modals.finishTitle')"
+    @close="$emit('close')"
+  >
     <p class="text-secondary">
       {{ $t('projects.modals.finishIntro', { projectName: project.name }) }}
     </p>

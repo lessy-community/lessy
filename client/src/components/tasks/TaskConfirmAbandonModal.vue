@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('tasks.modals.confirmAbandonTitle')">
+  <ly-modal
+    :title="$t('tasks.modals.confirmAbandonTitle')"
+    @close="$emit('close')"
+  >
     <p>
       {{ $t('tasks.modals.confirmAbandon', { label: task.label }) }}
     </p>

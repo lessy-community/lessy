@@ -1,5 +1,5 @@
 <template>
-  <ly-modal :title="$t('general.termsOfServiceModal.title')">
+  <ly-modal :title="$t('general.termsOfServiceModal.title')" noclose>
     <p>
       {{ $t('general.termsOfServiceModal.intro') }}
     </p>

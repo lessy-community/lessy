@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('projects.modals.deleteTitle')">
+  <ly-modal
+    :title="$t('projects.modals.deleteTitle')"
+    @close="$emit('close')"
+  >
     <p>
       {{ $t('projects.modals.deleteIntro', { projectName: project.name }) }}
     </p>

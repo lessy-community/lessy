@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('tasks.modals.attachProjectTitle')">
+  <ly-modal
+    :title="$t('tasks.modals.attachProjectTitle')"
+    @close="$emit('close')"
+  >
     <p class="text-secondary">«&nbsp;{{ task.label }}&nbsp;»</p>
 
     <task-attach-project-form

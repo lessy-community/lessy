@@ -1,5 +1,8 @@
 <template>
-  <ly-modal :title="$t('projects.modals.startNewTitle')">
+  <ly-modal
+    :title="$t('projects.modals.startNewTitle')"
+    @close="$emit('close')"
+  >
     <projects-start-new-form
       autofocus
       @success="redirectToProject"
