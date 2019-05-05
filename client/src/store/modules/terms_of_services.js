@@ -1,4 +1,4 @@
-import termsOfServiceApi from 'src/api/terms_of_services'
+import termsOfServiceApi from '@/api/terms_of_services'
 
 const state = {
   current: null,

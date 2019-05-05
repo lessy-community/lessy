@@ -24,8 +24,8 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { objectsToOptions } from 'src/utils'
-  import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
+  import { objectsToOptions } from '@/utils'
+  import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 
   export default {
     mixins: [ErrorsHandler],

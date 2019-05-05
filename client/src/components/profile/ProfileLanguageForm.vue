@@ -23,7 +23,7 @@
     SUPPORTED_LANGUAGES,
     getPreferedLanguage,
     savePreferedLanguage,
-  } from 'src/locales'
+  } from '@/locales'
 
   export default {
     data () {

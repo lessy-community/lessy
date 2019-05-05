@@ -29,9 +29,9 @@
 </template>
 
 <script>
-  import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
+  import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 
-  import SudoModal from 'src/components/general/SudoModal'
+  import SudoModal from '@/components/general/SudoModal'
 
   export default {
     mixins: [ErrorsHandler],

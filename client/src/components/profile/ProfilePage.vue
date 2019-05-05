@@ -44,7 +44,7 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+  import ResourcesLoader from '@/components/mixins/ResourcesLoader'
 
   import ProfileIdentityEditForm from './ProfileIdentityEditForm'
   import ProfilePasswordNewForm from './ProfilePasswordNewForm'

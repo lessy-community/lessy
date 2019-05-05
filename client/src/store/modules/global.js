@@ -1,4 +1,4 @@
-import rootApi from 'src/api/root'
+import rootApi from '@/api/root'
 
 const state = {
   resourcesReady: false,

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
+  import TermsOfServiceModal from '@/components/general/TermsOfServiceModal'
 
   export default {
     props: {

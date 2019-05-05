@@ -46,9 +46,9 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { objectsToOptions } from 'src/utils'
+  import { objectsToOptions } from '@/utils'
   import moment from 'moment'
-  import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
+  import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 
   import ProjectCreateForm from './ProjectCreateForm'
 

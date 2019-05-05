@@ -38,10 +38,10 @@
 
   import { mapGetters } from 'vuex'
 
-  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+  import ResourcesLoader from '@/components/mixins/ResourcesLoader'
 
-  import UserPopover from 'src/components/users/UserPopover'
-  import ProjectCardDeck from 'src/components/projects/ProjectCardDeck'
+  import UserPopover from '@/components/users/UserPopover'
+  import ProjectCardDeck from '@/components/projects/ProjectCardDeck'
 
   import LineChart from './LineChart'
 

@@ -1,5 +1,5 @@
 import ActionCable from 'actioncable'
-import auth from 'src/auth'
+import auth from '@/auth'
 
 function cablePlugin (store) {
   if (!auth.isLoggedIn()) {

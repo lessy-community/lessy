@@ -98,7 +98,7 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import UserRegisterForm from 'src/components/users/UserRegisterForm'
+  import UserRegisterForm from '@/components/users/UserRegisterForm'
 
   export default {
     components: {
