@@ -67,8 +67,8 @@
   import ProjectsHeader from './ProjectsHeader'
   import ProjectTimeline from './ProjectTimeline'
   import ProjectDeleteModal from './ProjectDeleteModal'
-  import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
-  import TaskList from 'src/components/tasks/TaskList'
+  import TaskCreateForm from '@/components/tasks/TaskCreateForm'
+  import TaskList from '@/components/tasks/TaskList'
 
   export default {
     components: {

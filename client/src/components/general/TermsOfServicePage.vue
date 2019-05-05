@@ -39,7 +39,7 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import auth from 'src/auth'
+  import auth from '@/auth'
 
   export default {
     data () {

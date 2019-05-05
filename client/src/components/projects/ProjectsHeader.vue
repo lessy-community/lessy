@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import UserPopover from 'src/components/users/UserPopover'
+  import UserPopover from '@/components/users/UserPopover'
 
   export default {
     components: {

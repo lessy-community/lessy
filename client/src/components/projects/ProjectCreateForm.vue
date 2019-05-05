@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
+  import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 
   export default {
     mixins: [ErrorsHandler],

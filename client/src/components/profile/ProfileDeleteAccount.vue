@@ -33,9 +33,9 @@
 </template>
 
 <script>
-  import auth from 'src/auth'
+  import auth from '@/auth'
 
-  import SudoModal from 'src/components/general/SudoModal'
+  import SudoModal from '@/components/general/SudoModal'
 
   export default {
     components: {

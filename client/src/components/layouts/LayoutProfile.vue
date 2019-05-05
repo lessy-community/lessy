@@ -23,8 +23,8 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import TermsOfServiceModal from 'src/components/general/TermsOfServiceModal'
-  import UserPopover from 'src/components/users/UserPopover'
+  import TermsOfServiceModal from '@/components/general/TermsOfServiceModal'
+  import UserPopover from '@/components/users/UserPopover'
 
   export default {
     components: {

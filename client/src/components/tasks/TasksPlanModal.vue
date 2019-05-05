@@ -29,7 +29,7 @@
 
   import { mapGetters } from 'vuex'
 
-  import TaskCreateForm from 'src/components/tasks/TaskCreateForm'
+  import TaskCreateForm from '@/components/tasks/TaskCreateForm'
   import TaskSelectList from './TaskSelectList'
 
   export default {

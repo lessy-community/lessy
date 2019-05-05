@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import LyButton from 'src/components/Ly/LyButton'
+  import LyButton from '@/components/Ly/LyButton'
 
   export default {
     props: {

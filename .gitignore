@@ -25,3 +25,5 @@ public/index.html
 public/static
 
 /vendor
+
+client/spec/coverage/

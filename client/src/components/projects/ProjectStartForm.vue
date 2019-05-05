@@ -25,7 +25,7 @@
 
 <script>
   import moment from 'moment'
-  import ErrorsHandler from 'src/components/mixins/ErrorsHandler'
+  import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 
   export default {
     mixins: [ErrorsHandler],

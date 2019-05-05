@@ -39,7 +39,7 @@ group :development, :test do
   gem 'byebug', '~> 10.0', platform: :mri
   gem 'factory_bot_rails', '~> 4.8'
   gem 'faker', '~> 1.8'
-  gem 'json_matchers', '~> 0.7'
+  gem 'json_matchers', '= 0.9'
   gem 'rspec-rails', '~> 3.6'
   gem 'rubocop', '~> 0.52', require: false
   gem 'shoulda-matchers', '~> 3.1'

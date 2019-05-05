@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :terms_of_service do
-    content 'ToS content'
+    content { 'ToS content' }
     sequence(:version) { |i| "2018-#{i}" }
     effective_at { 1.day.ago }
 

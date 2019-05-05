@@ -18,7 +18,7 @@ FactoryBot.define do
     end
 
     trait :not_accepted_tos do
-      terms_of_service nil
+      terms_of_service { nil }
     end
   end
 end

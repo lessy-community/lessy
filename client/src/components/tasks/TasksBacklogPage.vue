@@ -16,9 +16,9 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
+  import ResourcesLoader from '@/components/mixins/ResourcesLoader'
 
-  import UserPopover from 'src/components/users/UserPopover'
+  import UserPopover from '@/components/users/UserPopover'
 
   import TaskCreateForm from './TaskCreateForm'
   import TaskList from './TaskList'

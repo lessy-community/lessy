@@ -1,4 +1,4 @@
-import api from 'src/api/features'
+import api from '@/api/features'
 
 const state = {
   enabled: [],

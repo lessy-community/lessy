@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import ProjectCreateForm from 'src/components/projects/ProjectCreateForm'
+  import ProjectCreateForm from '@/components/projects/ProjectCreateForm'
 
   export default {
     props: {
