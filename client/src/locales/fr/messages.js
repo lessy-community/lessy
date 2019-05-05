@@ -298,8 +298,6 @@ export default {
     },
 
     header: {
-      inbox: 'Boîte d’entrée',
-      project: 'Projet',
       title: 'Projets',
     },
 
@@ -370,6 +368,7 @@ export default {
 
     backlogPage: {
       tasksNumber: '0 tâche en file d’attente | 1 tâche en file d’attente | {count} tâches en file d’attente',
+      title: 'Tâches',
     },
 
     createForm: {
@@ -402,11 +401,6 @@ export default {
 
     list: {
       empty: 'Aucune tâche ici…',
-    },
-
-    header: {
-      backlog: 'Liste d’attente',
-      title: 'Tâches',
     },
 
     modals: {

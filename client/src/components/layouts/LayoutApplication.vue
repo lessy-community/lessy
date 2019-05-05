@@ -57,20 +57,6 @@
         color: $ly-color-grey-90;
       }
     }
-
-    .app-header-link {
-      color: $ly-color-white;
-
-      opacity: .7;
-      transition: opacity .2s ease-in-out;
-
-      &:hover {
-        opacity: 1;
-      }
-      &.active {
-        opacity: 1;
-      }
-    }
   }
 
   @media(max-width: $small-screen-width) {

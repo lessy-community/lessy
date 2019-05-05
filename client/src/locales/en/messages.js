@@ -303,8 +303,6 @@ export default {
     },
 
     header: {
-      inbox: 'Inbox',
-      project: 'Project',
       title: 'Projects',
     },
 
@@ -375,6 +373,7 @@ export default {
 
     backlogPage: {
       tasksNumber: '{count} task in backlog | {count} tasks in backlog',
+      title: 'Tasks',
     },
 
     createForm: {
@@ -407,11 +406,6 @@ export default {
 
     list: {
       empty: 'There are no tasks here…',
-    },
-
-    header: {
-      backlog: 'Backlog',
-      title: 'Tasks',
     },
 
     modals: {

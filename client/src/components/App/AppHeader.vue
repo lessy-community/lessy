@@ -6,12 +6,7 @@
       </router-link>
       <h1 v-if="title" class="app-header-title">{{ title }}</h1>
 
-      <nav v-if="$slots.navigation" class="app-header-nav">
-        <div class="app-header-nav-container">
-          <slot name="navigation"></slot>
-        </div>
-      </nav>
-      <div v-else class="app-header-separator"></div>
+      <div class="app-header-separator"></div>
 
       <div v-if="$slots.right" class="app-header-right">
         <div class="app-header-right-container">
@@ -64,10 +59,6 @@
         max-width: none;
       }
 
-      > .app-header-nav {
-        flex-shrink: 1;
-        flex-grow: 1;
-      }
       > .app-header-separator {
         flex-grow: 1;
       }
@@ -78,7 +69,6 @@
 
     .app-header-brand,
     .app-header-title,
-    .app-header-nav,
     .app-header-right {
       display: flex;
 
@@ -103,11 +93,6 @@
       text-transform: uppercase;
     }
 
-    .app-header-nav {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-
     .app-header-right {
       margin-top: -1rem;
       margin-bottom: -1rem;
@@ -130,14 +115,6 @@
     .app-header {
       padding-left: 1rem;
       padding-right: 1rem;
-
-      .app-header-nav {
-        padding-left: 0;
-        padding-right: 0;
-
-        white-space: nowrap;
-        overflow-x: auto;
-      }
 
       .app-header-title,
       .app-header-right {

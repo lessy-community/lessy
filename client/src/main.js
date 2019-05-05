@@ -15,7 +15,6 @@ import LyTextContainer from './components/Ly/LyTextContainer'
 
 import App from './components/App/App'
 import AppHeader from './components/App/AppHeader'
-import AppHeaderLink from './components/App/AppHeaderLink'
 import AppLayout from './components/App/AppLayout'
 import AppPage from './components/App/AppPage'
 import AppMenu from './components/App/AppMenu'
@@ -40,7 +39,6 @@ Vue.use(VTooltip)
 
 // register global components
 Vue.component('app-header', AppHeader)
-Vue.component('app-header-link', AppHeaderLink)
 Vue.component('app-layout', AppLayout)
 Vue.component('app-page', AppPage)
 Vue.component('app-menu', AppMenu)

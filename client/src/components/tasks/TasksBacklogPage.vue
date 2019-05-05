@@ -1,6 +1,9 @@
 <template>
   <app-page v-if="resourcesReady" name="tasks-backlog" layout="application">
-    <tasks-header slot="header"></tasks-header>
+    <app-header :title="$t('tasks.backlogPage.title')" fluid slot="header">
+      <user-popover slot="right">
+      </user-popover>
+    </app-header>
 
     <ly-section :title="$tc('tasks.backlogPage.tasksNumber', tasks.length, { count: tasks.length })">
       <task-create-form :show-warning="tasks.length > 30"></task-create-form>
@@ -15,7 +18,8 @@
 
   import ResourcesLoader from 'src/components/mixins/ResourcesLoader'
 
-  import TasksHeader from './TasksHeader'
+  import UserPopover from 'src/components/users/UserPopover'
+
   import TaskCreateForm from './TaskCreateForm'
   import TaskList from './TaskList'
 
@@ -23,7 +27,7 @@
     mixins: [ResourcesLoader],
 
     components: {
-      TasksHeader,
+      UserPopover,
       TaskCreateForm,
       TaskList,
     },

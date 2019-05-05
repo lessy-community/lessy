@@ -50,15 +50,15 @@ const routes = [
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, iTitle: 'dashboard.page.title' } },
 
   { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
-  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, iTitle: 'tasks.header.backlog' } },
+  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, iTitle: 'tasks.backlogPage.title' } },
 
   { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
-  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { iTitle: 'projects.header.inbox' } },
+  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { iTitle: 'projects.header.title' } },
   { path: '/projects/:projectSlug',
     component: ProjectContainer,
     children: [
-      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, iTitle: 'projects.header.project' } },
-      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, iTitle: 'projects.header.project' } },
+      { path: '', component: ProjectShowPage, name: 'project/show', meta: { restrictForAuth: true, iTitle: 'projects.header.title' } },
+      { path: 'edit', component: ProjectEditPage, name: 'project/edit', meta: { restrictForAuth: true, iTitle: 'projects.header.title' } },
     ],
     props: true,
   },
