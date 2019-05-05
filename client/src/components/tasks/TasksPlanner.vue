@@ -26,6 +26,7 @@
 
           <ly-list-item
             v-for="i in nbPlaceholders"
+            :key="i"
             class="text-secondary"
           >
             {{ $tc(`tasks.planner.importantTaskPlaceholder.${i - 1}`, tasksTotalCount) }}

@@ -2,6 +2,9 @@ module.exports = {
   env: {
     es6: true
   },
+  globals: {
+    "require": "readonly",
+  },
   root: true,
   parser: 'babel-eslint',
   parserOptions: {

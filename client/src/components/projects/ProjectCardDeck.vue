@@ -5,7 +5,7 @@
       :key="project.id"
       :project="project"
     ></project-card>
-    <ly-card v-for="i in (3 - projects.length)" type="placeholder">
+    <ly-card v-for="i in (3 - projects.length)" :key="i" type="placeholder">
       <p>{{ $t('projects.cardDeck.empty') }}</p>
       <ly-button
         size="small"

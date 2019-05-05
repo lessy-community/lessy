@@ -33,6 +33,7 @@
       <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
         <ly-list-group
           v-for="(projects, firstCharacter) in futureProjects"
+          :key="firstCharacter"
           :name="firstCharacter"
         >
           <project-item
