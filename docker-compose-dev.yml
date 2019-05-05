@@ -16,7 +16,8 @@ services:
       - "5000:5000"
     volumes:
       - .:/app:z
-      - /app/client/node_modules
+      - bundle:/usr/local/bundle
+      - node_modules:/app/client/node_modules
     environment:
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
@@ -31,3 +32,7 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+
+volumes:
+  bundle: {}
+  node_modules: {}

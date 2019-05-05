@@ -20,12 +20,13 @@ documentation](https://docs.docker.com/compose/install/) to install it.
 
 ## TL;DR
 
-Here are the two commands you need to know to start the application:
+Here are the commands you need to know to configure the application:
 
 ```console
-$ make build     # create Docker image
+$ make build     # create the Docker image
+$ make install   # install the dependencies
 $ make db-setup  # set up the database
-$ make run       # starts the application
+$ make run       # starts the application, this is the only one to execute the next time
 ```
 
 Then, go to http://localhost:5000, default credentials are `dalecooper` / `secret`.
@@ -65,14 +66,30 @@ executing:
 $ docker-compose -f docker-compose-dev.yml up --build
 ```
 
-And tadaaa! You can access Lessy on http://localhost:5000 (please note the
-backend is running on port 3000). You can then stop docker-compose with
+And tadaaa! You can (try to) access Lessy on http://localhost:5000 (please note
+the backend is running on port 3000). You can then stop docker-compose with
 `ctrl+c` or:
 
 ```console
 $ docker-compose -f docker-compose-dev.yml stop  # stops containers but don't remove them
 $ docker-compose -f docker-compose-dev.yml down  # stops and remove containers
 ```
+
+## Install application dependencies
+
+The Docker image is built but not correctly installed yet. We need to install
+the direct dependencies of Lessy then. We'll continue to use docker-compose to
+do so:
+
+```console
+$ # This is for the backend
+$ docker-compose -f docker-compose-dev.yml run --rm --no-deps lessy bundle install
+$ # And this is for the frontend
+$ docker-compose -f docker-compose-dev.yml run --rm --no-deps -w /app/client lessy npm install
+```
+
+The dependencies paths are mounted as Docker volumes (see the `volumes` section
+of the docker-compose file).
 
 ## Setup database
 
@@ -87,12 +104,14 @@ $ docker-compose -f docker-compose-dev.yml run --rm lessy bundle exec rails db:s
 
 You may think:
 
-> Wow! Really? What's this messy command?
+> Wow! Really? What's these messy commands?
 
 and you might be right. That's why we have a `Makefile` to hide complexity of
 very common commands. You can simply execute:
 
 ```console
+$ make install
+$ # and
 $ make db-setup
 ```
 

@@ -19,15 +19,10 @@ RUN apk --update add --virtual build-dependencies \
       cmake \
       gmp-dev
 
-COPY Gemfile Gemfile.lock /app/
-RUN gem install bundler \
-  && bundle install \
-  && apk del build-dependencies
+RUN gem install bundler
 
+COPY Gemfile Gemfile.lock /app/
 COPY client/package.json client/package-lock.json /app/client/
-RUN cd /app/client \
-  && npm install \
-  && npm cache clean --force
 
 VOLUME /app
 

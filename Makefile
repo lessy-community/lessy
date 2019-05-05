@@ -9,6 +9,10 @@ build:  ## Build Docker image
 db-setup:  ## Initialize development database
 	docker-compose -f docker-compose-dev.yml run --rm lessy bundle exec rails db:setup
 
+install:  ## Install dependencies
+	docker-compose -f docker-compose-dev.yml run --rm --no-deps lessy bundle install
+	docker-compose -f docker-compose-dev.yml run --rm --no-deps -w /app/client lessy npm install
+
 stop:  ## Stop development environment
 	docker-compose -f docker-compose-dev.yml stop
 
@@ -26,4 +30,4 @@ test: test-back test-front
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: run build db-setup stop clean test test-back test-front help
+.PHONY: run build install update db-setup stop clean test test-back test-front help
