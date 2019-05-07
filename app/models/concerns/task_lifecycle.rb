@@ -25,6 +25,7 @@ module TaskLifecycle
 
       # canceled transitions
       transition :replan, from: :finished, to: :planned
+      transition :unplan, from: :planned, to: :started
       transition :cancel, from: [:planned, :started], to: :newed
 
       # abandon
@@ -50,6 +51,11 @@ module TaskLifecycle
       params[:started_at] = DateTime.now if self.started_at.nil?
       params[:planned_at] = DateTime.now
       params[:planned_count] = self.planned_count + 1
+      params
+    end
+
+    def on_unplan(params)
+      params[:planned_at] = nil
       params
     end
 

@@ -402,6 +402,7 @@ export default {
       markAsDone: 'Mark as done',
       markAsUndone: 'Mark as undone',
       transformInProject: 'Transform into a project',
+      unplan: 'Unplan',
     },
 
     list: {

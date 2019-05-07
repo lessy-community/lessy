@@ -397,6 +397,7 @@ export default {
       markAsDone: 'Marquer comme effectuée',
       markAsUndone: 'Marquer comme à faire',
       transformInProject: 'Transformer en projet',
+      unplan: 'Annuler la planification',
     },
 
     list: {

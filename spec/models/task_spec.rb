@@ -197,9 +197,12 @@ RSpec.describe Task, type: :model do
         state: 'started',
       } }
 
-      it 'fails' do
-        expect { subject }
-          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'planned' to 'started'/)
+      it 'sets task state to started' do
+        expect(subject.reload.state).to eq('started')
+      end
+
+      it 'sets planned_at attribute to nil' do
+        expect(subject.reload.planned_at).to be_nil
       end
     end
 
