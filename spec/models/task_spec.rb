@@ -12,7 +12,14 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'create!' do
-    subject { Task.create! label: 'a task', state: 'planned', planned_count: 0, planned_at: DateTime.new(2017), user: user }
+    subject do
+      Task.create! label: 'a task',
+                   state: 'planned',
+                   planned_count: 0,
+                   started_at: DateTime.new(2016),
+                   planned_at: DateTime.new(2017),
+                   user: user
+    end
 
     it 'sets planned_count to 1 if planned_at is set' do
       expect(subject.planned_count).to eq 1
@@ -91,6 +98,11 @@ RSpec.describe Task, type: :model do
 
       it 'requires planned_at' do
         task.planned_at = nil
+        expect(task).to be_invalid
+      end
+
+      it 'requires started_at' do
+        task.started_at = nil
         expect(task).to be_invalid
       end
 
@@ -185,9 +197,12 @@ RSpec.describe Task, type: :model do
         state: 'started',
       } }
 
-      it 'fails' do
-        expect { subject }
-          .to raise_error(Task::InvalidTransition, /Task cannot transition from 'planned' to 'started'/)
+      it 'sets task state to started' do
+        expect(subject.reload.state).to eq('started')
+      end
+
+      it 'sets planned_at attribute to nil' do
+        expect(subject.reload.planned_at).to be_nil
       end
     end
 

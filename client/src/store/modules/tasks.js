@@ -183,6 +183,11 @@ const actions = {
                    .then((res) => commit('set', res.data))
   },
 
+  unplan ({ commit }, { task }) {
+    return tasksApi.unplan(task)
+                   .then((res) => commit('set', res.data))
+  },
+
   abandon ({ commit }, { task }) {
     return tasksApi.abandon(task)
                    .then((res) => commit('set', res.data))

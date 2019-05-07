@@ -25,6 +25,7 @@ module TaskLifecycle
 
       # canceled transitions
       transition :replan, from: :finished, to: :planned
+      transition :unplan, from: :planned, to: :started
       transition :cancel, from: [:planned, :started], to: :newed
 
       # abandon
@@ -47,8 +48,14 @@ module TaskLifecycle
 
     def on_replan(params)
       params[:finished_at] = nil
+      params[:started_at] = DateTime.now if self.started_at.nil?
       params[:planned_at] = DateTime.now
       params[:planned_count] = self.planned_count + 1
+      params
+    end
+
+    def on_unplan(params)
+      params[:planned_at] = nil
       params
     end
 
@@ -85,6 +92,7 @@ module TaskLifecycle
     end
 
     def planned_task_is_valid
+      errors.add :started_at, :must_be_set, message: 'must be set when task is planned' if started_at.nil?
       errors.add :planned_at, :must_be_set, message: 'must be set when task is planned' if planned_at.nil?
       errors.add :finished_at, :cannot_be_set, message: 'cannot be set when task is planned' if finished_at.present?
       errors.add :abandoned_at, :cannot_be_set, message: 'cannot be set when task is planned' if abandoned_at.present?

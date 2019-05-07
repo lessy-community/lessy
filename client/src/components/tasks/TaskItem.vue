@@ -37,6 +37,7 @@
 
       <template slot="menu">
         <ly-popover-item @click="() => { this.editMode = true }">{{ $t('tasks.item.edit') }}</ly-popover-item>
+        <ly-popover-item v-if="task.isForToday" @click="unplan">{{ $t('tasks.item.unplan') }}</ly-popover-item>
         <ly-popover-item @click="activeModal = 'abandon'">{{ $t('tasks.item.abandon') }}</ly-popover-item>
         <ly-popover-separator></ly-popover-separator>
         <ly-popover-item @click="activeModal = 'attach'">{{ $t('tasks.item.attachToProject') }}</ly-popover-item>
@@ -111,6 +112,10 @@
         } else {
           this.$store.dispatch('tasks/finish', { task })
         }
+      },
+
+      unplan () {
+        this.$store.dispatch('tasks/unplan', { task: this.task })
       },
     },
   }

@@ -396,10 +396,10 @@ State follow this state's machine:
 ```ascii
 +------------------------------------------------------------------------------+
 |                                              plan          replan            |
-|           +--------------------------------------------+  +-----+            |
-|           |                                            |  |     |            |
-|  +--------+---+    start    +------------+   plan    +-v--+-----v-+          |
-|  | newed      +-------------> started    +-----------> planned    +-+        |
+|           +-----------------------+--------------------+  +-----+            |
+|           |                       |                    |  |     |            |
+|  +--------+---+    start    +-----+------+  unplan   +-v--+-----v-+          |
+|  | newed      +-------------> started    <-----------+ planned    +-+        |
 |  +--------^---+             +-----+------+           +----+----^--+ |        |
 |           |                       |                       |    |    |        |
 |           +-----------------------+-----------------------+    |    |finish  |
@@ -419,6 +419,7 @@ Also, following rules apply:
 - `planned_at` is set to now and `planned_count` is incremented by one on
   `plan` and `replan` actions
 - `finished_at` is set to nil on `replan` and to now on `finish`
+- `planned_at` is set to nil on `unplan`
 - `started_at` and `planned_at` are set to nil on `cancel`
 - `abandoned_at` is set to now on `abandon` action
 

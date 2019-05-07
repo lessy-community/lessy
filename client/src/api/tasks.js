@@ -29,6 +29,12 @@ export default {
     })
   },
 
+  unplan (task) {
+    return put(`/api/tasks/${task.id}/state`, {
+      state: 'started',
+    })
+  },
+
   abandon (task) {
     return put(`/api/tasks/${task.id}/state`, {
       state: 'abandoned',

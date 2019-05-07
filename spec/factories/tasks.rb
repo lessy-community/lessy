@@ -22,6 +22,7 @@ FactoryBot.define do
 
     trait :planned do
       state { 'planned' }
+      started_at { 15.days.ago }
       planned_at { 15.days.from_now }
       finished_at { nil }
       abandoned_at { nil }
