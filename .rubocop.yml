@@ -23,11 +23,22 @@ Rails/DynamicFindBy:
     - find_by_identifier!
     - find_by_sorcery_token!
 
+# This is bad but should be fixed with https://github.com/lessy-community/lessy/issues/84
+Rails/TimeZone:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 
+# This is bad but should be fixed with https://github.com/lessy-community/lessy/issues/84
+Style/DateTime:
+  Enabled: false
+
 Style/EmptyMethod:
   EnforcedStyle: expanded
+
+Style/RedundantSelf:
+  Enabled: false
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
