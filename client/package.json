@@ -21,7 +21,6 @@
     "sanitize-html": "^1.20.1",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
-    "vue-chartjs": "^2.8.7",
     "vue-i18n": "^8.11.2",
     "vue-router": "^2.8.1",
     "vuedraggable": "^2.20.0",

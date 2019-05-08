@@ -5,9 +5,10 @@ export default {
       createdTasks: 'tâches créées',
       finishedTasks: 'tâches terminées',
       projectsInProgress: 'Projets en cours',
+      noTasks: 'Il n’y a aucune tâche à afficher…',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
-      statsChart: 'Statistiques des tâches',
+      tasksHistory: 'Historique des tâches',
       title: 'Tableau de bord',
     },
   },
@@ -369,6 +370,11 @@ export default {
     backlogPage: {
       tasksNumber: '0 tâche en file d’attente | 1 tâche en file d’attente | {count} tâches en file d’attente',
       title: 'Tâches',
+    },
+
+    chart: {
+      created: 'tâches créées',
+      finished: 'tâches terminées',
     },
 
     createForm: {

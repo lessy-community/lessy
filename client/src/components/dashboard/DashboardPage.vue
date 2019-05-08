@@ -24,8 +24,38 @@
       <project-card-deck :projects="projects"></project-card-deck>
     </ly-section>
 
-    <ly-section :title="$t('dashboard.page.statsChart')">
-      <line-chart :data="chartData()"></line-chart>
+    <ly-section :title="$t('dashboard.page.tasksHistory')">
+      <tasks-chart
+        :days="days()"
+        :createdByDays="createdTasksByDays"
+        :finishedByDays="finishedTasksByDays"
+        :selected="selectedDay"
+        @select="(day) => this.selectedDay = day"
+      ></tasks-chart>
+
+      <div v-if="noSelectedTasks" class="list-tasks-placeholder">
+        {{ $t('dashboard.page.noTasks') }}
+      </div>
+      <ly-columns v-else bordered>
+        <ly-column>
+          <task-list
+            :tasks="createdTasksForSelectedDay"
+            nopopover
+            nodraggable
+            notoggle
+            hideProjectBadge
+          />
+        </ly-column>
+        <ly-column>
+          <task-list
+            :tasks="finishedTasksForSelectedDay"
+            nopopover
+            nodraggable
+            notoggle
+            hideProjectBadge
+          />
+        </ly-column>
+      </ly-columns>
     </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
@@ -34,7 +64,6 @@
 <script>
   import initialMoment from 'moment'
   import { extendMoment } from 'moment-range'
-  const moment = extendMoment(initialMoment)
 
   import { mapGetters } from 'vuex'
 
@@ -42,21 +71,24 @@
 
   import UserPopover from '@/components/users/UserPopover'
   import ProjectCardDeck from '@/components/projects/ProjectCardDeck'
+  import TaskList from '@/components/tasks/TaskList'
+  import TasksChart from '@/components/tasks/TasksChart'
 
-  import LineChart from './LineChart'
+  const moment = extendMoment(initialMoment)
 
   export default {
     mixins: [ResourcesLoader],
 
     components: {
       UserPopover,
-      LineChart,
+      TasksChart,
+      TaskList,
       ProjectCardDeck,
     },
 
     data () {
       return {
-        plannedAt: moment().endOf('day'),
+        selectedDay: moment(),
         activationEmailResent: false,
       }
     },
@@ -65,9 +97,23 @@
       ...mapGetters({
         user: 'users/current',
         projects: 'projects/listInProgress',
-        countFinishedTasksByDays: 'tasks/countFinishedByDays',
-        countCreatedTasksByDays: 'tasks/countCreatedByDays',
+        finishedTasksByDays: 'tasks/listFinishedByDays',
+        createdTasksByDays: 'tasks/listCreatedByDays',
       }),
+
+      createdTasksForSelectedDay () {
+        const key = this.selectedDay.format('YYYY-MM-DD')
+        return this.createdTasksByDays[key] || []
+      },
+
+      finishedTasksForSelectedDay () {
+        const key = this.selectedDay.format('YYYY-MM-DD')
+        return this.finishedTasksByDays[key] || []
+      },
+
+      noSelectedTasks () {
+        return this.createdTasksForSelectedDay.length === 0 && this.finishedTasksForSelectedDay.length === 0
+      },
     },
 
     methods: {
@@ -77,40 +123,23 @@
           .then(() => { this.activationEmailResent = true })
       },
 
-      chartData () {
+      days () {
         const lastWeek = moment().subtract(2, 'weeks')
         const today = moment()
         const period = moment.range(lastWeek, today)
         const days = Array.from(period.by('day'))
-
-        return {
-          labels: days.map(date => this.$d(date.toDate(), 'abbr')),
-          datasets: [
-            {
-              label: this.$t('dashboard.page.createdTasks'),
-              backgroundColor: '#0080b0',
-              borderColor: '#0080b0',
-              pointBorderColor: '#fff',
-              pointRadius: 6,
-              pointBorderWidth: 3,
-              fill: false,
-              lineTension: 0,
-              data: days.map(date => this.countCreatedTasksByDays[date.format('YYYY-MM-DD')] || 0),
-            },
-            {
-              label: this.$t('dashboard.page.finishedTasks'),
-              backgroundColor: '#5cb860',
-              borderColor: '#5cb860',
-              pointBorderColor: '#fff',
-              pointRadius: 6,
-              pointBorderWidth: 3,
-              fill: false,
-              lineTension: 0,
-              data: days.map(date => this.countFinishedTasksByDays[date.format('YYYY-MM-DD')] || 0),
-            },
-          ],
-        }
+        return days
       },
     },
   }
 </script>
+
+<style lang="scss">
+  .app-page-dashboard .tasks-chart {
+    margin-bottom: 4rem;
+  }
+  .app-page-dashboard .list-tasks-placeholder {
+    color: $ly-color-grey-50;
+    text-align: center;
+  }
+</style>

@@ -26,7 +26,7 @@
       {{ task.isFinished ? $t('tasks.item.markAsUndone') : $t('tasks.item.markAsDone') }}
     </ly-button>
 
-    <ly-popover>
+    <ly-popover v-if="!this.nopopover">
       <ly-button
         slot="toggle"
         :disabled="task.isFinished"
@@ -77,6 +77,7 @@
   export default {
     props: {
       task: { type: Object, required: true },
+      nopopover: { type: Boolean },
       notoggle: { type: Boolean },
       nohandle: { type: Boolean },
       hideProjectBadge: { type: Boolean },

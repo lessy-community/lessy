@@ -10,6 +10,7 @@
       v-for="task in tasks"
       :key="task.id"
       :task="task"
+      :nopopover="nopopover"
       :notoggle="notoggle"
       :nohandle="nodraggable"
       :hide-project-badge="hideProjectBadge"
@@ -23,6 +24,7 @@
   export default {
     props: {
       'tasks': { type: Array },
+      'nopopover': { type: Boolean },
       'nodraggable': { type: Boolean },
       'notoggle': { type: Boolean },
       'hideProjectBadge': { type: Boolean },

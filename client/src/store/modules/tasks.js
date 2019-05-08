@@ -112,22 +112,28 @@ const getters = {
       .sort((t1, t2) => t1.finishedAt - t2.finishedAt)
   },
 
-  countFinishedByDays (state, getters) {
+  listFinishedByDays (state, getters) {
     const byDays = {}
     getters.listFinished.forEach((task) => {
       const finishedAt = moment.unix(task.finishedAt)
       const key = finishedAt.format('YYYY-MM-DD')
-      byDays[key] = (byDays[key] || 0) + 1
+      if (byDays[key] == null) {
+        byDays[key] = []
+      }
+      byDays[key].push(task)
     })
     return byDays
   },
 
-  countCreatedByDays (state, getters) {
+  listCreatedByDays (state, getters) {
     const byDays = {}
     getters.list.forEach((task) => {
       const startedAt = moment.unix(task.startedAt)
       const key = startedAt.format('YYYY-MM-DD')
-      byDays[key] = (byDays[key] || 0) + 1
+      if (byDays[key] == null) {
+        byDays[key] = []
+      }
+      byDays[key].push(task)
     })
     return byDays
   },
