@@ -444,7 +444,6 @@ export default {
       additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
       allFinished: 'You’ve finished all your tasks, well done!',
       empty: 'You did not plan any tasks yet.',
-      finishDay: 'Finish your day',
       firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
       importantTaskPlaceholder: [
         'Plan the second most important task of your day… | Plan the third most important task of your day.',
@@ -460,6 +459,7 @@ export default {
   today: {
     page: {
       dayCompleted: 'You’re all done, have a nice evening!',
+      finishDay: 'Finish your day',
       title: 'Today',
     },
   },

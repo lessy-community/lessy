@@ -439,7 +439,6 @@ export default {
       additionalMostImportantTask: 'Il doit s’agir de l’une des tâches les plus importantes à réaliser pour vous aujourd’hui.',
       allFinished: 'Vous avez terminé toutes vos tâches, bien joué !',
       empty: 'Vous n’avez pas encore planifié de tâche.',
-      finishDay: 'Terminer votre journée',
       firstMostImportantTask: 'Il doit s’agir de la tâche la plus importante à réaliser pour vous aujourd’hui, choisissez-là avec soin.',
       importantTaskPlaceholder: [
         'Planifiez la seconde tâche la plus importante de votre journée… | Planifiez la troisième tâche la plus importante de votre journée.',
@@ -455,6 +454,7 @@ export default {
   today: {
     page: {
       dayCompleted: 'Votre journée est terminée, passez une bonne soirée !',
+      finishDay: 'Terminer votre journée',
       title: 'Aujourd’hui',
     },
   },

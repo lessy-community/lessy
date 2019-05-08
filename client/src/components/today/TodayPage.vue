@@ -10,6 +10,17 @@
       </user-popover>
     </app-header>
 
+    <div v-if="!dayCompleted && endOfDay" class="complete-day">
+      <ly-button
+        type="primary"
+        icon="check"
+        size="large"
+        @click="activeModal = 'finishDay'"
+      >
+        {{ $t('today.page.finishDay') }}
+      </ly-button>
+    </div>
+
     <div v-if="dayCompleted" class="day-completed">
       <ly-icon name="star" size="large"></ly-icon>
 
@@ -21,9 +32,16 @@
       v-else
       :todoTasks="todoTasks"
       :finishedTasks="finishedTasks"
-      :showEndOfDayButton="endOfDay"
-      @completed="completeDay"
     ></tasks-planner>
+
+    <tasks-complete-day-modal
+      v-if="activeModal === 'finishDay'"
+      :unfinishedCount="todoTasks.length"
+      :finishedCount="finishedTasks.length"
+      @complete="completeDay"
+      @close="activeModal = null"
+    >
+    </tasks-complete-day-modal>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -37,6 +55,7 @@
 
   import UserPopover from '@/components/users/UserPopover'
   import TasksPlanner from '@/components/tasks/TasksPlanner'
+  import TasksCompleteDayModal from '@/components/tasks/TasksCompleteDayModal'
 
   export default {
     mixins: [ResourcesLoader],
@@ -44,10 +63,12 @@
     components: {
       UserPopover,
       TasksPlanner,
+      TasksCompleteDayModal,
     },
 
     data () {
       return {
+        activeModal: null,
         dayCompleted: this.isDayCompleted(),
         endOfDay: this.isEndOfDay(),
       }
@@ -78,6 +99,7 @@
       },
 
       completeDay () {
+        this.activeModal = null
         this.dayCompleted = true
         const today = moment().startOf('day').format('YYYY-MM-DD')
         window.localStorage.setItem('last_day_completed', today)
@@ -115,5 +137,12 @@
     > .text-secondary {
       margin-top: 1.5rem;
     }
+  }
+
+  .app-page-today .complete-day {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    text-align: center;
   }
 </style>

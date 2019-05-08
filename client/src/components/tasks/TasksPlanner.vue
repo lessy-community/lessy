@@ -34,15 +34,6 @@
         </ly-list>
 
         <ly-button
-          v-if="showEndOfDayButton"
-          type="primary"
-          icon="check"
-          @click="activeModal = 'finishDay'"
-        >
-          {{ $t('tasks.planner.finishDay') }}
-        </ly-button>
-
-        <ly-button
           :type="planButtonType"
           icon="calendar-plus-o"
           @click="activeModal = 'plan'"
@@ -69,34 +60,22 @@
       @close="activeModal = null"
     >
     </tasks-plan-modal>
-
-    <tasks-complete-day-modal
-      v-if="activeModal === 'finishDay'"
-      :unfinishedCount="todoTasks.length"
-      :finishedCount="finishedTasks.length"
-      @complete="completeDay"
-      @close="activeModal = null"
-    >
-    </tasks-complete-day-modal>
   </div>
 </template>
 
 <script>
   import TaskItem from './TaskItem'
   import TasksPlanModal from './TasksPlanModal'
-  import TasksCompleteDayModal from './TasksCompleteDayModal'
 
   export default {
     props: {
       todoTasks: { type: Array },
       finishedTasks: { type: Array },
-      showEndOfDayButton: { type: Boolean },
     },
 
     components: {
       TaskItem,
       TasksPlanModal,
-      TasksCompleteDayModal,
     },
 
     data () {
@@ -115,9 +94,6 @@
       },
 
       planButtonType () {
-        if (this.showEndOfDayButton) {
-          return 'ghost'
-        }
         return [0, 1, 2].includes(this.tasksTotalCount) ? 'primary' : 'default'
       },
 
@@ -131,13 +107,6 @@
           default:
             return this.$t('tasks.planner.additionalTask')
         }
-      },
-    },
-
-    methods: {
-      completeDay () {
-        this.$emit('completed')
-        this.activeModal = null
       },
     },
   }
