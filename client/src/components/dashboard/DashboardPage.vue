@@ -30,7 +30,32 @@
         :createdByDays="createdTasksByDays"
         :finishedByDays="finishedTasksByDays"
         :selected="selectedDay"
+        @select="(day) => this.selectedDay = day"
       ></tasks-chart>
+
+      <div v-if="noSelectedTasks" class="list-tasks-placeholder">
+        {{ $t('dashboard.page.noTasks') }}
+      </div>
+      <ly-columns v-else bordered>
+        <ly-column>
+          <task-list
+            :tasks="createdTasksForSelectedDay"
+            nopopover
+            nodraggable
+            notoggle
+            hideProjectBadge
+          />
+        </ly-column>
+        <ly-column>
+          <task-list
+            :tasks="finishedTasksForSelectedDay"
+            nopopover
+            nodraggable
+            notoggle
+            hideProjectBadge
+          />
+        </ly-column>
+      </ly-columns>
     </ly-section>
   </app-page>
   <loading-page v-else></loading-page>
@@ -46,6 +71,7 @@
 
   import UserPopover from '@/components/users/UserPopover'
   import ProjectCardDeck from '@/components/projects/ProjectCardDeck'
+  import TaskList from '@/components/tasks/TaskList'
   import TasksChart from '@/components/tasks/TasksChart'
 
   const moment = extendMoment(initialMoment)
@@ -56,6 +82,7 @@
     components: {
       UserPopover,
       TasksChart,
+      TaskList,
       ProjectCardDeck,
     },
 
@@ -73,6 +100,20 @@
         finishedTasksByDays: 'tasks/listFinishedByDays',
         createdTasksByDays: 'tasks/listCreatedByDays',
       }),
+
+      createdTasksForSelectedDay () {
+        const key = this.selectedDay.format('YYYY-MM-DD')
+        return this.createdTasksByDays[key] || []
+      },
+
+      finishedTasksForSelectedDay () {
+        const key = this.selectedDay.format('YYYY-MM-DD')
+        return this.finishedTasksByDays[key] || []
+      },
+
+      noSelectedTasks () {
+        return this.createdTasksForSelectedDay.length === 0 && this.finishedTasksForSelectedDay.length === 0
+      },
     },
 
     methods: {
@@ -92,3 +133,13 @@
     },
   }
 </script>
+
+<style lang="scss">
+  .app-page-dashboard .tasks-chart {
+    margin-bottom: 4rem;
+  }
+  .app-page-dashboard .list-tasks-placeholder {
+    color: $ly-color-grey-50;
+    text-align: center;
+  }
+</style>

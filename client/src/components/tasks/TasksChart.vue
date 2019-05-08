@@ -19,7 +19,12 @@
         </div>
 
         <div class="tasks-chart-label-day">
-          {{ day.label }}
+          <a v-if="!day.selected" href="#" @click.prevent="$emit('select', day.moment)">
+            {{ day.label }}
+          </a>
+          <span v-else>
+            {{ day.label }}
+          </span>
         </div>
       </div>
     </div>
@@ -55,6 +60,7 @@
             nbFinished: (this.finishedByDays[key] || []).length,
             label: this.$d(day.toDate(), 'abbr'),
             selected: key === this.selected.format('YYYY-MM-DD'),
+            moment: day,
           })
         })
 

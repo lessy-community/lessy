@@ -9,6 +9,7 @@ export default {
       activationInstructions: 'We sent you an email at {email}.<br />Follow its instructions to be able to access your projects later.',
       createdTasks: 'created tasks',
       finishedTasks: 'finished tasks',
+      noTasks: 'There are no tasks to show…',
       projectsInProgress: 'Projects in progress',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',

@@ -5,6 +5,7 @@ export default {
       createdTasks: 'tâches créées',
       finishedTasks: 'tâches terminées',
       projectsInProgress: 'Projets en cours',
+      noTasks: 'Il n’y a aucune tâche à afficher…',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
       tasksHistory: 'Historique des tâches',
