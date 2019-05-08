@@ -12,7 +12,7 @@ export default {
       projectsInProgress: 'Projects in progress',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
-      statsChart: 'Tasks statistics',
+      tasksHistory: 'Tasks history',
       title: 'Dashboard',
     },
   },
@@ -374,6 +374,11 @@ export default {
     backlogPage: {
       tasksNumber: '{count} task in backlog | {count} tasks in backlog',
       title: 'Tasks',
+    },
+
+    chart: {
+      created: 'tasks created',
+      finished: 'tasks finished',
     },
 
     createForm: {
