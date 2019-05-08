@@ -135,6 +135,8 @@
       left: 0;
       right: 0;
 
+      min-height: 1.5rem;
+
       border-radius: .25rem .25rem 0 0;
     }
 
