@@ -378,6 +378,7 @@ export default {
     },
 
     completeDay: {
+      addFinishedTasks: 'Si vous avez terminé d’autres tâches durant la journée, vous pouvez les ajouter maintenant.',
       cancel: 'Continuer de travailler',
       intro: 'C’est la fin de journée, vous avez mérité de prendre un peu de repos.',
       ok: 'Terminer',

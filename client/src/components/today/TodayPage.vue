@@ -32,7 +32,7 @@
     <tasks-complete-day
       v-else-if="mode === 'completeDay'"
       :unfinishedCount="todoTasks.length"
-      :finishedCount="finishedTasks.length"
+      :finishedTasks="finishedTasks"
       @complete="completeDay"
       @cancel="mode = 'planner'"
     >

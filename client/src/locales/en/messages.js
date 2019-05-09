@@ -383,6 +383,7 @@ export default {
     },
 
     completeDay: {
+      addFinishedTasks: 'If you completed some other tasks during the day, you can add them now.',
       cancel: 'Continue to work',
       intro: 'It’s the end of the day and it’s time to get some rest.',
       ok: 'Complete',
