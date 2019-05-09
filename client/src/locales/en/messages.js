@@ -382,9 +382,23 @@ export default {
       finished: 'tasks finished',
     },
 
+    completeDay: {
+      addFinishedTasks: 'If you completed some other tasks during the day, you can add them now.',
+      cancel: 'Continue to work',
+      intro: 'It’s the end of the day and it’s time to get some rest.',
+      ok: 'Complete',
+      summary: {
+        allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
+        neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
+        nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
+        nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
+      },
+      unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
+    },
+
     createForm: {
       cancel: 'Cancel',
-      created: 'Created!',
+      created: 'Created',
       submit: 'Create',
       warningTooMany: 'You might face difficulties to achieve all your tasks if you try to do too much.',
       placeholder: 'Walk the dog',
@@ -418,19 +432,6 @@ export default {
     modals: {
       attachProjectTitle: 'Attach task to a project',
       cancel: 'Cancel',
-      completeDay: {
-        cancel: 'Continue to work',
-        intro: 'It’s the end of the day and it’s time to get some rest.',
-        ok: 'Complete',
-        summary: {
-          allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
-          neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
-          nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
-          nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
-        },
-        title: 'Complete your journey',
-        unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
-      },
       confirmAbandon: 'The task “{label}” will be marked as abandoned and will disappear from the list. Can you confirm?',
       confirmAbandonTitle: 'Abandon task',
       orPickFromBacklog: 'or pick one from your backlog',
@@ -444,7 +445,6 @@ export default {
       additionalMostImportantTask: 'This should be one of your most important tasks to achieve today.',
       allFinished: 'You’ve finished all your tasks, well done!',
       empty: 'You did not plan any tasks yet.',
-      finishDay: 'Finish your day',
       firstMostImportantTask: 'This should be your most important task to achieve today, choose it carefully.',
       importantTaskPlaceholder: [
         'Plan the second most important task of your day… | Plan the third most important task of your day.',
@@ -460,6 +460,7 @@ export default {
   today: {
     page: {
       dayCompleted: 'You’re all done, have a nice evening!',
+      finishDay: 'Finish your day',
       title: 'Today',
     },
   },

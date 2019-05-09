@@ -10,19 +10,38 @@
       </user-popover>
     </app-header>
 
-    <div v-if="dayCompleted" class="day-completed">
+    <div v-if="mode === 'planner' && this.isTaskPlanned && endOfDay" class="complete-day">
+      <ly-button
+        type="primary"
+        icon="check"
+        size="large"
+        @click="mode = 'completeDay'"
+      >
+        {{ $t('today.page.finishDay') }}
+      </ly-button>
+    </div>
+
+    <div v-if="mode === 'dayCompleted'" class="day-completed">
       <ly-icon name="star" size="large"></ly-icon>
 
       <p class="text-secondary">
         {{ $t('today.page.dayCompleted') }}
       </p>
     </div>
+
+    <tasks-complete-day
+      v-else-if="mode === 'completeDay'"
+      :unfinishedCount="todoTasks.length"
+      :finishedTasks="finishedTasks"
+      @complete="completeDay"
+      @cancel="mode = 'planner'"
+    >
+    </tasks-complete-day>
+
     <tasks-planner
-      v-else
+      v-else-if="mode === 'planner'"
       :todoTasks="todoTasks"
       :finishedTasks="finishedTasks"
-      :showEndOfDayButton="endOfDay"
-      @completed="completeDay"
     ></tasks-planner>
   </app-page>
   <loading-page v-else></loading-page>
@@ -37,6 +56,7 @@
 
   import UserPopover from '@/components/users/UserPopover'
   import TasksPlanner from '@/components/tasks/TasksPlanner'
+  import TasksCompleteDay from '@/components/tasks/TasksCompleteDay'
 
   export default {
     mixins: [ResourcesLoader],
@@ -44,11 +64,12 @@
     components: {
       UserPopover,
       TasksPlanner,
+      TasksCompleteDay,
     },
 
     data () {
       return {
-        dayCompleted: this.isDayCompleted(),
+        mode: 'planner',
         endOfDay: this.isEndOfDay(),
       }
     },
@@ -60,9 +81,16 @@
         finishedTasks: 'tasks/listFinishedToday',
       }),
 
+      isTaskPlanned () {
+        return (this.todoTasks.length + this.finishedTasks.length) > 0
+      },
+
       centered () {
-        const tasksTotalCount = this.todoTasks.length + this.finishedTasks.length
-        return this.dayCompleted || tasksTotalCount === 0
+        return (
+          this.mode === 'dayCompleted' ||
+          this.mode === 'completeDay' ||
+          (this.mode === 'planner' && !this.isTaskPlanned)
+        )
       },
     },
 
@@ -78,7 +106,7 @@
       },
 
       completeDay () {
-        this.dayCompleted = true
+        this.mode = 'dayCompleted'
         const today = moment().startOf('day').format('YYYY-MM-DD')
         window.localStorage.setItem('last_day_completed', today)
       },
@@ -115,5 +143,16 @@
     > .text-secondary {
       margin-top: 1.5rem;
     }
+  }
+
+  .app-page-today .complete-day {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    text-align: center;
+  }
+
+  .app-page-today .tasks-complete-day {
+    max-width: 30rem;
   }
 </style>
