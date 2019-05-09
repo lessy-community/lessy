@@ -1,10 +1,7 @@
 <template>
-  <ly-modal
-    :title="$t('tasks.modals.completeDay.title')"
-    @close="$emit('close')"
-  >
+  <div class="tasks-complete-day">
     <p>
-      {{ $t('tasks.modals.completeDay.intro') }}
+      {{ $t('tasks.completeDay.intro') }}
     </p>
 
     <p class="text-important">
@@ -12,16 +9,16 @@
     </p>
 
     <p v-if="this.unfinishedCount > 0" class="text-secondary">
-      {{ $t('tasks.modals.completeDay.unfinishedToBacklog') }}
+      {{ $t('tasks.completeDay.unfinishedToBacklog') }}
     </p>
 
     <ly-button icon="check" type="primary" @click="$emit('complete')">
-      {{ $t('tasks.modals.completeDay.ok') }}
+      {{ $t('tasks.completeDay.ok') }}
     </ly-button>
-    <ly-button @click="$emit('close')">
-      {{ $t('tasks.modals.completeDay.cancel') }}
+    <ly-button @click="$emit('cancel')">
+      {{ $t('tasks.completeDay.cancel') }}
     </ly-button>
-  </ly-modal>
+  </div>
 </template>
 
 <script>
@@ -34,16 +31,16 @@
     computed: {
       summary () {
         if (this.unfinishedCount === 0 && this.finishedCount === 0) {
-          return this.$t('tasks.modals.completeDay.summary.nothingPlanned')
+          return this.$t('tasks.completeDay.summary.nothingPlanned')
         }
         if (this.unfinishedCount === 0 && this.finishedCount > 0) {
-          return this.$t('tasks.modals.completeDay.summary.allDone')
+          return this.$t('tasks.completeDay.summary.allDone')
         }
         if (this.unfinishedCount > 0 && this.finishedCount === 0) {
-          return this.$t('tasks.modals.completeDay.summary.nothingDone')
+          return this.$t('tasks.completeDay.summary.nothingDone')
         }
         if (this.unfinishedCount > 0 && this.finishedCount > 0) {
-          return this.$tc('tasks.modals.completeDay.summary.neutral', this.finishedCount, {
+          return this.$tc('tasks.completeDay.summary.neutral', this.finishedCount, {
             finishedCount: this.finishedCount,
             totalCount: this.finishedCount + this.unfinishedCount,
           })

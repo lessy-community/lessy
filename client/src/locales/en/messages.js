@@ -382,6 +382,19 @@ export default {
       finished: 'tasks finished',
     },
 
+    completeDay: {
+      cancel: 'Continue to work',
+      intro: 'It’s the end of the day and it’s time to get some rest.',
+      ok: 'Complete',
+      summary: {
+        allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
+        neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
+        nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
+        nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
+      },
+      unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
+    },
+
     createForm: {
       cancel: 'Cancel',
       created: 'Created!',
@@ -418,19 +431,6 @@ export default {
     modals: {
       attachProjectTitle: 'Attach task to a project',
       cancel: 'Cancel',
-      completeDay: {
-        cancel: 'Continue to work',
-        intro: 'It’s the end of the day and it’s time to get some rest.',
-        ok: 'Complete',
-        summary: {
-          allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
-          neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
-          nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
-          nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
-        },
-        title: 'Complete your journey',
-        unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
-      },
       confirmAbandon: 'The task “{label}” will be marked as abandoned and will disappear from the list. Can you confirm?',
       confirmAbandonTitle: 'Abandon task',
       orPickFromBacklog: 'or pick one from your backlog',

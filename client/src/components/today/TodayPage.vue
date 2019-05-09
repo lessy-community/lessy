@@ -10,38 +10,39 @@
       </user-popover>
     </app-header>
 
-    <div v-if="!dayCompleted && endOfDay" class="complete-day">
+    <div v-if="mode === 'planner' && this.isTaskPlanned && endOfDay" class="complete-day">
       <ly-button
         type="primary"
         icon="check"
         size="large"
-        @click="activeModal = 'finishDay'"
+        @click="mode = 'completeDay'"
       >
         {{ $t('today.page.finishDay') }}
       </ly-button>
     </div>
 
-    <div v-if="dayCompleted" class="day-completed">
+    <div v-if="mode === 'dayCompleted'" class="day-completed">
       <ly-icon name="star" size="large"></ly-icon>
 
       <p class="text-secondary">
         {{ $t('today.page.dayCompleted') }}
       </p>
     </div>
-    <tasks-planner
-      v-else
-      :todoTasks="todoTasks"
-      :finishedTasks="finishedTasks"
-    ></tasks-planner>
 
-    <tasks-complete-day-modal
-      v-if="activeModal === 'finishDay'"
+    <tasks-complete-day
+      v-else-if="mode === 'completeDay'"
       :unfinishedCount="todoTasks.length"
       :finishedCount="finishedTasks.length"
       @complete="completeDay"
-      @close="activeModal = null"
+      @cancel="mode = 'planner'"
     >
-    </tasks-complete-day-modal>
+    </tasks-complete-day>
+
+    <tasks-planner
+      v-else-if="mode === 'planner'"
+      :todoTasks="todoTasks"
+      :finishedTasks="finishedTasks"
+    ></tasks-planner>
   </app-page>
   <loading-page v-else></loading-page>
 </template>
@@ -55,7 +56,7 @@
 
   import UserPopover from '@/components/users/UserPopover'
   import TasksPlanner from '@/components/tasks/TasksPlanner'
-  import TasksCompleteDayModal from '@/components/tasks/TasksCompleteDayModal'
+  import TasksCompleteDay from '@/components/tasks/TasksCompleteDay'
 
   export default {
     mixins: [ResourcesLoader],
@@ -63,13 +64,12 @@
     components: {
       UserPopover,
       TasksPlanner,
-      TasksCompleteDayModal,
+      TasksCompleteDay,
     },
 
     data () {
       return {
-        activeModal: null,
-        dayCompleted: this.isDayCompleted(),
+        mode: 'planner',
         endOfDay: this.isEndOfDay(),
       }
     },
@@ -81,9 +81,16 @@
         finishedTasks: 'tasks/listFinishedToday',
       }),
 
+      isTaskPlanned () {
+        return (this.todoTasks.length + this.finishedTasks.length) > 0
+      },
+
       centered () {
-        const tasksTotalCount = this.todoTasks.length + this.finishedTasks.length
-        return this.dayCompleted || tasksTotalCount === 0
+        return (
+          this.mode === 'dayCompleted' ||
+          this.mode === 'completeDay' ||
+          (this.mode === 'planner' && !this.isTaskPlanned)
+        )
       },
     },
 
@@ -99,8 +106,7 @@
       },
 
       completeDay () {
-        this.activeModal = null
-        this.dayCompleted = true
+        this.mode = 'dayCompleted'
         const today = moment().startOf('day').format('YYYY-MM-DD')
         window.localStorage.setItem('last_day_completed', today)
       },
@@ -144,5 +150,9 @@
     padding-bottom: 2rem;
 
     text-align: center;
+  }
+
+  .app-page-today .tasks-complete-day {
+    max-width: 30rem;
   }
 </style>

@@ -377,6 +377,19 @@ export default {
       finished: 'tâches terminées',
     },
 
+    completeDay: {
+      cancel: 'Continuer de travailler',
+      intro: 'C’est la fin de journée, vous avez mérité de prendre un peu de repos.',
+      ok: 'Terminer',
+      summary: {
+        allDone: 'Vous avez terminé toutes les tâches que vous aviez planifiées, bravo !',
+        neutral: 'Vous avez terminé {finishedCount} tâche sur {totalCount}. | Vous avez terminé {finishedCount} tâches sur {totalCount}.',
+        nothingDone: 'Ce n’est pas grâve si vous n’avez terminé aucune tâche aujourd’hui, vous ferez mieux demain.',
+        nothingPlanned: 'Vous n’aviez rien planifié aujourd’hui, c’est bien aussi !',
+      },
+      unfinishedToBacklog: 'Les tâches que vous n’avez pas terminées seront disponibles demain dans la liste d’attente.',
+    },
+
     createForm: {
       cancel: 'Annuler',
       created: 'Créée !',
@@ -413,19 +426,6 @@ export default {
     modals: {
       attachProjectTitle: 'Attacher la tâche à un projet',
       cancel: 'Annuler',
-      completeDay: {
-        cancel: 'Continuer de travailler',
-        intro: 'C’est la fin de journée, vous avez mérité de prendre un peu de repos.',
-        ok: 'Terminer',
-        summary: {
-          allDone: 'Vous avez terminé toutes les tâches que vous aviez planifiées, bravo !',
-          neutral: 'Vous avez terminé {finishedCount} tâche sur {totalCount}. | Vous avez terminé {finishedCount} tâches sur {totalCount}.',
-          nothingDone: 'Ce n’est pas grâve si vous n’avez terminé aucune tâche aujourd’hui, vous ferez mieux demain.',
-          nothingPlanned: 'Vous n’aviez rien planifié aujourd’hui, c’est bien aussi !',
-        },
-        title: 'Terminer votre journée',
-        unfinishedToBacklog: 'Les tâches que vous n’avez pas terminées seront disponibles demain dans la liste d’attente.',
-      },
       confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
       confirmAbandonTitle: 'Abandonner la tâche',
       orPickFromBacklog: 'ou sélectionnez-en une depuis votre file d’attente',
