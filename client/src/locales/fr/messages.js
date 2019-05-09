@@ -385,7 +385,7 @@ export default {
       summary: {
         allDone: 'Vous avez terminé toutes les tâches que vous aviez planifiées, bravo !',
         neutral: 'Vous avez terminé {finishedCount} tâche sur {totalCount}. | Vous avez terminé {finishedCount} tâches sur {totalCount}.',
-        nothingDone: 'Ce n’est pas grâve si vous n’avez terminé aucune tâche aujourd’hui, vous ferez mieux demain.',
+        nothingDone: 'Vous n’avez terminé aucune tâche aujourd’hui, tant pis !',
         nothingPlanned: 'Vous n’aviez rien planifié aujourd’hui, c’est bien aussi !',
       },
       unfinishedToBacklog: 'Les tâches que vous n’avez pas terminées seront disponibles demain dans la liste d’attente.',

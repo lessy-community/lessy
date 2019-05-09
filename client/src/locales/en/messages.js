@@ -390,7 +390,7 @@ export default {
       summary: {
         allDone: 'You’ve finished all the tasks you’ve planned, that’s great!',
         neutral: 'You’ve finished {finishedCount} task out of {totalCount}. | You’ve finished {finishedCount} tasks out of {totalCount}.',
-        nothingDone: 'That’s ok if you didn’t do what you planned, you’ll do better tomorrow.',
+        nothingDone: 'You completed no tasks today… never mind!',
         nothingPlanned: 'You didn’t plan anything for today, that’s fine!',
       },
       unfinishedToBacklog: 'The tasks you didn’t finish will be available in your backlog tomorrow.',
