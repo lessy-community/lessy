@@ -69,7 +69,7 @@
 
     data () {
       return {
-        mode: 'planner',
+        mode: this.isDayCompleted() ? 'dayCompleted' : 'planner',
         endOfDay: this.isEndOfDay(),
       }
     },
