@@ -6,17 +6,20 @@ Create a new task owned by current user.
 
 Parameters:
 
-| Name             | Type   | Description             | Optional |
-|------------------|--------|-------------------------|----------|
-| task             | object |                         |          |
-| task.label       | string | Task's label            |          |
-| task.planned\_at | number | Task's due date         | yes      |
-| task.project\_id | number | Task's project relation | yes      |
+| Name              | Type   | Description             | Optional |
+|-------------------|--------|-------------------------|----------|
+| task              | object |                         |          |
+| task.label        | string | Task's label            |          |
+| task.planned\_at  | number | Task's due date         | yes      |
+| task.finished\_at | number | Task's finished date    | yes      |
+| task.project\_id  | number | Task's project relation | yes      |
 
 Notes:
 
 - if `planned_at` is provided, `state` is always set to `planned` and
   `planned_count` to 1
+- if `finished_at` is provided, `state` is set to `finished`. It also sets
+  `started_at` and `planned_at` to today
 - otherwise, if `project_id` matches with a not started project, `state` is set
   to `newed`
 - in other situations (project is started or no `project_id` is provided),

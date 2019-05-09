@@ -9,8 +9,8 @@ export default {
     return get(`/api/tasks/${id}`)
   },
 
-  create (label, plannedAt, projectId) {
-    return post('/api/users/me/tasks', { label, plannedAt, projectId })
+  create (payload) {
+    return post('/api/users/me/tasks', payload)
   },
 
   update (task, payload) {

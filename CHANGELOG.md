@@ -8,6 +8,7 @@
 - Accessing `GET /api/users/me` with an invalid user id now returns a `unauthorized` error
 - Provide `DELETE /api/projects/:id` endpoint
 - `PUT /api/tasks/:id/state` endpoint now accepts `started` when task is planned
+- `POST /api/users/me/tasks` endpoint now accepts `finished_at`
 
 ## Ara 2018-09-09
 

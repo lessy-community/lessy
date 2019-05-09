@@ -31,14 +31,23 @@ class Api::Users::TasksController < ApiController
 private
 
   def create_task_params
-    parameters = fetch_resource_params(:task, [:label], [:planned_at, :project_id])
-    if parameters.has_key?(:planned_at)
+    parameters = fetch_resource_params(:task, [:label], %i[planned_at finished_at project_id])
+
+    if parameters.key?(:planned_at)
       parameters[:state] = 'planned'
       parameters[:planned_at] = parameters[:planned_at].to_datetime
       parameters[:started_at] = DateTime.now
-    else
-      parameters[:state] = 'newed'
     end
+
+    if parameters.key?(:finished_at)
+      parameters[:state] = 'finished'
+      parameters[:finished_at] = parameters[:finished_at].to_datetime
+      parameters[:planned_at] = DateTime.now unless parameters.key?(:planned_at)
+      parameters[:started_at] = DateTime.now
+    end
+
+    parameters[:state] = 'newed' unless parameters.key?(:state)
+
     parameters
   end
 

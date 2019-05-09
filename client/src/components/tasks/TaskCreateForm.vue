@@ -40,6 +40,7 @@
       'onCancel': { type: Function },
       'autoFocus': { type: Boolean },
       'plannedAt': { type: Object },
+      'finishedAt': { type: Object },
       'projectId': { type: Number },
       'show-warning': { type: Boolean },
     },
@@ -53,12 +54,11 @@
 
     methods: {
       create () {
-        const action = this.projectId == null ? 'tasks/create'
-                                              : 'tasks/createForProject'
         this.$store
-          .dispatch(action, {
+          .dispatch('tasks/create', {
             label: this.label,
             plannedAt: this.plannedAt && this.plannedAt.unix(),
+            finishedAt: this.finishedAt && this.finishedAt.unix(),
             projectId: this.projectId,
           })
           .then((taskId) => {

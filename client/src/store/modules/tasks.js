@@ -151,18 +151,9 @@ const actions = {
       .then((res) => commit('set', res.data))
   },
 
-  create ({ commit }, { label, plannedAt }) {
+  create ({ commit }, payload) {
     return tasksApi
-      .create(label, plannedAt)
-      .then((res) => {
-        commit('addList', [res.data])
-        return res.data.id
-      })
-  },
-
-  createForProject ({ commit }, { label, plannedAt, projectId }) {
-    return tasksApi
-      .create(label, plannedAt, projectId)
+      .create(payload)
       .then((res) => {
         commit('addList', [res.data])
         return res.data.id

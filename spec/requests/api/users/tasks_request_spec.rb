@@ -157,6 +157,33 @@ RSpec.describe Api::Users::TasksController, type: :request do
       end
     end
 
+    context 'with finished date' do
+      let(:payload) do
+        {
+          task: {
+            label: 'My task',
+            finished_at: DateTime.new(2017).to_i,
+          },
+        }
+      end
+
+      before { subject }
+
+      it 'succeeds' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns the new task' do
+        task = JSON.parse(response.body)['data']
+        expect(task['id']).not_to be_nil
+        expect(task['attributes']['label']).to eq('My task')
+        expect(task['attributes']['state']).to eq('finished')
+        expect(task['attributes']['startedAt']).to eq(DateTime.now.to_i)
+        expect(task['attributes']['plannedAt']).to eq(DateTime.now.to_i)
+        expect(task['attributes']['finishedAt']).to eq(DateTime.new(2017).to_i)
+      end
+    end
+
     context 'with not started project' do
       let(:project) { create :project, :newed }
       let(:payload) { {
