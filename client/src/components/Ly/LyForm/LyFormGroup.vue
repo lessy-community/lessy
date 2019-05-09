@@ -1,5 +1,5 @@
 <template>
-  <div :class="['ly-form-group', `ly-form-group-${type}`]">
+  <div :class="['ly-form-group', `ly-form-group-${type}`, { stack }]">
     <slot></slot>
   </div>
 </template>
@@ -8,6 +8,7 @@
   export default {
     props: {
       type: { type: String, default: 'input' },
+      stack: { type: Boolean },
     },
   }
 </script>
@@ -25,6 +26,18 @@
       display: block;
       width: 100%;
       margin-bottom: .5rem;
+    }
+  }
+
+  .ly-form-group.stack {
+    display: flex;
+
+    .ly-form-input {
+      flex-grow: 1;
+    }
+
+    * + * {
+      margin-left: .5rem;
     }
   }
 </style>

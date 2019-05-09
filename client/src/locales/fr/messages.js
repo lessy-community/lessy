@@ -393,7 +393,7 @@ export default {
 
     createForm: {
       cancel: 'Annuler',
-      created: 'Créée !',
+      created: 'Créée',
       submit: 'Créer',
       warningTooMany: 'Vous pourriez rencontrer des difficultés pour mener à bien les tâches si vous tentez d’en entreprendre un trop grand nombre.',
       placeholder: 'Promener le chien',

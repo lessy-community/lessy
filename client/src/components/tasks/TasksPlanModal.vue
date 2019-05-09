@@ -9,10 +9,10 @@
     </p>
 
     <task-create-form
-      :plannedAt="plannedAt"
-      :onCancel="() => { this.$emit('close') }"
-      :onSuccess="() => { this.$emit('close') }"
+      main
       autoFocus
+      :plannedAt="plannedAt"
+      @success="this.$emit('close')"
     ></task-create-form>
 
     <ly-section v-if="tasks.length > 0" :title="$t('tasks.modals.orPickFromBacklog')">

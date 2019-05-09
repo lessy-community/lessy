@@ -398,7 +398,7 @@ export default {
 
     createForm: {
       cancel: 'Cancel',
-      created: 'Created!',
+      created: 'Created',
       submit: 'Create',
       warningTooMany: 'You might face difficulties to achieve all your tasks if you try to do too much.',
       placeholder: 'Walk the dog',

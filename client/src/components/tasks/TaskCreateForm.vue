@@ -1,6 +1,6 @@
 <template>
   <ly-form @submit="create" size="fluid" :error="getErrors()">
-    <ly-form-group>
+    <ly-form-group stack>
       <ly-form-input
         type="text"
         name="label"
@@ -12,19 +12,19 @@
         required
         :placeholder="$t('tasks.createForm.placeholder')"
       ></ly-form-input>
-    </ly-form-group>
 
-    <ly-form-group type="actions">
-      <ly-button type="primary" submit>
+      <ly-button
+        v-if="created"
+        class="success"
+        icon="check"
+        :type="main ? 'primary' : 'default'"
+        submit
+      >
+        {{ $t('tasks.createForm.created') }}
+      </ly-button>
+      <ly-button v-else :type="main ? 'primary' : 'default'" submit>
         {{ $t('tasks.createForm.submit') }}
       </ly-button>
-      <ly-button v-if="onCancel" @click="onCancel">
-        {{ $t('tasks.createForm.cancel') }}
-      </ly-button>
-      <span :class="['text-success', { show: created }]">
-        <ly-icon name="check"></ly-icon>
-        {{ $t('tasks.createForm.created') }}
-      </span>
     </ly-form-group>
   </ly-form>
 </template>
@@ -36,13 +36,12 @@
     mixins: [ErrorsHandler],
 
     props: {
-      'onSuccess': { type: Function },
-      'onCancel': { type: Function },
-      'autoFocus': { type: Boolean },
-      'plannedAt': { type: Object },
-      'finishedAt': { type: Object },
-      'projectId': { type: Number },
-      'show-warning': { type: Boolean },
+      plannedAt: { type: Object },
+      finishedAt: { type: Object },
+      projectId: { type: Number },
+      autoFocus: { type: Boolean },
+      showWarning: { type: Boolean },
+      main: { type: Boolean },
     },
 
     data () {
@@ -54,6 +53,10 @@
 
     methods: {
       create () {
+        if (this.createdTimeout) {
+          clearTimeout(this.createdTimeout)
+        }
+
         this.$store
           .dispatch('tasks/create', {
             label: this.label,
@@ -66,9 +69,9 @@
             this.label = ''
             this.cleanErrors()
             this.created = true
-            setTimeout(() => { this.created = false }, 5000)
+            this.createdTimeout = setTimeout(() => { this.created = false }, 2000)
             labelInput && labelInput.focus()
-            this.onSuccess && this.onSuccess()
+            this.$emit('success')
           })
           .catch((failure) => {
             this.setFailureErrors(failure)
@@ -86,13 +89,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .text-success {
-    opacity: 0;
+  .ly-button {
+    transition: color .2s ease-in-out;
 
-    transition: opacity .2s ease-in-out;
-
-    &.show {
-      opacity: 1;
+    &.ly-button-default.success {
+      color: $ly-color-green-70;
     }
   }
 </style>
