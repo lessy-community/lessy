@@ -43,7 +43,6 @@
             nopopover
             nodraggable
             notoggle
-            hideProjectBadge
           />
         </ly-column>
         <ly-column>
@@ -52,7 +51,6 @@
             nopopover
             nodraggable
             notoggle
-            hideProjectBadge
           />
         </ly-column>
       </ly-columns>
