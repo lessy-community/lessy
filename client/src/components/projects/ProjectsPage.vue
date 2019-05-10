@@ -16,19 +16,22 @@
     </ly-section>
 
     <ly-section :title="$t('projects.page.futureProjects')">
-      <ly-button
-        icon="plus"
-        v-if="!createFormEnabled"
-        type="primary"
-        @click="createFormEnabled = true"
-      >
-        {{ $t('projects.page.createProject') }}
-      </ly-button>
-      <project-create-form
-        v-else
-        @cancel="disableCreateForm"
-        autofocus
-      ></project-create-form>
+      <template slot="actions">
+        <ly-button
+          icon="plus"
+          v-if="!createFormEnabled"
+          type="primary"
+          size="large"
+          @click="createFormEnabled = true"
+        >
+          {{ $t('projects.page.createProject') }}
+        </ly-button>
+        <project-create-form
+          v-else
+          @cancel="disableCreateForm"
+          autofocus
+        ></project-create-form>
+      </template>
 
       <ly-list :placeholder="$t('projects.page.projectsPlaceholder')">
         <ly-list-group
