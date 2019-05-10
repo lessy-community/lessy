@@ -12,7 +12,7 @@
       main
       autoFocus
       :plannedAt="plannedAt"
-      @success="this.$emit('close')"
+      @success="$emit('close')"
     ></task-create-form>
 
     <ly-section v-if="tasks.length > 0" :title="$t('tasks.modals.orPickFromBacklog')">
