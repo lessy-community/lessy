@@ -23,19 +23,23 @@
     display: block;
     padding: .75rem 2rem;
 
-    opacity: .7;
-    transition: opacity .2s ease-in-out;
+    border-top: .25rem solid transparent;
+    border-bottom: .25rem solid transparent;
+
+    transition: background-color .2s ease-in-out;
 
     &.with-icon {
       margin-left: -1.5rem;
     }
     &:hover {
-      opacity: 1;
+      background-color: $ly-color-pine-50;
     }
     &.active {
       font-weight: bold;
 
-      opacity: 1;
+      background-color: $ly-color-pine-70;
+      border-top-color: $ly-color-pine-60;
+      border-bottom-color: $ly-color-pine-60;
 
       &::after {
         content: "\f105";
@@ -50,7 +54,9 @@
       padding-left: 1rem;
       padding-right: 1rem;
 
-      opacity: 1;
+      border-top: none;
+      border-bottom: none;
+
       transition: background .2s ease-in-out;
 
       &:hover,
