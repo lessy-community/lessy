@@ -15,12 +15,12 @@ import ProfilePage from './components/profile/ProfilePage'
 import TodayPage from './components/today/TodayPage'
 import DashboardPage from './components/dashboard/DashboardPage'
 
-import ProjectsInboxPage from './components/projects/ProjectsInboxPage'
+import ProjectsPage from './components/projects/ProjectsPage'
 import ProjectContainer from './components/projects/ProjectContainer'
 import ProjectShowPage from './components/projects/ProjectShowPage'
 import ProjectEditPage from './components/projects/ProjectEditPage'
 
-import TasksBacklogPage from './components/tasks/TasksBacklogPage'
+import TasksPage from './components/tasks/TasksPage'
 
 import DesignIndexPage from './components/design/DesignIndexPage'
 import DesignGridPage from './components/design/DesignGridPage'
@@ -49,11 +49,13 @@ const routes = [
   { path: '/today', component: TodayPage, meta: { restrictForAuth: true, iTitle: 'today.page.title' } },
   { path: '/dashboard', component: DashboardPage, meta: { restrictForAuth: true, iTitle: 'dashboard.page.title' } },
 
-  { path: '/tasks', redirect: 'tasks/backlog', meta: { restrictForAuth: true } },
-  { path: '/tasks/backlog', component: TasksBacklogPage, name: 'tasks/backlog', meta: { restrictForAuth: true, iTitle: 'tasks.backlogPage.title' } },
+  // We keep this route for historical purposes
+  { path: '/tasks', component: TasksPage, name: 'tasks', meta: { restrictForAuth: true, iTitle: 'tasks.page.title' } },
+  { path: '/tasks/backlog', redirect: '/tasks', meta: { restrictForAuth: true } },
 
-  { path: '/projects', redirect: 'projects/inbox', meta: { restrictForAuth: true } },
-  { path: '/projects/inbox', component: ProjectsInboxPage, meta: { iTitle: 'projects.header.title' } },
+  { path: '/projects', component: ProjectsPage, meta: { iTitle: 'projects.header.title' } },
+  // We keep this route for historical purposes
+  { path: '/projects/inbox', redirect: '/projects', meta: { restrictForAuth: true } },
   { path: '/projects/:projectSlug',
     component: ProjectContainer,
     children: [

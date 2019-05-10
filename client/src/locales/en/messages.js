@@ -258,7 +258,7 @@ export default {
 
     cardDeck: {
       empty: 'No project',
-      emptyLink: 'Start a project from your inbox',
+      emptyLink: 'Start an existing project',
     },
 
     createForm: {
@@ -283,14 +283,6 @@ export default {
       finishedLabel: 'Finished on',
       finishedCaption: 'It cannot be after today',
       submit: 'Finish project',
-    },
-
-    inboxPage: {
-      createProject: 'Create a project',
-      finishedProjects: 'Finished projects',
-      futureProjects: 'Future projects',
-      projectsInProgress: 'Projects in progress',
-      projectsPlaceholder: "You don't have any projects yet, what are you working on?",
     },
 
     item: {
@@ -320,6 +312,14 @@ export default {
       startTitle: 'Start project',
     },
 
+    page: {
+      createProject: 'Create a project',
+      finishedProjects: 'Finished projects',
+      futureProjects: 'Future projects',
+      projectsInProgress: 'Projects in progress',
+      projectsPlaceholder: "You don't have any projects yet, what are you working on?",
+    },
+
     showPage: {
       associatedTasks: 'Associated tasks',
       delete: 'Delete',
@@ -341,7 +341,7 @@ export default {
       cancel: 'Cancel',
       dueLabel: 'Due on',
       dueCaption: 'The due date has to be after today',
-      noProjects: 'You have no projects in your inbox so let’s create one!',
+      noProjects: 'You have no projects yet so let’s create one!',
       projectLabel: 'Project',
       submit: 'Start the project',
     },
@@ -370,11 +370,6 @@ export default {
       cancel: 'Cancel',
       projectLabel: 'Project',
       submit: 'Attach',
-    },
-
-    backlogPage: {
-      tasksNumber: '{count} task in backlog | {count} tasks in backlog',
-      title: 'Tasks',
     },
 
     chart: {
@@ -438,6 +433,11 @@ export default {
       planTitle: 'Plan a task for today',
       submitAbandon: 'Confirm abandon',
       transformInProjectTitle: 'Transform task into a project',
+    },
+
+    page: {
+      tasksNumber: '{count} task in backlog | {count} tasks in backlog',
+      title: 'Tasks',
     },
 
     planner: {

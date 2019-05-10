@@ -253,7 +253,7 @@ export default {
 
     cardDeck: {
       empty: 'Aucun projet',
-      emptyLink: 'Démarrer un projet de la boîte de réception',
+      emptyLink: 'Démarrer un projet existant',
     },
 
     createForm: {
@@ -278,14 +278,6 @@ export default {
       finishedLabel: 'Terminé le',
       finishedCaption: 'Cette date ne peut pas être après la date d’aujourd’hui',
       submit: 'Terminer le projet',
-    },
-
-    inboxPage: {
-      createProject: 'Créer un projet',
-      finishedProjects: 'Projets terminés',
-      futureProjects: 'Projets à venir',
-      projectsInProgress: 'Projets en cours',
-      projectsPlaceholder: 'Vous n’avez encore aucun projet, sur quoi travaillez-vous ?',
     },
 
     item: {
@@ -315,6 +307,14 @@ export default {
       startTitle: 'Démarrer le projet',
     },
 
+    page: {
+      createProject: 'Créer un projet',
+      finishedProjects: 'Projets terminés',
+      futureProjects: 'Projets à venir',
+      projectsInProgress: 'Projets en cours',
+      projectsPlaceholder: 'Vous n’avez encore aucun projet, sur quoi travaillez-vous ?',
+    },
+
     showPage: {
       associatedTasks: 'Tâches associées',
       delete: 'Supprimer',
@@ -336,7 +336,7 @@ export default {
       cancel: 'Annuler',
       dueLabel: 'Date d’échéance',
       dueCaption: 'La date d’échéance doit être postérieure à la date d’aujourd’hui',
-      noProjects: 'Vous n’avez aucun projet dans votre boîte de réception, commençons par en créer un !',
+      noProjects: 'Vous n’avez encore aucun projet, commençons par en créer un !',
       projectLabel: 'Projet',
       submit: 'Démarrer le projet',
     },
@@ -365,11 +365,6 @@ export default {
       cancel: 'Annuler',
       projectLabel: 'Projet',
       submit: 'Attacher',
-    },
-
-    backlogPage: {
-      tasksNumber: '0 tâche en file d’attente | 1 tâche en file d’attente | {count} tâches en file d’attente',
-      title: 'Tâches',
     },
 
     chart: {
@@ -429,10 +424,15 @@ export default {
       cancel: 'Annuler',
       confirmAbandon: 'La tâche « {label} » sera marquée comme abandonnée et disparaîtra de la liste. Confirmez-vous ?',
       confirmAbandonTitle: 'Abandonner la tâche',
-      orPickFromBacklog: 'ou sélectionnez-en une depuis votre file d’attente',
+      orPickFromBacklog: 'ou sélectionnez-en une depuis votre liste d’attente',
       planTitle: 'Planifiez une tâche pour aujourd’hui',
       submitAbandon: 'Confirmer l’abandon',
       transformInProjectTitle: 'Transformer la tâche en projet',
+    },
+
+    page: {
+      tasksNumber: '0 tâche en liste d’attente | 1 tâche en liste d’attente | {count} tâches en liste d’attente',
+      title: 'Tâches',
     },
 
     planner: {

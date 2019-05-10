@@ -1,11 +1,11 @@
 <template>
-  <app-page v-if="resourcesReady" name="tasks-backlog" layout="application">
-    <app-header :title="$t('tasks.backlogPage.title')" fluid slot="header">
+  <app-page v-if="resourcesReady" name="tasks" layout="application">
+    <app-header :title="$t('tasks.page.title')" fluid slot="header">
       <user-popover slot="right">
       </user-popover>
     </app-header>
 
-    <ly-section :title="$tc('tasks.backlogPage.tasksNumber', tasks.length, { count: tasks.length })">
+    <ly-section :title="$tc('tasks.page.tasksNumber', tasks.length, { count: tasks.length })">
       <task-create-form main :show-warning="tasks.length > 30"></task-create-form>
       <task-list :tasks="tasks"></task-list>
     </ly-section>

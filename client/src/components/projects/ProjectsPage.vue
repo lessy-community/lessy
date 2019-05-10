@@ -1,10 +1,10 @@
 <template>
-  <app-page v-if="resourcesReady" name="projects-inbox" layout="application">
+  <app-page v-if="resourcesReady" name="projects" layout="application">
     <projects-header slot="header"></projects-header>
 
     <ly-section
       v-if="projectsInProgress.length > 0"
-      :title="$t('projects.inboxPage.projectsInProgress')"
+      :title="$t('projects.page.projectsInProgress')"
     >
       <ly-list>
         <project-item
@@ -15,14 +15,14 @@
       </ly-list>
     </ly-section>
 
-    <ly-section :title="$t('projects.inboxPage.futureProjects')">
+    <ly-section :title="$t('projects.page.futureProjects')">
       <ly-button
         icon="plus"
         v-if="!createFormEnabled"
         type="primary"
         @click="createFormEnabled = true"
       >
-        {{ $t('projects.inboxPage.createProject') }}
+        {{ $t('projects.page.createProject') }}
       </ly-button>
       <project-create-form
         v-else
@@ -30,7 +30,7 @@
         autofocus
       ></project-create-form>
 
-      <ly-list :placeholder="$t('projects.inboxPage.projectsPlaceholder')">
+      <ly-list :placeholder="$t('projects.page.projectsPlaceholder')">
         <ly-list-group
           v-for="(projects, firstCharacter) in futureProjects"
           :key="firstCharacter"
@@ -45,7 +45,7 @@
       </ly-list>
     </ly-section>
 
-    <ly-section v-if="finishedProjects.length > 0" :title="$t('projects.inboxPage.finishedProjects')">
+    <ly-section v-if="finishedProjects.length > 0" :title="$t('projects.page.finishedProjects')">
       <ly-list stripped>
         <project-item-finished
           v-for="project in finishedProjects"
