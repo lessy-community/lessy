@@ -18,7 +18,6 @@
     <ly-section :title="$t('projects.page.futureProjects')">
       <template slot="actions">
         <ly-button
-          icon="plus"
           v-if="!createFormEnabled"
           type="primary"
           size="large"
