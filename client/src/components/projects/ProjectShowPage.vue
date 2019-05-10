@@ -3,20 +3,22 @@
     <projects-header slot="header"></projects-header>
 
     <ly-section :title="project.name">
-      <ly-button
-        icon="pencil"
-        @click="editDescription"
-      >
-        {{ $t('projects.showPage.edit') }}
-      </ly-button>
+      <template slot="actions">
+        <ly-button
+          icon="pencil"
+          @click="editDescription"
+        >
+          {{ $t('projects.showPage.edit') }}
+        </ly-button>
 
-      <ly-button
-        type="ghost"
-        icon="trash"
-        @click="activeModal = 'delete'"
-      >
-        {{ $t('projects.showPage.delete') }}
-      </ly-button>
+        <ly-button
+          type="ghost"
+          icon="trash"
+          @click="activeModal = 'delete'"
+        >
+          {{ $t('projects.showPage.delete') }}
+        </ly-button>
+      </template>
 
       <ly-columns bordered>
         <ly-column>
