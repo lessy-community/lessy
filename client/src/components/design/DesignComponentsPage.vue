@@ -515,6 +515,23 @@
         </ly-list>
       </ly-section>
 
+      <h3>Section actions</h3>
+      <p>You can provide buttons of action related to the given section.</p>
+
+      <ly-section title="4 fruits">
+        <template slot="actions">
+          <ly-button @click="showFruit = !showFruit">Toggle fruit</ly-button>
+        </template>
+
+        <ly-list stripped>
+          <ly-list-item>Blueberry</ly-list-item>
+          <ly-list-item>Raspberry</ly-list-item>
+          <ly-list-item>Apple</ly-list-item>
+          <ly-list-item>Pear</ly-list-item>
+          <ly-list-item v-if="showFruit">Strawberry</ly-list-item>
+        </ly-list>
+      </ly-section>
+
       <h2>ly-text-container</h2>
       <p>Text container is used to make sure width of text lines follows
       <router-link to="/design/typography">typography rules</router-link>. This
@@ -575,6 +592,8 @@
           { value: 41, label: 'Yerevan' },
           { value: 42, label: 'Zagreb' },
         ],
+
+        showFruit: false,
       }
     },
 

@@ -4,6 +4,12 @@
       <h2>{{ title }}</h2>
       <div class="ly-section-header-break"></div>
     </header>
+
+    <div v-if="$slots.actions" class="ly-section-actions">
+      <slot name="actions">
+      </slot>
+    </div>
+
     <slot></slot>
   </section>
 </template>
@@ -43,6 +49,19 @@
     }
   }
 
-  @media(max-width: $small-screen-width) {
+  .ly-section-actions {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: -.5rem;
+    margin-bottom: 1rem;
+
+    text-align: center;
+
+    .ly-form {
+      margin-left: auto;
+      margin-right: auto;
+
+      text-align: left;
+    }
   }
 </style>
