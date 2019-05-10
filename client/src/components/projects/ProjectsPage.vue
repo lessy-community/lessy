@@ -6,29 +6,25 @@
       v-if="projectsInProgress.length > 0"
       :title="$t('projects.page.projectsInProgress')"
     >
-      <ly-list>
-        <project-item
-          v-for="project in projectsInProgress"
-          :key="project.id"
-          :project="project"
-        ></project-item>
-      </ly-list>
+      <project-card-deck :projects="projectsInProgress"></project-card-deck>
     </ly-section>
 
     <ly-section :title="$t('projects.page.futureProjects')">
-      <ly-button
-        icon="plus"
-        v-if="!createFormEnabled"
-        type="primary"
-        @click="createFormEnabled = true"
-      >
-        {{ $t('projects.page.createProject') }}
-      </ly-button>
-      <project-create-form
-        v-else
-        @cancel="disableCreateForm"
-        autofocus
-      ></project-create-form>
+      <template slot="actions">
+        <ly-button
+          v-if="!createFormEnabled"
+          type="primary"
+          size="large"
+          @click="createFormEnabled = true"
+        >
+          {{ $t('projects.page.createProject') }}
+        </ly-button>
+        <project-create-form
+          v-else
+          @cancel="disableCreateForm"
+          autofocus
+        ></project-create-form>
+      </template>
 
       <ly-list :placeholder="$t('projects.page.projectsPlaceholder')">
         <ly-list-group
@@ -65,6 +61,7 @@
 
   import ProjectsHeader from './ProjectsHeader'
   import ProjectCreateForm from './ProjectCreateForm'
+  import ProjectCardDeck from './ProjectCardDeck'
   import ProjectItem from './ProjectItem'
   import ProjectItemFinished from './ProjectItemFinished'
 
@@ -74,6 +71,7 @@
     components: {
       ProjectsHeader,
       ProjectCreateForm,
+      ProjectCardDeck,
       ProjectItem,
       ProjectItemFinished,
     },
