@@ -6,13 +6,7 @@
       v-if="projectsInProgress.length > 0"
       :title="$t('projects.page.projectsInProgress')"
     >
-      <ly-list>
-        <project-item
-          v-for="project in projectsInProgress"
-          :key="project.id"
-          :project="project"
-        ></project-item>
-      </ly-list>
+      <project-card-deck :projects="projectsInProgress"></project-card-deck>
     </ly-section>
 
     <ly-section :title="$t('projects.page.futureProjects')">
@@ -67,6 +61,7 @@
 
   import ProjectsHeader from './ProjectsHeader'
   import ProjectCreateForm from './ProjectCreateForm'
+  import ProjectCardDeck from './ProjectCardDeck'
   import ProjectItem from './ProjectItem'
   import ProjectItemFinished from './ProjectItemFinished'
 
@@ -76,6 +71,7 @@
     components: {
       ProjectsHeader,
       ProjectCreateForm,
+      ProjectCardDeck,
       ProjectItem,
       ProjectItemFinished,
     },
