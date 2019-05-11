@@ -1,5 +1,5 @@
 {
-  "ly-color-white": "#fff",
+  "ly-color-white": "#ffffff",
 
   "ly-color-grey-10": "#f9f9fa",
   "ly-color-grey-20": "#ededf0",
@@ -12,20 +12,26 @@
   "ly-color-grey-90": "#0c0c0d",
 
   "ly-color-pine-50": "#00aba8",
-  "ly-color-pine-60": "darken($ly-color-pine-50, 6%)",
+  "ly-color-pine-60": "#008c8a",
   "ly-color-pine-70": "#007876",
-  "ly-color-pine-80": "darken($ly-color-pine-70, 6%)",
+  "ly-color-pine-80": "#005958",
   "ly-color-pine-90": "#004544",
 
   "ly-color-green-50": "#00a86a",
+  "ly-color-green-60": "#00945d",
   "ly-color-green-70": "#00754a",
+  "ly-color-green-80": "#005c3a",
   "ly-color-green-90": "#00422a",
 
   "ly-color-gold-50": "#d1b200",
+  "ly-color-gold-60": "#b29800",
   "ly-color-gold-70": "#857100",
+  "ly-color-gold-80": "#665700",
   "ly-color-gold-90": "#524500",
 
   "ly-color-red-50": "#d40e00",
+  "ly-color-red-60": "#ab0b00",
   "ly-color-red-70": "#880900",
+  "ly-color-red-80": "#550600",
   "ly-color-red-90": "#3b0400"
 }
