@@ -61,12 +61,12 @@ protected
 
   def on_start(params)
     check_transition_no_limit_started_projects
-    params[:started_at] = DateTime.now
+    params[:started_at] = Time.now
     params
   end
 
   def on_pause(params)
-    params[:paused_at] = DateTime.now
+    params[:paused_at] = Time.now
     params
   end
 

@@ -4,7 +4,7 @@ RSpec.describe Task, type: :model do
   let(:user) { create :user }
 
   before do
-    Timecop.freeze DateTime.new(2017, 1, 20)
+    Timecop.freeze Time.new(2017, 1, 20)
   end
 
   after do
@@ -16,8 +16,8 @@ RSpec.describe Task, type: :model do
       Task.create! label: 'a task',
                    state: 'planned',
                    planned_count: 0,
-                   started_at: DateTime.new(2016),
-                   planned_at: DateTime.new(2017),
+                   started_at: Time.new(2016),
+                   planned_at: Time.new(2017),
                    user: user
     end
 
@@ -49,22 +49,22 @@ RSpec.describe Task, type: :model do
       let(:task) { build :task, :newed }
 
       it 'does not accept started_at' do
-        task.started_at = DateTime.new(2017, 1, 1)
+        task.started_at = Time.new(2017, 1, 1)
         expect(task).to be_invalid
       end
 
       it 'does not accept planned_at' do
-        task.planned_at = DateTime.new(2017, 1, 30)
+        task.planned_at = Time.new(2017, 1, 30)
         expect(task).to be_invalid
       end
 
       it 'does not accept finished_at' do
-        task.finished_at = DateTime.new(2017, 1, 15)
+        task.finished_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
 
       it 'does not accept abandoned_at' do
-        task.abandoned_at = DateTime.new(2017, 1, 15)
+        task.abandoned_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
     end
@@ -78,17 +78,17 @@ RSpec.describe Task, type: :model do
       end
 
       it 'does not accept planned_at' do
-        task.planned_at = DateTime.new(2017, 1, 30)
+        task.planned_at = Time.new(2017, 1, 30)
         expect(task).to be_invalid
       end
 
       it 'does not accept finished_at' do
-        task.finished_at = DateTime.new(2017, 1, 15)
+        task.finished_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
 
       it 'does not accept abandoned_at' do
-        task.abandoned_at = DateTime.new(2017, 1, 15)
+        task.abandoned_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
     end
@@ -107,12 +107,12 @@ RSpec.describe Task, type: :model do
       end
 
       it 'does not accept finished_at' do
-        task.finished_at = DateTime.new(2017, 1, 15)
+        task.finished_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
 
       it 'does not accept abandoned_at' do
-        task.abandoned_at = DateTime.new(2017, 1, 15)
+        task.abandoned_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
     end
@@ -131,7 +131,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'does not accept abandoned_at' do
-        task.abandoned_at = DateTime.new(2017, 1, 15)
+        task.abandoned_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
     end
@@ -140,7 +140,7 @@ RSpec.describe Task, type: :model do
       let(:task) { build :task, :abandoned }
 
       it 'does not accept finished_at' do
-        task.finished_at = DateTime.new(2017, 1, 15)
+        task.finished_at = Time.new(2017, 1, 15)
         expect(task).to be_invalid
       end
 
@@ -187,7 +187,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets started_at attribute to today' do
-        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.started_at).to eq(Time.new(2017, 1, 20))
       end
     end
 
@@ -241,11 +241,11 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets planned_at attribute to today' do
-        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.planned_at).to eq(Time.new(2017, 1, 20))
       end
 
       it 'sets started_at attribute to today' do
-        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.started_at).to eq(Time.new(2017, 1, 20))
       end
 
       it 'increments planned_count by 1' do
@@ -264,7 +264,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets planned_at attribute to today' do
-        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.planned_at).to eq(Time.new(2017, 1, 20))
       end
 
       it 'increments planned_count by 1' do
@@ -287,7 +287,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets planned_at attribute to today' do
-        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.planned_at).to eq(Time.new(2017, 1, 20))
       end
 
       it 'increments planned_count by 1' do
@@ -306,7 +306,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets planned_at attribute to today' do
-        expect(subject.reload.planned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.planned_at).to eq(Time.new(2017, 1, 20))
       end
 
       it 'increments planned_count by 1' do
@@ -337,7 +337,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets finished_at attribute to today' do
-        expect(subject.reload.finished_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.finished_at).to eq(Time.new(2017, 1, 20))
       end
     end
 
@@ -388,7 +388,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets abandoned_at attribute to today' do
-        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.abandoned_at).to eq(Time.new(2017, 1, 20))
       end
     end
 
@@ -403,7 +403,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets abandoned_at attribute to today' do
-        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.abandoned_at).to eq(Time.new(2017, 1, 20))
       end
     end
 
@@ -418,7 +418,7 @@ RSpec.describe Task, type: :model do
       end
 
       it 'sets abandoned_at attribute to today' do
-        expect(subject.reload.abandoned_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.abandoned_at).to eq(Time.new(2017, 1, 20))
       end
     end
 
@@ -495,7 +495,7 @@ RSpec.describe Task, type: :model do
 
   describe '#sync_state_with_project' do
     before do
-      Timecop.freeze DateTime.new(2017)
+      Timecop.freeze Time.new(2017)
     end
 
     after do
@@ -512,7 +512,7 @@ RSpec.describe Task, type: :model do
           task.sync_state_with_project
 
           expect(task.state).to eq('started')
-          expect(task.started_at).to eq(DateTime.now)
+          expect(task.started_at).to eq(Time.now)
         end
       end
 
@@ -523,7 +523,7 @@ RSpec.describe Task, type: :model do
           task.sync_state_with_project
 
           expect(task.state).to eq('started')
-          expect(task.started_at).to eq(DateTime.now)
+          expect(task.started_at).to eq(Time.now)
         end
       end
 
