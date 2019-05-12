@@ -29,6 +29,7 @@ class UserDashboard < Administrate::BaseDashboard
     id
     email
     username
+    created_at
     activation_state
   ].freeze
 
