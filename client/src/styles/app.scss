@@ -1,5 +1,4 @@
-@import 'variables/colors';
-@import 'variables/dimensions';
+@import 'variables/index';
 
 @import 'forms';
 @import 'grid';
@@ -17,7 +16,7 @@ body {
   margin: 0;
   padding: 0;
 
-  background-color: $ly-color-pine-60;
+  background-color: $ly-color-pine-80;
 }
 
 body.modal-opened {

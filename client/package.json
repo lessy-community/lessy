@@ -18,6 +18,7 @@
     "marked": "^0.6.2",
     "moment": "^2.24.0",
     "moment-range": "^3.1.1",
+    "node-sass-json-importer": "^4.1.0",
     "sanitize-html": "^1.20.1",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",

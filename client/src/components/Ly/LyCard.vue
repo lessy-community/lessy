@@ -77,7 +77,7 @@
   .ly-card-placeholder .ly-card-body {
     flex-grow: 0;
 
-    color: $ly-color-grey-50;
+    color: $ly-color-grey-60;
     font-size: 1.1rem;
     text-align: center;
   }

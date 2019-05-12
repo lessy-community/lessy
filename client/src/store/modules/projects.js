@@ -1,10 +1,9 @@
 import marked from 'marked'
 
-import { getWhileNext } from '../../api/http'
+import { groupByFirstCharacter } from '@/utils/array'
 
-import { groupByFirstCharacter } from '../../utils'
-
-import projectsApi from '../../api/projects'
+import { getWhileNext } from '@/api/http'
+import projectsApi from '@/api/projects'
 
 const state = {
   current: null,

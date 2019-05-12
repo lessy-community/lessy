@@ -1,22 +1,18 @@
 a {
-  color: $ly-color-pine-70;
+  color: $ly-color-pine-80;
 
-  &:hover {
-    color: $ly-color-pine-80;
-    text-decoration: none;
-  }
+  &:hover,
   &:focus {
     color: $ly-color-pine-90;
+    text-decoration: none;
   }
 }
 
 .text-on-dark a {
   color: $ly-color-white;
 
-  &:hover {
-    color: $ly-color-grey-30;
-  }
+  &:hover,
   &:focus {
-    color: $ly-color-grey-40;
+    color: $ly-color-grey-30;
   }
 }

@@ -3,6 +3,7 @@ const path = require('path')
 const config = require('../config')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const packageConfig = require('../package.json')
+const jsonImporter = require('node-sass-json-importer')
 
 exports.assetsPath = function (_path) {
   const assetsSubDirectory = process.env.NODE_ENV === 'production'
@@ -70,6 +71,7 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     scss: generateLoaders('sass', {
       data: "@import 'src/styles/variables/index';",
+      importer: jsonImporter(),
     }),
   }
 }

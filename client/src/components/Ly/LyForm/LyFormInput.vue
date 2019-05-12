@@ -113,7 +113,7 @@
     margin-bottom: .25rem;
     padding-left: .5rem;
 
-    color: $ly-color-grey-50;
+    color: $ly-color-grey-60;
     font-size: .8rem;
   }
 

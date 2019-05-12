@@ -46,7 +46,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { objectsToOptions } from '@/utils'
+  import { objectsToOptions } from '@/utils/object'
   import moment from 'moment'
   import ErrorsHandler from '@/components/mixins/ErrorsHandler'
 

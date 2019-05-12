@@ -129,7 +129,7 @@
     &.finished,
     &.finished a,
     &.finished .ly-button {
-      color: $ly-color-grey-50;
+      color: $ly-color-grey-60;
     }
     &.finished .ly-badge-indicators {
       display: none;
