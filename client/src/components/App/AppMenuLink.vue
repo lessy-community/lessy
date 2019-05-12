@@ -27,8 +27,17 @@
     border-top: .25rem solid transparent;
     border-bottom: .25rem solid transparent;
 
+    @media(max-width: $medium-screen-width) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
     &.with-icon {
       margin-left: -1.5rem;
+
+      @media(max-width: $medium-screen-width) {
+        margin-left: 0;
+      }
     }
     &:hover,
     &:focus {

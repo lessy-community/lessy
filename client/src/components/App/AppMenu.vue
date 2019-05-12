@@ -66,6 +66,10 @@
     .subbrand {
       font-size: 1.5rem;
 
+      @media(max-width: $medium-screen-width) {
+        font-size: 1rem;
+      }
+
       @media(max-width: $small-screen-width) {
         display: none;
       }
@@ -76,6 +80,11 @@
       padding: 1rem 2rem;
 
       line-height: 2.5rem;
+
+      @media(max-width: $medium-screen-width) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
 
       .ly-button {
         display: none;
