@@ -42,16 +42,16 @@
     }
 
     .app-header {
-      background-color: $ly-color-pine-60;
+      background-color: $ly-color-pine-70;
 
       color: $ly-color-white;
 
       .app-header-right {
-        background: linear-gradient(45deg, $ly-color-pine-60 3.5rem,
+        background: linear-gradient(45deg, $ly-color-pine-70 3.5rem,
                                            $ly-color-grey-20 3.5rem,
                                            $ly-color-grey-20 4rem,
-                                           $ly-color-pine-60 4rem,
-                                           $ly-color-pine-60 4.5rem,
+                                           $ly-color-pine-70 4rem,
+                                           $ly-color-pine-70 4.5rem,
                                            $ly-color-grey-20 4.5rem);
 
         color: $ly-color-grey-90;

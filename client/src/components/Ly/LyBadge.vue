@@ -40,20 +40,20 @@
     }
 
     &.ly-badge-default {
-      color: $ly-color-grey-50;
-      box-shadow: 0 0 1px $ly-color-grey-70;
+      color: $ly-color-grey-60;
+      box-shadow: 0 0 1px $ly-color-grey-80;
       background-color: $ly-color-grey-10;
     }
     &.ly-badge-primary {
-      color: $ly-color-white;
+      color: $ly-color-grey-90;
       background-color: $ly-color-pine-50;
     }
     &.ly-badge-success {
-      color: $ly-color-white;
+      color: $ly-color-grey-90;
       background-color: $ly-color-green-50;
     }
     &.ly-badge-warning {
-      color: $ly-color-white;
+      color: $ly-color-grey-90;
       background-color: $ly-color-gold-50;
     }
     &.ly-badge-alert {

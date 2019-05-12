@@ -19,27 +19,29 @@
 </script>
 
 <style lang="scss">
-  .app-menu-link {
+  a.app-menu-link {
     display: block;
     padding: .75rem 2rem;
+    margin-bottom: .25rem;
 
     border-top: .25rem solid transparent;
     border-bottom: .25rem solid transparent;
 
-    transition: background-color .2s ease-in-out;
-
     &.with-icon {
       margin-left: -1.5rem;
     }
-    &:hover {
-      background-color: $ly-color-pine-50;
+    &:hover,
+    &:focus {
+      background-color: $ly-color-pine-80;
+      border-top-color: $ly-color-pine-70;
+      border-bottom-color: $ly-color-pine-70;
     }
     &.active {
       font-weight: bold;
 
-      background-color: $ly-color-pine-70;
-      border-top-color: $ly-color-pine-60;
-      border-bottom-color: $ly-color-pine-60;
+      background-color: $ly-color-pine-80;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
 
       &::after {
         content: "\f105";
@@ -57,11 +59,9 @@
       border-top: none;
       border-bottom: none;
 
-      transition: background .2s ease-in-out;
-
       &:hover,
       &:focus {
-        background-color: $ly-color-pine-60;
+        background-color: $ly-color-pine-70;
       }
       &.active {
         background-color: $ly-color-pine-70;

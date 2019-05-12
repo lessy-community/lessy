@@ -124,7 +124,6 @@
       padding-left: 5%;
       padding-right: 5%;
 
-      color: $ly-color-white;
       text-align: center;
       font-weight: bold;
     }
@@ -143,7 +142,6 @@
     .tasks-chart-label-day {
       text-align: center;
       font-size: .9rem;
-      color: $ly-color-grey-50;
     }
   }
 
@@ -172,10 +170,12 @@
 
   .tasks-chart-label-created::before,
   .tasks-chart-data-created .tasks-chart-data-bar {
+    color: $ly-color-white;
     background-color: $ly-color-grey-50;
   }
   .tasks-chart-label-finished::before,
   .tasks-chart-data-finished .tasks-chart-data-bar {
+    color: $ly-color-white;
     background-color: $ly-color-grey-90;
   }
 
@@ -183,9 +183,11 @@
     border-bottom-color: $ly-color-pine-90;
 
     .tasks-chart-data-created .tasks-chart-data-bar {
+      color: $ly-color-grey-90;
       background-color: $ly-color-pine-50;
     }
     .tasks-chart-data-finished .tasks-chart-data-bar {
+      color: $ly-color-white;
       background-color: $ly-color-pine-90;
     }
     .tasks-chart-label-day {

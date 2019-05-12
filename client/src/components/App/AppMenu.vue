@@ -45,8 +45,8 @@
   .app-menu {
     position: relative;
 
-    background: linear-gradient(225deg, $ly-color-pine-60 25rem,
-                                        $ly-color-pine-70 25rem);
+    background: linear-gradient(225deg, $ly-color-pine-70 25rem,
+                                        $ly-color-pine-80 25rem);
 
     a {
       color: $ly-color-white;
@@ -74,14 +74,14 @@
       position: sticky;
       top: 0;
 
-      padding-top: .5rem;
-      padding-bottom: .5rem;
+      padding-top: .25rem;
+      padding-bottom: .25rem;
     }
   }
 
   @media(max-width: $small-screen-width) {
     .app-menu {
-      background: $ly-color-pine-60;
+      background: $ly-color-pine-80;
 
       .app-menu-header .ly-button {
         display: inline-block;
@@ -92,7 +92,7 @@
       .app-menu-navigation {
         padding-top: 1rem;
 
-        background: $ly-color-pine-50;
+        background: $ly-color-pine-70;
       }
       .app-menu-navigation:not(.visible) {
         display: none;

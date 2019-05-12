@@ -34,7 +34,7 @@
     width: 2rem;
     padding: .5rem;
 
-    color: $ly-color-grey-50;
+    color: $ly-color-grey-60;
   }
 
   @media(max-width: $small-screen-width) {

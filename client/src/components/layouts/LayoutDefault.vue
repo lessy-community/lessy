@@ -21,11 +21,11 @@
     .app-header {
       background: linear-gradient(45deg, $ly-color-grey-20,
                                          $ly-color-grey-20 calc(100% - 11rem),
-                                         $ly-color-pine-60 calc(100% - 11rem),
-                                         $ly-color-pine-60 calc(100% - 10.5rem),
+                                         $ly-color-pine-70 calc(100% - 11rem),
+                                         $ly-color-pine-70 calc(100% - 10.5rem),
                                          $ly-color-grey-20 calc(100% - 10.5rem),
                                          $ly-color-grey-20 calc(100% - 10rem),
-                                         $ly-color-pine-60 calc(100% - 10rem));
+                                         $ly-color-pine-70 calc(100% - 10rem));
     }
   }
 
@@ -33,11 +33,11 @@
     .app-layout-default .app-header {
       background: linear-gradient(45deg, $ly-color-grey-20,
                                          $ly-color-grey-20 calc(100% - 5rem),
-                                         $ly-color-pine-60 calc(100% - 5rem),
-                                         $ly-color-pine-60 calc(100% - 4.5rem),
+                                         $ly-color-pine-70 calc(100% - 5rem),
+                                         $ly-color-pine-70 calc(100% - 4.5rem),
                                          $ly-color-grey-20 calc(100% - 4.5rem),
                                          $ly-color-grey-20 calc(100% - 4rem),
-                                         $ly-color-pine-60 calc(100% - 4rem));
+                                         $ly-color-pine-70 calc(100% - 4rem));
     }
   }
 </style>

@@ -21,9 +21,5 @@
     .app-header {
       background-color: $ly-color-grey-10;
     }
-
-    .app-header-brand {
-      color: $ly-color-grey-50;
-    }
   }
 </style>

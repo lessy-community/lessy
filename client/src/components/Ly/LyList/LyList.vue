@@ -65,7 +65,7 @@
     .ly-list-placeholder {
       padding: .5rem;
 
-      color: $ly-color-grey-50;
+      color: $ly-color-grey-60;
     }
 
     &.ly-list-stripped .ly-list-item:nth-child(even) {

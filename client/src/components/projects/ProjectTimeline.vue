@@ -228,7 +228,7 @@
 
     .project-timeline-labels-start,
     .project-timeline-labels-end {
-      color: $ly-color-grey-50;
+      color: $ly-color-grey-60;
       font-size: .8rem;
     }
     .project-timeline-labels-diff {
@@ -245,7 +245,7 @@
     height: .75rem;
 
     background-color: $ly-color-grey-30;
-    border: 1px solid $ly-color-pine-50;
+    border: 1px solid $ly-color-pine-60;
     border-radius: .25rem;
 
     .project-timeline-bar-progression {
@@ -254,7 +254,7 @@
       bottom: 0;
       left: 0;
 
-      background: linear-gradient(45deg, $ly-color-pine-50 calc(100% - .5rem),
+      background: linear-gradient(45deg, $ly-color-pine-60 calc(100% - .5rem),
                                          $ly-color-grey-30 calc(100% - .5rem));
       border-radius: calc(.25rem - 1px);
     }
@@ -279,10 +279,10 @@
       font-weight: bold;
     }
     .project-timeline-bar {
-      border-color: $ly-color-green-50;
+      border-color: $ly-color-green-60;
     }
     .project-timeline-bar-progression {
-      background: linear-gradient(45deg, $ly-color-green-50 calc(100% - .5rem),
+      background: linear-gradient(45deg, $ly-color-green-60 calc(100% - .5rem),
                                          $ly-color-grey-30 calc(100% - .5rem));
     }
   }
@@ -290,33 +290,33 @@
   .project-timeline-due-soon,
   .project-timeline-due-today {
     .project-timeline-labels-diff {
-      color: $ly-color-gold-70;
+      color: $ly-color-gold-80;
       font-weight: bold;
     }
     .project-timeline-bar {
-      border-color: $ly-color-gold-50;
-      box-shadow: 0 0 2px $ly-color-gold-50;
+      border-color: $ly-color-gold-60;
+      box-shadow: 0 0 2px $ly-color-gold-60;
     }
     .project-timeline-bar-progression {
-      background: linear-gradient(45deg, $ly-color-gold-50 calc(100% - .5rem),
+      background: linear-gradient(45deg, $ly-color-gold-60 calc(100% - .5rem),
                                          $ly-color-grey-30 calc(100% - .5rem));
     }
   }
 
   .project-timeline-late {
     .project-timeline-labels-diff {
-      color: $ly-color-red-70;
+      color: $ly-color-red-60;
       font-weight: bold;
     }
     .project-timeline-bar {
-      border-color: $ly-color-red-70;
-      box-shadow: 0 0 2px $ly-color-red-70;
+      border-color: $ly-color-red-80;
+      box-shadow: 0 0 2px $ly-color-red-80;
     }
     .project-timeline-bar-progression {
-      background: repeating-linear-gradient(45deg, $ly-color-red-50,
-                                                   $ly-color-red-50 .5rem,
-                                                   $ly-color-red-70 .5rem,
-                                                   $ly-color-red-70 1rem);
+      background: repeating-linear-gradient(45deg, $ly-color-red-60,
+                                                   $ly-color-red-60 .5rem,
+                                                   $ly-color-red-80 .5rem,
+                                                   $ly-color-red-80 1rem);
     }
   }
 </style>

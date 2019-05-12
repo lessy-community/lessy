@@ -68,7 +68,7 @@
 
       <div class="design-blocks">
         <div class="design-block light-background text-secondary">
-          grey-50<br />
+          grey-60<br />
           <small>on light background</small>
         </div>
         <div class="design-block dark-background text-on-dark text-secondary">
@@ -76,6 +76,17 @@
           <small>on dark background</small>
         </div>
       </div>
+
+      <p>Use additional colors to highlight specific information:</p>
+
+      <ly-list>
+        <ly-list-item class="text-primary">Primary text</ly-list-item>
+        <ly-list-item class="text-success">Success text</ly-list-item>
+        <ly-list-item class="text-warning">Warning text</ly-list-item>
+        <ly-list-item class="text-alert">Alert text</ly-list-item>
+      </ly-list>
+
+      <p>Please note they can’t be used on dark backgrounds.</p>
     </ly-text-container>
   </app-page>
 </template>

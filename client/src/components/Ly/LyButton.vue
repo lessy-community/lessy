@@ -83,15 +83,17 @@
   }
 
   .ly-button-primary {
-    background-color: $ly-color-pine-50;
-    box-shadow: 0 0 1px $ly-color-pine-90;
     color: $ly-color-white;
 
+    background-color: $ly-color-pine-70;
+    box-shadow: 0 0 1px $ly-color-pine-90;
+
     &.disabled {
-      color: $ly-color-grey-30;
+      color: $ly-color-grey-20;
+      box-shadow: none;
     }
 
-    &:hover:not(.disabled) { background-color: $ly-color-pine-70; }
+    &:hover:not(.disabled) { background-color: $ly-color-pine-80; }
     &:focus:not(.disabled) { background-color: $ly-color-pine-90; }
   }
 
@@ -100,8 +102,8 @@
     box-shadow: 0 0 1px $ly-color-grey-90;
 
     &.disabled {
-      color: $ly-color-grey-50;
-      box-shadow: 0 0 1px $ly-color-grey-50;
+      color: $ly-color-grey-60;
+      box-shadow: 0 0 1px $ly-color-grey-60;
     }
 
     &:hover:not(.disabled) { background-color: $ly-color-grey-30; }
@@ -115,7 +117,7 @@
     background-color: transparentize($ly-color-grey-90, .9);
 
     &.disabled {
-      color: $ly-color-grey-50;
+      color: $ly-color-grey-60;
     }
 
     &:hover:not(.disabled) { background-color: transparentize($ly-color-grey-90, .8); }
