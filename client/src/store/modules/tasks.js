@@ -2,11 +2,10 @@ import moment from 'moment'
 import sanitizeHtml from 'sanitize-html'
 import anchorme from 'anchorme'
 
-import { getWhileNext } from '../../api/http'
+import { mapElementsById } from '@/utils/array'
 
-import { mapElementsById } from '../../utils'
-
-import tasksApi from '../../api/tasks'
+import { getWhileNext } from '@/api/http'
+import tasksApi from '@/api/tasks'
 
 const state = {
   byIds: {},
