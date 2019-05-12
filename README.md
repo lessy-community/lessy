@@ -9,7 +9,7 @@ is built by a **diverse and welcoming community**.
 Every feature we develop, every discussion we have, every decision we make MUST
 support this vision.
 
-![Lessy screenshot](./docs/screenshots/dashboard.png)
+![](./client/static/logo-text.png)
 
 We want Lessy to be very different of other "project managers" or "todo-list
 applications".
@@ -32,6 +32,8 @@ More specifically, Lessy will help you:
 - To organize these ideas in projects and/or tasks depending on their
   complexity.
 - To identify what's important to do at the present moment.
+
+![Lessy screenshot](./docs/screenshots/dashboard.png)
 
 ## Getting started
 
