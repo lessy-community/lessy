@@ -6,7 +6,7 @@ RSpec.describe Api::ProjectsController, type: :request do
   let(:user) { create :user, :activated }
 
   before do
-    Timecop.freeze Time.new(2017, 1, 20)
+    Timecop.freeze Time.new(2017, 1, 20).utc
   end
 
   after do
@@ -74,7 +74,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       project: {
         name: 'New name for a project',
         description: 'New description',
-        due_at: Time.new(2018, 1, 20).in_time_zone.as_json,
+        due_at: Time.new(2018, 1, 20).utc.as_json,
       },
     } }
     let(:token) { user.token }
@@ -99,7 +99,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(project.name).to eq('New name for a project')
         expect(project.slug).to eq('new-name-for-a-project')
         expect(project.description).to eq('New description')
-        expect(project.due_at).to eq(Time.new(2018, 1, 20))
+        expect(project.due_at).to eq(Time.new(2018, 1, 20).utc)
       end
 
       it 'returns the new project' do
@@ -109,7 +109,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         expect(api_project['attributes']['slug']).to eq('new-name-for-a-project')
         expect(api_project['attributes']['description']).to eq('New description')
         expect(api_project['attributes']['dueAt']).to eq(
-          Time.new(2018, 1, 20).in_time_zone.as_json
+          Time.new(2018, 1, 20).utc.as_json
         )
       end
     end
@@ -292,7 +292,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          due_at: Time.new(2017, 1, 27).in_time_zone.as_json,
+          due_at: Time.new(2017, 1, 27).utc.as_json,
         },
       } }
 
@@ -308,16 +308,16 @@ RSpec.describe Api::ProjectsController, type: :request do
         end
 
         it 'saves due_at' do
-          expect(project.reload.due_at).to eq(Time.new(2017, 1, 27))
+          expect(project.reload.due_at).to eq(Time.new(2017, 1, 27).utc)
         end
 
         it 'sets started_at to now' do
-          expect(project.reload.started_at).to eq(Time.new(2017, 1, 20))
+          expect(project.reload.started_at).to eq(Time.new(2017, 1, 20).utc)
         end
 
         it 'starts newed task' do
           expect(task.reload.state).to eq('started')
-          expect(task.reload.started_at).to eq(Time.now)
+          expect(task.reload.started_at).to eq(Time.current)
         end
       end
 
@@ -336,7 +336,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
         it 'starts newed task' do
           expect(task.reload.state).to eq('started')
-          expect(task.reload.started_at).to eq(Time.now)
+          expect(task.reload.started_at).to eq(Time.current)
         end
       end
 
@@ -375,7 +375,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       context 'with invalid due_at' do
         before do
-          payload[:project][:due_at] = Time.new(2016, 12, 31).in_time_zone.as_json
+          payload[:project][:due_at] = Time.new(2016, 12, 31).utc.as_json
           subject
         end
 
@@ -392,11 +392,11 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'when finishing a project' do
-      let(:project) { create :project, :started, user: user, started_at: Time.new(2017, 1, 1) }
+      let(:project) { create :project, :started, user: user, started_at: Time.new(2017, 1, 1).utc }
       let(:payload) { {
         project: {
           state: 'finished',
-          finished_at: Time.new(2017, 1, 19).in_time_zone.as_json,
+          finished_at: Time.new(2017, 1, 19).utc.as_json,
         },
       } }
 
@@ -412,7 +412,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         end
 
         it 'saves finished_at' do
-          expect(project.reload.finished_at).to eq(Time.new(2017, 1, 19))
+          expect(project.reload.finished_at).to eq(Time.new(2017, 1, 19).utc)
         end
       end
 
@@ -434,7 +434,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       context 'with a finish date in the future' do
         before do
-          payload[:project][:finished_at] = 15.days.from_now.in_time_zone.as_json
+          payload[:project][:finished_at] = 15.days.from_now.utc.as_json
           subject
         end
 
@@ -451,7 +451,7 @@ RSpec.describe Api::ProjectsController, type: :request do
 
       context 'with a finish date before started_at' do
         before do
-          payload[:project][:finished_at] = Time.new(2016, 12, 15).in_time_zone.as_json
+          payload[:project][:finished_at] = Time.new(2016, 12, 15).utc.as_json
           subject
         end
 
@@ -468,7 +468,7 @@ RSpec.describe Api::ProjectsController, type: :request do
     end
 
     context 'when pausing a project' do
-      let(:project) { create :project, :started, user: user, started_at: Time.new(2017, 1, 1) }
+      let(:project) { create :project, :started, user: user, started_at: Time.new(2017, 1, 1).utc }
       let!(:task) { create :task, :started, project: project }
       let(:payload) { {
         project: {
@@ -488,7 +488,7 @@ RSpec.describe Api::ProjectsController, type: :request do
         end
 
         it 'saves paused_at' do
-          expect(project.reload.paused_at).to eq(Time.new(2017, 1, 20))
+          expect(project.reload.paused_at).to eq(Time.new(2017, 1, 20).utc)
         end
 
         it 'cancels started task' do
@@ -503,7 +503,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          due_at: Time.new(2017, 1, 27).in_time_zone.as_json,
+          due_at: Time.new(2017, 1, 27).utc.as_json,
         },
       } }
 
@@ -523,7 +523,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          finished_at: Time.new(2017, 1, 27).in_time_zone.as_json,
+          finished_at: Time.new(2017, 1, 27).utc.as_json,
         },
       } }
       let(:token) { create(:user).token }

@@ -35,21 +35,21 @@ module TaskLifecycle
   protected
 
     def on_start(params)
-      params[:started_at] = Time.now
+      params[:started_at] = Time.current
       params
     end
 
     def on_plan(params)
-      params[:planned_at] = Time.now
-      params[:started_at] = Time.now if self.started_at.nil?
+      params[:planned_at] = Time.current
+      params[:started_at] = Time.current if self.started_at.nil?
       params[:planned_count] = self.planned_count + 1
       params
     end
 
     def on_replan(params)
       params[:finished_at] = nil
-      params[:started_at] = Time.now if self.started_at.nil?
-      params[:planned_at] = Time.now
+      params[:started_at] = Time.current if self.started_at.nil?
+      params[:planned_at] = Time.current
       params[:planned_count] = self.planned_count + 1
       params
     end
@@ -60,7 +60,7 @@ module TaskLifecycle
     end
 
     def on_finish(params)
-      params[:finished_at] = Time.now
+      params[:finished_at] = Time.current
       params
     end
 
@@ -71,7 +71,7 @@ module TaskLifecycle
     end
 
     def on_abandon(params)
-      params[:abandoned_at] = Time.now
+      params[:abandoned_at] = Time.current
       params
     end
 

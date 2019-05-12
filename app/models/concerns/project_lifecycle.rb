@@ -25,20 +25,20 @@ module ProjectLifecycle
 
     def on_start(params)
       check_transition_no_limit_started_projects
-      self.tasks.newed.update_all state: 'started', started_at: Time.now
-      params[:started_at] = Time.now
+      self.tasks.newed.update_all state: 'started', started_at: Time.current
+      params[:started_at] = Time.current
       params
     end
 
     def on_pause(params)
-      params[:paused_at] = Time.now
+      params[:paused_at] = Time.current
       self.tasks.started.update_all state: 'newed', started_at: nil
       params
     end
 
     def on_restart(params)
       check_transition_no_limit_started_projects
-      self.tasks.newed.update_all state: 'started', started_at: Time.now
+      self.tasks.newed.update_all state: 'started', started_at: Time.current
       params[:paused_at] = nil
       params
     end
@@ -88,7 +88,7 @@ module ProjectLifecycle
       errors.add :finished_at, :must_be_set, message: 'must be set when project is finished' if finished_at.nil?
       errors.add :paused_at, :cannot_be_set, message: 'cannot be set when project is finished' if paused_at.present?
 
-      if finished_at.present? && Time.now < finished_at
+      if finished_at.present? && Time.current < finished_at
         errors.add :finished_at, :cannot_be_after_today, message: 'cannot be set after today'
       end
 
