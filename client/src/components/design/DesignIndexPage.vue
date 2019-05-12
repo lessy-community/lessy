@@ -17,26 +17,32 @@
     </ly-text-container>
 
     <ly-card-deck>
-      <ly-card class="text-on-dark" image="/static/grid.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/grid.jpg">
         <router-link to="/design/grid">Grid</router-link>
       </ly-card>
-      <ly-card class="text-on-dark" image="/static/typography.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/typography.jpg">
         <router-link to="/design/typography">Typography</router-link>
       </ly-card>
-      <ly-card class="text-on-dark" image="/static/colors.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/colors.jpg">
         <router-link to="/design/colors">Colors</router-link>
       </ly-card>
     </ly-card-deck>
 
     <ly-card-deck>
-      <ly-card class="text-on-dark" image="/static/visuals.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/visuals.jpg">
         <router-link to="/design/visuals">Visuals</router-link>
       </ly-card>
-      <ly-card class="text-on-dark" image="/static/components.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/components.jpg">
         <router-link to="/design/components">Components</router-link>
       </ly-card>
-      <ly-card class="text-on-dark" image="/static/wording.jpg">
+      <ly-card class="text-on-dark" image="/static/illustrations/wording.jpg">
         <router-link to="/design/wording">Wording</router-link>
+      </ly-card>
+    </ly-card-deck>
+
+    <ly-card-deck>
+      <ly-card class="text-on-dark" image="/static/illustrations/logo.png">
+        <router-link to="/design/logo">Logo</router-link>
       </ly-card>
     </ly-card-deck>
 

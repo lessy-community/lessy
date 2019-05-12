@@ -9,7 +9,7 @@
       </app-menu-link>
     </app-menu>
 
-    <app-header :title="$t('layouts.profile.title')" slot="header">
+    <app-header :title="$t('layouts.profile.title')" nobrand slot="header">
       <user-popover slot="right">
       </user-popover>
     </app-header>

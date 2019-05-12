@@ -1,6 +1,6 @@
 <template>
   <app-page v-if="resourcesReady" name="dashboard" layout="application">
-    <app-header :title="$t('dashboard.page.title')" fluid slot="header">
+    <app-header :title="$t('dashboard.page.title')" nobrand fluid slot="header">
       <user-popover slot="right">
       </user-popover>
     </app-header>

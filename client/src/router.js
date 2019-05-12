@@ -29,6 +29,7 @@ import DesignColorsPage from './components/design/DesignColorsPage'
 import DesignVisualsPage from './components/design/DesignVisualsPage'
 import DesignComponentsPage from './components/design/DesignComponentsPage'
 import DesignWordingPage from './components/design/DesignWordingPage'
+import DesignLogoPage from './components/design/DesignLogoPage'
 
 import auth from './auth'
 import i18n from './locales'
@@ -72,6 +73,7 @@ const routes = [
   { path: '/design/visuals', component: DesignVisualsPage, meta: { title: 'Visuals · Lessy Design Guide' } },
   { path: '/design/components', component: DesignComponentsPage, meta: { title: 'Components · Lessy Design Guide' } },
   { path: '/design/wording', component: DesignWordingPage, meta: { title: 'Wording · Lessy Design Guide' } },
+  { path: '/design/logo', component: DesignLogoPage, meta: { title: 'Logo · Lessy Design Guide' } },
 
   { path: '*', component: NotFoundPage, meta: { iTitle: 'general.notFoundPage.title' } },
 ]

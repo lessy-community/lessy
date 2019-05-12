@@ -34,6 +34,12 @@
     > .app-layout-container {
       flex-grow: 1;
     }
+
+    @media(max-width: $medium-screen-width) {
+      > .app-menu {
+        width: 10rem;
+      }
+    }
   }
 
   .app-layout-container {
