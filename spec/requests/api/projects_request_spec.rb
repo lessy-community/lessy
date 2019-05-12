@@ -292,7 +292,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          due_at: Time.new(2017, 01, 27).in_time_zone.as_json,
+          due_at: Time.new(2017, 1, 27).in_time_zone.as_json,
         },
       } }
 
@@ -396,7 +396,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'finished',
-          finished_at: Time.new(2017, 01, 19).in_time_zone.as_json,
+          finished_at: Time.new(2017, 1, 19).in_time_zone.as_json,
         },
       } }
 
@@ -503,7 +503,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          due_at: Time.new(2017, 01, 27).in_time_zone.as_json,
+          due_at: Time.new(2017, 1, 27).in_time_zone.as_json,
         },
       } }
 
@@ -523,7 +523,7 @@ RSpec.describe Api::ProjectsController, type: :request do
       let(:payload) { {
         project: {
           state: 'started',
-          finished_at: Time.new(2017, 01, 27).in_time_zone.as_json,
+          finished_at: Time.new(2017, 1, 27).in_time_zone.as_json,
         },
       } }
       let(:token) { create(:user).token }
