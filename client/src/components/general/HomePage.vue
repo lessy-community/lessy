@@ -143,7 +143,7 @@
       text-align: center;
     }
 
-    img {
+    .app-layout-main img {
       border-radius: .25rem;
       box-shadow: 0 0 1px $ly-color-grey-50,
                   1px 2px 3px $ly-color-grey-40;

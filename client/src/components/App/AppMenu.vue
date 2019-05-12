@@ -3,8 +3,11 @@
     <header class="app-menu-header">
       <ly-button type="ghost" icon="bars" @click="toggleMobileNavigation">Menu</ly-button>
 
-      <router-link class="app-brand" :to="home">
-        {{ brand }}
+      <router-link :to="home" class="app-menu-home">
+        <app-logo flavour="inversed" />
+        <span v-if="subbrand" class="subbrand">
+          {{ subbrand }}
+        </span>
       </router-link>
     </header>
 
@@ -19,7 +22,7 @@
 
   export default {
     props: {
-      brand: { type: String, required: true },
+      subbrand: { type: String },
       home: { type: String, default: '/' },
     },
 
@@ -56,17 +59,32 @@
       &:focus { color: $ly-color-white; }
     }
 
-    .app-brand {
-      font-weight: bold;
+    .app-menu-home {
+      display: block;
+    }
+
+    .subbrand {
+      font-size: 1.5rem;
+
+      @media(max-width: $small-screen-width) {
+        display: none;
+      }
     }
 
     .app-menu-header {
+      display: flex;
       padding: 1rem 2rem;
 
       line-height: 2.5rem;
 
       .ly-button {
         display: none;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .app-menu-home {
+        flex-grow: 1;
       }
     }
 
@@ -81,12 +99,16 @@
 
   @media(max-width: $small-screen-width) {
     .app-menu {
-      background: $ly-color-pine-80;
+      background: $ly-color-pine-70;
 
       .app-menu-header .ly-button {
         display: inline-block;
 
         color: $ly-color-white;
+      }
+
+      .app-menu-header .app-logo {
+        justify-content: center;
       }
 
       .app-menu-navigation {

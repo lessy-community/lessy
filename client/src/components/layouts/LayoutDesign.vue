@@ -1,6 +1,6 @@
 <template>
   <app-layout name="design">
-    <app-menu brand="Lessy Design Guide" home="/design" slot="menu">
+    <app-menu subbrand="Design Guide" home="/design" slot="menu">
       <app-menu-link to="/design/grid">Grid</app-menu-link>
       <app-menu-link to="/design/typography">Typography</app-menu-link>
       <app-menu-link to="/design/colors">Colors</app-menu-link>

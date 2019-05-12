@@ -1,5 +1,5 @@
 <template>
-  <app-header :title="$t('projects.header.title')" fluid>
+  <app-header :title="$t('projects.header.title')" nobrand fluid>
     <user-popover slot="right">
     </user-popover>
   </app-header>

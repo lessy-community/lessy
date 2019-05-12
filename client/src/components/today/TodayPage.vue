@@ -5,7 +5,7 @@
     layout="application"
     :centered="centered"
   >
-    <app-header :title="$t('today.page.title')" fluid slot="header">
+    <app-header :title="$t('today.page.title')" nobrand fluid slot="header">
       <user-popover slot="right">
       </user-popover>
     </app-header>

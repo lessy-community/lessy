@@ -1,8 +1,8 @@
 <template>
   <header :class="['app-header', appHeaderClasses]">
     <div :class="['app-header-container', { fluid }]">
-      <router-link v-if="brand" to="/" class="app-header-brand">
-        {{ brand }}
+      <router-link v-if="!nobrand" to="/" class="app-header-home">
+        <app-logo />
       </router-link>
       <h1 v-if="title" class="app-header-title">{{ title }}</h1>
 
@@ -20,9 +20,9 @@
 <script>
   export default {
     props: {
-      brand: { type: String },
       title: { type: String },
       fluid: { type: Boolean },
+      nobrand: { type: Boolean },
     },
 
     computed: {
@@ -67,7 +67,7 @@
       }
     }
 
-    .app-header-brand,
+    .app-header-home,
     .app-header-title,
     .app-header-right {
       display: flex;
@@ -76,10 +76,7 @@
       justify-content: center;
     }
 
-    .app-header-brand {
-      color: $ly-color-grey-90;
-      font-size: 1.2rem;
-      font-weight: bold;
+    .app-header-home {
       text-decoration: none;
     }
 
@@ -122,7 +119,8 @@
       }
 
       &.no-brand.no-navigation {
-        padding: 0;
+        padding-top: 0;
+        padding-bottom: 0;
       }
     }
   }
