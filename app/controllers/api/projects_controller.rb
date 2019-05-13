@@ -39,7 +39,7 @@ private
   end
 
   def update_project_params
-    permitted_params = [:name, :description]
+    permitted_params = %i[name description]
     permitted_params << :due_at if current_project.started?
     params.require(:project).permit(*permitted_params)
   end
@@ -47,12 +47,11 @@ private
   def update_project_state_params
     state = params[:project][:state]
     if state == 'started'
-      fetch_resource_params(:project, [:state, :due_at])
+      fetch_resource_params(:project, %i[state due_at])
     elsif state == 'finished'
-      fetch_resource_params(:project, [:state, :finished_at])
+      fetch_resource_params(:project, %i[state finished_at])
     else
-      fetch_resource_params(:project, [:state])
+      fetch_resource_params(:project, %i[state])
     end
   end
-
 end

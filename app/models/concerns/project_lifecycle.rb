@@ -25,20 +25,20 @@ module ProjectLifecycle
 
     def on_start(params)
       check_transition_no_limit_started_projects
-      self.tasks.newed.update_all state: 'started', started_at: Time.current
+      self.tasks.newed.update_all state: 'started', started_at: Time.current # rubocop:disable Rails/SkipsModelValidations
       params[:started_at] = Time.current
       params
     end
 
     def on_pause(params)
       params[:paused_at] = Time.current
-      self.tasks.started.update_all state: 'newed', started_at: nil
+      self.tasks.started.update_all state: 'newed', started_at: nil # rubocop:disable Rails/SkipsModelValidations
       params
     end
 
     def on_restart(params)
       check_transition_no_limit_started_projects
-      self.tasks.newed.update_all state: 'started', started_at: Time.current
+      self.tasks.newed.update_all state: 'started', started_at: Time.current # rubocop:disable Rails/SkipsModelValidations
       params[:paused_at] = nil
       params
     end
