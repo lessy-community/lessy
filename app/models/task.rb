@@ -13,7 +13,7 @@ class Task < ApplicationRecord
   delegate :name, to: :project, prefix: true, allow_nil: true
 
   scope :due_on_today, -> {
-    today = DateTime.now
+    today = Time.current
     where('? <= planned_at AND planned_at <= ?', today.beginning_of_day, today.end_of_day)
   }
 
@@ -50,7 +50,7 @@ class Task < ApplicationRecord
   def sync_state_with_project
     if self.newed? && (self.project.nil? || self.project.started?)
       self.state = :started
-      self.started_at = DateTime.now
+      self.started_at = Time.current
     elsif self.started? && self.project.present? && !self.project.started?
       self.state = :newed
       self.started_at = nil

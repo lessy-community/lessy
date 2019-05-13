@@ -1,13 +1,9 @@
 json.type 'project'
 json.id project.id
 json.attributes do
-  json.extract! project, :name, :slug, :description, :state
-  json.started_at project.started_at.to_i
-  json.due_at project.due_at.to_i
-  json.paused_at project.paused_at.to_i
-  json.finished_at project.finished_at.to_i
-  json.created_at project.created_at.to_i
-  json.updated_at project.updated_at.to_i
+  json.extract! project, :name, :slug, :description, :state,
+                :started_at, :due_at, :paused_at, :finished_at,
+                :created_at, :updated_at
 end
 json.relationships do
   json.user do

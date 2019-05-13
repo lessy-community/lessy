@@ -191,11 +191,13 @@ RSpec.describe Api::UsersController, type: :request do
   describe 'PATCH #update' do
     let(:user) { create :user, :activated }
     let(:token) { user.token }
+    let(:time_zone) { nil }
     let(:payload) do
       {
         user: {
           username: username,
           email: email,
+          time_zone: time_zone,
         },
       }
     end
@@ -207,6 +209,7 @@ RSpec.describe Api::UsersController, type: :request do
     context 'with valid parameters' do
       let(:username) { 'douglasjones' }
       let(:email) { 'douglas.jones@lessy.io' }
+      let(:time_zone) { 'Europe/Paris' }
 
       before { subject }
 
@@ -222,6 +225,7 @@ RSpec.describe Api::UsersController, type: :request do
         user.reload
         expect(user.username).to eq username
         expect(user.email).to eq email
+        expect(user.time_zone).to eq time_zone
       end
 
       it 'returns the new user' do
@@ -229,12 +233,14 @@ RSpec.describe Api::UsersController, type: :request do
         expect(contact['id']).to eq(user.id)
         expect(contact['attributes']['username']).to eq username
         expect(contact['attributes']['email']).to eq email
+        expect(contact['attributes']['timeZone']).to eq time_zone
       end
     end
 
     context 'with partial parameters' do
       let(:username) { 'douglasjones' }
       let(:email) { nil }
+      let(:time_zone) { nil }
 
       before { subject }
 
@@ -242,8 +248,9 @@ RSpec.describe Api::UsersController, type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'does not save nil email' do
+      it 'does not save nil email or time_zone' do
         expect(user.reload.email).not_to be nil
+        expect(user.reload.time_zone).not_to be nil
       end
     end
 

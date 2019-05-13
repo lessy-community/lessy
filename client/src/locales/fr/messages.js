@@ -236,12 +236,22 @@ export default {
       password: 'Mot de passe',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
+      timeZone: 'Fuseau horaire',
     },
 
     passwordNewForm: {
       passwordLabel: 'Nouveau mot de passe',
       saved: 'Enregistré !',
       submit: 'Changez votre mot de passe',
+    },
+
+    timeZoneForm: {
+      autodetect: 'Configurer automatiquement',
+      autodetectInfo: 'Nous avons détecté que votre fuseau horaire actuel est différent de celui défini par votre système d’exploitation. Il est vivement recommandé de les synchroniser.',
+      saved: 'Enregistré !',
+      timeZoneCaption: 'Nous utilisons votre fuseau horaire pour manipuler les dates correctement.',
+      timeZoneLabel: 'Nouveau fuseau horaire',
+      timeZonePlaceholder: 'Europe/Paris',
     },
   },
 

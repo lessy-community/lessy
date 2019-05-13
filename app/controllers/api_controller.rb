@@ -1,4 +1,6 @@
 class ApiController < ActionController::API
+  around_action :time_zone, if: :current_user
+
   before_action :require_login
   before_action :require_tos_accepted
 
@@ -73,5 +75,11 @@ protected
 
   def render_error(error, http_status)
     render_errors [error], http_status
+  end
+
+  private
+
+  def time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 end

@@ -21,21 +21,19 @@ const getters = {
       const params = {
         projectSlug: project.slug,
       }
-      const isNewed = project.state === 'newed'
-      const isStarted = project.state === 'started'
-      const isPaused = project.state === 'paused'
-      const isFinished = project.state === 'finished'
       return {
         ...project,
-        isNewed,
-        isStarted,
-        isPaused,
-        isFinished,
+        isNewed: project.state === 'newed',
+        isStarted: project.state === 'started',
+        isPaused: project.state === 'paused',
+        isFinished: project.state === 'finished',
+        startedAt: project.startedAt ? new Date(project.startedAt) : null,
+        dueAt: project.dueAt ? new Date(project.dueAt) : null,
+        pausedAt: project.pausedAt ? new Date(project.pausedAt) : null,
+        finishedAt: project.finishedAt ? new Date(project.finishedAt) : null,
+        createdAt: new Date(project.createdAt),
+        updatedAt: new Date(project.updatedAt),
         mdDescription: marked(project.description, { sanitize: true, breaks: true, smartypants: true }),
-        startedAt: isStarted ? new Date(project.startedAt * 1000) : null,
-        dueAt: isStarted ? new Date(project.dueAt * 1000) : null,
-        pausedAt: isPaused ? new Date(project.pausedAt * 1000) : null,
-        finishedAt: isFinished ? new Date(project.finishedAt * 1000) : null,
         urlShow: { name: 'project/show', params },
         urlEdit: { name: 'project/edit', params },
       }

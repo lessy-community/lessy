@@ -28,6 +28,11 @@
       </ly-section>
     </template>
 
+    <ly-section :title="$t('profile.page.timeZone')">
+      <profile-time-zone-form :user="user">
+      </profile-time-zone-form>
+    </ly-section>
+
     <ly-section :title="$t('profile.page.language')">
       <profile-language-form>
       </profile-language-form>
@@ -48,6 +53,7 @@
 
   import ProfileIdentityEditForm from './ProfileIdentityEditForm'
   import ProfilePasswordNewForm from './ProfilePasswordNewForm'
+  import ProfileTimeZoneForm from './ProfileTimeZoneForm'
   import ProfileLanguageForm from './ProfileLanguageForm'
   import ProfileDeleteAccount from './ProfileDeleteAccount'
 
@@ -57,6 +63,7 @@
     components: {
       ProfileIdentityEditForm,
       ProfilePasswordNewForm,
+      ProfileTimeZoneForm,
       ProfileLanguageForm,
       ProfileDeleteAccount,
     },

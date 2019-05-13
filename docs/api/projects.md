@@ -26,12 +26,12 @@ Result format:
 | data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
-| data.attributes.startedAt            | number | Date when project started                |          |
-| data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.pausedAt             | number | Date when project has been paused        |          |
-| data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.createdAt            | number | Date when project has been created       |          |
-| data.attributes.updatedAt            | number | Date when project has been updated       |          |
+| data.attributes.startedAt            | date   | Date when project started                | yes      |
+| data.attributes.dueAt                | date   | Date when project should finished        | yes      |
+| data.attributes.pausedAt             | date   | Date when project has been paused        | yes      |
+| data.attributes.finishedAt           | date   | Date when project finished               | yes      |
+| data.attributes.createdAt            | date   | Date when project has been created       |          |
+| data.attributes.updatedAt            | date   | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -72,12 +72,12 @@ $ curl -H "Content-Type: application/json" \
       "slug": "damn-good-coffee",
       "description": "",
       "state": "newed",
-      "startedAt": 0,
-      "dueAt": 0,
-      "pausedAt": 0,
-      "finishedAt": 0,
-      "createdAt": 1507446226,
-      "updatedAt": 1507446226
+      "startedAt": null,
+      "dueAt": null,
+      "pausedAt": null,
+      "finishedAt": null,
+      "createdAt": "2017-10-08T07:03:46.000Z",
+      "updatedAt": "2017-10-08T07:03:46.000Z"
     },
     "relationships": {
       "user": {
@@ -117,12 +117,12 @@ Result format:
 | data[].attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data[].attributes.description          | string | Project's description                    |          |
 | data[].attributes.state                | string | Project's state                          |          |
-| data[].attributes.startedAt            | number | Date when project started                |          |
-| data[].attributes.dueAt                | number | Date when project should finished        |          |
-| data[].attributes.pausedAt             | number | Date when project has been paused        |          |
-| data[].attributes.finishedAt           | number | Date when project finished               |          |
-| data[].attributes.createdAt            | number | Date when project has been created       |          |
-| data[].attributes.updatedAt            | number | Date when project has been updated       |          |
+| data[].attributes.startedAt            | date   | Date when project started                | yes      |
+| data[].attributes.dueAt                | date   | Date when project should finished        | yes      |
+| data[].attributes.pausedAt             | date   | Date when project has been paused        | yes      |
+| data[].attributes.finishedAt           | date   | Date when project finished               | yes      |
+| data[].attributes.createdAt            | date   | Date when project has been created       |          |
+| data[].attributes.updatedAt            | date   | Date when project has been updated       |          |
 | data[].relationships                   | object |                                          |          |
 | data[].relationships.user              | object | Related user reference                   |          |
 | data[].relationships.user.data         | object |                                          |          |
@@ -159,12 +159,12 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "slug": "black-lodge",
         "description": "A mysterious dark place",
         "state": "started",
-        "startedAt": 639532800,
-        "dueAt": 1504396800,
-        "pausedAt": 0,
-        "finishedAt": 0,
-        "createdAt": 639529200,
-        "updatedAt": 639536400
+        "startedAt": "1990-04-08T00:00:00.000Z",
+        "dueAt": "2017-09-03T00:00:00.000Z",
+        "pausedAt": null,
+        "finishedAt": null,
+        "createdAt": "1990-04-07T23:00:00.000Z",
+        "updatedAt": "1990-04-08T01:00:00.000Z"
       },
       "relationships": {
         "user": {
@@ -186,12 +186,12 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me/projects
         "slug": "damn-good-coffee",
         "description": "",
         "state": "newed",
-        "startedAt": 0,
-        "dueAt": 0,
-        "pausedAt": 0,
-        "finishedAt": 0,
-        "createdAt": 1507446226,
-        "updatedAt": 1507446226
+        "startedAt": null,
+        "dueAt": null,
+        "pausedAt": null,
+        "finishedAt": null,
+        "createdAt": "2017-10-08T07:03:46.000Z",
+        "updatedAt": "2017-10-08T07:03:46.000Z"
       },
       "relationships": {
         "user": {
@@ -228,12 +228,12 @@ Result format:
 | data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
-| data.attributes.startedAt            | number | Date when project started                |          |
-| data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.pausedAt             | number | Date when project has been paused        |          |
-| data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.createdAt            | number | Date when project has been created       |          |
-| data.attributes.updatedAt            | number | Date when project has been updated       |          |
+| data.attributes.startedAt            | date   | Date when project started                | yes      |
+| data.attributes.dueAt                | date   | Date when project should finished        | yes      |
+| data.attributes.pausedAt             | date   | Date when project has been paused        | yes      |
+| data.attributes.finishedAt           | date   | Date when project finished               | yes      |
+| data.attributes.createdAt            | date   | Date when project has been created       |          |
+| data.attributes.updatedAt            | date   | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -264,12 +264,12 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/projects/42
       "slug": "damn-good-coffee",
       "description": "",
       "state": "newed",
-      "startedAt": 0,
-      "dueAt": 0,
-      "pausedAt": 0,
-      "finishedAt": 0,
-      "createdAt": 1507446226,
-      "updatedAt": 1507446226
+      "startedAt": null,
+      "dueAt": null,
+      "pausedAt": null,
+      "finishedAt": null,
+      "createdAt": "2017-10-08T07:03:46.000Z",
+      "updatedAt": "2017-10-08T07:03:46.000Z"
     },
     "relationships": {
       "user": {
@@ -289,13 +289,13 @@ Update a given project.
 
 Parameters:
 
-| Name                | Type   | Description                    | Optional |
-|---------------------|--------|--------------------------------|----------|
-| id                  | number | Project's id                   |          |
-| project             | object |                                |          |
-| project.name        | string | Project's name                 | yes      |
-| project.description | string | Project's description          | yes      |
-| project.due\_at     | number | Project's due date (timestamp) | yes      |
+| Name                | Type   | Description           | Optional |
+|---------------------|--------|-----------------------|----------|
+| id                  | number | Project's id          |          |
+| project             | object |                       |          |
+| project.name        | string | Project's name        | yes      |
+| project.description | string | Project's description | yes      |
+| project.due\_at     | date   | Project's due date    | yes      |
 
 Note: same requirements apply to project's name as for creation. Also, `due_at`
 cannot be changed while project is `newed`.
@@ -312,12 +312,12 @@ Result format:
 | data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
-| data.attributes.startedAt            | number | Date when project started                |          |
-| data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.pausedAt             | number | Date when project has been paused        |          |
-| data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.createdAt            | number | Date when project has been created       |          |
-| data.attributes.updatedAt            | number | Date when project has been updated       |          |
+| data.attributes.startedAt            | date   | Date when project started                | yes      |
+| data.attributes.dueAt                | date   | Date when project should finished        | yes      |
+| data.attributes.pausedAt             | date   | Date when project has been paused        | yes      |
+| data.attributes.finishedAt           | date   | Date when project finished               | yes      |
+| data.attributes.createdAt            | date   | Date when project has been created       |          |
+| data.attributes.updatedAt            | date   | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -358,12 +358,12 @@ $ curl -H "Content-Type: application/json" \
       "slug": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
       "state": "newed",
-      "startedAt": 0,
-      "dueAt": 0,
-      "pausedAt": 0,
-      "finishedAt": 0,
-      "createdAt": 1507446226,
-      "updatedAt": 1507448026
+      "startedAt": null,
+      "dueAt": null,
+      "pausedAt": null,
+      "finishedAt": null,
+      "createdAt": "2017-10-08T07:03:46.000Z",
+      "updatedAt": "2017-10-08T07:33:46.000Z",
     },
     "relationships": {
       "user": {
@@ -412,8 +412,8 @@ Parameters:
 | id                   | number | Project's id          |          |
 | project              | object |                       |          |
 | project.state        | string | Project's state       |          |
-| project.due\_at      | number | Project's due date    | yes      |
-| project.finished\_at | number | Project's finish date | yes      |
+| project.due\_at      | date   | Project's due date    | yes      |
+| project.finished\_at | date   | Project's finish date | yes      |
 
 Note: possible values of `state` are `started`, `paused` and `finished`. A
 created project's state is `newed`. State follow this state's machine:
@@ -457,12 +457,12 @@ Result format:
 | data.attributes.slug                 | string | Project's slug (URL fragment)            |          |
 | data.attributes.description          | string | Project's description                    |          |
 | data.attributes.state                | string | Project's state                          |          |
-| data.attributes.startedAt            | number | Date when project started                |          |
-| data.attributes.dueAt                | number | Date when project should finished        |          |
-| data.attributes.pausedAt             | number | Date when project has been paused        |          |
-| data.attributes.finishedAt           | number | Date when project finished               |          |
-| data.attributes.createdAt            | number | Date when project has been created       |          |
-| data.attributes.updatedAt            | number | Date when project has been updated       |          |
+| data.attributes.startedAt            | date   | Date when project started                | yes      |
+| data.attributes.dueAt                | date   | Date when project should finished        | yes      |
+| data.attributes.pausedAt             | date   | Date when project has been paused        | yes      |
+| data.attributes.finishedAt           | date   | Date when project finished               | yes      |
+| data.attributes.createdAt            | date   | Date when project has been created       |          |
+| data.attributes.updatedAt            | date   | Date when project has been updated       |          |
 | data.relationships                   | object |                                          |          |
 | data.relationships.user              | object | Related user reference                   |          |
 | data.relationships.user.data         | object |                                          |          |
@@ -506,12 +506,12 @@ $ curl -H "Content-Type: application/json" \
       "slug": "damn-good-coffee",
       "description": "Wait a minute! Wait a minute! [...] You know, this is, excuse me, a damn fine cup of coffee.",
       "state": "started",
-      "startedAt": 1507449826,
-      "dueAt": 1545696000,
-      "pausedAt": 0,
-      "finishedAt": 0,
-      "createdAt": 1507446226,
-      "updatedAt": 1507449826
+      "startedAt": "2017-10-08T08:03:46.000Z",
+      "dueAt": "2018-12-25T00:00:00.000Z",
+      "pausedAt": null,
+      "finishedAt": null,
+      "createdAt": "2017-10-08T07:03:46.000Z",
+      "updatedAt": "2017-10-08T08:03:46.000Z"
     },
     "relationships": {
       "user": {

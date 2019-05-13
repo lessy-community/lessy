@@ -47,14 +47,8 @@ export default {
     return get('/api/users/me')
   },
 
-  updateCurrent: (username, email) => {
-    const payload = {
-      user: {
-        username,
-        email,
-      },
-    }
-    return patch('/api/users/me', payload)
+  updateCurrent: (payload) => {
+    return patch('/api/users/me', { user: payload })
   },
 
   acceptTermsOfService: () => {

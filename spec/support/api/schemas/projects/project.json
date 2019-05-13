@@ -13,12 +13,12 @@
         "slug": { "type": "string" },
         "description": { "type": "string" },
         "state": { "type": "string" },
-        "startedAt": { "type": "integer" },
-        "dueAt": { "type": "integer" },
-        "pausedAt": { "type": "integer" },
-        "finishedAt": { "type": "integer" },
-        "createdAt": { "type": "integer" },
-        "updatedAt": { "type": "integer" }
+        "startedAt": { "type": "date" },
+        "dueAt": { "type": "date" },
+        "pausedAt": { "type": "date" },
+        "finishedAt": { "type": "date" },
+        "createdAt": { "type": "date" },
+        "updatedAt": { "type": "date" }
       },
       "additionalProperties": false
     },

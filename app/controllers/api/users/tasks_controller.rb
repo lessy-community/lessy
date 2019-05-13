@@ -35,15 +35,13 @@ private
 
     if parameters.key?(:planned_at)
       parameters[:state] = 'planned'
-      parameters[:planned_at] = parameters[:planned_at].to_datetime
-      parameters[:started_at] = DateTime.now
+      parameters[:started_at] = Time.current
     end
 
     if parameters.key?(:finished_at)
       parameters[:state] = 'finished'
-      parameters[:finished_at] = parameters[:finished_at].to_datetime
-      parameters[:planned_at] = DateTime.now unless parameters.key?(:planned_at)
-      parameters[:started_at] = DateTime.now
+      parameters[:planned_at] = Time.current unless parameters.key?(:planned_at)
+      parameters[:started_at] = Time.current
     end
 
     parameters[:state] = 'newed' unless parameters.key?(:state)

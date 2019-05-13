@@ -6,7 +6,7 @@ RSpec.describe Api::TasksController, type: :request do
   let(:user) { create :user, :activated }
 
   before do
-    Timecop.freeze DateTime.new(2017)
+    Timecop.freeze Time.new(2017).utc
   end
 
   after do
@@ -160,12 +160,12 @@ RSpec.describe Api::TasksController, type: :request do
         end
 
         it 'saves finished_at' do
-          expect(task.reload.finished_at).to eq(DateTime.new(2017))
+          expect(task.reload.finished_at).to eq(Time.new(2017).utc)
         end
 
         it 'returns the updated task' do
           task = JSON.parse(response.body)['data']
-          expect(task['attributes']['finishedAt']).to eq(DateTime.new(2017).to_i)
+          expect(task['attributes']['finishedAt']).to eq(Time.new(2017).utc.as_json)
         end
       end
 
@@ -225,7 +225,7 @@ RSpec.describe Api::TasksController, type: :request do
       end
 
       it 'sets planned_at to today' do
-        expect(task.reload.planned_at).to eq(DateTime.new(2017))
+        expect(task.reload.planned_at).to eq(Time.new(2017).utc)
       end
 
       it 'increments planned_count' do
@@ -252,7 +252,7 @@ RSpec.describe Api::TasksController, type: :request do
       end
 
       it 'sets planned_at to today' do
-        expect(task.reload.planned_at).to eq(DateTime.new(2017))
+        expect(task.reload.planned_at).to eq(Time.new(2017).utc)
       end
 
       it 'increments planned_count' do
@@ -301,12 +301,12 @@ RSpec.describe Api::TasksController, type: :request do
         end
 
         it 'saves abandoned_at' do
-          expect(task.reload.abandoned_at).to eq(DateTime.new(2017))
+          expect(task.reload.abandoned_at).to eq(Time.new(2017).utc)
         end
 
         it 'returns the updated task' do
           task = JSON.parse(response.body)['data']
-          expect(task['attributes']['abandonedAt']).to eq(DateTime.new(2017).to_i)
+          expect(task['attributes']['abandonedAt']).to eq(Time.new(2017).utc.as_json)
         end
       end
 

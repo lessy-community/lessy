@@ -5,7 +5,7 @@ RSpec.describe Project, type: :model do
   let(:user) { create :user }
 
   before do
-    Timecop.freeze DateTime.new(2017, 1, 20)
+    Timecop.freeze Time.new(2017, 1, 20).utc
   end
 
   after do
@@ -17,22 +17,22 @@ RSpec.describe Project, type: :model do
       let(:project) { build :project, :newed }
 
       it 'does not accept started_at' do
-        project.started_at = DateTime.new(2017, 1, 1)
+        project.started_at = Time.new(2017, 1, 1).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept paused_at' do
-        project.paused_at = DateTime.new(2017, 1, 15)
+        project.paused_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept due_at' do
-        project.due_at = DateTime.new(2017, 2, 20)
+        project.due_at = Time.new(2017, 2, 20).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept finished_at' do
-        project.finished_at = DateTime.new(2017, 1, 15)
+        project.finished_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
     end
@@ -51,18 +51,18 @@ RSpec.describe Project, type: :model do
       end
 
       it 'requires due_at greater than started_at' do
-        project.due_at = DateTime.new(2017, 1, 1)
-        project.started_at = DateTime.new(2017, 1, 15)
+        project.due_at = Time.new(2017, 1, 1).utc
+        project.started_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept paused_at' do
-        project.paused_at = DateTime.new(2017, 1, 15)
+        project.paused_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept finished_at' do
-        project.finished_at = DateTime.new(2017, 1, 15)
+        project.finished_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
     end
@@ -81,19 +81,19 @@ RSpec.describe Project, type: :model do
       end
 
       it 'requires paused_at greater than started_at' do
-        project.paused_at = DateTime.new(2017, 1, 1)
-        project.started_at = DateTime.new(2017, 1, 15)
+        project.paused_at = Time.new(2017, 1, 1).utc
+        project.started_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'requires due_at greater than started_at' do
-        project.due_at = DateTime.new(2017, 1, 1)
-        project.started_at = DateTime.new(2017, 1, 15)
+        project.due_at = Time.new(2017, 1, 1).utc
+        project.started_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'does not accept finished_at' do
-        project.finished_at = DateTime.new(2017, 1, 15)
+        project.finished_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
     end
@@ -112,14 +112,14 @@ RSpec.describe Project, type: :model do
       end
 
       it 'requires due_at greater than started_at' do
-        project.due_at = DateTime.new(2017, 1, 1)
-        project.started_at = DateTime.new(2017, 1, 15)
+        project.due_at = Time.new(2017, 1, 1).utc
+        project.started_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
       it 'requires finished_at greater than started_at' do
-        project.finished_at = DateTime.new(2017, 1, 1)
-        project.started_at = DateTime.new(2017, 1, 15)
+        project.finished_at = Time.new(2017, 1, 1).utc
+        project.started_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
 
@@ -129,7 +129,7 @@ RSpec.describe Project, type: :model do
       end
 
       it 'does not accept paused_at' do
-        project.paused_at = DateTime.new(2017, 1, 15)
+        project.paused_at = Time.new(2017, 1, 15).utc
         expect(project).to be_invalid
       end
     end
@@ -200,7 +200,7 @@ RSpec.describe Project, type: :model do
       let(:project) { create :project, :newed }
       let(:params) { {
         state: 'started',
-        due_at: DateTime.new(2017, 2, 20),
+        due_at: Time.new(2017, 2, 20).utc,
       } }
 
       it 'sets project state to started' do
@@ -208,11 +208,11 @@ RSpec.describe Project, type: :model do
       end
 
       it 'updates due_at attribute' do
-        expect(subject.reload.due_at).to eq(DateTime.new(2017, 2, 20))
+        expect(subject.reload.due_at).to eq(Time.new(2017, 2, 20).utc)
       end
 
       it 'sets started_at attribute to today' do
-        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.started_at).to eq(Time.new(2017, 1, 20).utc)
       end
     end
 
@@ -221,7 +221,7 @@ RSpec.describe Project, type: :model do
       let(:project) { create :project, :newed, user: user }
       let(:params) { {
         state: 'started',
-        due_at: DateTime.new(2017, 2, 20),
+        due_at: Time.new(2017, 2, 20).utc,
       } }
 
       it 'fails' do
@@ -253,7 +253,7 @@ RSpec.describe Project, type: :model do
       end
 
       it 'sets paused_at attribute to today' do
-        expect(subject.reload.paused_at).to eq(DateTime.new(2017, 1, 20))
+        expect(subject.reload.paused_at).to eq(Time.new(2017, 1, 20).utc)
       end
     end
 
@@ -282,7 +282,7 @@ RSpec.describe Project, type: :model do
     end
 
     context 'when restarting a paused project' do
-      let(:project) { create :project, :paused, started_at: DateTime.new(2017, 1, 1) }
+      let(:project) { create :project, :paused, started_at: Time.new(2017, 1, 1).utc }
       let(:params) { {
         state: 'started',
       } }
@@ -296,7 +296,7 @@ RSpec.describe Project, type: :model do
       end
 
       it 'does not change started_at attribute' do
-        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 1))
+        expect(subject.reload.started_at).to eq(Time.new(2017, 1, 1).utc)
       end
     end
 
@@ -314,10 +314,10 @@ RSpec.describe Project, type: :model do
     end
 
     context 'when finishing a started project' do
-      let(:project) { create :project, :started, started_at: DateTime.new(2017, 1, 1) }
+      let(:project) { create :project, :started, started_at: Time.new(2017, 1, 1).utc }
       let(:params) { {
         state: 'finished',
-        finished_at: DateTime.new(2017, 1, 15),
+        finished_at: Time.new(2017, 1, 15).utc,
       } }
 
       it 'sets project state to finished' do
@@ -325,11 +325,11 @@ RSpec.describe Project, type: :model do
       end
 
       it 'updates finished_at attribute' do
-        expect(subject.reload.finished_at).to eq(DateTime.new(2017, 1, 15))
+        expect(subject.reload.finished_at).to eq(Time.new(2017, 1, 15).utc)
       end
 
       it 'does not change started_at' do
-        expect(subject.reload.started_at).to eq(DateTime.new(2017, 1, 1))
+        expect(subject.reload.started_at).to eq(Time.new(2017, 1, 1).utc)
       end
     end
 

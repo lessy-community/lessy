@@ -9,6 +9,7 @@ AllCops:
 
 Metrics/LineLength:
   Max: 110
+  IgnoreCopDirectives: true
 
 Documentation:
   Enabled: false
