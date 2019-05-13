@@ -13,6 +13,15 @@
       ></ly-form-select>
     </ly-form-group>
 
+    <ly-card v-if="guessedTimeZoneIsDifferent" class="card-autodetect">
+      <p class="text-warning">
+        {{ $t('profile.timeZoneForm.autodetectInfo') }}
+      </p>
+      <ly-button @click="autodetect" type="primary">
+        {{ $t('profile.timeZoneForm.autodetect') }}
+      </ly-button>
+    </ly-card>
+
     <span :class="['text-success', { show: saved }]">
       <ly-icon name="check"></ly-icon>
       {{ $t('profile.timeZoneForm.saved') }}
@@ -45,6 +54,13 @@
       }
     },
 
+    computed: {
+      guessedTimeZoneIsDifferent () {
+        const guessedTimeZone = moment.tz.guess()
+        return guessedTimeZone !== this.user.timeZone
+      }
+    },
+
     methods: {
       changeTimeZone (value) {
         this.timeZone = value
@@ -63,11 +79,26 @@
           })
           .catch(this.setFailureErrors)
       },
+
+      autodetect () {
+        if (this.guessedTimeZoneIsDifferent) {
+          const guessedTimeZone = moment.tz.guess()
+          this.changeTimeZone(guessedTimeZone)
+        }
+      },
     },
   }
 </script>
 
 <style lang="scss" scoped>
+  .card-autodetect {
+    text-align: center;
+
+    p {
+      text-align: left;
+    }
+  }
+
   .text-success {
     opacity: 0;
 

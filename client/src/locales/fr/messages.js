@@ -246,6 +246,8 @@ export default {
     },
 
     timeZoneForm: {
+      autodetect: 'Configurer automatiquement',
+      autodetectInfo: 'Nous avons détecté que votre fuseau horaire actuel est différent de celui défini par votre système d’exploitation. Il est vivement recommandé de les synchroniser.',
       saved: 'Enregistré !',
       timeZoneCaption: 'Nous utilisons votre fuseau horaire pour manipuler les dates correctement.',
       timeZoneLabel: 'Nouveau fuseau horaire',

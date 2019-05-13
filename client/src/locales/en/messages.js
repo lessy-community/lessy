@@ -251,6 +251,8 @@ export default {
     },
 
     timeZoneForm: {
+      autodetect: 'Configure automatically',
+      autodetectInfo: 'We detected that your current time zone is different from the one of your operating system. It is highly recommended to synchronize both timezones.',
       saved: 'Saved!',
       timeZoneCaption: 'We use your time zone to manage the dates correctly.',
       timeZoneLabel: 'New time zone',
