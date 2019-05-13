@@ -12,6 +12,16 @@
 - Tasks' and projects' endpoints now accept and return `Date` instead of timestamps
 - Add support of `timeZone` attribute on `/api/users` endpoints
 
+### Migration notes
+
+- New environment variables are considered for SMTP configuration:
+  - `SMTP_USERNAME`
+  - `SMTP_PASSWORD`
+  - `SMTP_ADDRESS` (was `SMTP_SERVER`)
+  - `SMTP_DOMAIN`
+  - `SMTP_PORT`
+  - `SMTP_AUTHENTICATION`
+
 ## Ara 2018-09-09
 
 ### Features

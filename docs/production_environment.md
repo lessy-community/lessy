@@ -35,7 +35,8 @@ install it.
 
 You should install Postfix server so emails can be sent to users. Here, we
 install it via `apt-get` because we didn't find any good and simple image based
-on Docker.
+on Docker. Note if you already have a server capable of sending emails, you can
+skip this section.
 
 ```console
 # apt-get install postfix
@@ -234,6 +235,16 @@ $ irb
 Here, `network_mode: bridge` is required so Lessy can access Postfix installed
 on the host. `172.17.0.1` corresponds to the Docker container's gateway which
 is the host.
+
+You can also configure your own SMTP server with the following environment
+variables:
+
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_ADDRESS`
+- `SMTP_DOMAIN`
+- `SMTP_PORT`
+- `SMTP_AUTHENTICATION`
 
 Now, we need a systemd unit file:
 
