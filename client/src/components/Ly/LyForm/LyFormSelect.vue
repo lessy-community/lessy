@@ -187,7 +187,7 @@
       margin-top: -1px;
       padding: .5rem .5rem;
 
-      color: $ly-color-grey-50;
+      color: $ly-color-grey-60;
 
       border-top: 1px solid $ly-color-grey-30;
       background-color: $ly-color-grey-20;
@@ -200,7 +200,7 @@
     margin-bottom: .25rem;
     padding-left: .5rem;
 
-    color: $ly-color-grey-50;
+    color: $ly-color-grey-60;
     font-size: .8rem;
   }
 
