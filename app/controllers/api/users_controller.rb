@@ -45,7 +45,7 @@ private
   end
 
   def update_user_params
-    fetch_resource_params(:user, [], [:email, :username])
+    fetch_resource_params(:user, [], %i[email username time_zone])
       .delete_if { |k, v| v.nil? }
   end
 end

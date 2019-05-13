@@ -10,10 +10,11 @@
         "type": { "type": "string" },
         "attributes": {
           "type": "object",
-          "required": ["email", "username"],
+          "required": ["email", "username", "timeZone"],
           "properties": {
             "email": { "type": "string" },
-            "username": { "type": "string" }
+            "username": { "type": "string" },
+            "timeZone": { "type": "string" }
           },
           "additionalProperties": false
         }

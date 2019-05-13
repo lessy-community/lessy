@@ -21,6 +21,7 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| data.attributes.timeZone       | string | The time zone that the user filled (UTC by default)  |          |
 
 Note: `username` can be `null` if user's account has not been activated yet.
 
@@ -39,7 +40,8 @@ $ curl -H "Authorization: <token>" https://lessy.io/api/users/me
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
       "admin": false,
-      "hasAcceptedTos": true
+      "hasAcceptedTos": true,
+      "timeZone": "UTC"
     }
   }
 }
@@ -51,11 +53,12 @@ Update the current user.
 
 Parameters:
 
-| Name          | Type   | Description     | Optional |
-|---------------|--------|-----------------|----------|
-| user          | object |                 |          |
-| user.username | string | User's username | yes      |
-| user.email    | string | User's email    | yes      |
+| Name          | Type   | Description      | Optional |
+|---------------|--------|------------------|----------|
+| user          | object |                  |          |
+| user.username | string | User's username  | yes      |
+| user.email    | string | User's email     | yes      |
+| user.timeZone | string | User's time zone | yes      |
 
 Result format:
 
@@ -67,6 +70,7 @@ Result format:
 | data.attributes                | object |                                       |          |
 | data.attributes.username       | string | User's username                       |          |
 | data.attributes.email          | string | User's email                          |          |
+| data.attributes.timeZone       | string | User's time zone                      |          |
 
 Specific errors:
 
@@ -94,7 +98,8 @@ $ curl -H "Content-Type: application/json" \
     "id": 1,
     "attributes": {
       "username": "douglasjones",
-      "email": "douglas.jones@lessy.io"
+      "email": "douglas.jones@lessy.io",
+      "timeZone": "UTC"
     }
   }
 }
@@ -155,6 +160,7 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| data.attributes.timeZone       | string | User's time zone                                     |          |
 | meta                           | object |                                                      |          |
 | meta.token                     | string | A temporary token (24 hours)                         |          |
 
@@ -188,7 +194,8 @@ $ curl -H "Content-Type: application/json" \
       "username": null,
       "email": "dale.cooper@lessy.io",
       "admin": false,
-      "hasAcceptedTos": true
+      "hasAcceptedTos": true,
+      "timeZone": "UTC"
     }
   },
   "meta": {
@@ -231,6 +238,7 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| data.attributes.timeZone       | string | User's time zone                                     |          |
 | meta                           | object |                                                      |          |
 | meta.token                     | string | A temporary token (1 month)                          |          |
 
@@ -261,7 +269,8 @@ $ curl -H "Content-Type: application/json" \
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
       "admin": false,
-      "hasAcceptedTos": true
+      "hasAcceptedTos": true,
+      "timeZone": "UTC"
     }
   },
   "meta": {
@@ -328,6 +337,7 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| data.attributes.timeZone       | string | User's time zone                                     |          |
 | meta                           | object |                                                      |          |
 | meta.token                     | string | A temporary token (valid for 1 month or 15 minutes)  |          |
 
@@ -355,7 +365,8 @@ $ curl -H "Content-Type: application/json" \
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
       "admin": false,
-      "hasAcceptedTos": true
+      "hasAcceptedTos": true,
+      "timeZone": "UTC"
     }
   },
   "meta": {
@@ -473,6 +484,7 @@ Result format:
 | data.attributes.email          | string | User's email                                         |          |
 | data.attributes.admin          | bool   | Either if user is admin or not                       | yes      |
 | data.attributes.hasAcceptedTos | bool   | Either if user has accepted current terms of service |          |
+| data.attributes.timeZone       | string | User's time zone                                     |          |
 | meta                           | object |                                                      | yes      |
 | meta.token                     | string | A temporary token (1 month)                          | yes      |
 
@@ -503,7 +515,8 @@ $ curl -H "Content-Type: application/json" \
       "username": "dalecooper",
       "email": "dale.cooper@lessy.io",
       "admin": false,
-      "hasAcceptedTos": true
+      "hasAcceptedTos": true,
+      "timeZone": "UTC"
     }
   },
   "meta": {

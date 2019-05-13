@@ -10,6 +10,7 @@
 - `PUT /api/tasks/:id/state` endpoint now accepts `started` when task is planned
 - `POST /api/users/me/tasks` endpoint now accepts `finished_at`
 - Tasks' and projects' endpoints now accept and return `Date` instead of timestamps
+- Add support of `timeZone` attribute on `/api/users` endpoints
 
 ## Ara 2018-09-09
 

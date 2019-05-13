@@ -6,7 +6,7 @@
     "type": { "type": "string" },
     "attributes": {
       "type": "object",
-      "required": ["email", "hasAcceptedTos"],
+      "required": ["email", "hasAcceptedTos", "timeZone"],
       "properties": {
         "email": { "type": "string" },
         "username": {
@@ -16,7 +16,8 @@
           ]
         },
         "admin": { "type": "boolean" },
-        "hasAcceptedTos": { "type": "boolean" }
+        "hasAcceptedTos": { "type": "boolean" },
+        "timeZone": { "type": "string" }
       },
       "additionalProperties": false
     }
