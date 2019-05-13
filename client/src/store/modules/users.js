@@ -70,8 +70,8 @@ const actions = {
                    .then((res) => commit('setCurrent', res.data))
   },
 
-  updateCurrent ({ commit }, { username, email }) {
-    return usersApi.updateCurrent(username, email)
+  updateCurrent ({ commit }, payload) {
+    return usersApi.updateCurrent(payload)
                    .then((res) => commit('update', res.data))
   },
 

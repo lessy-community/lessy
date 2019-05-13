@@ -236,12 +236,20 @@ export default {
       password: 'Mot de passe',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
+      timeZone: 'Fuseau horaire',
     },
 
     passwordNewForm: {
       passwordLabel: 'Nouveau mot de passe',
       saved: 'Enregistré !',
       submit: 'Changez votre mot de passe',
+    },
+
+    timeZoneForm: {
+      saved: 'Enregistré !',
+      timeZoneCaption: 'Nous utilisons votre fuseau horaire pour manipuler les dates correctement.',
+      timeZoneLabel: 'Nouveau fuseau horaire',
+      timeZonePlaceholder: 'Europe/Paris',
     },
   },
 

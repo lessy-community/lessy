@@ -241,12 +241,20 @@ export default {
       password: 'Password',
       resendActivationInstructions: 'Resend activation instructions',
       resendActivationInstructionsDone: 'Done',
+      timeZone: 'Time zone',
     },
 
     passwordNewForm: {
       passwordLabel: 'New password',
       saved: 'Saved!',
       submit: 'Change your password',
+    },
+
+    timeZoneForm: {
+      saved: 'Saved!',
+      timeZoneCaption: 'We use your time zone to manage the dates correctly.',
+      timeZoneLabel: 'New time zone',
+      timeZonePlaceholder: 'Europe/London',
     },
   },
 
