@@ -16,8 +16,16 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
 
-  background-color: $ly-color-pine-80;
+body {
+  background: url("/static/logo-text-inverse.png") center 25vh no-repeat $ly-color-pine-70;
+}
+
+@media(max-width: $medium-screen-width) {
+  body {
+    background: url("/static/logo-inverse.svg") center 25vh no-repeat $ly-color-pine-70;
+  }
 }
 
 body.modal-opened {
