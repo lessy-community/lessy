@@ -26,12 +26,12 @@
         <profile-password-new-form>
         </profile-password-new-form>
       </ly-section>
-    </template>
 
-    <ly-section :title="$t('profile.page.timeZone')">
-      <profile-time-zone-form :user="user">
-      </profile-time-zone-form>
-    </ly-section>
+      <ly-section :title="$t('profile.page.timeZone')">
+        <profile-time-zone-form :user="user">
+        </profile-time-zone-form>
+      </ly-section>
+    </template>
 
     <ly-section :title="$t('profile.page.language')">
       <profile-language-form>
