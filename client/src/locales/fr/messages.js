@@ -200,7 +200,8 @@ export default {
       },
 
       select: {
-        moreOptions: '+1 option supplémentaire | +{number} options supplémentaires',
+        change: 'Changer',
+        noOptions: 'Le filtre ne correspond à aucune option',
         unselect: 'Désélectionner',
       },
     },

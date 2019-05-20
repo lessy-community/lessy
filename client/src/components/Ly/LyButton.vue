@@ -3,6 +3,7 @@
     :type="submit ? 'submit' : 'button'"
     :class="['ly-button', `ly-button-${type}`, `ly-button-${size}`, { disabled }]"
     @click="onClick"
+    @blur="(e) => $emit('blur', e)"
     @mousedown="$emit('on')"
     @mouseup="$emit('off')"
     @mouseout="$emit('off')"

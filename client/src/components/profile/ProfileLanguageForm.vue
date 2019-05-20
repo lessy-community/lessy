@@ -3,6 +3,7 @@
     <ly-form-group>
       <ly-form-select
         name="language"
+        icon="language"
         :value="language"
         :options="options"
         :label="$t('profile.languageForm.languageLabel')"

@@ -205,7 +205,8 @@ export default {
       },
 
       select: {
-        moreOptions: '+1 additional option | +{number} additional options',
+        change: 'Change',
+        noOptions: 'The filter matches no options',
         unselect: 'Unselect',
       },
     },
