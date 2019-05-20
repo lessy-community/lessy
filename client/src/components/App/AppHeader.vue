@@ -1,7 +1,7 @@
 <template>
   <header :class="['app-header', appHeaderClasses]">
     <div :class="['app-header-container', { fluid }]">
-      <router-link v-if="!nobrand" to="/" class="app-header-home">
+      <router-link v-if="!nobrand" :to="home" class="app-header-home">
         <app-logo />
       </router-link>
       <h1 v-if="title" class="app-header-title">{{ title }}</h1>
@@ -21,6 +21,7 @@
   export default {
     props: {
       title: { type: String },
+      home: { type: String, default: '/' },
       fluid: { type: Boolean },
       nobrand: { type: Boolean },
     },

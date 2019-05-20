@@ -1,5 +1,9 @@
 <template>
   <app-page name="home">
+    <div class="profile-language-form-container">
+      <profile-language-form light></profile-language-form>
+    </div>
+
     <ly-columns name="home-top">
       <ly-column>
         <div class="app-page-home-intro">
@@ -100,9 +104,12 @@
 
   import UserRegisterForm from '@/components/users/UserRegisterForm'
 
+  import ProfileLanguageForm from '@/components/profile/ProfileLanguageForm'
+
   export default {
     components: {
       UserRegisterForm,
+      ProfileLanguageForm,
     },
 
     data () {
@@ -128,7 +135,7 @@
 
     methods: {
       onRegistrationSuccess () {
-        this.$router.push('/today')
+        this.$router.push('/onboarding')
       },
     },
   }
@@ -141,6 +148,15 @@
     }
     h2 {
       text-align: center;
+    }
+
+    .profile-language-form-container {
+      max-width: 80rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .profile-language-form-container .ly-form {
+      margin-left: auto;
     }
 
     .app-layout-main img {
@@ -169,12 +185,8 @@
       margin-right: auto;
       margin-bottom: 6rem;
     }
-    .ly-columns-home-top {
-      margin-top: 2rem;
-
-      .ly-column + .ly-column {
-        flex-grow: 1.5;
-      }
+    .ly-columns-home-top .ly-column + .ly-column {
+      flex-grow: 1.5;
     }
     .ly-columns-home-details {
       .ly-column {

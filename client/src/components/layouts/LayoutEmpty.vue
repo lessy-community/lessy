@@ -1,7 +1,7 @@
 <template>
   <app-layout name="empty" :centered="centered">
     <slot name="menu" slot="menu"></slot>
-    <app-header slot="header" :brand="$t('layouts.empty.brand')">
+    <app-header slot="header" :brand="$t('layouts.empty.brand')" :home="home">
     </app-header>
     <slot></slot>
   </app-layout>
@@ -11,6 +11,7 @@
   export default {
     props: {
       centered: { type: Boolean },
+      home: { type: String, default: '/' },
     },
   }
 </script>

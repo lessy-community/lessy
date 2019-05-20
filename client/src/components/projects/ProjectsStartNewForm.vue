@@ -27,7 +27,7 @@
       <ly-button type="primary" submit>
         {{ $t('projects.startNewForm.submit') }}
       </ly-button>
-      <ly-button @click="$emit('cancel')">
+      <ly-button v-if="!nocancel" @click="$emit('cancel')">
         {{ $t('projects.startNewForm.cancel') }}
       </ly-button>
     </ly-form-group>
@@ -38,8 +38,9 @@
       {{ $t('projects.startNewForm.noProjects') }}
     </p>
     <project-create-form
-      @cancel="$emit('cancel')"
+      main
       autofocus
+      @cancel="$emit('cancel')"
     ></project-create-form>
   </div>
 </template>
@@ -56,7 +57,9 @@
     mixins: [ErrorsHandler],
 
     props: {
+      initialProject: { type: Object },
       autofocus: { type: Boolean },
+      nocancel: { type: Boolean },
     },
 
     components: {
@@ -65,7 +68,7 @@
 
     data () {
       return {
-        projectId: null,
+        projectId: this.initialProject ? this.initialProject.id : null,
         dueAt: moment().add(2, 'weeks').toDate(),
       }
     },

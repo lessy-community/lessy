@@ -207,6 +207,82 @@ export default {
     },
   },
 
+  onboarding: {
+    page: {
+      title: 'Bienvenue à bord',
+      finish: 'Commencer à utiliser Lessy',
+      next: 'Continuer',
+      skip: 'Passer l’embarquement',
+
+      steps: 'Étape {step} sur {maxSteps}',
+      almostEnd: '(bientôt fini, courage)',
+      end: '(c’est la fin)',
+
+      step1: {
+        title: 'Embarquement',
+        intro: 'Bienvenue sur Lessy ! Les écrans qui vont suivre vous expliqueront les principaux concepts de l’application, en particulier quelques règles qui pourraient vous paraître pénibles au premier abord (elles ne le sont pas si vous les comprenez !)',
+        skipInfo: 'Si vous êtes confiant·e, vous pouvez passer l’embarquement ; il sera toujours accessible depuis votre page de « Profil » si vous voulez le faire plus tard.',
+      },
+
+      step2: {
+        title: 'Création de tâches',
+        intro: 'La première chose à faire est de créer des tâches. Une tâche est la plus petite unité de travail et doit être nommée soigneusement. Quelques conseils :',
+        advice: [
+          'commencez votre tâche par un verbe d’action',
+          'gardez votre tâche compréhensible (ce serait dommage de ne pas se souvenir à quoi elle correspond dans quelques jours)',
+          'gardez votre tâche simple (si vous devez passer plus d’une heure pour la terminer, essayez de la découper en de plus petites tâches)',
+        ],
+        action: 'Essayons de créer au moins 3 tâches. Qu’avez-vous à faire ?',
+        next: 'Une fois que vous avez terminé, cliquez sur « Continuer ».',
+      },
+
+      step3: {
+        title: 'Faire vivre votre liste d’attente',
+        intro: 'Par défaut, les tâches sont placées dans une « liste d’attente » : il s’agit simplement de la liste de vos tâches attendant d’être accomplies. Voici votre liste d’attente actuelle :',
+        live: 'Il est important de faire vivre vos tâches ou vous risquez fort de vous lasser de Lessy. Le temps de vie d’une tâche ne doit en général pas dépasser 2 semaines si vous voulez être sûr·e de la terminer. Essayer aussi de garder votre nombre de tâches en dessous de 30. Par conséquent, il est recommendé de ne pas prévoir vos tâches trop longtemps à l’avance.',
+        indicator: 'Un indicateur vous aide à garder en tête le nombre de semaines depuis la création de votre tâche. Il devient jaune à partir de 2 semaines et rouge à partir de 3 semaines :',
+        tasksLabel: 'Une tâche créée il y a {count} semaines',
+        advice: 'Si une tâche commence à trop trainer, il est recommandé de la renommer, la découper en plus petites tâches, la transformer en projet (on vous explique ça plus loin) ou encore de l’abandonner. C’est à vous de déterminer qu’elle est la meilleure option.',
+      },
+
+      step4: {
+        title: 'Planification de tâches',
+        intro: 'La dernière chose à savoir à propos des tâches est que vous ne pouvez les « terminer » que si vous les avez planifiées au préalable.',
+        planning: 'Chaque jour, Lessy vous demandera quelles sont les 3 tâches les plus importantes de votre journée. « 3 » est juste suffisant pour vous sentir productif ou productive tout en évitant un sentiment de submersion immédiat. Vous pourrez évidemment planifier plus de tâches si vous le souhaitez.',
+        startJourney: 'Démarrer votre journée',
+        startJourneyNoop: 'Désolé, ce boutton ne fait rien pour le moment mais vous le retrouverez une fois l’embarquement terminé.',
+        ending: 'Pour terminer, à la fin de la journée (à partir de 18h), Lessy vous proposera de marquer comme « terminées » des tâches supplémentaires, même si vous ne les aviez pas encore planifiées ni même créées. C’est particulièrement utile pour vous remonter le moral si votre journée ne s’est pas déroulée comme vous l’espériez.',
+      },
+
+      step5: {
+        title: 'Création de projets',
+        intro: 'Vous pourriez parfois vous retrouver avec une grande pile de travail qui vous fait sentir le besoin de mieux organiser vos tâches. Il est temps de vous présenter les projets.',
+        what: 'Un projet peut être vu comme un objectif que vous vous donnez (comme « Trouver un nouveau travail »). Il peut contenir des informations textuelles que vous avez besoin de garder à portée de main, et il permet de grouper des tâches dans une catégorie logique.',
+        bigTask: 'Comme nous l’avons dit plus tôt, une tâche peut aussi être transformée en projet. De ce fait, un projet peut être considéré comme une « grosse tâche ».',
+        action: 'Commençons par créer un projet. Quel objectif vous êtes vous donné·e pour l’année à venir ?',
+        note: 'Notez que le terme « Projet » peut vous paraître vague. Il est prévu dans le futur de changer ce concept pour quelque chose de plus naturel.',
+      },
+
+      step6: {
+        title: 'Projets en cours',
+        intro: 'Afin que les tâches associées à un projet apparaissent dans votre liste d’attente, il est nécessaire de démarrer le projet concerné en lui donnant une date d’échéance. Comme un projet demande généralement beaucoup de votre temps, les projets en cours sont limités à 3. Ainsi vous devez choisir vos projets attentivement. Une question à vous poser serait : « Qu’est-ce qui a besoin d’être terminé le plus rapidement possible ? »',
+        start: 'Voulez-vous démarrer votre projet ?',
+        started: 'Voici votre premier projet en cours :',
+        startProject: 'Démarrer un projet',
+        alwaysTasks: 'Afin de vous encourager à avancer sur vos projets, Lessy vous rappellera de lui attacher des tâches si toutes les précédentes ont été terminées (vous le ferez plus tard, finissons d’abord l’embarquement).',
+        finish: 'Lorsque vous avez terminé toutes les tâches et que vous pensez ne plus rien avoir à faire, cela veut probablement dire qu’il est temps de terminer votre projet. Cela libèrera une place pour votre prochain projet… ou peut-être voudrez-vous profiter d’un peu de repos ?',
+      },
+
+      step7: {
+        title: 'Vous êtes prêt·e !',
+        intro: 'Bien joué, vous avez terminé l’embarquement (c’était relativement long). Vous avez découvert les principaux concepts de Lessy et devriez maintenant être capable de l’utiliser efficacement.',
+        tool: 'Notez que vous allez simplement utiliser un outil, ce n’est pas magique ! Si vous voulez que votre expérience fonctionne le mieux possible, vous devrez être partie intégrante du processus détaillé durant cet embarquement en acceptant ces quelques principes. Peut-être que Lessy ne correspond pas à vos besoins et ce n’est pas grave. Les conseils donnés ici se basent sur une expérience et vous en avez peut-être une totalement différente. Nous vous encourageons à trouver l’outil qui vous correspondra le mieux (on sait que ce n’est pas simple).',
+        community: 'Rappelez-vous aussi que Lessy est développé par une communauté qui dispose de plus ou moins de temps à passer sur le projet. S’il ne correspond pas à vos besoins, vous pouvez aussi participer pour l’améliorer.',
+        join: 'Rejoignez-nous !',
+      },
+    },
+  },
+
   profile: {
     deleteAccount: {
       submit: 'Supprimez votre compte',
@@ -234,6 +310,8 @@ export default {
       activationInstructions: 'Certaines sections du profil ne sont pas activées car vous devez d’abord activer votre compte. Nous avons envoyé un courriel à {email}.<br />Suivez les instructions qui s’y trouvent pour avoir accès à vos projets par la suite.',
       identity: 'Identité',
       language: 'Langue',
+      needHelp: 'Vous êtes perdu·e et avez besoin d’aide ?',
+      onboard: 'Montez à bord !',
       password: 'Mot de passe',
       resendActivationInstructions: 'Renvoyer les instructions',
       resendActivationInstructionsDone: 'Fait',
@@ -269,6 +347,7 @@ export default {
 
     createForm: {
       cancel: 'Annuler',
+      created: 'Créé',
       submit: 'Créer',
       nameCaption: 'Maximum 100 caractères.',
       placeholder: 'Vacances à Paris',

@@ -10,6 +10,8 @@ import UserLoginPage from './components/users/UserLoginPage'
 import UserPasswordResetPage from './components/users/UserPasswordResetPage'
 import UserPasswordNewPage from './components/users/UserPasswordNewPage'
 
+import OnboardingPage from './components/onboarding/OnboardingPage'
+
 import ProfilePage from './components/profile/ProfilePage'
 
 import TodayPage from './components/today/TodayPage'
@@ -44,6 +46,12 @@ const routes = [
   { path: '/password/reset', component: UserPasswordResetPage, meta: { restrictForUnauth: true, iTitle: 'users.passwordResetPage.title' } },
   { path: '/password/:token/new', component: UserPasswordNewPage, meta: { restrictForUnauth: true, iTitle: 'users.passwordNewPage.title' } },
   { path: '/users/:token/activate', component: UserActivatePage, meta: { iTitle: 'users.activatePage.title' } },
+
+  { path: '/onboarding', redirect: '/onboarding/1', meta: { restrictForAuth: true } },
+  { path: '/onboarding/:step',
+    component: OnboardingPage,
+    meta: { restrictForAuth: true, iTitle: 'onboarding.page.title' },
+  },
 
   { path: '/profile', component: ProfilePage, meta: { restrictForAuth: true, iTitle: 'layouts.profile.title' } },
 

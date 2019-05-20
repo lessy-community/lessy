@@ -21,8 +21,9 @@
         </ly-button>
         <project-create-form
           v-else
-          @cancel="disableCreateForm"
+          main
           autofocus
+          @cancel="disableCreateForm"
         ></project-create-form>
       </template>
 

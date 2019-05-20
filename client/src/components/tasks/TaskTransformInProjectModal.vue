@@ -5,9 +5,10 @@
   >
     <project-create-form
       :initialName="task.label"
+      main
+      autofocus
       @success="onTaskTransformSuccess"
       @cancel="$emit('close')"
-      autofocus
     ></project-create-form>
   </ly-modal>
 </template>

@@ -1,7 +1,12 @@
 <template>
   <ly-card>
     <template slot="header">
-      <router-link :to="project.urlShow">{{ project.name }}</router-link>
+      <span v-if="nolink">
+        {{ project.name }}
+      </span>
+      <router-link v-else :to="project.urlShow">
+        {{ project.name }}
+      </router-link>
     </template>
 
     <project-timeline :project="project" disable-actions></project-timeline>
@@ -32,6 +37,7 @@
   export default {
     props: {
       project: { type: Object, required: true },
+      nolink: { type: Boolean },
     },
 
     components: {
