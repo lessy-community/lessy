@@ -1,5 +1,12 @@
 <template>
   <app-page v-if="resourcesReady" name="profile" layout="profile">
+    <p>
+      {{ $t('profile.page.needHelp') }}
+      <router-link to="/onboarding">
+        {{ $t('profile.page.onboard') }}
+      </router-link>
+    </p>
+
     <ly-text-container v-if="!user.activated">
       <ly-card>
         <p v-html="$t('profile.page.activationInstructions', { email: user.email })"></p>

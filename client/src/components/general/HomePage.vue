@@ -128,7 +128,7 @@
 
     methods: {
       onRegistrationSuccess () {
-        this.$router.push('/today')
+        this.$router.push('/onboarding')
       },
     },
   }
