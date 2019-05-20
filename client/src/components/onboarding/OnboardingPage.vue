@@ -14,6 +14,8 @@
       <template v-if="step === 1">
         <h1>{{ $t('onboarding.page.step1.title') }}</h1>
 
+        <profile-language-form light></profile-language-form>
+
         <p>
           {{ $t('onboarding.page.step1.intro') }}
         </p>
@@ -218,6 +220,8 @@
 
   import ResourcesLoader from '@/components/mixins/ResourcesLoader'
 
+  import ProfileLanguageForm from '@/components/profile/ProfileLanguageForm'
+
   import TaskCreateForm from '@/components/tasks/TaskCreateForm'
   import TaskList from '@/components/tasks/TaskList'
   import TaskItem from '@/components/tasks/TaskItem'
@@ -230,6 +234,7 @@
     mixins: [ResourcesLoader],
 
     components: {
+      ProfileLanguageForm,
       TaskCreateForm,
       TaskList,
       TaskItem,

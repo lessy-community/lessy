@@ -1,18 +1,18 @@
 <template>
-  <ly-form>
+  <ly-form :size="light ? 'small' : 'normal'">
     <ly-form-group>
       <ly-form-select
         name="language"
         icon="language"
         :value="language"
         :options="options"
-        :label="$t('profile.languageForm.languageLabel')"
+        :label="light ? null : $t('profile.languageForm.languageLabel')"
         required
         @input="changeLanguage"
       ></ly-form-select>
     </ly-form-group>
 
-    <span :class="['text-success', { show: saved }]">
+    <span v-if="!light" :class="['text-success', { show: saved }]">
       <ly-icon name="check"></ly-icon>
       {{ $t('profile.languageForm.saved') }}
     </span>
@@ -27,6 +27,10 @@
   } from '@/locales'
 
   export default {
+    props: {
+      light: { type: Boolean },
+    },
+
     data () {
       return {
         language: getPreferedLanguage(),

@@ -1,5 +1,9 @@
 <template>
   <app-page name="home">
+    <div class="profile-language-form-container">
+      <profile-language-form light></profile-language-form>
+    </div>
+
     <ly-columns name="home-top">
       <ly-column>
         <div class="app-page-home-intro">
@@ -100,9 +104,12 @@
 
   import UserRegisterForm from '@/components/users/UserRegisterForm'
 
+  import ProfileLanguageForm from '@/components/profile/ProfileLanguageForm'
+
   export default {
     components: {
       UserRegisterForm,
+      ProfileLanguageForm,
     },
 
     data () {
@@ -143,6 +150,15 @@
       text-align: center;
     }
 
+    .profile-language-form-container {
+      max-width: 80rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .profile-language-form-container .ly-form {
+      margin-left: auto;
+    }
+
     .app-layout-main img {
       border-radius: .25rem;
       box-shadow: 0 0 1px $ly-color-grey-50,
@@ -169,12 +185,8 @@
       margin-right: auto;
       margin-bottom: 6rem;
     }
-    .ly-columns-home-top {
-      margin-top: 2rem;
-
-      .ly-column + .ly-column {
-        flex-grow: 1.5;
-      }
+    .ly-columns-home-top .ly-column + .ly-column {
+      flex-grow: 1.5;
     }
     .ly-columns-home-details {
       .ly-column {
