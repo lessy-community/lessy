@@ -16,10 +16,20 @@
     </ly-form-group>
 
     <ly-form-group>
-      <ly-button type="primary" submit>
+      <ly-button
+        v-if="created"
+        class="success"
+        icon="check"
+        :type="main ? 'primary' : 'default'"
+        submit
+      >
+        {{ $t('projects.createForm.created') }}
+      </ly-button>
+      <ly-button v-else :type="main ? 'primary' : 'default'" submit>
         {{ $t('projects.createForm.submit') }}
       </ly-button>
-      <ly-button @click="$emit('cancel')">
+
+      <ly-button v-if="!nocancel" @click="$emit('cancel')">
         {{ $t('projects.createForm.cancel') }}
       </ly-button>
     </ly-form-group>
@@ -34,17 +44,24 @@
 
     props: {
       initialName: { type: String },
+      main: { type: Boolean },
       autofocus: { type: Boolean },
+      nocancel: { type: Boolean },
     },
 
     data () {
       return {
         name: this.initialName || '',
+        created: false,
       }
     },
 
     methods: {
       create () {
+        if (this.createdTimeout) {
+          clearTimeout(this.createdTimeout)
+        }
+
         this.$store
           .dispatch('projects/create', {
             name: this.name,
@@ -53,6 +70,8 @@
             const { nameInput } = this.$refs
             this.name = ''
             this.cleanErrors()
+            this.created = true
+            this.createdTimeout = setTimeout(() => { this.created = false }, 2000)
             nameInput && nameInput.focus()
             this.$emit('success', projectId)
           })
@@ -70,3 +89,13 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .ly-button {
+    transition: color .2s ease-in-out;
+
+    &.ly-button-default.success {
+      color: $ly-color-green-70;
+    }
+  }
+</style>
