@@ -1,5 +1,10 @@
 <template>
-  <app-page v-if="resourcesReady" name="onboarding" layout="empty">
+  <app-page
+    v-if="resourcesReady"
+    name="onboarding"
+    layout="empty"
+    home="/onboarding"
+  >
     <ly-text-container margined>
       <p class="text-secondary">
         {{ $t('onboarding.page.steps', { step, maxSteps }) }}
