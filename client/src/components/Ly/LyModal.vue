@@ -1,6 +1,7 @@
 <template>
   <transition name="ly-modal">
     <div class="ly-modal-mask">
+      <a v-if="!noclose" href="#" class="ly-modal-mask-close" @click.prevent="$emit('close')"></a>
       <section :class="['ly-modal-container', `ly-modal-container-${width}`]">
         <header v-if="title" class="ly-modal-header">
           <ly-button
@@ -69,8 +70,22 @@
     transition: opacity .2s ease-in-out;
   }
 
+  .ly-modal-mask-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    cursor: default;
+  }
+
   .ly-modal-container {
-    margin: 5rem auto;
+    position: absolute;
+    left: 50%;
+
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 
     background-color: $ly-color-grey-10;
     border-radius: .25rem;
@@ -79,13 +94,16 @@
     transition: all .2s ease-in-out;
 
     &.ly-modal-container-small {
-      max-width: 30rem;
+      width: 30rem;
+      margin-left: -15rem;
     }
     &.ly-modal-container-medium {
-      max-width: 45rem;
+      width: 45rem;
+      margin-left: -22.5rem;
     }
     &.ly-modal-container-large {
-      max-width: 60rem;
+      width: 60rem;
+      margin-left: -30rem;
     }
   }
 
@@ -116,12 +134,22 @@
     transform: scale(1.1);
   }
 
+  @media(max-width: $medium-screen-width) {
+  }
+
   @media(max-width: $small-screen-width) {
     .ly-modal-container {
-      max-width: none;
+      left: 1rem;
+      right: 1rem;
+
       margin-top: 3rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
+
+      &.ly-modal-container-small,
+      &.ly-modal-container-medium,
+      &.ly-modal-container-large {
+        width: auto;
+        margin-left: 0 !important;
+      }
     }
   }
 </style>
