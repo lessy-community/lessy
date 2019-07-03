@@ -11,7 +11,7 @@
       with UI. Feel free to <a href="https://github.com/lessy-community/lessy/issues/">open
         a ticket</a> if you get stuck with a new problem.</p>
 
-      <p>All credits go to the <a href="http://design.firefox.com/photon/welcome.html">Photon
+      <p>All credits go to the <a href="https://design.firefox.com/photon/">Photon
       Design System</a>, by the Firefox team. Our guide is heavily adapted from
       it.</p>
     </ly-text-container>
