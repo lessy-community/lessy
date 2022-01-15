@@ -15,7 +15,7 @@
     "anchorme": "^1.1.2",
     "autosize": "^3.0.21",
     "chart.js": "^2.8.0",
-    "marked": "^0.6.2",
+    "marked": "^4.0.10",
     "moment": "^2.24.0",
     "moment-range": "^3.1.1",
     "moment-timezone": "^0.5.25",
