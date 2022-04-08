@@ -16,7 +16,7 @@
     "autosize": "^3.0.21",
     "chart.js": "^2.8.0",
     "marked": "^0.6.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-range": "^3.1.1",
     "moment-timezone": "^0.5.25",
     "node-sass-json-importer": "^4.1.0",
