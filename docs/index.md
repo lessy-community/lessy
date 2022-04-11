@@ -1,4 +1,4 @@
-# Lessy's technical documentation
+# Lessy technical documentation
 
 Welcome on the technical documentation of Lessy. This documentation is aimed
 to help you if you're considering to help us on the code or if you want to
